@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://gongluck.github.io/categories/</loc>
+    <lastmod>2020-04-06T19:43:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gongluck.github.io/categories/default/</loc>
+    <lastmod>2020-04-06T19:43:00+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://gongluck.github.io/default/</loc>
     <lastmod>2020-04-06T19:43:00+08:00</lastmod>
   </url>
@@ -13,16 +23,18 @@
   </url>
   
   <url>
-    <loc>https://gongluck.github.io/default/first/</loc>
+    <loc>https://gongluck.github.io/tags/</loc>
     <lastmod>2020-04-06T19:43:00+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://gongluck.github.io/categories/</loc>
+    <loc>https://gongluck.github.io/tags/%E6%9D%82%E8%B0%88/</loc>
+    <lastmod>2020-04-06T19:43:00+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://gongluck.github.io/tags/</loc>
+    <loc>https://gongluck.github.io/default/first/</loc>
+    <lastmod>2020-04-06T19:43:00+08:00</lastmod>
   </url>
   
 </urlset>
