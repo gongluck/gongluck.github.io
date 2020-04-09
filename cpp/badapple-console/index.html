@@ -29,8 +29,6 @@
 <body class="body">
 	<div class="container container--outer">
 		<header class="header">
-	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-	</script>
 	<div class="container">
 		<div class="logo">
 			<a class="logo__link" href="/" title="gongluck&#39;s personal blog" rel="home">
@@ -97,34 +95,34 @@
 <p><a href="https://www.bilibili.com/video/BV1N64y1u7BD">https://www.bilibili.com/video/BV1N64y1u7BD</a></p>
 <h3 id="代码仓库">代码仓库</h3>
 <p><a href="https://github.com/gongluck/Character-player/tree/console">https://github.com/gongluck/Character-player/tree/console</a></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;atomic&gt;</span><span style="color:#75715e">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;atomic&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#75715e">#ifdef _WIN32
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;Windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;Windows.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e">#define ssize_t SSIZE_T
 </span><span style="color:#75715e">#endif
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vlc/vlc.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vlc/vlc.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#75715e">#define CHECKEQUALRET(ret, compare)\
-</span><span style="color:#75715e">if(ret == compare)\
-</span><span style="color:#75715e">{\
-</span><span style="color:#75715e">    std::cerr &lt;&lt; &#34;error ocurred in &#34; &lt;&lt; __FILE__\
-</span><span style="color:#75715e">              &lt;&lt; &#34;`s line &#34; &lt;&lt; __LINE__\
-</span><span style="color:#75715e">              &lt;&lt; &#34;, error &#34; &lt;&lt; ret;\
-</span><span style="color:#75715e">    goto END;\
-</span><span style="color:#75715e">}
-</span><span style="color:#75715e"></span>
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span>(ret <span style="color:#f92672">==</span> compare)<span style="color:#960050;background-color:#1e0010">\</span>
+{<span style="color:#960050;background-color:#1e0010">\</span>
+    std<span style="color:#f92672">::</span>cerr <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;error ocurred in &#34;</span> <span style="color:#f92672">&lt;&lt;</span> __FILE__<span style="color:#960050;background-color:#1e0010">\</span>
+              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;`s line &#34;</span> <span style="color:#f92672">&lt;&lt;</span> __LINE__<span style="color:#960050;background-color:#1e0010">\</span>
+              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, error &#34;</span> <span style="color:#f92672">&lt;&lt;</span> ret;<span style="color:#960050;background-color:#1e0010">\</span>
+    <span style="color:#66d9ef">goto</span> END;<span style="color:#960050;background-color:#1e0010">\</span>
+}
+
 <span style="color:#75715e">#define CHECKNEQUALRET(ret, compare)\
-</span><span style="color:#75715e">if(ret != compare)\
-</span><span style="color:#75715e">{\
-</span><span style="color:#75715e">    std::cerr &lt;&lt; &#34;error ocurred in &#34; &lt;&lt; __FILE__\
-</span><span style="color:#75715e">              &lt;&lt; &#34;`s line &#34; &lt;&lt; __LINE__\
-</span><span style="color:#75715e">              &lt;&lt; &#34;, error &#34; &lt;&lt; ret;\
-</span><span style="color:#75715e">    goto END;\
-</span><span style="color:#75715e">}
-</span><span style="color:#75715e"></span>
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span>(ret <span style="color:#f92672">!=</span> compare)<span style="color:#960050;background-color:#1e0010">\</span>
+{<span style="color:#960050;background-color:#1e0010">\</span>
+    std<span style="color:#f92672">::</span>cerr <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;error ocurred in &#34;</span> <span style="color:#f92672">&lt;&lt;</span> __FILE__<span style="color:#960050;background-color:#1e0010">\</span>
+              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;`s line &#34;</span> <span style="color:#f92672">&lt;&lt;</span> __LINE__<span style="color:#960050;background-color:#1e0010">\</span>
+              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, error &#34;</span> <span style="color:#f92672">&lt;&lt;</span> ret;<span style="color:#960050;background-color:#1e0010">\</span>
+    <span style="color:#66d9ef">goto</span> END;<span style="color:#960050;background-color:#1e0010">\</span>
+}
+
 <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> WIDTH <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>;
 <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> HEIGHT <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>;
 <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> out_buffer <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
@@ -328,6 +326,14 @@ END:
 	</div>
 </div>
 
+<nav class="post-nav flex">
+	<div class="post-nav__item post-nav__item--next">
+		<a class="post-nav__link" href="/cpp/badapple-taskmgr/" rel="next">
+			<span class="post-nav__caption">Next&thinsp;»</span>
+			<p class="post-nav__post-title">任务管理器播放BadApple</p>
+		</a>
+	</div>
+</nav>
 
 
 			</div>
@@ -344,6 +350,7 @@ END:
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/cpp/badapple-taskmgr/">任务管理器播放BadApple</a></li>
 			<li class="widget__item"><a class="widget__link" href="/cpp/badapple-console/">字符动画播放器,不止BadApple!</a></li>
 			<li class="widget__item"><a class="widget__link" href="/default/first/">第一篇博客</a></li>
 		</ul>
@@ -365,8 +372,8 @@ END:
 <div class="widget-taglist widget">
 	<h4 class="widget__title">Tags</h4>
 	<div class="widget__content">
-		<a class="widget-taglist__link widget__link btn" href="/tags/badapple/" title="BadApple">BadApple (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/cpp/" title="cpp">cpp (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/badapple/" title="BadApple">BadApple (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/cpp/" title="cpp">cpp (2)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%E6%9D%82%E8%B0%88/" title="杂谈">杂谈 (1)</a>
 	</div>
 </div>
