@@ -26,6 +26,17 @@
 	<link rel="stylesheet" href="/css/custom.css">
 	<link rel="shortcut icon" href="/favicon.ico">
 		
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-163347799-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 </head>
 <body class="body">
 	<div class="container container--outer">
@@ -64,16 +75,15 @@
 	<article class="list__item post">
 	<figure class="list__thumbnail">
 		<a href="https://gongluck.github.io/go/use_c_in_go/">
-			<img src="/img/first.jpg" alt="在golang中使用C" />
+			<img src="/img/cgo.jpg" alt="CGO入门" />
 		</a>
 	</figure>
 	<header class="list__header">
 		<h3 class="list__title post__title ">
 			<a href="/go/use_c_in_go/" rel="bookmark">
-			在golang中使用C
+			CGO入门
 			</a>
 		</h3>
-		<p class="list__lead post__lead">在golang中使用C</p>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
 	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2020-04-09T19:31:36&#43;08:00">2020-04-09 19:31:36</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/go/" rel="category">go</a>
@@ -81,8 +91,8 @@
 </div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
-		<p>C/C++结合GO,可以说就是站在巨人的肩膀上做软件设计。
-C/C++经过几十年的发展，已经积累了庞大的软件资产，它们很多久经考验而且性能已经足够优化。Go语言必须能够站在C/C++这个巨人的肩膀之上，有了海量的C/C++软件资产兜底之后，我们才可以放心愉快地用Go语言编程。C语言作为一个通用语言，很多库会选择提供一个C兼容的API，然后用其他不同的编程语言实现。Go语言通过自带的一个叫CGO的工具来支持C语言函数调用，同时我们可以用Go语言导出C动态库接口给其它语言使用。</p>
+		<p>C/C++加上GO代表什么？
+代表着既可以使用GO快速的开发项目,并且可以接纳C/C++的庞大历史遗产和极高性能！</p>
 	</div>
 	<div class="list__footer clearfix">
 		<a class="list__footer-readmore btn" href="/go/use_c_in_go/">Read more…</a>
@@ -177,7 +187,7 @@ C/C++经过几十年的发展，已经积累了庞大的软件资产，它们很
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/go/use_c_in_go/">在golang中使用C</a></li>
+			<li class="widget__item"><a class="widget__link" href="/go/use_c_in_go/">CGO入门</a></li>
 			<li class="widget__item"><a class="widget__link" href="/cpp/badapple-taskmgr/">任务管理器播放BadApple</a></li>
 			<li class="widget__item"><a class="widget__link" href="/cpp/badapple-console/">字符动画播放器,不止BadApple!</a></li>
 			<li class="widget__item"><a class="widget__link" href="/default/first/">第一篇博客</a></li>
