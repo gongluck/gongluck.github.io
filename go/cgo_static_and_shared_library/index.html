@@ -4,22 +4,22 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>cpp - gongluck&#39;s personal blog</title>
+	<title>CGO导入导出C静态库/动态库 - gongluck&#39;s personal blog</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
-	<meta property="og:title" content="cpp" />
-<meta property="og:description" content="gongluck&#39;s Personal blog about everything" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://gongluck.github.io/categories/cpp/" />
-<meta property="og:updated_time" content="2020-04-08T18:28:36+08:00" />
+	<meta property="og:title" content="CGO导入导出C静态库/动态库" />
+<meta property="og:description" content="可以直接使用C源码到GO中当然是最好不过了,但如果只有三方库的静态库或者动态库,就要学会如何在GO中使用C的静态库或者动态库了。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://gongluck.github.io/go/cgo_static_and_shared_library/" />
+<meta property="article:published_time" content="2020-04-12T13:50:36+08:00" />
+<meta property="article:modified_time" content="2020-04-12T13:50:36+08:00" />
 
 	<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="cpp"/>
-<meta name="twitter:description" content="gongluck&#39;s Personal blog about everything"/>
+<meta name="twitter:title" content="CGO导入导出C静态库/动态库"/>
+<meta name="twitter:description" content="可以直接使用C源码到GO中当然是最好不过了,但如果只有三方库的静态库或者动态库,就要学会如何在GO中使用C的静态库或者动态库了。"/>
 
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
-	<link rel="alternate" type="application/rss+xml" href="/categories/cpp/index.xml" title="gongluck's personal blog">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
 	<link rel="stylesheet" href="/css/style.css">
 	<link rel="stylesheet" href="/css/custom.css">
@@ -70,66 +70,146 @@ if (!doNotTrack) {
 		<div class="wrapper flex">
 			<div class="primary">
 			
-<main class="main list" role="main">
-	<header class="main__header">
-		<h1 class="main__title">cpp</h1>
-	</header><article class="list__item post">
-	<figure class="list__thumbnail">
-		<a href="https://gongluck.github.io/cpp/badapple-taskmgr/">
-			<img src="/img/BadApple-taskmgr.jpg" alt="任务管理器播放BadApple" />
-		</a>
-	</figure>
-	<header class="list__header">
-		<h3 class="list__title post__title ">
-			<a href="/cpp/badapple-taskmgr/" rel="bookmark">
-			任务管理器播放BadApple
-			</a>
-		</h3>
-		<p class="list__lead post__lead">任务管理器播放BadApple</p>
-		<div class="list__meta meta">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">CGO导入导出C静态库/动态库</h1>
+			<div class="post__meta meta">
 <div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2020-04-08T18:28:36&#43;08:00">2020-04-08 18:28:36</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/cpp/" rel="category">cpp</a>
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2020-04-12T13:50:36&#43;08:00">2020-04-12 13:50:36</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/go/" rel="category">go</a>
 	</span>
 </div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		<p>有屏幕的地方就有BadApple!前面做了在控制台显示BadApple了,这一次把画面渲染到任务管理器上！</p>
+		</header>
+		<figure class="post__thumbnail">
+			<img src="/img/cgo.jpg" alt="CGO导入导出C静态库/动态库">
+		</figure>
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#代码仓库">代码仓库</a></li>
+        <li><a href="#go使用c静态库">GO使用C静态库</a></li>
+        <li><a href="#go使用c动态库">GO使用C动态库</a></li>
+        <li><a href="#go导出c静态库动态库">GO导出C静态库/动态库</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/cpp/badapple-taskmgr/">Read more…</a>
-	</div>
-</article><article class="list__item post">
-	<figure class="list__thumbnail">
-		<a href="https://gongluck.github.io/cpp/badapple-console/">
-			<img src="/img/BadApple-console.jpg" alt="字符动画播放器,不止BadApple!" />
-		</a>
-	</figure>
-	<header class="list__header">
-		<h3 class="list__title post__title ">
-			<a href="/cpp/badapple-console/" rel="bookmark">
-			字符动画播放器,不止BadApple!
-			</a>
-		</h3>
-		<p class="list__lead post__lead">控制台播放BadApple</p>
-		<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2020-04-07T12:42:47&#43;08:00">2020-04-07 12:42:47</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/cpp/" rel="category">cpp</a>
-	</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		<p>有屏幕的地方就有BadApple!在B站看过好多版本,于是我也用控制台做了一个。网上很多人都是直接显示bmp图片的,但我这个版本是用libvlc实时解码和播放的,音频用libvlc播放,画面就是转换成字符后输出到控制台。除了BadApple这种黑白动画,也能播放彩色视频。具体可以看一下效果视频。</p>
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/cpp/badapple-console/">Read more…</a>
-	</div>
-</article>
+</div>
+<div class="content post__content clearfix">
+			<p>可以直接使用C源码到GO中当然是最好不过了,但如果只有三方库的静态库或者动态库,就要学会如何在GO中使用C的静态库或者动态库了。</p>
+<h3 id="代码仓库">代码仓库</h3>
+<p><a href="https://github.com/gongluck/CGO-DEMO.git">https://github.com/gongluck/CGO-DEMO.git</a></p>
+<h3 id="go使用c静态库">GO使用C静态库</h3>
+<p>首先把下面的C代码编译成静态库</p>
+<pre><code>int number_add_mod(int a, int b, int mod);
+</code></pre><pre><code>#include &quot;number.h&quot;
+
+int number_add_mod(int a, int b, int mod)
+{
+    return (a + b) % mod;
+}
+</code></pre><p>编译静态库使用命令</p>
+<pre><code>gcc -c -o number.o number.c
+ar rcs libnumber.a number.o
+</code></pre><p>接下来就可以在GO中使用了</p>
+<pre><code>package main
+
+//#cgo CFLAGS: -I./number
+//#cgo LDFLAGS: -L${SRCDIR}/number -lnumber
+//#include &quot;number.h&quot;
+import &quot;C&quot;
+import &quot;fmt&quot;
+
+func main() {
+	fmt.Println(C.number_add_mod(10, 5, 12))
+}
+</code></pre><p><em><strong>#cgo</strong></em> 注释中通过 <em><strong>CFLAGS</strong></em> 和 <em><strong>LDFLAGS</strong></em> 指定头文件包含路径和静态库的路径。基本和使用 <em><strong>gcc</strong></em> 差别不大。</p>
+<p>如果是VC环境,创建number.def文件说明导出函数的信息</p>
+<pre><code>LIBRARY number.lib
+
+EXPORTS
+number_add_mod
+</code></pre><p>进入VC对应的命令行环境执行</p>
+<pre><code>cl /c number.c
+link /LIB /OUT:number.lib number.obj /DEF:number.def
+</code></pre><p>使用mingw工具执行</p>
+<pre><code>dlltool -dllname number.lib --def number.def --output-lib libnumber.a
+</code></pre><p>得到了 <em><strong>libnumber.a</strong></em> 文件。GO使用lib需要这个 <em><strong>libnumber.a</strong></em> 作为代替。</p>
+<h3 id="go使用c动态库">GO使用C动态库</h3>
+<p>gcc环境使用下面的命令编译动态库</p>
+<pre><code>gcc -shared -o libnumber.so number.c
+</code></pre><p>使用前面例子的GO代码就可以使用动态库了。
+如果是VC环境,创建number.def文件说明导出函数的信息</p>
+<pre><code>LIBRARY number.dll
+
+EXPORTS
+number_add_mod
+</code></pre><p>进入VC对应的命令行环境执行</p>
+<pre><code>cl /c number.c
+link /DLL /OUT:number.dll number.obj /DEF:number.def
+</code></pre><p>使用mingw工具执行</p>
+<pre><code>dlltool -dllname number.dll --def number.def --output-lib libnumber.a
+</code></pre><p>得到了 <em><strong>libnumber.a</strong></em> 文件。GO使用dll需要这个 <em><strong>libnumber.a</strong></em> 作为导入库。</p>
+<p><strong>在运行时需要将动态库放到系统能够找到的位置。</strong></p>
+<h3 id="go导出c静态库动态库">GO导出C静态库/动态库</h3>
+<pre><code>package main
+
+import &quot;C&quot;
+
+func main() {}
+
+//export number_add_mod
+func number_add_mod(a, b, mod C.int) C.int {
+	return (a + b) % mod
+}
+</code></pre><p>此时,main函数仍需要保留,但是可以不执行任何代码。使用 <em><strong>//export</strong></em> 注释表明要导出的GO函数。编译命令要加上目标参数。</p>
+<pre><code>go build -buildmode=c-archive -o number.a
+go build -buildmode=c-shared -o number.so
+</code></pre><p>编译成功同时会生成对应的头文件。</p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/go/" rel="tag">go</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/cgo/" rel="tag">cgo</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
 </main>
+
+<div class="authorbox clearfix">
+	<div class="authorbox__header">
+		<span class="authorbox__name">About gongluck</span>
+	</div>
+	<div class="authorbox__description">
+		gongluck is just a code porter.
+	</div>
+</div>
+
+<nav class="post-nav flex">
+	<div class="post-nav__item post-nav__item--prev">
+		<a class="post-nav__link" href="/go/cgo_types/" rel="prev">
+			<span class="post-nav__caption">«&thinsp;Previous</span>
+			<p class="post-nav__post-title">CGO类型转换</p>
+		</a>
+	</div>
+</nav>
 
 
 			</div>
-			
-<aside class="sidebar sidebar--left"><div class="widget-search widget">
+			<aside class="sidebar"><div class="widget-search widget">
 	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
 		<label>
 			<input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q" aria-label="SEARCH...">
@@ -224,5 +304,7 @@ if (!doNotTrack) {
 </span>
 	</div>
 <script async defer src="/js/menu.js"></script>
-<script src="/js/custom.js"></script></body>
+<script src="/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
 </html>
