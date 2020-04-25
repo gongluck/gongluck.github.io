@@ -1,803 +1,428 @@
 <!DOCTYPE html>
-<html lang="en-us">
-<head>
-    <title>字符动画播放器,不止BadApple! &middot; gongluck&#39;s personal blog</title>
-    <meta name="generator" content="Hugo 0.68.3" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="author" content="gongluck">
-    
-      <meta name="description" content="控制台播放BadApple">
-    
-    
-    <link rel="canonical" href="https://gongluck.github.io/cpp/badapple-console/"/>
-    <link rel="icon" href="https://gongluck.github.io/favicon.ico">
-    <link rel="apple-touch-icon" href="https://gongluck.github.io/apple-touch-icon.png"/>
-    <link rel="stylesheet" href="https://gongluck.github.io/css/style.css">
-    <link rel="stylesheet" href="https://gongluck.github.io/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://gongluck.github.io/css/monokai.css">
-    <link rel="stylesheet" href="https://gongluck.github.io/fancybox/jquery.fancybox.css">
-    
-    <link rel="stylesheet" href="https://gongluck.github.io/static/img">
-    
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
-    <meta property="og:title" content="字符动画播放器,不止BadApple!" />
+<html lang="en">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.68.3" />
+
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/poal-jsdelivr/amzrk2/favicons/favicon.ico" />
+
+
+<title>字符动画播放器,不止BadApple! - gongluck&#39;s personal blog</title>
+
+<meta name="author" content="gongluck" />
+<meta name="description" content="控制台播放BadApple" />
+
+<meta name="keywords" content="cpp, BadApple" />
+
+
+<meta property="og:title" content="字符动画播放器,不止BadApple!" />
 <meta property="og:description" content="控制台播放BadApple" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://gongluck.github.io/cpp/badapple-console/" />
+<meta property="og:image" content="https://gongluck.github.io/img/og.png"/>
 <meta property="article:published_time" content="2020-04-07T12:42:47+08:00" />
 <meta property="article:modified_time" content="2020-04-07T12:42:47+08:00" />
 
-    
-    <meta itemprop="name" content="字符动画播放器,不止BadApple!">
-<meta itemprop="description" content="控制台播放BadApple">
-<meta itemprop="datePublished" content="2020-04-07T12:42:47&#43;08:00" />
-<meta itemprop="dateModified" content="2020-04-07T12:42:47&#43;08:00" />
-<meta itemprop="wordCount" content="567">
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://gongluck.github.io/img/og.png"/>
 
-
-
-<meta itemprop="keywords" content="cpp,BadApple," />
-    <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="字符动画播放器,不止BadApple!"/>
 <meta name="twitter:description" content="控制台播放BadApple"/>
 
+
+
+
+
+
+<link rel="stylesheet" href="https://gongluck.github.io/css/main.min.css" />
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.0/lazysizes.min.js" integrity="sha256-h2tMEmhemR2IN4wbbdNjj9LaDIjzwk2hralQwfJmBOE=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
+
+
+
+
+
+
+
+
+
+<body class="d-flex flex-column h-100">
+    <header>
     
-
-    
-
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-</head>
-<body>
-<div class="container">
-
-
-<div id="container">
-	<header id="header">
-  <div id="header-main" class="header-inner">
-    <div class="outer">
-      <a href="https://gongluck.github.io" id="logo">
-          
-          <i class="logo" style="background-image: url('https://gongluck.github.io/srjll.jpg')"></i>
-          
-          <span class="site-title">gongluck&#39;s personal blog</span>
-      </a>
-      <nav id="main-nav">
-          
-          
-          <a class="main-nav-link" href="https://gongluck.github.io/">Home</a>
-          
-          
-          
-          
-          
-          
-
-          
-          <a class="main-nav-link" href="/default/first/">第一篇博客</a>
-          
-
-          
-          
-          
-          
-          <a class="main-nav-link" href="https://gongluck.github.io/tags/">Tags</a>
-          
-          
-          
-          <a class="main-nav-link" href="https://gongluck.github.io/categories/">Categories</a>
-          
-          
-      </nav>
-        <nav id="sub-nav">
-          <div class="profile" id="profile-nav">
-            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="https://gongluck.github.io/srjll.jpg"><i class="fa fa-caret-down"></i></a>
-          </div>
-        </nav>
-        <div id="search-form-wrap">
-          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
-              <input type="search" name="q" class="search-form-input" placeholder="">
-              <button type="submit" class="search-form-submit">
-              </button>
-              <input type="hidden" name="sitesearch" value="https://gongluck.github.io" />
-         </form>
+    <div class="container-lg clearfix">
+        <div class="col-12 p-3">
+            <a id="main-title" href="https://gongluck.github.io">gongluck&#39;s personal blog</a>
+            <span id="sub-title">C/C&#43;&#43; Win32/MFC Qt Golang</span>
         </div>
     </div>
-  </div>
-  <div id="main-nav-mobile" class="header-sub header-inner">
-    <table class="menu outer">
-      <tbody>
-          <tr>
-          
-          
-          <td><a class="main-nav-link" href="https://gongluck.github.io/">Home</a></td>
-          
-          
-          
-          
-          
-          
-
-          
-          <td><a class="main-nav-link" href="/default/first/">第一篇博客</a></td>
-          
-
-          
-          
-          
-          
-          <td><a class="main-nav-link" href="https://gongluck.github.io/tags/">Tags</a></td>
-          
-          
-          
-          <td><a class="main-nav-link" href="https://gongluck.github.io/categories/">Categories</a></td>
-          
-          
-          <td>
-          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
-          <input type="search" name="q" class="search-form-input" placeholder="Search">
-          <input type="hidden" name="sitesearch" value="https://gongluck.github.io" />
-          </form>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
 </header>
 
-   	
-   	<div class="outer">
-   	
-    	<aside id="profile">
-  <div class="inner profile-inner">
-    <div class="base-info profile-block">
-      
-      <img id="avatar" src="https://www.gravatar.com/avatar/593fb484e1544897871b06f306c025ad?s=100&d=identicon"/>
-      
-      <h2 id="name">gongluck</h2>
-      <h3 id="title">a code porter.</h3>
-      <span id="location"><i class="fa fa-map-marker"></i>GuangZhou</span>
-      
-          <a id="follow" href="https://github.com/gongluck/">
-              
-          </a>
-      
-    </div>
-    <div class="article-info profile-block">
-      <div class="article-info-block">
-        0
-        <span></span>
-      </div>
-      <div class="article-info-block">
-        
-          5
-        
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-md-9 col-12 float-left" id="content">
+                
+<article>
+    <h4 id="post-title">
+        <a href="https://gongluck.github.io/cpp/badapple-console/">字符动画播放器,不止BadApple!</a>
+    </h4>
+    <div id="post-meta">
         <span>
-            
-        </span>
-      </div>
-    </div>
-    <div class="profile-block social-links">
-      <table>
-        <tr>
-          
-<td><a href="//github.com/gongluck" target="_blank" title="GitHub"><i class="fa fa-github"></i></a></td>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          <td><a href="https://gongluck.github.io/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
-        </tr>
-      </table>
-    </div>
-  </div>
-</aside>
-
+    <time datetime="2020-04-07 12:42:47 &#43;0800 CST">2020-04-07</time> |
+</span>
+<span>
+    <span>788 words</span> |
+</span>
+<span>
     
-
-    <section id="main">
     
-    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-
-        <header class="article-header">
-    <a href="https://gongluck.github.io/cpp/badapple-console/">
-    <h1 class="article-title" itemprop="name">
-        字符动画播放器,不止BadApple!
-    </h1>
-    </a>
-    <div class="article-meta">
-
-        
-        <div class="article-date">
-            <i class="fa fa-calendar"></i>
-            <time datetime="2020-04-07 12:42:47 &#43;0800 CST" itemprop="datePublished">2020-04-07 12:42:47</time>
-            &middot;
-            567
-            
-            &middot;
-            3
-            
-        </div>
-        
-        
-            
-            
-            <div class="article-category">
-                <i class="fa fa-folder"></i>
-                
-                
-                <a class="article-category-link" href="https://gongluck.github.io/categories/cpp">cpp</a>
-                
-                
-            </div>
-            
-        
-
-        
-            
-            
-            <div class="article-category">
-                <i class="fa fa-tags"></i>
-                
-                
-                <a class="article-category-link" href="https://gongluck.github.io/tags/cpp">cpp</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="https://gongluck.github.io/tags/badapple">BadApple</a>
-                
-                
-            </div>
-            
-        
+    <a href="https://gongluck.github.io/tags/cpp/">cpp</a>
+    
+    <a href="https://gongluck.github.io/tags/badapple/">BadApple</a>
+    
+    
+</span>
     </div>
-</header>
-
-        <div class="article-entry" itemprop="articleBody">
-            <p>有屏幕的地方就有BadApple!在B站看过好多版本,于是我也用控制台做了一个。网上很多人都是直接显示bmp图片的,但我这个版本是用libvlc实时解码和播放的,音频用libvlc播放,画面就是转换成字符后输出到控制台。除了BadApple这种黑白动画,也能播放彩色视频。具体可以看一下效果视频。</p>
+    
+    <div class="markdown-body" id="post-content">
+        <p>有屏幕的地方就有BadApple!在B站看过好多版本,于是我也用控制台做了一个。网上很多人都是直接显示bmp图片的,但我这个版本是用libvlc实时解码和播放的,音频用libvlc播放,画面就是转换成字符后输出到控制台。除了BadApple这种黑白动画,也能播放彩色视频。具体可以看一下效果视频。</p>
 <h3 id="设计思路">设计思路</h3>
 <p>libvlc解码转码出RGBA和播放音频，再将RGBA量化为黑('*')白(&rsquo; &lsquo;)两个颜色并输出到屏幕。</p>
 <h3 id="效果视频">效果视频</h3>
-<p><a href="https://www.bilibili.com/video/BV1N64y1u7BD">https://www.bilibili.com/video/BV1N64y1u7BD</a></p>
+<p><a href="https://www.bilibili.com/video/BV1N64y1u7BD" target="_blank">https://www.bilibili.com/video/BV1N64y1u7BD</a></p>
 <h3 id="代码仓库">代码仓库</h3>
-<p><a href="https://github.com/gongluck/Character-player/tree/console">https://github.com/gongluck/Character-player/tree/console</a></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;atomic&gt;</span><span style="color:#75715e">
+<p><a href="https://github.com/gongluck/Character-player/tree/console" target="_blank">https://github.com/gongluck/Character-player/tree/console</a></p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;atomic&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#75715e">#ifdef _WIN32
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;Windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;Windows.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e">#define ssize_t SSIZE_T
 </span><span style="color:#75715e">#endif
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vlc/vlc.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vlc/vlc.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#75715e">#define CHECKEQUALRET(ret, compare)\
-</span><span style="color:#75715e">if(ret == compare)\
-</span><span style="color:#75715e">{\
-</span><span style="color:#75715e">    std::cerr &lt;&lt; &#34;error ocurred in &#34; &lt;&lt; __FILE__\
-</span><span style="color:#75715e">              &lt;&lt; &#34;`s line &#34; &lt;&lt; __LINE__\
-</span><span style="color:#75715e">              &lt;&lt; &#34;, error &#34; &lt;&lt; ret;\
-</span><span style="color:#75715e">    goto END;\
-</span><span style="color:#75715e">}
-</span><span style="color:#75715e"></span>
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#111">ret</span> <span style="color:#f92672">==</span> <span style="color:#111">compare</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">\</span>
+<span style="color:#111">{</span><span style="color:#960050;background-color:#1e0010">\</span>
+    <span style="color:#111">std</span><span style="color:#f92672">::</span><span style="color:#111">cerr</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#d88200">&#34;error ocurred in &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#111">__FILE__</span><span style="color:#960050;background-color:#1e0010">\</span>
+              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#d88200">&#34;`s line &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#111">__LINE__</span><span style="color:#960050;background-color:#1e0010">\</span>
+              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#d88200">&#34;, error &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#111">ret</span><span style="color:#111">;</span><span style="color:#960050;background-color:#1e0010">\</span>
+    <span style="color:#00a8c8">goto</span> <span style="color:#111">END</span><span style="color:#111">;</span><span style="color:#960050;background-color:#1e0010">\</span>
+<span style="color:#111">}</span>
+
 <span style="color:#75715e">#define CHECKNEQUALRET(ret, compare)\
-</span><span style="color:#75715e">if(ret != compare)\
-</span><span style="color:#75715e">{\
-</span><span style="color:#75715e">    std::cerr &lt;&lt; &#34;error ocurred in &#34; &lt;&lt; __FILE__\
-</span><span style="color:#75715e">              &lt;&lt; &#34;`s line &#34; &lt;&lt; __LINE__\
-</span><span style="color:#75715e">              &lt;&lt; &#34;, error &#34; &lt;&lt; ret;\
-</span><span style="color:#75715e">    goto END;\
-</span><span style="color:#75715e">}
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> WIDTH <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>;
-<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> HEIGHT <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>;
-<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> out_buffer <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
-<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> tmp_buffer <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
-<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> print_buffer <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
-std<span style="color:#f92672">::</span>atomic<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span> atomiclock;
-std<span style="color:#f92672">::</span>atomic<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span> gotframe <span style="color:#f92672">=</span> false;
-<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">lock</span>(<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> data, <span style="color:#66d9ef">void</span><span style="color:#f92672">**</span> p_pixels)
-{
-    <span style="color:#66d9ef">while</span> (atomiclock)
-    {
-        std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(std<span style="color:#f92672">::</span>chrono<span style="color:#f92672">::</span>microseconds(<span style="color:#ae81ff">10</span>));
-    }
-    atomiclock <span style="color:#f92672">=</span> true;
-    <span style="color:#f92672">*</span>p_pixels <span style="color:#f92672">=</span> out_buffer;
-    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-}
-<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">unlock</span>(<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> data, <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> id, <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> <span style="color:#66d9ef">const</span><span style="color:#f92672">*</span> p_pixels)
-{
-    atomiclock <span style="color:#f92672">=</span> false;
-    gotframe <span style="color:#f92672">=</span> true;
-}
-<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">display</span>(<span style="color:#75715e">/*void* data, void* id*/</span>)
-{
-    atomiclock <span style="color:#f92672">=</span> true;
-    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>gotframe)
-    {
-        atomiclock <span style="color:#f92672">=</span> false;
-        std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(std<span style="color:#f92672">::</span>chrono<span style="color:#f92672">::</span>microseconds(<span style="color:#ae81ff">10</span>));
-        <span style="color:#66d9ef">return</span>;
-    }
-    memcpy(tmp_buffer, out_buffer, HEIGHT <span style="color:#f92672">*</span> WIDTH <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>);
-    gotframe <span style="color:#f92672">=</span> false;
-    atomiclock <span style="color:#f92672">=</span> false;
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#111">ret</span> <span style="color:#f92672">!=</span> <span style="color:#111">compare</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">\</span>
+<span style="color:#111">{</span><span style="color:#960050;background-color:#1e0010">\</span>
+    <span style="color:#111">std</span><span style="color:#f92672">::</span><span style="color:#111">cerr</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#d88200">&#34;error ocurred in &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#111">__FILE__</span><span style="color:#960050;background-color:#1e0010">\</span>
+              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#d88200">&#34;`s line &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#111">__LINE__</span><span style="color:#960050;background-color:#1e0010">\</span>
+              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#d88200">&#34;, error &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#111">ret</span><span style="color:#111">;</span><span style="color:#960050;background-color:#1e0010">\</span>
+    <span style="color:#00a8c8">goto</span> <span style="color:#111">END</span><span style="color:#111">;</span><span style="color:#960050;background-color:#1e0010">\</span>
+<span style="color:#111">}</span>
 
-    HANDLE hConsoleOutput <span style="color:#f92672">=</span> GetStdHandle(STD_OUTPUT_HANDLE);
-    COORD pos <span style="color:#f92672">=</span> { <span style="color:#ae81ff">0</span> };
-    SetConsoleCursorPosition(hConsoleOutput, pos);
+<span style="color:#00a8c8">static</span> <span style="color:#00a8c8">int</span> <span style="color:#111">WIDTH</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">static</span> <span style="color:#00a8c8">int</span> <span style="color:#111">HEIGHT</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">static</span> <span style="color:#00a8c8">char</span><span style="color:#f92672">*</span> <span style="color:#111">out_buffer</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">static</span> <span style="color:#00a8c8">char</span><span style="color:#f92672">*</span> <span style="color:#111">tmp_buffer</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">static</span> <span style="color:#00a8c8">char</span><span style="color:#f92672">*</span> <span style="color:#111">print_buffer</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">;</span>
+<span style="color:#111">std</span><span style="color:#f92672">::</span><span style="color:#111">atomic</span><span style="color:#f92672">&lt;</span><span style="color:#00a8c8">bool</span><span style="color:#f92672">&gt;</span> <span style="color:#111">atomiclock</span><span style="color:#111">;</span>
+<span style="color:#111">std</span><span style="color:#f92672">::</span><span style="color:#111">atomic</span><span style="color:#f92672">&lt;</span><span style="color:#00a8c8">bool</span><span style="color:#f92672">&gt;</span> <span style="color:#111">gotframe</span> <span style="color:#f92672">=</span> <span style="color:#111">false</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">static</span> <span style="color:#00a8c8">void</span><span style="color:#f92672">*</span> <span style="color:#75af00">lock</span><span style="color:#111">(</span><span style="color:#00a8c8">void</span><span style="color:#f92672">*</span> <span style="color:#111">data</span><span style="color:#111">,</span> <span style="color:#00a8c8">void</span><span style="color:#f92672">**</span> <span style="color:#111">p_pixels</span><span style="color:#111">)</span>
+<span style="color:#111">{</span>
+    <span style="color:#00a8c8">while</span> <span style="color:#111">(</span><span style="color:#111">atomiclock</span><span style="color:#111">)</span>
+    <span style="color:#111">{</span>
+        <span style="color:#111">std</span><span style="color:#f92672">::</span><span style="color:#111">this_thread</span><span style="color:#f92672">::</span><span style="color:#111">sleep_for</span><span style="color:#111">(</span><span style="color:#111">std</span><span style="color:#f92672">::</span><span style="color:#111">chrono</span><span style="color:#f92672">::</span><span style="color:#111">microseconds</span><span style="color:#111">(</span><span style="color:#ae81ff">10</span><span style="color:#111">));</span>
+    <span style="color:#111">}</span>
+    <span style="color:#111">atomiclock</span> <span style="color:#f92672">=</span> <span style="color:#111">true</span><span style="color:#111">;</span>
+    <span style="color:#f92672">*</span><span style="color:#111">p_pixels</span> <span style="color:#f92672">=</span> <span style="color:#111">out_buffer</span><span style="color:#111">;</span>
+    <span style="color:#00a8c8">return</span> <span style="color:#ae81ff">0</span><span style="color:#111">;</span>
+<span style="color:#111">}</span>
+<span style="color:#00a8c8">static</span> <span style="color:#00a8c8">void</span> <span style="color:#75af00">unlock</span><span style="color:#111">(</span><span style="color:#00a8c8">void</span><span style="color:#f92672">*</span> <span style="color:#111">data</span><span style="color:#111">,</span> <span style="color:#00a8c8">void</span><span style="color:#f92672">*</span> <span style="color:#111">id</span><span style="color:#111">,</span> <span style="color:#00a8c8">void</span><span style="color:#f92672">*</span> <span style="color:#00a8c8">const</span><span style="color:#f92672">*</span> <span style="color:#111">p_pixels</span><span style="color:#111">)</span>
+<span style="color:#111">{</span>
+    <span style="color:#111">atomiclock</span> <span style="color:#f92672">=</span> <span style="color:#111">false</span><span style="color:#111">;</span>
+    <span style="color:#111">gotframe</span> <span style="color:#f92672">=</span> <span style="color:#111">true</span><span style="color:#111">;</span>
+<span style="color:#111">}</span>
+<span style="color:#00a8c8">static</span> <span style="color:#00a8c8">void</span> <span style="color:#75af00">display</span><span style="color:#111">(</span><span style="color:#75715e">/*void* data, void* id*/</span><span style="color:#111">)</span>
+<span style="color:#111">{</span>
+    <span style="color:#111">atomiclock</span> <span style="color:#f92672">=</span> <span style="color:#111">true</span><span style="color:#111">;</span>
+    <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#f92672">!</span><span style="color:#111">gotframe</span><span style="color:#111">)</span>
+    <span style="color:#111">{</span>
+        <span style="color:#111">atomiclock</span> <span style="color:#f92672">=</span> <span style="color:#111">false</span><span style="color:#111">;</span>
+        <span style="color:#111">std</span><span style="color:#f92672">::</span><span style="color:#111">this_thread</span><span style="color:#f92672">::</span><span style="color:#111">sleep_for</span><span style="color:#111">(</span><span style="color:#111">std</span><span style="color:#f92672">::</span><span style="color:#111">chrono</span><span style="color:#f92672">::</span><span style="color:#111">microseconds</span><span style="color:#111">(</span><span style="color:#ae81ff">10</span><span style="color:#111">));</span>
+        <span style="color:#00a8c8">return</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span>
+    <span style="color:#111">memcpy</span><span style="color:#111">(</span><span style="color:#111">tmp_buffer</span><span style="color:#111">,</span> <span style="color:#111">out_buffer</span><span style="color:#111">,</span> <span style="color:#111">HEIGHT</span> <span style="color:#f92672">*</span> <span style="color:#111">WIDTH</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span><span style="color:#111">);</span>
+    <span style="color:#111">gotframe</span> <span style="color:#f92672">=</span> <span style="color:#111">false</span><span style="color:#111">;</span>
+    <span style="color:#111">atomiclock</span> <span style="color:#f92672">=</span> <span style="color:#111">false</span><span style="color:#111">;</span>
 
-    RGBQUAD<span style="color:#f92672">*</span> rgba <span style="color:#f92672">=</span> <span style="color:#66d9ef">reinterpret_cast</span><span style="color:#f92672">&lt;</span>RGBQUAD<span style="color:#f92672">*&gt;</span>(tmp_buffer);
-    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> HEIGHT; <span style="color:#f92672">++</span>i)
-    {
-        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> WIDTH; <span style="color:#f92672">++</span>j)
-        {
-            <span style="color:#66d9ef">auto</span> point <span style="color:#f92672">=</span> rgba[WIDTH <span style="color:#f92672">*</span> i <span style="color:#f92672">+</span> j];
-            <span style="color:#66d9ef">auto</span> light <span style="color:#f92672">=</span> (point.rgbRed <span style="color:#f92672">+</span> point.rgbGreen <span style="color:#f92672">+</span> point.rgbBlue) <span style="color:#f92672">/</span> <span style="color:#ae81ff">3</span>;
-            print_buffer[i <span style="color:#f92672">*</span> (WIDTH <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>) <span style="color:#f92672">+</span> j] <span style="color:#f92672">=</span> light <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">127</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39;*&#39;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39; &#39;</span>;
-        }
-        print_buffer[i <span style="color:#f92672">*</span> (WIDTH <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>) <span style="color:#f92672">+</span> WIDTH] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\r&#39;</span>;
-        print_buffer[i <span style="color:#f92672">*</span> (WIDTH <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>) <span style="color:#f92672">+</span> WIDTH <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\n&#39;</span>;
-    }
-    puts(print_buffer);
-}
+    <span style="color:#111">HANDLE</span> <span style="color:#111">hConsoleOutput</span> <span style="color:#f92672">=</span> <span style="color:#111">GetStdHandle</span><span style="color:#111">(</span><span style="color:#111">STD_OUTPUT_HANDLE</span><span style="color:#111">);</span>
+    <span style="color:#111">COORD</span> <span style="color:#111">pos</span> <span style="color:#f92672">=</span> <span style="color:#111">{</span> <span style="color:#ae81ff">0</span> <span style="color:#111">};</span>
+    <span style="color:#111">SetConsoleCursorPosition</span><span style="color:#111">(</span><span style="color:#111">hConsoleOutput</span><span style="color:#111">,</span> <span style="color:#111">pos</span><span style="color:#111">);</span>
 
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span><span style="color:#f92672">**</span> argv)
-{
-    libvlc_instance_t<span style="color:#f92672">*</span> inst_ <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
-    libvlc_media_t<span style="color:#f92672">*</span> media_ <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
-    libvlc_media_player_t<span style="color:#f92672">*</span> player_ <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
-    libvlc_media_list_t<span style="color:#f92672">*</span> list_ <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
-    libvlc_media_list_player_t<span style="color:#f92672">*</span> plist_ <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
-    <span style="color:#66d9ef">int</span> ret <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#111">RGBQUAD</span><span style="color:#f92672">*</span> <span style="color:#111">rgba</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">reinterpret_cast</span><span style="color:#f92672">&lt;</span><span style="color:#111">RGBQUAD</span><span style="color:#f92672">*&gt;</span><span style="color:#111">(</span><span style="color:#111">tmp_buffer</span><span style="color:#111">);</span>
+    <span style="color:#00a8c8">for</span> <span style="color:#111">(</span><span style="color:#00a8c8">int</span> <span style="color:#111">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#111">;</span> <span style="color:#111">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#111">HEIGHT</span><span style="color:#111">;</span> <span style="color:#f92672">++</span><span style="color:#111">i</span><span style="color:#111">)</span>
+    <span style="color:#111">{</span>
+        <span style="color:#00a8c8">for</span> <span style="color:#111">(</span><span style="color:#00a8c8">int</span> <span style="color:#111">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#111">;</span> <span style="color:#111">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#111">WIDTH</span><span style="color:#111">;</span> <span style="color:#f92672">++</span><span style="color:#111">j</span><span style="color:#111">)</span>
+        <span style="color:#111">{</span>
+            <span style="color:#00a8c8">auto</span> <span style="color:#111">point</span> <span style="color:#f92672">=</span> <span style="color:#111">rgba</span><span style="color:#111">[</span><span style="color:#111">WIDTH</span> <span style="color:#f92672">*</span> <span style="color:#111">i</span> <span style="color:#f92672">+</span> <span style="color:#111">j</span><span style="color:#111">];</span>
+            <span style="color:#00a8c8">auto</span> <span style="color:#111">light</span> <span style="color:#f92672">=</span> <span style="color:#111">(</span><span style="color:#111">point</span><span style="color:#111">.</span><span style="color:#111">rgbRed</span> <span style="color:#f92672">+</span> <span style="color:#111">point</span><span style="color:#111">.</span><span style="color:#111">rgbGreen</span> <span style="color:#f92672">+</span> <span style="color:#111">point</span><span style="color:#111">.</span><span style="color:#111">rgbBlue</span><span style="color:#111">)</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">3</span><span style="color:#111">;</span>
+            <span style="color:#111">print_buffer</span><span style="color:#111">[</span><span style="color:#111">i</span> <span style="color:#f92672">*</span> <span style="color:#111">(</span><span style="color:#111">WIDTH</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#111">)</span> <span style="color:#f92672">+</span> <span style="color:#111">j</span><span style="color:#111">]</span> <span style="color:#f92672">=</span> <span style="color:#111">light</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">127</span> <span style="color:#f92672">?</span> <span style="color:#d88200">&#39;*&#39;</span> <span style="color:#f92672">:</span> <span style="color:#d88200">&#39; &#39;</span><span style="color:#111">;</span>
+        <span style="color:#111">}</span>
+        <span style="color:#111">print_buffer</span><span style="color:#111">[</span><span style="color:#111">i</span> <span style="color:#f92672">*</span> <span style="color:#111">(</span><span style="color:#111">WIDTH</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#111">)</span> <span style="color:#f92672">+</span> <span style="color:#111">WIDTH</span><span style="color:#111">]</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;\r&#39;</span><span style="color:#111">;</span>
+        <span style="color:#111">print_buffer</span><span style="color:#111">[</span><span style="color:#111">i</span> <span style="color:#f92672">*</span> <span style="color:#111">(</span><span style="color:#111">WIDTH</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#111">)</span> <span style="color:#f92672">+</span> <span style="color:#111">WIDTH</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span><span style="color:#111">]</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;\n&#39;</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span>
+    <span style="color:#111">puts</span><span style="color:#111">(</span><span style="color:#111">print_buffer</span><span style="color:#111">);</span>
+<span style="color:#111">}</span>
 
-    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Usage: Character-player [media file] [out width] [out height]&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+<span style="color:#00a8c8">int</span> <span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">int</span> <span style="color:#111">argc</span><span style="color:#111">,</span> <span style="color:#00a8c8">char</span><span style="color:#f92672">**</span> <span style="color:#111">argv</span><span style="color:#111">)</span>
+<span style="color:#111">{</span>
+    <span style="color:#111">libvlc_instance_t</span><span style="color:#f92672">*</span> <span style="color:#111">inst_</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">;</span>
+    <span style="color:#111">libvlc_media_t</span><span style="color:#f92672">*</span> <span style="color:#111">media_</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">;</span>
+    <span style="color:#111">libvlc_media_player_t</span><span style="color:#f92672">*</span> <span style="color:#111">player_</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">;</span>
+    <span style="color:#111">libvlc_media_list_t</span><span style="color:#f92672">*</span> <span style="color:#111">list_</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">;</span>
+    <span style="color:#111">libvlc_media_list_player_t</span><span style="color:#f92672">*</span> <span style="color:#111">plist_</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">;</span>
+    <span style="color:#00a8c8">int</span> <span style="color:#111">ret</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#111">;</span>
 
-    <span style="color:#66d9ef">if</span> (argc <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">4</span>)
-    {
-        WIDTH <span style="color:#f92672">=</span> atoi(argv[<span style="color:#ae81ff">2</span>]);
-        HEIGHT <span style="color:#f92672">=</span> atoi(argv[<span style="color:#ae81ff">3</span>]);
-    }
+    <span style="color:#111">std</span><span style="color:#f92672">::</span><span style="color:#111">cout</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#d88200">&#34;Usage: Character-player [media file] [out width] [out height]&#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#111">std</span><span style="color:#f92672">::</span><span style="color:#111">endl</span><span style="color:#111">;</span>
 
-    HANDLE hConsoleOutput <span style="color:#f92672">=</span> GetStdHandle(STD_OUTPUT_HANDLE);
-    COORD size <span style="color:#f92672">=</span> { WIDTH <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span>, HEIGHT <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span> };
-    SetConsoleScreenBufferSize(hConsoleOutput, size);
-    SMALL_RECT rc <span style="color:#f92672">=</span> { <span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>, WIDTH <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, HEIGHT <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> };
-    SetConsoleWindowInfo(hConsoleOutput, true, <span style="color:#f92672">&amp;</span>rc);
+    <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">argc</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">4</span><span style="color:#111">)</span>
+    <span style="color:#111">{</span>
+        <span style="color:#111">WIDTH</span> <span style="color:#f92672">=</span> <span style="color:#111">atoi</span><span style="color:#111">(</span><span style="color:#111">argv</span><span style="color:#111">[</span><span style="color:#ae81ff">2</span><span style="color:#111">]);</span>
+        <span style="color:#111">HEIGHT</span> <span style="color:#f92672">=</span> <span style="color:#111">atoi</span><span style="color:#111">(</span><span style="color:#111">argv</span><span style="color:#111">[</span><span style="color:#ae81ff">3</span><span style="color:#111">]);</span>
+    <span style="color:#111">}</span>
 
-    libvlc_log_close(<span style="color:#66d9ef">nullptr</span>);
+    <span style="color:#111">HANDLE</span> <span style="color:#111">hConsoleOutput</span> <span style="color:#f92672">=</span> <span style="color:#111">GetStdHandle</span><span style="color:#111">(</span><span style="color:#111">STD_OUTPUT_HANDLE</span><span style="color:#111">);</span>
+    <span style="color:#111">COORD</span> <span style="color:#111">size</span> <span style="color:#f92672">=</span> <span style="color:#111">{</span> <span style="color:#111">WIDTH</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span><span style="color:#111">,</span> <span style="color:#111">HEIGHT</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span> <span style="color:#111">};</span>
+    <span style="color:#111">SetConsoleScreenBufferSize</span><span style="color:#111">(</span><span style="color:#111">hConsoleOutput</span><span style="color:#111">,</span> <span style="color:#111">size</span><span style="color:#111">);</span>
+    <span style="color:#111">SMALL_RECT</span> <span style="color:#111">rc</span> <span style="color:#f92672">=</span> <span style="color:#111">{</span> <span style="color:#ae81ff">0</span><span style="color:#111">,</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#111">WIDTH</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#111">HEIGHT</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#111">};</span>
+    <span style="color:#111">SetConsoleWindowInfo</span><span style="color:#111">(</span><span style="color:#111">hConsoleOutput</span><span style="color:#111">,</span> <span style="color:#111">true</span><span style="color:#111">,</span> <span style="color:#f92672">&amp;</span><span style="color:#111">rc</span><span style="color:#111">);</span>
 
-    <span style="color:#66d9ef">bool</span> exit <span style="color:#f92672">=</span> false;
-    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> th([<span style="color:#f92672">&amp;</span>]()
-    {
-        <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>exit)
-        {
-            <span style="color:#66d9ef">while</span> (atomiclock)
-            {
-                std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(std<span style="color:#f92672">::</span>chrono<span style="color:#f92672">::</span>microseconds(<span style="color:#ae81ff">10</span>));
-            }
-            display();
-        }
-    });
+    <span style="color:#111">libvlc_log_close</span><span style="color:#111">(</span><span style="color:#00a8c8">nullptr</span><span style="color:#111">);</span>
 
-    inst_ <span style="color:#f92672">=</span> libvlc_new(<span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">nullptr</span>);
-    CHECKEQUALRET(inst_, <span style="color:#66d9ef">nullptr</span>);
-    media_ <span style="color:#f92672">=</span> libvlc_media_new_path(inst_, argc <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;badapple.mp4&#34;</span> <span style="color:#f92672">:</span> argv[<span style="color:#ae81ff">1</span>]);
-    CHECKEQUALRET(media_, <span style="color:#66d9ef">nullptr</span>);
+    <span style="color:#00a8c8">bool</span> <span style="color:#111">exit</span> <span style="color:#f92672">=</span> <span style="color:#111">false</span><span style="color:#111">;</span>
+    <span style="color:#111">std</span><span style="color:#f92672">::</span><span style="color:#00a8c8">thread</span> <span style="color:#111">th</span><span style="color:#111">([</span><span style="color:#f92672">&amp;</span><span style="color:#111">]()</span>
+    <span style="color:#111">{</span>
+        <span style="color:#00a8c8">while</span> <span style="color:#111">(</span><span style="color:#f92672">!</span><span style="color:#111">exit</span><span style="color:#111">)</span>
+        <span style="color:#111">{</span>
+            <span style="color:#00a8c8">while</span> <span style="color:#111">(</span><span style="color:#111">atomiclock</span><span style="color:#111">)</span>
+            <span style="color:#111">{</span>
+                <span style="color:#111">std</span><span style="color:#f92672">::</span><span style="color:#111">this_thread</span><span style="color:#f92672">::</span><span style="color:#111">sleep_for</span><span style="color:#111">(</span><span style="color:#111">std</span><span style="color:#f92672">::</span><span style="color:#111">chrono</span><span style="color:#f92672">::</span><span style="color:#111">microseconds</span><span style="color:#111">(</span><span style="color:#ae81ff">10</span><span style="color:#111">));</span>
+            <span style="color:#111">}</span>
+            <span style="color:#111">display</span><span style="color:#111">();</span>
+        <span style="color:#111">}</span>
+    <span style="color:#111">});</span>
 
-    out_buffer <span style="color:#f92672">=</span> <span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">*&gt;</span>(malloc(HEIGHT <span style="color:#f92672">*</span> WIDTH <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>));
-    CHECKEQUALRET(out_buffer, <span style="color:#66d9ef">nullptr</span>);
-    tmp_buffer <span style="color:#f92672">=</span> <span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">*&gt;</span>(malloc(HEIGHT <span style="color:#f92672">*</span> WIDTH <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>));
-    CHECKEQUALRET(tmp_buffer, <span style="color:#66d9ef">nullptr</span>);
-    print_buffer <span style="color:#f92672">=</span> <span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">*&gt;</span>(malloc(HEIGHT <span style="color:#f92672">*</span> (WIDTH <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>));
-    CHECKEQUALRET(print_buffer, <span style="color:#66d9ef">nullptr</span>);
-    print_buffer[HEIGHT <span style="color:#f92672">*</span> (WIDTH <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>)] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>;
+    <span style="color:#111">inst_</span> <span style="color:#f92672">=</span> <span style="color:#111">libvlc_new</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">);</span>
+    <span style="color:#111">CHECKEQUALRET</span><span style="color:#111">(</span><span style="color:#111">inst_</span><span style="color:#111">,</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">);</span>
+    <span style="color:#111">media_</span> <span style="color:#f92672">=</span> <span style="color:#111">libvlc_media_new_path</span><span style="color:#111">(</span><span style="color:#111">inst_</span><span style="color:#111">,</span> <span style="color:#111">argc</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#d88200">&#34;badapple.mp4&#34;</span> <span style="color:#f92672">:</span> <span style="color:#111">argv</span><span style="color:#111">[</span><span style="color:#ae81ff">1</span><span style="color:#111">]);</span>
+    <span style="color:#111">CHECKEQUALRET</span><span style="color:#111">(</span><span style="color:#111">media_</span><span style="color:#111">,</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">);</span>
+
+    <span style="color:#111">out_buffer</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#00a8c8">char</span><span style="color:#f92672">*&gt;</span><span style="color:#111">(</span><span style="color:#111">malloc</span><span style="color:#111">(</span><span style="color:#111">HEIGHT</span> <span style="color:#f92672">*</span> <span style="color:#111">WIDTH</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span><span style="color:#111">));</span>
+    <span style="color:#111">CHECKEQUALRET</span><span style="color:#111">(</span><span style="color:#111">out_buffer</span><span style="color:#111">,</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">);</span>
+    <span style="color:#111">tmp_buffer</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#00a8c8">char</span><span style="color:#f92672">*&gt;</span><span style="color:#111">(</span><span style="color:#111">malloc</span><span style="color:#111">(</span><span style="color:#111">HEIGHT</span> <span style="color:#f92672">*</span> <span style="color:#111">WIDTH</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span><span style="color:#111">));</span>
+    <span style="color:#111">CHECKEQUALRET</span><span style="color:#111">(</span><span style="color:#111">tmp_buffer</span><span style="color:#111">,</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">);</span>
+    <span style="color:#111">print_buffer</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#00a8c8">char</span><span style="color:#f92672">*&gt;</span><span style="color:#111">(</span><span style="color:#111">malloc</span><span style="color:#111">(</span><span style="color:#111">HEIGHT</span> <span style="color:#f92672">*</span> <span style="color:#111">(</span><span style="color:#111">WIDTH</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#111">)</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span><span style="color:#111">));</span>
+    <span style="color:#111">CHECKEQUALRET</span><span style="color:#111">(</span><span style="color:#111">print_buffer</span><span style="color:#111">,</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">);</span>
+    <span style="color:#111">print_buffer</span><span style="color:#111">[</span><span style="color:#111">HEIGHT</span> <span style="color:#f92672">*</span> <span style="color:#111">(</span><span style="color:#111">WIDTH</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#111">)]</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;\0&#39;</span><span style="color:#111">;</span>
 
     <span style="color:#75715e">//player_ = libvlc_media_player_new_from_media(media_);
-</span><span style="color:#75715e"></span>    player_ <span style="color:#f92672">=</span> libvlc_media_player_new(inst_);
-    CHECKEQUALRET(player_, <span style="color:#66d9ef">nullptr</span>);
+</span><span style="color:#75715e"></span>    <span style="color:#111">player_</span> <span style="color:#f92672">=</span> <span style="color:#111">libvlc_media_player_new</span><span style="color:#111">(</span><span style="color:#111">inst_</span><span style="color:#111">);</span>
+    <span style="color:#111">CHECKEQUALRET</span><span style="color:#111">(</span><span style="color:#111">player_</span><span style="color:#111">,</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">);</span>
 
-    libvlc_video_set_callbacks(player_, lock, unlock, <span style="color:#66d9ef">nullptr</span>, <span style="color:#ae81ff">0</span>);
-    libvlc_video_set_format(player_, <span style="color:#e6db74">&#34;RGBA&#34;</span>, WIDTH, HEIGHT, WIDTH <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>);
+    <span style="color:#111">libvlc_video_set_callbacks</span><span style="color:#111">(</span><span style="color:#111">player_</span><span style="color:#111">,</span> <span style="color:#111">lock</span><span style="color:#111">,</span> <span style="color:#111">unlock</span><span style="color:#111">,</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">);</span>
+    <span style="color:#111">libvlc_video_set_format</span><span style="color:#111">(</span><span style="color:#111">player_</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;RGBA&#34;</span><span style="color:#111">,</span> <span style="color:#111">WIDTH</span><span style="color:#111">,</span> <span style="color:#111">HEIGHT</span><span style="color:#111">,</span> <span style="color:#111">WIDTH</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span><span style="color:#111">);</span>
     <span style="color:#75715e">//libvlc_media_player_set_hwnd(player_, GetDesktopWindow());
 </span><span style="color:#75715e"></span>    
     <span style="color:#75715e">// play loop
-</span><span style="color:#75715e"></span>    list_ <span style="color:#f92672">=</span> libvlc_media_list_new(inst_);
-    plist_ <span style="color:#f92672">=</span> libvlc_media_list_player_new(inst_);
-    libvlc_media_list_add_media(list_, media_);
-    libvlc_media_list_player_set_media_list(plist_, list_);
-    libvlc_media_list_player_set_media_player(plist_, player_);
-    libvlc_media_list_player_set_playback_mode(plist_, libvlc_playback_mode_loop);
-    libvlc_media_list_player_play(plist_);
+</span><span style="color:#75715e"></span>    <span style="color:#111">list_</span> <span style="color:#f92672">=</span> <span style="color:#111">libvlc_media_list_new</span><span style="color:#111">(</span><span style="color:#111">inst_</span><span style="color:#111">);</span>
+    <span style="color:#111">plist_</span> <span style="color:#f92672">=</span> <span style="color:#111">libvlc_media_list_player_new</span><span style="color:#111">(</span><span style="color:#111">inst_</span><span style="color:#111">);</span>
+    <span style="color:#111">libvlc_media_list_add_media</span><span style="color:#111">(</span><span style="color:#111">list_</span><span style="color:#111">,</span> <span style="color:#111">media_</span><span style="color:#111">);</span>
+    <span style="color:#111">libvlc_media_list_player_set_media_list</span><span style="color:#111">(</span><span style="color:#111">plist_</span><span style="color:#111">,</span> <span style="color:#111">list_</span><span style="color:#111">);</span>
+    <span style="color:#111">libvlc_media_list_player_set_media_player</span><span style="color:#111">(</span><span style="color:#111">plist_</span><span style="color:#111">,</span> <span style="color:#111">player_</span><span style="color:#111">);</span>
+    <span style="color:#111">libvlc_media_list_player_set_playback_mode</span><span style="color:#111">(</span><span style="color:#111">plist_</span><span style="color:#111">,</span> <span style="color:#111">libvlc_playback_mode_loop</span><span style="color:#111">);</span>
+    <span style="color:#111">libvlc_media_list_player_play</span><span style="color:#111">(</span><span style="color:#111">plist_</span><span style="color:#111">);</span>
 
-    std<span style="color:#f92672">::</span>cin.get();
+    <span style="color:#111">std</span><span style="color:#f92672">::</span><span style="color:#111">cin</span><span style="color:#111">.</span><span style="color:#111">get</span><span style="color:#111">();</span>
 
-END:
-    exit <span style="color:#f92672">=</span> true;
-    <span style="color:#66d9ef">if</span> (th.joinable())
-    {
-        th.join();
-    }
+<span style="color:#111">END</span><span style="color:#111">:</span>
+    <span style="color:#111">exit</span> <span style="color:#f92672">=</span> <span style="color:#111">true</span><span style="color:#111">;</span>
+    <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">th</span><span style="color:#111">.</span><span style="color:#111">joinable</span><span style="color:#111">())</span>
+    <span style="color:#111">{</span>
+        <span style="color:#111">th</span><span style="color:#111">.</span><span style="color:#111">join</span><span style="color:#111">();</span>
+    <span style="color:#111">}</span>
 
-    <span style="color:#66d9ef">if</span> (player_ <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>)
-    {
-        libvlc_media_player_stop(player_);
-        libvlc_media_player_release(player_);
-        player_ <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
-    }
-    <span style="color:#66d9ef">if</span> (media_ <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>)
-    {
-        libvlc_media_release(media_);
-        media_ <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
-    }
+    <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">player_</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">)</span>
+    <span style="color:#111">{</span>
+        <span style="color:#111">libvlc_media_player_stop</span><span style="color:#111">(</span><span style="color:#111">player_</span><span style="color:#111">);</span>
+        <span style="color:#111">libvlc_media_player_release</span><span style="color:#111">(</span><span style="color:#111">player_</span><span style="color:#111">);</span>
+        <span style="color:#111">player_</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span>
+    <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">media_</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">)</span>
+    <span style="color:#111">{</span>
+        <span style="color:#111">libvlc_media_release</span><span style="color:#111">(</span><span style="color:#111">media_</span><span style="color:#111">);</span>
+        <span style="color:#111">media_</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span>
 
-    <span style="color:#66d9ef">if</span> (plist_ <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>)
-    {
-        libvlc_media_list_player_release(plist_);
-        plist_ <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
-    }
-    <span style="color:#66d9ef">if</span> (list_ <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>)
-    {
-        libvlc_media_list_release(list_);
-        list_ <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
-    }
-    <span style="color:#66d9ef">if</span> (inst_ <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>)
-    {
-        libvlc_release(inst_);
-        inst_ <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
-    }
+    <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">plist_</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">)</span>
+    <span style="color:#111">{</span>
+        <span style="color:#111">libvlc_media_list_player_release</span><span style="color:#111">(</span><span style="color:#111">plist_</span><span style="color:#111">);</span>
+        <span style="color:#111">plist_</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span>
+    <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">list_</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">)</span>
+    <span style="color:#111">{</span>
+        <span style="color:#111">libvlc_media_list_release</span><span style="color:#111">(</span><span style="color:#111">list_</span><span style="color:#111">);</span>
+        <span style="color:#111">list_</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span>
+    <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">inst_</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">)</span>
+    <span style="color:#111">{</span>
+        <span style="color:#111">libvlc_release</span><span style="color:#111">(</span><span style="color:#111">inst_</span><span style="color:#111">);</span>
+        <span style="color:#111">inst_</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span>
 
-    <span style="color:#66d9ef">if</span> (print_buffer <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>)
-    {
-        free(print_buffer);
-        print_buffer <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
-    }
-    <span style="color:#66d9ef">if</span> (out_buffer <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>)
-    {
-        free(out_buffer);
-        out_buffer <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
-    }
-    <span style="color:#66d9ef">if</span> (tmp_buffer <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>)
-    {
-        free(tmp_buffer);
-        tmp_buffer <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
-    }
-}
+    <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">print_buffer</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">)</span>
+    <span style="color:#111">{</span>
+        <span style="color:#111">free</span><span style="color:#111">(</span><span style="color:#111">print_buffer</span><span style="color:#111">);</span>
+        <span style="color:#111">print_buffer</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span>
+    <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">out_buffer</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">)</span>
+    <span style="color:#111">{</span>
+        <span style="color:#111">free</span><span style="color:#111">(</span><span style="color:#111">out_buffer</span><span style="color:#111">);</span>
+        <span style="color:#111">out_buffer</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span>
+    <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">tmp_buffer</span> <span style="color:#f92672">!=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">)</span>
+    <span style="color:#111">{</span>
+        <span style="color:#111">free</span><span style="color:#111">(</span><span style="color:#111">tmp_buffer</span><span style="color:#111">);</span>
+        <span style="color:#111">tmp_buffer</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">nullptr</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span>
+<span style="color:#111">}</span>
 </code></pre></div>
-        </div>
-        <footer class="article-footer">
-    <a data-url="https://gongluck.github.io/cpp/badapple-console/" data-id="db63790e8b99217289c5c6df686030f0" class="article-share-link">
-        <i class="fa fa-share"></i>
-        
-    </a>
-    
-    <a href="https://gongluck.github.io/cpp/badapple-console/#disqus_thread" class="article-comment-link">
-        
-    </a>
-    
-
-    <script>
-    (function ($) {
-        
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-    </script>
-</footer>
-
     </div>
-
-    
-<nav id="article-nav">
-    
-
-    
-    <a href="https://gongluck.github.io/cpp/badapple-taskmgr/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">
-          
-      </strong>
-      <div class="article-nav-title">任务管理器播放BadApple</div>
-    </a>
-    
-</nav>
-
-
 </article>
 
-
-<section id="comments">
-    <div id="disqus_thread">
-        <div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "gongluck" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-    </div>
-</section>
-
-
-    </section>
-
-   	
-    	<aside id="sidebar">
-    
-<div class="widget-wrap">
-    <h3 class="widget-title">
-        
-    </h3>
-    <div class="widget">
-        <ul id="recent-post">
-            
-        </ul>
-    </div>
-</div>
-
-
-    
-
-
-<div class="widget-wrap">
-    <h3 class="widget-title"></h3>
-    <div class="widget">
-        <ul class="category-list">
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://gongluck.github.io/categories/cpp">
-                    cpp
-                </a>
-                <span class="category-list-count">2</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://gongluck.github.io/categories/default">
-                    default
-                </a>
-                <span class="category-list-count">1</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://gongluck.github.io/categories/go">
-                    go
-                </a>
-                <span class="category-list-count">3</span>
-            </li>
-            
-        </ul>
-    </div>
+<div class="markdown-body" id="license">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)</a>.</p>
+    </blockquote>
 </div>
 
 
 
 
-    
-
-
-<div class="widget-wrap">
-    <h3 class="widget-title">
-        
-    </h3>
-    <div class="widget">
-        <ul class="category-list">
+            </div>
             
-            <li class="category-list-item">
+            <div class="col-md-3 col-12 float-left" id="sidebar">
                 
-                <a class="category-list-link" href="https://gongluck.github.io/tags/badapple">
-                    badapple
-                </a>
-                <span class="category-list-count">2</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://gongluck.github.io/tags/cgo">
-                    cgo
-                </a>
-                <span class="category-list-count">3</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://gongluck.github.io/tags/cpp">
-                    cpp
-                </a>
-                <span class="category-list-count">2</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://gongluck.github.io/tags/go">
-                    go
-                </a>
-                <span class="category-list-count">3</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://gongluck.github.io/tags/%E6%9D%82%E8%B0%88">
-                    杂谈
-                </a>
-                <span class="category-list-count">1</span>
-            </li>
-            
-        </ul>
-    </div>
+<div id="widget-toc">
+    <h5>TOC</h5>
+    <nav id="TableOfContents">
+  <ul>
+    <li></li>
+  </ul>
+</nav>
 </div>
 
-
-
-
-    
-
-
-<div class="widget-wrap">
-    <h3 class="widget-title">
-        
-    </h3>
-    <div class="widget tagcloud">
+<div id="widget-pages">
+    <h5>Pages</h5>
+    <ul>
         
         
-        <a href="https://gongluck.github.io/tags/badapple" style="font-size: 12px;">badapple</a>
+        <li>
+            <a href="/">Home</a>
+        </li>
         
+    </ul>
+</div>
+<div id="widget-tags">
+    <h5>Tags</h5>
+    <div>
         
-        <a href="https://gongluck.github.io/tags/cgo" style="font-size: 12px;">cgo</a>
+        <span>
+            <a href="https://gongluck.github.io/tags/badapple/">BadApple</a>
+        </span>
         
+        <span>
+            <a href="https://gongluck.github.io/tags/cgo/">cgo</a>
+        </span>
         
-        <a href="https://gongluck.github.io/tags/cpp" style="font-size: 12px;">cpp</a>
+        <span>
+            <a href="https://gongluck.github.io/tags/cpp/">cpp</a>
+        </span>
         
+        <span>
+            <a href="https://gongluck.github.io/tags/go/">go</a>
+        </span>
         
-        <a href="https://gongluck.github.io/tags/go" style="font-size: 12px;">go</a>
-        
-        
-        <a href="https://gongluck.github.io/tags/%E6%9D%82%E8%B0%88" style="font-size: 12px;">杂谈</a>
+        <span>
+            <a href="https://gongluck.github.io/tags/%E6%9D%82%E8%B0%88/">杂谈</a>
+        </span>
         
     </div>
 </div>
-
-
-
-
-
-    <div id="toTop" class="fa fa-angle-up"></div>
-</aside>
-
-    
-	</div>
+<div id="widget-links">
+    <h5>Links</h5>
+    <ul>
+        
+        <li>
+            <a href="https://github.com/gongluck" target="_blank"><span>GitHub</span></a>
+        </li>
+        
+        <li>
+            <a href="https://space.bilibili.com/39121604" target="_blank"><span>bilibili</span></a>
+        </li>
+        
+    </ul>
 </div>
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            </div>
+            
+            
+            <div id="scroll-top">
+                <i class="fas fa-chevron-up"></i>
+            </div>
+            
+        </div>
+    </main>
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <span id="busuanzi_container_site_pv">
     访问次数:<span id="busuanzi_value_site_pv"></span>
 </span>
 <span id="busuanzi_container_site_uv">
     您是第<span id="busuanzi_value_site_uv"></span>位访问者
 </span>
+    
+
+
+
+
+<script>
+    $("#widget-toc a").click(function () {
+        $("html, body").animate({
+            scrollTop: $($(this).attr("href")).offset().top
+        });
+        return false;
+    });
+</script>
+
+
+
+<script>
+    $("#scroll-top").click(function () {
+        $("html, body").animate({
+            scrollTop: 0
+        });
+    });
+</script>
+
+
 </body>
+
 </html>
