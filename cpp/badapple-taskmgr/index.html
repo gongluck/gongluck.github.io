@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.70.0" />
 
 <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/poal-jsdelivr/amzrk2/favicons/favicon.ico" />
 
@@ -82,7 +82,7 @@
     <time datetime="2020-04-08 18:28:36 &#43;0800 CST">2020-04-08</time> |
 </span>
 <span>
-    <span>717 words</span> |
+    <span>710 words</span> |
 </span>
 <span>
     
@@ -105,16 +105,16 @@
 <h3 id="代码仓库">代码仓库</h3>
 <p><a href="https://github.com/gongluck/Character-player/tree/taskmgr" target="_blank">https://github.com/gongluck/Character-player/tree/taskmgr</a></p>
 <div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#75715e">//process.cpp
-</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;process.h&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;../errcode.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;process.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;../errcode.h&#34;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
-<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#75715e">#ifdef _WIN32
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;TlHelp32.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;tchar.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;atlconv.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;TlHelp32.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;tchar.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;atlconv.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e">#endif
 </span><span style="color:#75715e"></span>
 <span style="color:#00a8c8">namespace</span> <span style="color:#111">gprocess</span>
@@ -203,35 +203,35 @@
     <span style="color:#111">}</span>
 <span style="color:#111">}</span> <span style="color:#75715e">// namespace gprocess
 </span></code></pre></div><div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#75715e">//main.cpp
-</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#75715e">#ifdef _WIN32
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;Windows.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;tchar.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;Windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;tchar.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e">#define ssize_t SSIZE_T
 </span><span style="color:#75715e">#endif
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vlc/vlc.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vlc/vlc.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
-<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;../../Code-snippet/cpp/process/process.h&#34;</span><span style="color:#75715e">
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;../../Code-snippet/cpp/process/process.h&#34;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#75715e">#define CHECKEQUALRET(ret, compare)\
-</span><span style="color:#75715e"></span><span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#111">ret</span> <span style="color:#f92672">==</span> <span style="color:#111">compare</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">\</span>
-<span style="color:#111">{</span><span style="color:#960050;background-color:#1e0010">\</span>
-    <span style="color:#111">std</span><span style="color:#f92672">::</span><span style="color:#111">cerr</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#d88200">&#34;error ocurred in &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#111">__FILE__</span><span style="color:#960050;background-color:#1e0010">\</span>
-              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#d88200">&#34;`s line &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#111">__LINE__</span><span style="color:#960050;background-color:#1e0010">\</span>
-              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#d88200">&#34;, error &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#111">ret</span><span style="color:#111">;</span><span style="color:#960050;background-color:#1e0010">\</span>
-    <span style="color:#00a8c8">goto</span> <span style="color:#111">END</span><span style="color:#111">;</span><span style="color:#960050;background-color:#1e0010">\</span>
-<span style="color:#111">}</span>
-
+</span><span style="color:#75715e">if(ret == compare)\
+</span><span style="color:#75715e">{\
+</span><span style="color:#75715e">    std::cerr &lt;&lt; &#34;error ocurred in &#34; &lt;&lt; __FILE__\
+</span><span style="color:#75715e">              &lt;&lt; &#34;`s line &#34; &lt;&lt; __LINE__\
+</span><span style="color:#75715e">              &lt;&lt; &#34;, error &#34; &lt;&lt; ret;\
+</span><span style="color:#75715e">    goto END;\
+</span><span style="color:#75715e">}
+</span><span style="color:#75715e"></span>
 <span style="color:#75715e">#define CHECKNEQUALRET(ret, compare)\
-</span><span style="color:#75715e"></span><span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#111">ret</span> <span style="color:#f92672">!=</span> <span style="color:#111">compare</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">\</span>
-<span style="color:#111">{</span><span style="color:#960050;background-color:#1e0010">\</span>
-    <span style="color:#111">std</span><span style="color:#f92672">::</span><span style="color:#111">cerr</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#d88200">&#34;error ocurred in &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#111">__FILE__</span><span style="color:#960050;background-color:#1e0010">\</span>
-              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#d88200">&#34;`s line &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#111">__LINE__</span><span style="color:#960050;background-color:#1e0010">\</span>
-              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#d88200">&#34;, error &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#111">ret</span><span style="color:#111">;</span><span style="color:#960050;background-color:#1e0010">\</span>
-    <span style="color:#00a8c8">goto</span> <span style="color:#111">END</span><span style="color:#111">;</span><span style="color:#960050;background-color:#1e0010">\</span>
-<span style="color:#111">}</span>
-
+</span><span style="color:#75715e">if(ret != compare)\
+</span><span style="color:#75715e">{\
+</span><span style="color:#75715e">    std::cerr &lt;&lt; &#34;error ocurred in &#34; &lt;&lt; __FILE__\
+</span><span style="color:#75715e">              &lt;&lt; &#34;`s line &#34; &lt;&lt; __LINE__\
+</span><span style="color:#75715e">              &lt;&lt; &#34;, error &#34; &lt;&lt; ret;\
+</span><span style="color:#75715e">    goto END;\
+</span><span style="color:#75715e">}
+</span><span style="color:#75715e"></span>
 <span style="color:#00a8c8">int</span> <span style="color:#75af00">getwindows</span><span style="color:#111">(</span><span style="color:#00a8c8">const</span> <span style="color:#111">TCHAR</span><span style="color:#f92672">*</span> <span style="color:#111">classname</span><span style="color:#111">,</span>
     <span style="color:#00a8c8">const</span> <span style="color:#111">gprocess</span><span style="color:#f92672">::</span><span style="color:#111">WindowInfo</span><span style="color:#f92672">&amp;</span> <span style="color:#111">info</span><span style="color:#111">,</span>
     <span style="color:#111">std</span><span style="color:#f92672">::</span><span style="color:#111">vector</span><span style="color:#f92672">&lt;</span><span style="color:#111">std</span><span style="color:#f92672">::</span><span style="color:#111">shared_ptr</span><span style="color:#f92672">&lt;</span><span style="color:#111">gprocess</span><span style="color:#f92672">::</span><span style="color:#111">WindowInfo</span><span style="color:#f92672">&gt;&gt;&amp;</span> <span style="color:#111">result</span><span style="color:#111">)</span>
@@ -401,6 +401,10 @@
         
         <span>
             <a href="https://gongluck.github.io/tags/cgo/">cgo</a>
+        </span>
+        
+        <span>
+            <a href="https://gongluck.github.io/tags/cmake/">cmake</a>
         </span>
         
         <span>

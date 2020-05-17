@@ -3,6 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://gongluck.github.io/tags/cmake/</loc>
+    <lastmod>2020-05-17T14:17:09+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gongluck.github.io/cmake/</loc>
+    <lastmod>2020-05-17T14:17:09+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gongluck.github.io/cmake/cmake-start/</loc>
+    <lastmod>2020-05-17T14:17:09+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gongluck.github.io/tags/cpp/</loc>
+    <lastmod>2020-05-17T14:17:09+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gongluck.github.io/</loc>
+    <lastmod>2020-05-17T14:17:09+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://gongluck.github.io/tags/cgo/</loc>
     <lastmod>2020-04-12T13:50:36+08:00</lastmod>
   </url>
@@ -14,11 +39,6 @@
   
   <url>
     <loc>https://gongluck.github.io/tags/go/</loc>
-    <lastmod>2020-04-12T13:50:36+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gongluck.github.io/</loc>
     <lastmod>2020-04-12T13:50:36+08:00</lastmod>
   </url>
   
@@ -39,11 +59,6 @@
   
   <url>
     <loc>https://gongluck.github.io/tags/badapple/</loc>
-    <lastmod>2020-04-08T18:28:36+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gongluck.github.io/tags/cpp/</loc>
     <lastmod>2020-04-08T18:28:36+08:00</lastmod>
   </url>
   
