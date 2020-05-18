@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<meta name="generator" content="Hugo 0.70.0" />
+<meta name="generator" content="Hugo 0.68.3" />
 
 <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/poal-jsdelivr/amzrk2/favicons/favicon.ico" />
 
@@ -85,7 +85,7 @@
     <time datetime="2020-05-17 14:17:09 &#43;0800 CST">2020-05-17</time> |
 </span>
 <span>
-    <span>1668 words</span> |
+    <span>1902 words</span> |
 </span>
 <span>
     
@@ -107,7 +107,7 @@
 <h3 id="简单项目">简单项目</h3>
 <p>创建目录<strong>mydemo</strong>，再在<strong>mydemo</strong>目录中创建<strong>CMakeLists.txt</strong>和<strong>main.c</strong>两个文件。</p>
 <div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#75715e">//main.c
-</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#00a8c8">int</span> <span style="color:#75af00">main</span><span style="color:#111">()</span>
 <span style="color:#111">{</span>
@@ -142,7 +142,7 @@ cmake --build ./build
 
 <span style="color:#75715e">#endif</span><span style="color:#75715e">//__MYFUN_H__
 </span></code></pre></div><div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#75715e">//myfun.c
-</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;myfun.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;myfun.h&#34;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#00a8c8">int</span> <span style="color:#75af00">myfun</span><span style="color:#111">(</span><span style="color:#00a8c8">int</span> <span style="color:#111">a</span><span style="color:#111">,</span> <span style="color:#00a8c8">int</span> <span style="color:#111">b</span><span style="color:#111">)</span>
 <span style="color:#111">{</span>
@@ -169,8 +169,8 @@ cmake --build ./build
 </span></code></pre></div><p><em><strong>SHARED</strong></em>可以省略，省略后相当于<em><strong>STATIC</strong></em>。</p>
 <p><strong>mydemo</strong>下的<strong>CMakeLists.txt</strong>和<strong>main.c</strong>也要做修改。然后，<strong>重新构建生成</strong>。</p>
 <div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#75715e">//main.c
-</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;myfun/myfun.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;myfun/myfun.h&#34;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#00a8c8">int</span> <span style="color:#75af00">main</span><span style="color:#111">()</span>
 <span style="color:#111">{</span>
@@ -226,9 +226,9 @@ cmake --build ./build
 </span><span style="color:#75715e"></span><span style="color:#111">project</span><span style="color:#111">(</span><span style="color:#f92672">${</span><span style="color:#111">CURRENT_FOLDER</span><span style="color:#f92672">}</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 加入一个配置头文件用于处理 CMake 对源码的设置
-</span><span style="color:#75715e"></span><span style="color:#111">configure_file</span><span style="color:#111">(</span>
-  <span style="color:#f92672">${</span><span style="color:#111">PROJECT_SOURCE_DIR</span><span style="color:#f92672">}</span><span style="color:#d88200">/config.h.in</span>
-  <span style="color:#f92672">${</span><span style="color:#111">PROJECT_BINARY_DIR</span><span style="color:#f92672">}</span><span style="color:#d88200">/config.h</span>
+</span><span style="color:#75715e"></span><span style="color:#111">configure_file</span><span style="color:#111">(</span><span style="color:#d88200"></span>
+  <span style="color:#f92672">${</span><span style="color:#111">PROJECT_SOURCE_DIR</span><span style="color:#f92672">}</span><span style="color:#d88200">/config.h.in</span>
+  <span style="color:#f92672">${</span><span style="color:#111">PROJECT_BINARY_DIR</span><span style="color:#f92672">}</span><span style="color:#d88200">/config.h</span>
   <span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 自定义编译选项
@@ -264,10 +264,10 @@ cmake --build ./build
 <div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#75715e">/* #undef USESUBMODULE */</span>
 </code></pre></div><p><strong>main.c</strong>也需要调整：</p>
 <div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#75715e">//main.c
-</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#75715e">#ifdef USESUBMODULE
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;myfun.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;myfun.h&#34;</span><span style="color:#75715e">
 </span><span style="color:#75715e">#endif</span><span style="color:#75715e">//USESUBMODULE
 </span><span style="color:#75715e"></span>
 <span style="color:#00a8c8">int</span> <span style="color:#75af00">main</span><span style="color:#111">()</span>
@@ -284,6 +284,25 @@ cmake --build ./build
 <pre><code class="language-command" data-lang="command">cmake -S . -B ./build -DUSESUBMODULE=ON
 cmake -S . -B ./build -DUSESUBMODULE=OFF
 </code></pre><p><img src="../../img/cmake_build3.PNG" alt="cmake_build3.PNG"></p>
+<h3 id="安装">安装</h3>
+<p><strong>CMakeLists.txt</strong>的<em><strong>install</strong></em>命令：</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-CMake" data-lang="CMake"><span style="color:#75715e"># 安装目标文件
+</span><span style="color:#75715e"></span><span style="color:#111">install</span><span style="color:#111">(</span><span style="color:#d88200">TARGETS</span> <span style="color:#d88200">[名称]</span> <span style="color:#d88200">DESTINATION</span> <span style="color:#d88200">[目录]</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 安装普通文件
+</span><span style="color:#75715e"></span><span style="color:#111">install</span><span style="color:#111">(</span><span style="color:#d88200">FILES</span> <span style="color:#d88200">[名称]</span> <span style="color:#d88200">DESTINATION</span> <span style="color:#d88200">[目录]</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>主模块和子模块的<strong>CMakeLists.txt</strong>分别添加对应的<em><strong>install</strong></em>命令：</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-CMake" data-lang="CMake"><span style="color:#75715e"># 指定安装路径
+</span><span style="color:#75715e"></span><span style="color:#111">install</span><span style="color:#111">(</span><span style="color:#d88200">TARGETS</span> <span style="color:#f92672">${</span><span style="color:#111">PROJECT_NAME</span><span style="color:#f92672">}</span> <span style="color:#d88200">DESTINATION</span> <span style="color:#d88200">bin</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#111">install</span><span style="color:#111">(</span><span style="color:#d88200">FILES</span> <span style="color:#d88200">&#34;${PROJECT_BINARY_DIR}/config.h&#34;</span> <span style="color:#d88200">DESTINATION</span> <span style="color:#d88200">include</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-CMake" data-lang="CMake"><span style="color:#75715e"># 指定库的安装路径
+</span><span style="color:#75715e"></span><span style="color:#111">install</span><span style="color:#111">(</span><span style="color:#d88200">TARGETS</span> <span style="color:#f92672">${</span><span style="color:#111">PROJECT_NAME</span><span style="color:#f92672">}</span> <span style="color:#d88200">DESTINATION</span> <span style="color:#d88200">lib</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#111">install</span><span style="color:#111">(</span><span style="color:#d88200">FILES</span> <span style="color:#f92672">${</span><span style="color:#111">PROJECT_NAME</span><span style="color:#f92672">}</span><span style="color:#d88200">.h</span> <span style="color:#d88200">DESTINATION</span> <span style="color:#d88200">include</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>最后执行：</p>
+<pre><code class="language-command" data-lang="command">cmake -S ./ -B ./build
+cmake --build ./build --config Release
+cmake --install ./build --config Release --prefix ./install
+</code></pre><p><em><strong>cmake &ndash;install ./build</strong></em>命令就是执行 <strong>./build</strong>目录中项目的安装，<em><strong>&ndash;prefix ./install</strong></em>参数表示安装到 <strong>./install</strong>目录。
+<img src="../../img/cmake_build4.PNG" alt="cmake_build4.PNG"></p>
     </div>
 </article>
 
