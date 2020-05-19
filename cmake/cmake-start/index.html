@@ -85,7 +85,7 @@
     <time datetime="2020-05-17 14:17:09 &#43;0800 CST">2020-05-17</time> |
 </span>
 <span>
-    <span>1902 words</span> |
+    <span>2195 words</span> |
 </span>
 <span>
     
@@ -303,6 +303,40 @@ cmake --build ./build --config Release
 cmake --install ./build --config Release --prefix ./install
 </code></pre><p><em><strong>cmake &ndash;install ./build</strong></em>命令就是执行 <strong>./build</strong>目录中项目的安装，<em><strong>&ndash;prefix ./install</strong></em>参数表示安装到 <strong>./install</strong>目录。
 <img src="../../img/cmake_build4.PNG" alt="cmake_build4.PNG"></p>
+<h3 id="测试">测试</h3>
+<p>启用测试：</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-CMake" data-lang="CMake"><span style="color:#75715e"># 启用测试
+</span><span style="color:#75715e"></span><span style="color:#111">enable_testing</span><span style="color:#111">()</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>添加测试使用：</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-CMake" data-lang="CMake"><span style="color:#111">add_test</span><span style="color:#111">(</span><span style="color:#d88200">NAME</span> <span style="color:#d88200">[测试名]</span> <span style="color:#d88200">COMMAND</span> <span style="color:#d88200">[测试执行命令及参数]</span> <span style="color:#d88200">WORKING_DIRECTORY</span> <span style="color:#d88200">[工作目录]</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#111">set_tests_properties</span><span style="color:#111">(</span><span style="color:#d88200">[测试名]</span> <span style="color:#d88200">PROPERTIES</span> <span style="color:#d88200">PASS_REGULAR_EXPRESSION</span> <span style="color:#d88200">[匹配输出]</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>主模块<strong>CMakeLists.txt</strong>添加：</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-CMake" data-lang="CMake"><span style="color:#75715e"># 分别设置了Debug版本和Release版本可执行文件的输出目录
+</span><span style="color:#75715e"></span><span style="color:#111">set</span><span style="color:#111">(</span><span style="color:#d88200">CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG</span> <span style="color:#f92672">${</span><span style="color:#111">CMAKE_BINARY_DIR</span><span style="color:#f92672">}</span><span style="color:#d88200">/bin</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#111">set</span><span style="color:#111">(</span><span style="color:#d88200">CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE</span> <span style="color:#f92672">${</span><span style="color:#111">CMAKE_BINARY_DIR</span><span style="color:#f92672">}</span><span style="color:#d88200">/bin</span><span style="color:#111">)</span> <span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 分别设置了Debug版本和Release版本库文件的输出目录
+</span><span style="color:#75715e"></span><span style="color:#111">set</span><span style="color:#111">(</span><span style="color:#d88200">CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG</span> <span style="color:#f92672">${</span><span style="color:#111">CMAKE_BINARY_DIR</span><span style="color:#f92672">}</span><span style="color:#d88200">/lib</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#111">set</span><span style="color:#111">(</span><span style="color:#d88200">CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE</span> <span style="color:#f92672">${</span><span style="color:#111">CMAKE_BINARY_DIR</span><span style="color:#f92672">}</span><span style="color:#d88200">/lib</span><span style="color:#111">)</span> <span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 定义一个宏，用来简化测试工作
+</span><span style="color:#75715e"></span><span style="color:#111">macro</span><span style="color:#111">(</span><span style="color:#d88200">do_test</span> <span style="color:#d88200">mycommand</span> <span style="color:#d88200">myret</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#111">add_test</span><span style="color:#111">(</span><span style="color:#d88200">NAME</span> <span style="color:#d88200">test_</span><span style="color:#f92672">${</span><span style="color:#111">mycommand</span><span style="color:#f92672">}</span><span style="color:#d88200">_</span><span style="color:#f92672">${</span><span style="color:#111">myret</span><span style="color:#f92672">}</span> <span style="color:#d88200">COMMAND</span> <span style="color:#f92672">${</span><span style="color:#111">mycommand</span><span style="color:#f92672">}</span> <span style="color:#d88200">WORKING_DIRECTORY</span> <span style="color:#f92672">${</span><span style="color:#111">CMAKE_BINARY_DIR</span><span style="color:#f92672">}</span><span style="color:#d88200">/bin</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 检查测试输出是否包含&#34;${myret}&#34;
+</span><span style="color:#75715e"></span><span style="color:#111">set_tests_properties</span><span style="color:#111">(</span><span style="color:#d88200">test_</span><span style="color:#f92672">${</span><span style="color:#111">mycommand</span><span style="color:#f92672">}</span><span style="color:#d88200">_</span><span style="color:#f92672">${</span><span style="color:#111">myret</span><span style="color:#f92672">}</span> <span style="color:#d88200">PROPERTIES</span> <span style="color:#d88200">PASS_REGULAR_EXPRESSION</span> <span style="color:#f92672">${</span><span style="color:#111">myret</span><span style="color:#f92672">}</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#111">endmacro</span><span style="color:#111">(</span><span style="color:#d88200">do_test</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 启用测试
+</span><span style="color:#75715e"></span><span style="color:#111">enable_testing</span><span style="color:#111">()</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 测试程序
+</span><span style="color:#75715e"></span><span style="color:#111">do_test</span><span style="color:#111">(</span><span style="color:#d88200">mydemo</span> <span style="color:#d88200">&#34;cmake&#34;</span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>执行命令编译和测试：</p>
+<pre><code class="language-Command" data-lang="Command">cmake -S ./ -B ./build
+cmake --build ./build --config Release
+cd ./build
+ctest --force-new-ctest-process -C Release
+</code></pre><p><img src="../../img/cmake_build5.PNG" alt="cmake_build5.PNG"></p>
     </div>
 </article>
 
