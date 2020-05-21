@@ -1,0 +1,1301 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gongluck&#39;s blog</title>
+    <link>https://gongluck.github.io/</link>
+    <description>Recent content on gongluck&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 17 May 2020 14:17:09 +0800</lastBuildDate>
+    
+        <atom:link href="https://gongluck.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>CMake入门</title>
+        <link>https://gongluck.github.io/cmake/cmake-start/</link>
+        <pubDate>Sun, 17 May 2020 14:17:09 +0800</pubDate>
+        
+        <guid>https://gongluck.github.io/cmake/cmake-start/</guid>
+        <description>gongluck&#39;s blog https://gongluck.github.io/cmake/cmake-start/ -&lt;p&gt;&lt;strong&gt;CMake&lt;/strong&gt;是一个跨平台的安装(编译)工具，可以用简单的语句来描述所有平台的安装(编译过程)。能够输出各种各样的&lt;strong&gt;makefile&lt;/strong&gt;或者&lt;strong&gt;project&lt;/strong&gt;文件，能测试编译器所支持的&lt;strong&gt;C++&lt;/strong&gt;特性,类似&lt;strong&gt;UNIX&lt;/strong&gt;下的&lt;strong&gt;automake&lt;/strong&gt;。只是 &lt;strong&gt;CMake&lt;/strong&gt;的组态档取名为&lt;strong&gt;CMakeLists.txt&lt;/strong&gt;。&lt;strong&gt;Cmake&lt;/strong&gt;并不直接建构出最终的软件，而是产生标准的建构档(如 &lt;strong&gt;Unix&lt;/strong&gt;的&lt;strong&gt;Makefile&lt;/strong&gt;或&lt;strong&gt;Windows Visual C++&lt;/strong&gt;的&lt;strong&gt;projects/workspaces&lt;/strong&gt;)，然后再依一般的建构方式使用。这使得熟悉某个集成开发环境(IDE)的开发者可以用标准的方式建构他的软件，这种可以使用各平台的原生建构系统的能力是&lt;strong&gt;CMake&lt;/strong&gt;和&lt;strong&gt;SCons&lt;/strong&gt;等其他类似系统的区别之处。&lt;/p&gt;
+&lt;p&gt;至于出现一份代码，到处编译，但是编译不过就有可能是代码的问题了。&lt;/p&gt;
+&lt;h3 id=&#34;代码仓库&#34;&gt;代码仓库&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CMake-Demo.git&#34;&gt;https://github.com/gongluck/CMake-Demo.git&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;简单项目&#34;&gt;简单项目&lt;/h3&gt;
+&lt;p&gt;创建目录&lt;strong&gt;mydemo&lt;/strong&gt;，再在&lt;strong&gt;mydemo&lt;/strong&gt;目录中创建&lt;strong&gt;CMakeLists.txt&lt;/strong&gt;和&lt;strong&gt;main.c&lt;/strong&gt;两个文件。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//main.c
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;()
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;hello, cmake!&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-CMake&#34; data-lang=&#34;CMake&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;#CMakelists.txt
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# CMake最低版本要求
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;cmake_minimum_required&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;VERSION&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;3.0&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 项目名称
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;project&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;mydemo&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 查找当前目录下所有源文件并保存到变量
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;aux_source_directory&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;.&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;SRCS&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 指定生成目标
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;add_executable&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;mydemo&lt;/span&gt; ${&lt;span style=&#34;color:#00688b&#34;&gt;SRCS&lt;/span&gt;})&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;之后执行命令：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-command&#34; data-lang=&#34;command&#34;&gt;cmake -S . -B ./build
+cmake --build ./build
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;第一条命令是生成目标平台的项目，将生成使用系统上默认的编译套件的工程。&lt;em&gt;&lt;strong&gt;-S&lt;/strong&gt;&lt;/em&gt;后面的参数是&lt;strong&gt;CMake&lt;/strong&gt;工程&lt;strong&gt;CMakeLists.txt&lt;/strong&gt;文件所在目录，&lt;em&gt;&lt;strong&gt;-B&lt;/strong&gt;&lt;/em&gt;后面的参数是将要生成的目标平台项目文件存放的目录。
+第二条命令是构建项目，当然也可以通过其他工具打开项目构建或者执行&lt;em&gt;&lt;strong&gt;make&lt;/strong&gt;&lt;/em&gt;命令等。&lt;em&gt;&lt;strong&gt;&amp;ndash;build&lt;/strong&gt;&lt;/em&gt;是&lt;strong&gt;CMake&lt;/strong&gt;程序构建的命令，后面的参数是需要构建的项目的路径。
+&lt;img src=&#34;https://gongluck.github.io/img/cmake_build.jpg&#34; alt=&#34;cmake_build.jpg&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;增加子模块&#34;&gt;增加子模块&lt;/h3&gt;
+&lt;p&gt;创建目录&lt;strong&gt;myfun&lt;/strong&gt;，再在&lt;strong&gt;myfun&lt;/strong&gt;目录中创建&lt;strong&gt;CMakeLists.txt&lt;/strong&gt;、&lt;strong&gt;myfun.h&lt;/strong&gt;和&lt;strong&gt;myfun.c&lt;/strong&gt;三个文件。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//myfun.h
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#ifndef __MYFUN_H__
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define __MYFUN_H__
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;myfun&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; a, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; b);
+
+&lt;span style=&#34;color:#1e889b&#34;&gt;#endif&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//__MYFUN_H__
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//myfun.c
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;myfun.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;myfun&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; a, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; b)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; a+b;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-CMake&#34; data-lang=&#34;CMake&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;#CMakelists.txt
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# CMake最低版本要求
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;cmake_minimum_required&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;VERSION&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;3.0&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 获取当前文件夹名
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;STRING&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;REGEX&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;REPLACE&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;.*/(.*)&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;\\1&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;CURRENT_FOLDER&lt;/span&gt; ${&lt;span style=&#34;color:#00688b&#34;&gt;CMAKE_CURRENT_SOURCE_DIR&lt;/span&gt;})&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 项目名称
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;project&lt;/span&gt;(${&lt;span style=&#34;color:#00688b&#34;&gt;CURRENT_FOLDER&lt;/span&gt;})&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 查找当前目录下所有源文件并保存到变量
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;aux_source_directory&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;.&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;SRCS&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 生成链接库
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;add_library&lt;/span&gt;(${&lt;span style=&#34;color:#00688b&#34;&gt;PROJECT_NAME&lt;/span&gt;} ${&lt;span style=&#34;color:#00688b&#34;&gt;SRCS&lt;/span&gt;})&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;子模块中的&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-CMake&#34; data-lang=&#34;CMake&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 生成链接库
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;add_library&lt;/span&gt;(${&lt;span style=&#34;color:#00688b&#34;&gt;PROJECT_NAME&lt;/span&gt;} &lt;span style=&#34;color:#cd5555&#34;&gt;SHARED&lt;/span&gt; ${&lt;span style=&#34;color:#00688b&#34;&gt;SRCS&lt;/span&gt;})&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;em&gt;&lt;strong&gt;SHARED&lt;/strong&gt;&lt;/em&gt;可以省略，省略后相当于&lt;em&gt;&lt;strong&gt;STATIC&lt;/strong&gt;&lt;/em&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;mydemo&lt;/strong&gt;下的&lt;strong&gt;CMakeLists.txt&lt;/strong&gt;和&lt;strong&gt;main.c&lt;/strong&gt;也要做修改。然后，&lt;strong&gt;重新构建生成&lt;/strong&gt;。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//main.c
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;myfun/myfun.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;()
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;hello, cmake!&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;);
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;1+1=%d&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, myfun(&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;));
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-CMake&#34; data-lang=&#34;CMake&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;#CMakelists.txt
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# CMake最低版本要求
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;cmake_minimum_required&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;VERSION&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;3.0&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 获取当前文件夹名
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;STRING&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;REGEX&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;REPLACE&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;.*/(.*)&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;\\1&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;CURRENT_FOLDER&lt;/span&gt; ${&lt;span style=&#34;color:#00688b&#34;&gt;CMAKE_CURRENT_SOURCE_DIR&lt;/span&gt;})&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 项目名称
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;project&lt;/span&gt;(${&lt;span style=&#34;color:#00688b&#34;&gt;CURRENT_FOLDER&lt;/span&gt;})&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 设置变量
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;SUBMODULE&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;myfun&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 添加子目录
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 必须放在aux_source_directory前,否则同名变量SRCS会冲突
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;add_subdirectory&lt;/span&gt;(${&lt;span style=&#34;color:#00688b&#34;&gt;SUBMODULE&lt;/span&gt;})&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 查找当前目录下所有源文件并保存到变量
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;aux_source_directory&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;.&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;SRCS&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 指定生成目标
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;add_executable&lt;/span&gt;(${&lt;span style=&#34;color:#00688b&#34;&gt;PROJECT_NAME&lt;/span&gt;} ${&lt;span style=&#34;color:#00688b&#34;&gt;SRCS&lt;/span&gt;})&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 添加链接库
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;target_link_libraries&lt;/span&gt;(${&lt;span style=&#34;color:#00688b&#34;&gt;PROJECT_NAME&lt;/span&gt;} ${&lt;span style=&#34;color:#00688b&#34;&gt;SUBMODULE&lt;/span&gt;})&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;主模块中主要改动在&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-CMake&#34; data-lang=&#34;CMake&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 添加子目录
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 必须放在aux_source_directory前,否则同名变量SRCS会冲突
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;add_subdirectory&lt;/span&gt;(${&lt;span style=&#34;color:#00688b&#34;&gt;SUBMODULE&lt;/span&gt;})&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 添加链接库
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;target_link_libraries&lt;/span&gt;(${&lt;span style=&#34;color:#00688b&#34;&gt;PROJECT_NAME&lt;/span&gt;} ${&lt;span style=&#34;color:#00688b&#34;&gt;SUBMODULE&lt;/span&gt;})&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;em&gt;&lt;strong&gt;add_subdirectory&lt;/strong&gt;&lt;/em&gt;命令添加子模块目录，&lt;strong&gt;CMake&lt;/strong&gt;会自动执行子模块中的&lt;strong&gt;CMakelists.txt&lt;/strong&gt;。
+&lt;em&gt;&lt;strong&gt;target_link_libraries&lt;/strong&gt;&lt;/em&gt;命令是将子模块链接到主模块。
+&lt;img src=&#34;https://gongluck.github.io/img/cmake_build2.PNG&#34; alt=&#34;cmake_build2.PNG&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;自定义编译选项&#34;&gt;自定义编译选项&lt;/h3&gt;
+&lt;p&gt;主模块的&lt;strong&gt;CMakelists.txt&lt;/strong&gt;修改成：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-CMake&#34; data-lang=&#34;CMake&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;#CMakeLists.txt
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# CMake最低版本要求
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;cmake_minimum_required&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;VERSION&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;3.0&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 获取当前文件夹名
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;STRING&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;REGEX&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;REPLACE&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;.*/(.*)&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;\\1&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;CURRENT_FOLDER&lt;/span&gt; ${&lt;span style=&#34;color:#00688b&#34;&gt;CMAKE_CURRENT_SOURCE_DIR&lt;/span&gt;})&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 项目名称
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;project&lt;/span&gt;(${&lt;span style=&#34;color:#00688b&#34;&gt;CURRENT_FOLDER&lt;/span&gt;})&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 加入一个配置头文件用于处理 CMake 对源码的设置
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;configure_file&lt;/span&gt;(
+  ${&lt;span style=&#34;color:#00688b&#34;&gt;PROJECT_SOURCE_DIR&lt;/span&gt;}&lt;span style=&#34;color:#cd5555&#34;&gt;/config.h.in&lt;/span&gt;
+  ${&lt;span style=&#34;color:#00688b&#34;&gt;PROJECT_BINARY_DIR&lt;/span&gt;}&lt;span style=&#34;color:#cd5555&#34;&gt;/config.h&lt;/span&gt;
+  )&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 自定义编译选项
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;option&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;USESUBMODULE&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;use submodule&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;ON&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#cd5555&#34;&gt;USESUBMODULE&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;# 设置变量
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#658b00&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;SUBMODULE&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;myfun&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;# 添加包含路径
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#658b00&#34;&gt;include_directories&lt;/span&gt;(${&lt;span style=&#34;color:#00688b&#34;&gt;SUBMODULE&lt;/span&gt;})&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;# 添加子目录
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;# 必须放在aux_source_directory前,否则同名变量SRCS会冲突
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#658b00&#34;&gt;add_subdirectory&lt;/span&gt;(${&lt;span style=&#34;color:#00688b&#34;&gt;SUBMODULE&lt;/span&gt;})&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;# 设置附加库变量
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#658b00&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;EXTRA_LIBS&lt;/span&gt; ${&lt;span style=&#34;color:#00688b&#34;&gt;EXTRA_LIBS&lt;/span&gt;} ${&lt;span style=&#34;color:#00688b&#34;&gt;SUBMODULE&lt;/span&gt;})&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;endif&lt;/span&gt; (&lt;span style=&#34;color:#cd5555&#34;&gt;USESUBMODULE&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 查找当前目录下所有源文件并保存到变量
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;aux_source_directory&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;.&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;SRCS&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 指定生成目标
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;add_executable&lt;/span&gt;(${&lt;span style=&#34;color:#00688b&#34;&gt;PROJECT_NAME&lt;/span&gt;} ${&lt;span style=&#34;color:#00688b&#34;&gt;SRCS&lt;/span&gt;})&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 添加链接库
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;target_link_libraries&lt;/span&gt;(${&lt;span style=&#34;color:#00688b&#34;&gt;PROJECT_NAME&lt;/span&gt;} ${&lt;span style=&#34;color:#00688b&#34;&gt;EXTRA_LIBS&lt;/span&gt;})&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;创建&lt;strong&gt;config.h.in&lt;/strong&gt;文件并输入：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-CMake&#34; data-lang=&#34;CMake&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;#cmakedefine USEMYPRINT
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;em&gt;&lt;strong&gt;option&lt;/strong&gt;&lt;/em&gt;命令可以设置自定义编译选项，&lt;em&gt;&lt;strong&gt;configure_file&lt;/strong&gt;&lt;/em&gt;命令用于设置配置文件。生成目标工程时，目标目录会生成一个&lt;strong&gt;config.h&lt;/strong&gt;文件。&lt;strong&gt;config.h&lt;/strong&gt;中，如果&lt;em&gt;&lt;strong&gt;USESUBMODULE&lt;/strong&gt;&lt;/em&gt;选项被打开就为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define USESUBMODULE
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;否则是：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/* #undef USESUBMODULE */&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;main.c&lt;/strong&gt;也需要调整：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//main.c
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef USESUBMODULE
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;myfun.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//USESUBMODULE
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;()
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;hello, cmake!&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef USESUBMODULE
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;1+1=%d&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, myfun(&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;));
+&lt;span style=&#34;color:#1e889b&#34;&gt;#endif&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//USESUBMODULE
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;CMake&lt;/strong&gt;打开选项的命令：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-command&#34; data-lang=&#34;command&#34;&gt;cmake -D[宏名]=[宏值]
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;所以，开关&lt;em&gt;&lt;strong&gt;USESUBMODULE&lt;/strong&gt;&lt;/em&gt;选项使用：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-command&#34; data-lang=&#34;command&#34;&gt;cmake -S . -B ./build -DUSESUBMODULE=ON
+cmake -S . -B ./build -DUSESUBMODULE=OFF
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://gongluck.github.io/img/cmake_build3.PNG&#34; alt=&#34;cmake_build3.PNG&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;安装&#34;&gt;安装&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;CMakeLists.txt&lt;/strong&gt;的&lt;em&gt;&lt;strong&gt;install&lt;/strong&gt;&lt;/em&gt;命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-CMake&#34; data-lang=&#34;CMake&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 安装目标文件
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;install&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;TARGETS&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;[名称]&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;DESTINATION&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;[目录]&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 安装普通文件
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;install&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;FILES&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;[名称]&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;DESTINATION&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;[目录]&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;主模块和子模块的&lt;strong&gt;CMakeLists.txt&lt;/strong&gt;分别添加对应的&lt;em&gt;&lt;strong&gt;install&lt;/strong&gt;&lt;/em&gt;命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-CMake&#34; data-lang=&#34;CMake&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 指定安装路径
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;install&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;TARGETS&lt;/span&gt; ${&lt;span style=&#34;color:#00688b&#34;&gt;PROJECT_NAME&lt;/span&gt;} &lt;span style=&#34;color:#cd5555&#34;&gt;DESTINATION&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;bin&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;install&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;FILES&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;${PROJECT_BINARY_DIR}/config.h&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;DESTINATION&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;include&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-CMake&#34; data-lang=&#34;CMake&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 指定库的安装路径
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;install&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;TARGETS&lt;/span&gt; ${&lt;span style=&#34;color:#00688b&#34;&gt;PROJECT_NAME&lt;/span&gt;} &lt;span style=&#34;color:#cd5555&#34;&gt;DESTINATION&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;lib&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;install&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;FILES&lt;/span&gt; ${&lt;span style=&#34;color:#00688b&#34;&gt;PROJECT_NAME&lt;/span&gt;}&lt;span style=&#34;color:#cd5555&#34;&gt;.h&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;DESTINATION&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;include&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最后执行：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-command&#34; data-lang=&#34;command&#34;&gt;cmake -S ./ -B ./build
+cmake --build ./build --config Release
+cmake --install ./build --config Release --prefix ./install
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;em&gt;&lt;strong&gt;cmake &amp;ndash;install ./build&lt;/strong&gt;&lt;/em&gt;命令就是执行 &lt;strong&gt;./build&lt;/strong&gt;目录中项目的安装，&lt;em&gt;&lt;strong&gt;&amp;ndash;prefix ./install&lt;/strong&gt;&lt;/em&gt;参数表示安装到 &lt;strong&gt;./install&lt;/strong&gt;目录。
+&lt;img src=&#34;https://gongluck.github.io/img/cmake_build4.PNG&#34; alt=&#34;cmake_build4.PNG&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;测试&#34;&gt;测试&lt;/h3&gt;
+&lt;p&gt;启用测试：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-CMake&#34; data-lang=&#34;CMake&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 启用测试
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;enable_testing&lt;/span&gt;()&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;添加测试使用：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-CMake&#34; data-lang=&#34;CMake&#34;&gt;&lt;span style=&#34;color:#658b00&#34;&gt;add_test&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;NAME&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;[测试名]&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;COMMAND&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;[测试执行命令及参数]&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;WORKING_DIRECTORY&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;[工作目录]&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;set_tests_properties&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;[测试名]&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;PROPERTIES&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;PASS_REGULAR_EXPRESSION&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;[匹配输出]&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;主模块&lt;strong&gt;CMakeLists.txt&lt;/strong&gt;添加：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-CMake&#34; data-lang=&#34;CMake&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 分别设置了Debug版本和Release版本可执行文件的输出目录
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG&lt;/span&gt; ${&lt;span style=&#34;color:#00688b&#34;&gt;CMAKE_BINARY_DIR&lt;/span&gt;}&lt;span style=&#34;color:#cd5555&#34;&gt;/bin&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE&lt;/span&gt; ${&lt;span style=&#34;color:#00688b&#34;&gt;CMAKE_BINARY_DIR&lt;/span&gt;}&lt;span style=&#34;color:#cd5555&#34;&gt;/bin&lt;/span&gt;) &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 分别设置了Debug版本和Release版本库文件的输出目录
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG&lt;/span&gt; ${&lt;span style=&#34;color:#00688b&#34;&gt;CMAKE_BINARY_DIR&lt;/span&gt;}&lt;span style=&#34;color:#cd5555&#34;&gt;/lib&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE&lt;/span&gt; ${&lt;span style=&#34;color:#00688b&#34;&gt;CMAKE_BINARY_DIR&lt;/span&gt;}&lt;span style=&#34;color:#cd5555&#34;&gt;/lib&lt;/span&gt;) &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 定义一个宏，用来简化测试工作
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;macro&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;do_test&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;mycommand&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;myret&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;add_test&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;NAME&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;test_&lt;/span&gt;${&lt;span style=&#34;color:#00688b&#34;&gt;mycommand&lt;/span&gt;}&lt;span style=&#34;color:#cd5555&#34;&gt;_&lt;/span&gt;${&lt;span style=&#34;color:#00688b&#34;&gt;myret&lt;/span&gt;} &lt;span style=&#34;color:#cd5555&#34;&gt;COMMAND&lt;/span&gt; ${&lt;span style=&#34;color:#00688b&#34;&gt;mycommand&lt;/span&gt;} &lt;span style=&#34;color:#cd5555&#34;&gt;WORKING_DIRECTORY&lt;/span&gt; ${&lt;span style=&#34;color:#00688b&#34;&gt;CMAKE_BINARY_DIR&lt;/span&gt;}&lt;span style=&#34;color:#cd5555&#34;&gt;/bin&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 检查测试输出是否包含&amp;#34;${myret}&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;set_tests_properties&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;test_&lt;/span&gt;${&lt;span style=&#34;color:#00688b&#34;&gt;mycommand&lt;/span&gt;}&lt;span style=&#34;color:#cd5555&#34;&gt;_&lt;/span&gt;${&lt;span style=&#34;color:#00688b&#34;&gt;myret&lt;/span&gt;} &lt;span style=&#34;color:#cd5555&#34;&gt;PROPERTIES&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;PASS_REGULAR_EXPRESSION&lt;/span&gt; ${&lt;span style=&#34;color:#00688b&#34;&gt;myret&lt;/span&gt;})&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;endmacro&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;do_test&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 启用测试
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;enable_testing&lt;/span&gt;()&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 测试程序
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;do_test&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;mydemo&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;cmake&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;执行命令编译和测试：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-Command&#34; data-lang=&#34;Command&#34;&gt;cmake -S ./ -B ./build
+cmake --build ./build --config Release
+cd ./build
+ctest --force-new-ctest-process -C Release
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://gongluck.github.io/img/cmake_build5.PNG&#34; alt=&#34;cmake_build5.PNG&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;函数检查&#34;&gt;函数检查&lt;/h3&gt;
+&lt;p&gt;主模块&lt;strong&gt;CMakeLists.txt&lt;/strong&gt;添加：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-CMake&#34; data-lang=&#34;CMake&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 添加函数检查功能
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;include&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;CheckFunctionExists&lt;/span&gt;)   &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;check_function_exists&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;printf&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;HAVEPRINTF&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;if&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;HAVEPRINTF&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#228b22&#34;&gt;# 添加宏定义
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#658b00&#34;&gt;add_definitions&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;-DHAVEPRINTF&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;endif&lt;/span&gt;()&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;检查&lt;em&gt;&lt;strong&gt;printf&lt;/strong&gt;&lt;/em&gt;函数并且定义&lt;em&gt;&lt;strong&gt;HAVEPRINTF&lt;/strong&gt;&lt;/em&gt;宏。
+&lt;strong&gt;main.c&lt;/strong&gt;也需要调整：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;config.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef USESUBMODULE
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;myfun.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//USESUBMODULE
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;()
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;hello, cmake!&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;);
+
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef USESUBMODULE
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;1+1=%d&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, myfun(&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;));
+&lt;span style=&#34;color:#1e889b&#34;&gt;#endif&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//USESUBMODULE
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef HAVEPRINTF
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;    puts(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;found printf.&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#1e889b&#34;&gt;#else
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;    puts(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;not found printf.&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#1e889b&#34;&gt;#endif&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//HAVEPRINTF
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;执行命令生成：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-Command&#34; data-lang=&#34;Command&#34;&gt;cmake -S ./ -B ./build
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;&lt;strong&gt;很不幸，生成Visual Studio工程时，printf函数总是找不到，但puts这类却是可以找到&lt;/strong&gt;&lt;/strong&gt;
+&lt;img src=&#34;https://gongluck.github.io/img/cmake_build6.PNG&#34; alt=&#34;cmake_build6.PNG&#34;&gt;
+&lt;img src=&#34;https://gongluck.github.io/img/cmake_build7.PNG&#34; alt=&#34;cmake_build7.PNG&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;添加版本号&#34;&gt;添加版本号&lt;/h3&gt;
+&lt;p&gt;主模块&lt;strong&gt;CMakeLists.txt&lt;/strong&gt;添加：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-CMake&#34; data-lang=&#34;CMake&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 添加版本号
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;VERSION_MAJOR&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;1&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;VERSION_MINOR&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;0&lt;/span&gt;)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;config.h.in&lt;/strong&gt;添加：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-CMake&#34; data-lang=&#34;CMake&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;#define VERSION_MAJOR @VERSION_MAJOR@
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;#define VERSION_MINOR @VERSION_MINOR@
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这样生成的&lt;strong&gt;config.h&lt;/strong&gt;文件中就会增加：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define VERSION_MAJOR 1
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define VERSION_MINOR 0
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在&lt;strong&gt;main.c&lt;/strong&gt;中就可以直接使用版本号：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;hello, cmake!version:%d.%d&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, VERSION_MAJOR, VERSION_MINOR);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- https://gongluck.github.io/cmake/cmake-start/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>CGO导入导出C静态库/动态库</title>
+        <link>https://gongluck.github.io/go/cgo_static_and_shared_library/</link>
+        <pubDate>Sun, 12 Apr 2020 13:50:36 +0800</pubDate>
+        
+        <guid>https://gongluck.github.io/go/cgo_static_and_shared_library/</guid>
+        <description>gongluck&#39;s blog https://gongluck.github.io/go/cgo_static_and_shared_library/ -&lt;p&gt;可以直接使用C源码到GO中当然是最好不过了,但如果只有三方库的静态库或者动态库,就要学会如何在GO中使用C的静态库或者动态库了。&lt;/p&gt;
+&lt;h3 id=&#34;代码仓库&#34;&gt;代码仓库&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CGO-DEMO.git&#34;&gt;https://github.com/gongluck/CGO-DEMO.git&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;go使用c静态库&#34;&gt;GO使用C静态库&lt;/h3&gt;
+&lt;p&gt;首先把下面的C代码编译成静态库&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;int number_add_mod(int a, int b, int mod);
+&lt;/code&gt;&lt;/pre&gt;&lt;pre&gt;&lt;code&gt;#include &amp;quot;number.h&amp;quot;
+
+int number_add_mod(int a, int b, int mod)
+{
+    return (a + b) % mod;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;编译静态库使用命令&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;gcc -c -o number.o number.c
+ar rcs libnumber.a number.o
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;接下来就可以在GO中使用了&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;package main
+
+//#cgo CFLAGS: -I./number
+//#cgo LDFLAGS: -L${SRCDIR}/number -lnumber
+//#include &amp;quot;number.h&amp;quot;
+import &amp;quot;C&amp;quot;
+import &amp;quot;fmt&amp;quot;
+
+func main() {
+	fmt.Println(C.number_add_mod(10, 5, 12))
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;em&gt;&lt;strong&gt;#cgo&lt;/strong&gt;&lt;/em&gt; 注释中通过 &lt;em&gt;&lt;strong&gt;CFLAGS&lt;/strong&gt;&lt;/em&gt; 和 &lt;em&gt;&lt;strong&gt;LDFLAGS&lt;/strong&gt;&lt;/em&gt; 指定头文件包含路径和静态库的路径。基本和使用 &lt;em&gt;&lt;strong&gt;gcc&lt;/strong&gt;&lt;/em&gt; 差别不大。&lt;/p&gt;
+&lt;p&gt;如果是VC环境,创建number.def文件说明导出函数的信息&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;LIBRARY number.lib
+
+EXPORTS
+number_add_mod
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;进入VC对应的命令行环境执行&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cl /c number.c
+link /LIB /OUT:number.lib number.obj /DEF:number.def
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;使用mingw工具执行&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dlltool -dllname number.lib --def number.def --output-lib libnumber.a
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;得到了 &lt;em&gt;&lt;strong&gt;libnumber.a&lt;/strong&gt;&lt;/em&gt; 文件。GO使用lib需要这个 &lt;em&gt;&lt;strong&gt;libnumber.a&lt;/strong&gt;&lt;/em&gt; 作为代替。&lt;/p&gt;
+&lt;h3 id=&#34;go使用c动态库&#34;&gt;GO使用C动态库&lt;/h3&gt;
+&lt;p&gt;gcc环境使用下面的命令编译动态库&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;gcc -shared -o libnumber.so number.c
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;使用前面例子的GO代码就可以使用动态库了。
+如果是VC环境,创建number.def文件说明导出函数的信息&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;LIBRARY number.dll
+
+EXPORTS
+number_add_mod
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;进入VC对应的命令行环境执行&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cl /c number.c
+link /DLL /OUT:number.dll number.obj /DEF:number.def
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;使用mingw工具执行&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dlltool -dllname number.dll --def number.def --output-lib libnumber.a
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;得到了 &lt;em&gt;&lt;strong&gt;libnumber.a&lt;/strong&gt;&lt;/em&gt; 文件。GO使用dll需要这个 &lt;em&gt;&lt;strong&gt;libnumber.a&lt;/strong&gt;&lt;/em&gt; 作为导入库。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;在运行时需要将动态库放到系统能够找到的位置。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;go导出c静态库动态库&#34;&gt;GO导出C静态库/动态库&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;package main
+
+import &amp;quot;C&amp;quot;
+
+func main() {}
+
+//export number_add_mod
+func number_add_mod(a, b, mod C.int) C.int {
+	return (a + b) % mod
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;此时,main函数仍需要保留,但是可以不执行任何代码。使用 &lt;em&gt;&lt;strong&gt;//export&lt;/strong&gt;&lt;/em&gt; 注释表明要导出的GO函数。编译命令要加上目标参数。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;go build -buildmode=c-archive -o number.a
+go build -buildmode=c-shared -o number.so
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;编译成功同时会生成对应的头文件。&lt;/p&gt;- https://gongluck.github.io/go/cgo_static_and_shared_library/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>CGO类型转换</title>
+        <link>https://gongluck.github.io/go/cgo_types/</link>
+        <pubDate>Sat, 11 Apr 2020 12:09:14 +0800</pubDate>
+        
+        <guid>https://gongluck.github.io/go/cgo_types/</guid>
+        <description>gongluck&#39;s blog https://gongluck.github.io/go/cgo_types/ -&lt;p&gt;由于CGO和C的数据类型不是完全等价匹配, 所有在使用CGO的过程中需要做类型转换。&lt;/p&gt;
+&lt;h3 id=&#34;代码仓库&#34;&gt;代码仓库&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CGO-DEMO.git&#34;&gt;https://github.com/gongluck/CGO-DEMO.git&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;_cgo_exporth&#34;&gt;_cgo_export.h&lt;/h3&gt;
+&lt;p&gt;使用 &lt;em&gt;&lt;strong&gt;go tool cgo .\hello.go&lt;/strong&gt;&lt;/em&gt; 命令可以生成 &lt;em&gt;&lt;strong&gt;cgo&lt;/strong&gt;&lt;/em&gt; 的中间文件,其中 &lt;em&gt;&lt;strong&gt;_cgo_export.h&lt;/strong&gt;&lt;/em&gt; 声明了导出函数和C与GO直接类型的关系。&lt;/p&gt;
+&lt;h3 id=&#34;c-cgo-go类型映射&#34;&gt;C-CGO-GO类型映射&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;C语言类型&lt;/th&gt;
+&lt;th&gt;CGO类型&lt;/th&gt;
+&lt;th&gt;Go语言类型&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;char&lt;/td&gt;
+&lt;td&gt;C.char&lt;/td&gt;
+&lt;td&gt;byte&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;singed char&lt;/td&gt;
+&lt;td&gt;C.schar&lt;/td&gt;
+&lt;td&gt;int8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;unsigned char&lt;/td&gt;
+&lt;td&gt;C.uchar&lt;/td&gt;
+&lt;td&gt;uint8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;short&lt;/td&gt;
+&lt;td&gt;C.short&lt;/td&gt;
+&lt;td&gt;int16&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;unsigned short&lt;/td&gt;
+&lt;td&gt;C.ushort&lt;/td&gt;
+&lt;td&gt;uint16&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;int&lt;/td&gt;
+&lt;td&gt;C.int&lt;/td&gt;
+&lt;td&gt;int32&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;unsigned int&lt;/td&gt;
+&lt;td&gt;C.uint&lt;/td&gt;
+&lt;td&gt;uint32&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;long&lt;/td&gt;
+&lt;td&gt;C.long&lt;/td&gt;
+&lt;td&gt;int32&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;unsigned long&lt;/td&gt;
+&lt;td&gt;C.ulong&lt;/td&gt;
+&lt;td&gt;uint32&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;long long int&lt;/td&gt;
+&lt;td&gt;C.longlong&lt;/td&gt;
+&lt;td&gt;int64&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;unsigned long long int&lt;/td&gt;
+&lt;td&gt;C.ulonglong&lt;/td&gt;
+&lt;td&gt;uint64&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;C.float&lt;/td&gt;
+&lt;td&gt;float32&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;C.double&lt;/td&gt;
+&lt;td&gt;float64&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;size_t&lt;/td&gt;
+&lt;td&gt;C.size_t&lt;/td&gt;
+&lt;td&gt;uint&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;int8_t&lt;/td&gt;
+&lt;td&gt;C.int8_t&lt;/td&gt;
+&lt;td&gt;int8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;C.uint8_t&lt;/td&gt;
+&lt;td&gt;uint8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;int16_t&lt;/td&gt;
+&lt;td&gt;C.int16_t&lt;/td&gt;
+&lt;td&gt;int16&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;uint16_t&lt;/td&gt;
+&lt;td&gt;C.uint16_t&lt;/td&gt;
+&lt;td&gt;uint16&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;int32_t&lt;/td&gt;
+&lt;td&gt;C.int32_t&lt;/td&gt;
+&lt;td&gt;int32&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;uint32_t&lt;/td&gt;
+&lt;td&gt;C.uint32_t&lt;/td&gt;
+&lt;td&gt;uint32&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;int64_t&lt;/td&gt;
+&lt;td&gt;C.int64_t&lt;/td&gt;
+&lt;td&gt;int64&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;uint64_t&lt;/td&gt;
+&lt;td&gt;C.uint64_t&lt;/td&gt;
+&lt;td&gt;uint64&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;go字符串和切片&#34;&gt;GO字符串和切片&lt;/h3&gt;
+&lt;p&gt;Go语言的字符串、切片、字典、接口和管道等特有的数据类型生成对应的C语言类型：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;typedef struct { const char *p; ptrdiff_t n; } GoString;
+typedef struct { void *data; GoInt len; GoInt cap; } GoSlice;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;GoString&lt;/strong&gt;&lt;/em&gt; 类型会对 &lt;em&gt;&lt;strong&gt;_cgo_export.h&lt;/strong&gt;&lt;/em&gt; 头文件产生依赖,可以用 &lt;em&gt;&lt;strong&gt;&lt;em&gt;GoString&lt;/em&gt;&lt;/strong&gt;&lt;/em&gt; 代替。以下两个函数用于获取字符串结构中的长度和指针信息:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;size_t _GoStringLen(_GoString_ s);
+const char *_GoStringPtr(_GoString_ s);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;go访问c的结构体联合枚举类型&#34;&gt;GO访问C的结构体、联合、枚举类型&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;package main
+
+/*
+#include &amp;lt;stdint.h&amp;gt;
+
+struct A{
+    int i;
+    float f;
+    int type;
+    int   size:10;	// The bit field cannot be accessed
+    float arr[];	// Zero-length arrays are also inaccessible
+};
+
+union B1 {
+    int i;
+    float f;
+};
+union B2 {
+    int8_t i8;
+    int64_t i64;
+};
+
+enum C {
+    ONE,
+    TWO,
+};
+*/
+import &amp;quot;C&amp;quot;
+
+import (
+    &amp;quot;fmt&amp;quot;
+    &amp;quot;unsafe&amp;quot;
+)
+
+func main() {
+    var a C.struct_A
+    fmt.Println(a.i)
+    fmt.Println(a.f)
+    fmt.Println(a._type)
+
+    var b1 C.union_B1
+    fmt.Printf(&amp;quot;%T\n&amp;quot;, b1) // [4]uint8
+    var b2 C.union_B2
+    fmt.Printf(&amp;quot;%T\n&amp;quot;, b2) // [8]uint8
+    fmt.Println(&amp;quot;b1.i:&amp;quot;, *(*C.int)(unsafe.Pointer(&amp;amp;b1)))
+    fmt.Println(&amp;quot;b1.f:&amp;quot;, *(*C.float)(unsafe.Pointer(&amp;amp;b1)))
+
+    var c C.enum_C = C.TWO
+    fmt.Println(c)
+    fmt.Println(C.ONE)
+    fmt.Println(C.TWO)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;通过 &lt;em&gt;&lt;strong&gt;C.struct_xxx&lt;/strong&gt;&lt;/em&gt; 来访问C语言中定义的 &lt;em&gt;&lt;strong&gt;struct xxx&lt;/strong&gt;&lt;/em&gt; 结构体类型。结构体的内存布局按照C语言的通用对齐规则,在32位Go语言环境C语言结构体也按照32位对齐规则,在64位Go语言环境按照64位的对齐规则。对于指定了特殊对齐规则的结构体,无法在CGO中访问。如果结构体的成员名字中碰巧是Go语言的关键字,可以通过在成员名开头添加下划线来访问。&lt;/p&gt;
+&lt;p&gt;C语言结构体中位字段对应的成员无法在Go语言中访问,如果需要操作位字段成员,需要通过在C语言中定义辅助函数来完成。对应零长数组的成员,无法在Go语言中直接访问数组的元素,但其中零长的数组成员所在位置的偏移量依然可以通过 &lt;em&gt;&lt;strong&gt;unsafe.Offsetof(a.arr)&lt;/strong&gt;&lt;/em&gt; 来访问。&lt;/p&gt;
+&lt;p&gt;在C语言中,我们无法直接访问Go语言定义的结构体类型。&lt;/p&gt;
+&lt;p&gt;通过 &lt;em&gt;&lt;strong&gt;C.union_xxx&lt;/strong&gt;&lt;/em&gt; 来访问C语言中定义的 &lt;em&gt;&lt;strong&gt;union xxx&lt;/strong&gt;&lt;/em&gt; 类型。但是Go语言中并不支持C语言联合类型,它们会被转为对应大小的字节数组。可以使用unsafe包强制转型为对应类型(这是性能最好的方式)访问联合类型成员;对于复杂的联合类型,推荐通过在C语言中定义辅助函数的方式处理。&lt;/p&gt;
+&lt;p&gt;可以通过 &lt;em&gt;&lt;strong&gt;C.enum_xxx&lt;/strong&gt;&lt;/em&gt; 来访问C语言中定义的 &lt;em&gt;&lt;strong&gt;enum xxx&lt;/strong&gt;&lt;/em&gt; 结构体类型。在C语言中,枚举类型底层对应int类型,支持负数类型的值。我们可以通过 &lt;em&gt;&lt;strong&gt;C.ONE&lt;/strong&gt;&lt;/em&gt; 、&lt;em&gt;&lt;strong&gt;C.TWO&lt;/strong&gt;&lt;/em&gt; 等直接访问定义的枚举值。&lt;/p&gt;
+&lt;h3 id=&#34;go访问c的字符串数组&#34;&gt;GO访问C的字符串、数组&lt;/h3&gt;
+&lt;p&gt;根据在reflect包中有字符串和切片的定义:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;type StringHeader struct {
+ Data uintptr
+ Len  int
+}
+
+type SliceHeader struct {
+    Data uintptr
+    Len  int
+    Cap  int
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;不单独分配内存,可以在Go语言中直接访问C语言的内存空间。因为Go语言的字符串是只读的,用户需要自己保证Go字符串在使用期间,底层对应的C字符串内容不会发生变化、内存不会被提前释放掉。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;package main
+
+/*
+#include &amp;lt;string.h&amp;gt;
+char arr[10];
+char *s = &amp;quot;Hello&amp;quot;;
+*/
+import &amp;quot;C&amp;quot;
+import (
+    &amp;quot;fmt&amp;quot;
+    &amp;quot;reflect&amp;quot;
+    &amp;quot;unsafe&amp;quot;
+)
+
+func main() {
+    // C array -&amp;gt; Go slice
+    var arr0 []byte
+    var arr0Hdr = (*reflect.SliceHeader)(unsafe.Pointer(&amp;amp;arr0))
+    arr0Hdr.Data = uintptr(unsafe.Pointer(&amp;amp;C.arr[0]))
+    arr0Hdr.Len = 10
+    arr0Hdr.Cap = 10
+
+    arr1 := (*[31]byte)(unsafe.Pointer(&amp;amp;C.arr[0]))[:10:10]
+    fmt.Println(arr1)
+
+    // C string -&amp;gt; Go string
+    var s0 string
+    var s0Hdr = (*reflect.StringHeader)(unsafe.Pointer(&amp;amp;s0))
+    s0Hdr.Data = uintptr(unsafe.Pointer(C.s))
+    s0Hdr.Len = int(C.strlen(C.s))
+
+    sLen := int(C.strlen(C.s))
+    s1 := string((*[31]byte)(unsafe.Pointer(C.s))[:sLen:sLen])
+    fmt.Println(s1)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在C语言中可以通过 &lt;em&gt;&lt;strong&gt;GoString&lt;/strong&gt;&lt;/em&gt; 和 &lt;em&gt;&lt;strong&gt;GoSlice&lt;/strong&gt;&lt;/em&gt; 来访问Go语言的字符串和切片。但由于GC的存在,可能会潜藏着危险。&lt;/p&gt;
+&lt;h3 id=&#34;go指针和数值转换&#34;&gt;GO指针和数值转换&lt;/h3&gt;
+&lt;p&gt;为了实现X类型指针到Y类型指针的转换,需要借助 &lt;em&gt;&lt;strong&gt;unsafe.Pointer&lt;/strong&gt;&lt;/em&gt; 作为中间桥接类型实现不同类型指针之间的转换。&lt;em&gt;&lt;strong&gt;unsafe.Pointer&lt;/strong&gt;&lt;/em&gt; 指针类型类似C语言中的 &lt;em&gt;&lt;strong&gt;void*&lt;/strong&gt;&lt;/em&gt; 类型的指针。
+任何类型的指针都可以通过强制转换为 &lt;em&gt;&lt;strong&gt;unsafe.Pointer&lt;/strong&gt;&lt;/em&gt; 指针类型去掉原有的类型信息,然后再重新赋予新的指针类型而达到指针间的转换的目的。&lt;/p&gt;
+&lt;p&gt;Go语言针对 &lt;em&gt;&lt;strong&gt;unsafe.Pointr&lt;/strong&gt;&lt;/em&gt; 指针类型特别定义了一个 &lt;em&gt;&lt;strong&gt;uintptr&lt;/strong&gt;&lt;/em&gt; 类型。可以 &lt;em&gt;&lt;strong&gt;uintptr&lt;/strong&gt;&lt;/em&gt; 为中介,实现数值类型到unsafe.Pointr指针类型到转换。&lt;/p&gt;- https://gongluck.github.io/go/cgo_types/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>CGO入门</title>
+        <link>https://gongluck.github.io/go/cgo_quick_start/</link>
+        <pubDate>Thu, 09 Apr 2020 19:31:36 +0800</pubDate>
+        
+        <guid>https://gongluck.github.io/go/cgo_quick_start/</guid>
+        <description>gongluck&#39;s blog https://gongluck.github.io/go/cgo_quick_start/ -&lt;p&gt;C/C++加上GO代表什么？&lt;/p&gt;
+&lt;p&gt;代表着既可以使用GO快速的开发项目,同时可以接纳C/C++的庞大历史遗产和极高性能！而且在GO中使用C/C++十分简单！&lt;/p&gt;
+&lt;h3 id=&#34;代码仓库&#34;&gt;代码仓库&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CGO-DEMO.git&#34;&gt;https://github.com/gongluck/CGO-DEMO.git&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;准备&#34;&gt;准备&lt;/h3&gt;
+&lt;p&gt;使用CGO,需要先安装gcc或者mingw。&lt;/p&gt;
+&lt;h3 id=&#34;启用cgo特性&#34;&gt;启用CGO特性&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;package main
+
+import &amp;quot;C&amp;quot;
+
+func main() {
+    println(&amp;quot;hello, cgo&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;就是这么简单,一句 &lt;em&gt;&lt;strong&gt;import &amp;ldquo;C&amp;rdquo;&lt;/strong&gt;&lt;/em&gt; 就是告诉 &lt;em&gt;&lt;strong&gt;go build&lt;/strong&gt;&lt;/em&gt; 命令在编译和链接阶段启动gcc编译器。&lt;/p&gt;
+&lt;h3 id=&#34;使用c标准库的函数&#34;&gt;使用C标准库的函数&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;package main
+
+//#include &amp;lt;stdio.h&amp;gt;
+import &amp;quot;C&amp;quot;
+
+func main() {
+    C.puts(C.CString(&amp;quot;hello, cgo&amp;quot;))
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;import &amp;ldquo;C&amp;rdquo;&lt;/strong&gt;&lt;/em&gt; 上面紧接着的注释就是C代码,上面就是将标准库的头文件包含进我们的代码中。在GO中使用C的代码都是在伪包&amp;quot;C&amp;quot;中,所以使用C标准库中的 &lt;em&gt;&lt;strong&gt;puts&lt;/strong&gt;&lt;/em&gt; 函数就是 &lt;em&gt;&lt;strong&gt;C.puts(&amp;hellip;)&lt;/strong&gt;&lt;/em&gt; 。由于C和GO中的字符(串)类型不是等价的,使用 &lt;em&gt;&lt;strong&gt;C.CString(&amp;hellip;)&lt;/strong&gt;&lt;/em&gt; 将GO中的 &lt;em&gt;&lt;strong&gt;string&lt;/strong&gt;&lt;/em&gt; 转换成C的 &lt;em&gt;&lt;strong&gt;char&lt;/strong&gt;&lt;/em&gt;* 。&lt;/p&gt;
+&lt;h3 id=&#34;使用自定义c函数&#34;&gt;使用自定义C函数&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;package main
+
+/*
+#include &amp;lt;stdio.h&amp;gt;
+
+static void SayHello(const char* s)
+{
+    puts(s);
+}
+*/
+import &amp;quot;C&amp;quot;
+
+func main() {
+    C.SayHello(C.CString(&amp;quot;hello, cgo\n&amp;quot;))
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;和前面使用C标准库的函数的例子差不多,只是将自定义函数的定义放到 &lt;em&gt;&lt;strong&gt;import &amp;ldquo;C&amp;rdquo;&lt;/strong&gt;&lt;/em&gt; 上面的注释中,接下来就可以在GO中通过&amp;quot;C&amp;quot;包使用了。另外,也可以将自定义C函数的定义放到C源码文件中,GO代码只在 &lt;em&gt;&lt;strong&gt;import &amp;ldquo;C&amp;rdquo;&lt;/strong&gt;&lt;/em&gt; 上面添加该函数的声明。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;package main
+
+//void SayHello(const char* s);
+import &amp;quot;C&amp;quot;
+
+func main() {
+    C.SayHello(C.CString(&amp;quot;hello, cgo\n&amp;quot;))
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;C源码文件的内容&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
+
+void SayHello(const char* s)
+{
+    puts(s);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果两个源码文件都放在同一层目录下,可以直接使用 &lt;em&gt;&lt;strong&gt;go build&lt;/strong&gt;&lt;/em&gt; 编译。&lt;/p&gt;
+&lt;p&gt;其实,自定义的C函数也可以用C++实现&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;iostream&amp;gt;
+
+extern &amp;quot;C&amp;quot; {
+    #include &amp;quot;hello.h&amp;quot;
+}
+
+void SayHello(const char* s) {
+    std::cout &amp;lt;&amp;lt; s;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;但是现在就必须通过一个C头文件给GO声明该函数&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;void SayHello(const char* s);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;GO代码改为&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;package main
+
+//#include &amp;quot;hello.h&amp;quot;
+import &amp;quot;C&amp;quot;
+
+func main() {
+    C.SayHello(C.CString(&amp;quot;hello, cgo\n&amp;quot;))
+} 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;函数的声明是C的,但是具体内部实现可以是C++的。而且能和GO结合使用的只能是C。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;go导出c接口&#34;&gt;GO导出C接口&lt;/h3&gt;
+&lt;p&gt;前面的例子都是GO调用C源码(接口),下面使用GO导出C接口。
+首先在C头文件中声明函数,为了适配GO,注释了 &lt;em&gt;&lt;strong&gt;const&lt;/strong&gt;&lt;/em&gt; 修饰。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;void SayHelloGo(/*const*/ char* s);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在GO源码中实现该接口&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;package main
+
+import &amp;quot;C&amp;quot;
+
+import &amp;quot;fmt&amp;quot;
+
+//export SayHelloGo
+func SayHelloGo(s *C.char) {
+    fmt.Print(C.GoString(s))
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;通过CGO的 &lt;em&gt;&lt;strong&gt;//export SayHello&lt;/strong&gt;&lt;/em&gt; 指令将Go语言实现的函数导出为C语言函数。接下来就可以使用该实际是GO实现的C接口了&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;package main
+
+//#include &amp;lt;hello.h&amp;gt;
+import &amp;quot;C&amp;quot;
+
+func main() {
+    C.SayHelloGo(C.CString(&amp;quot;hello, cgo Go\n&amp;quot;))
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;面向c接口的go&#34;&gt;面向C接口的GO&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;package main
+
+//void SayHello(_GoString_ s);
+import &amp;quot;C&amp;quot;
+
+import (
+    &amp;quot;fmt&amp;quot;
+)
+
+func main() {
+    C.SayHello(&amp;quot;hello, cgo go&amp;quot;)
+}
+
+//export SayHello
+func SayHello(s string) {
+    fmt.Print(s)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;从Go1.10开始CGO新增加了一个_GoString_预定义的C语言类型，用来表示Go语言字符串。&lt;/strong&gt;&lt;/em&gt;
+上面一个GO源码文件中,发生了这样的调用过程。GO的main函数中,调用了&amp;quot;C&amp;quot;包中的 &lt;em&gt;&lt;strong&gt;SayHello&lt;/strong&gt;&lt;/em&gt; 这个C函数,实际这个 &lt;em&gt;&lt;strong&gt;SayHello&lt;/strong&gt;&lt;/em&gt; C函数是GO实现的,所以转向调用GO中的 &lt;em&gt;&lt;strong&gt;SayHello&lt;/strong&gt;&lt;/em&gt; 。&lt;/p&gt;- https://gongluck.github.io/go/cgo_quick_start/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>任务管理器播放BadApple</title>
+        <link>https://gongluck.github.io/cpp/badapple-taskmgr/</link>
+        <pubDate>Wed, 08 Apr 2020 18:28:36 +0800</pubDate>
+        
+        <guid>https://gongluck.github.io/cpp/badapple-taskmgr/</guid>
+        <description>gongluck&#39;s blog https://gongluck.github.io/cpp/badapple-taskmgr/ -&lt;p&gt;有屏幕的地方就有BadApple!前面做了在控制台显示BadApple了,这一次把画面渲染到任务管理器上！&lt;/p&gt;
+&lt;h3 id=&#34;设计思路&#34;&gt;设计思路&lt;/h3&gt;
+&lt;p&gt;和上一篇差不多,只是设置指定窗口为libvlc的渲染窗口。找到指定的窗口比较复杂。&lt;/p&gt;
+&lt;h3 id=&#34;效果视频&#34;&gt;效果视频&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.bilibili.com/video/BV1B64y1u7rv&#34;&gt;https://www.bilibili.com/video/BV1B64y1u7rv&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;代码仓库&#34;&gt;代码仓库&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/Character-player/tree/taskmgr&#34;&gt;https://github.com/gongluck/Character-player/tree/taskmgr&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//process.cpp
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;process.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;../errcode.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef _WIN32
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;windows.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;TlHelp32.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;tchar.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;atlconv.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;namespace&lt;/span&gt; gprocess
+{
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;gethandle&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;* processname, std::vector&amp;lt;ProcessInfo&amp;gt;&amp;amp; result)
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (processname == &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+        {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; G_ERROR_INVALIDPARAM;
+        }
+
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef _WIN32
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+        USES_CONVERSION;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; processT = A2T(processname);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (hSnapshot == INVALID_HANDLE_VALUE || processT == &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+        {
+            std::cerr &amp;lt;&amp;lt; __FILE__ &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; : &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; __LINE__ &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; : &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; GetLastError() &amp;lt;&amp;lt; std::endl;
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; G_ERROR_INTERNAL;
+        }
+
+        result.clear();
+        ProcessInfo info = { &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt; };
+        PROCESSENTRY32 pe = { &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(pe) };
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; fOk = FALSE;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (fOk = Process32First(hSnapshot, &amp;amp;pe); fOk; fOk = Process32Next(hSnapshot, &amp;amp;pe))
+        {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (!_tcscmp(pe.szExeFile, processT))
+            {
+                info.processid = pe.th32ProcessID;
+                info.parentid = pe.th32ParentProcessID;
+                result.push_back(info);
+            }
+        }
+        CloseHandle(hSnapshot);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; G_ERROR_SUCCEED;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; G_ERROR_SUCCEED;
+    }
+
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef _WIN32
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;    BOOL CALLBACK &lt;span style=&#34;color:#008b45&#34;&gt;EnumChildWindowCB&lt;/span&gt;(HWND h, LPARAM l)
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; pinfo = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;WindowInfo*&amp;gt;(l);
+        DWORD pid = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+        GetWindowThreadProcessId(h, &amp;amp;pid);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (pid == pinfo-&amp;gt;processid)
+        {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; pchild = std::make_shared&amp;lt;WindowInfo&amp;gt;();
+            pchild-&amp;gt;processid = pid;
+            pchild-&amp;gt;window = h;
+            pinfo-&amp;gt;childs.push_back(pchild);
+            EnumChildWindows(h, EnumChildWindowCB, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;LPARAM&amp;gt;(pchild.get()));
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; TRUE;
+    }
+    BOOL CALLBACK &lt;span style=&#34;color:#008b45&#34;&gt;EnumWindowCB&lt;/span&gt;(HWND h, LPARAM l)
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; pinfo = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;WindowInfo*&amp;gt;(l);
+        DWORD pid = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+        GetWindowThreadProcessId(h, &amp;amp;pid);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (pid == pinfo-&amp;gt;processid)
+        {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; pchild = std::make_shared&amp;lt;WindowInfo&amp;gt;();
+            pchild-&amp;gt;processid = pid;
+            pchild-&amp;gt;window = h;
+            pinfo-&amp;gt;childs.push_back(pchild);
+            EnumChildWindows(h, EnumChildWindowCB, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;LPARAM&amp;gt;(pchild.get()));
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; TRUE;
+    }
+&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;getallwindows&lt;/span&gt;(WindowInfo* info)
+    {
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef _WIN32
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (EnumWindows(EnumWindowCB, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;LPARAM&amp;gt;(info)) != TRUE)
+        {
+            std::cerr &amp;lt;&amp;lt; __FILE__ &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; : &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; __LINE__ &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; : &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; GetLastError() &amp;lt;&amp;lt; std::endl;
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; G_ERROR_INTERNAL;
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; G_ERROR_SUCCEED;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; G_ERROR_SUCCEED;
+    }
+} &lt;span style=&#34;color:#228b22&#34;&gt;// namespace gprocess
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//main.cpp
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef _WIN32
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;Windows.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;tchar.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define ssize_t SSIZE_T
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;vlc/vlc.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;../../Code-snippet/cpp/process/process.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#define CHECKEQUALRET(ret, compare)\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;if(ret == compare)\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;{\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    std::cerr &amp;lt;&amp;lt; &amp;#34;error ocurred in &amp;#34; &amp;lt;&amp;lt; __FILE__\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;`s line &amp;#34; &amp;lt;&amp;lt; __LINE__\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;, error &amp;#34; &amp;lt;&amp;lt; ret;\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    goto END;\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;}
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#define CHECKNEQUALRET(ret, compare)\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;if(ret != compare)\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;{\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    std::cerr &amp;lt;&amp;lt; &amp;#34;error ocurred in &amp;#34; &amp;lt;&amp;lt; __FILE__\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;`s line &amp;#34; &amp;lt;&amp;lt; __LINE__\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;, error &amp;#34; &amp;lt;&amp;lt; ret;\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    goto END;\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;}
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;getwindows&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; TCHAR* classname,
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; gprocess::WindowInfo&amp;amp; info,
+    std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt;&amp;amp; result)
+{
+    std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt; tmp;
+    TCHAR classname_[MAX_PATH] = { &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt; };
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; info.childs.size(); ++i)
+    {
+        GetClassName(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;HWND&amp;gt;(info.childs[i]-&amp;gt;window), classname_, _countof(classname_));
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (_tcscmp(classname_, classname) == &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
+        {
+            tmp.push_back(info.childs[i]);
+        }
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt;&amp;amp; each : tmp)
+    {
+        result.push_back(each);
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;getwindows&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; TCHAR* classname,
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt;&amp;amp; windows,
+    std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt;&amp;amp; result)
+{
+    std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt; tmp;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; windows.size(); ++i)
+    {
+        getwindows(classname, *windows[i], tmp);
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt;&amp;amp; each : tmp)
+    {
+        result.push_back(each);
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; argc, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;** argv)
+{
+    libvlc_instance_t* inst_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    libvlc_media_t* media_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    libvlc_media_player_t* player_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    libvlc_media_list_t* list_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    libvlc_media_list_player_t* plist_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    HWND wnd_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+
+    std::vector&amp;lt;gprocess::ProcessInfo&amp;gt; result;
+    gprocess::WindowInfo windowinfo;
+    std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt; windows;
+    std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt; tmpwindows;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; ret = gprocess::gethandle(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Taskmgr.exe&amp;#34;&lt;/span&gt;, result);
+    CHECKNEQUALRET(ret, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+    windowinfo.processid = result[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;].processid;
+    ret = gprocess::getallwindows(&amp;amp;windowinfo);
+    CHECKNEQUALRET(ret, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+
+    ret = getwindows(TEXT(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;TaskManagerWindow&amp;#34;&lt;/span&gt;), windowinfo, windows);
+    CHECKNEQUALRET(ret, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+    ret = getwindows(TEXT(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;NativeHWNDHost&amp;#34;&lt;/span&gt;), windows, tmpwindows);
+    CHECKNEQUALRET(ret, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+    windows.clear();
+    windows.swap(tmpwindows);
+    ret = getwindows(TEXT(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;DirectUIHWND&amp;#34;&lt;/span&gt;), windows, tmpwindows);
+    CHECKNEQUALRET(ret, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+    windows.clear();
+    windows.swap(tmpwindows);
+    ret = getwindows(TEXT(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;CvChartWindow&amp;#34;&lt;/span&gt;), windows, tmpwindows);
+    CHECKNEQUALRET(ret, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+    CHECKEQUALRET(tmpwindows.size(), &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+
+    wnd_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;HWND&amp;gt;(tmpwindows[tmpwindows.size() - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;]-&amp;gt;window);
+
+    inst_ = libvlc_new(&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+    CHECKEQUALRET(inst_, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+    media_ = libvlc_media_new_path(inst_, argc &amp;lt;= &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt; ? &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;badapple.mp4&amp;#34;&lt;/span&gt; : argv[&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;]);
+    CHECKEQUALRET(media_, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+
+    &lt;span style=&#34;color:#228b22&#34;&gt;//player_ = libvlc_media_player_new_from_media(media_);
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    player_ = libvlc_media_player_new(inst_);
+    CHECKEQUALRET(player_, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+
+    libvlc_media_player_set_hwnd(player_, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;*&amp;gt;(wnd_));
+
+    &lt;span style=&#34;color:#228b22&#34;&gt;// play loop
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    list_ = libvlc_media_list_new(inst_);
+    plist_ = libvlc_media_list_player_new(inst_);
+    libvlc_media_list_add_media(list_, media_);
+    libvlc_media_list_player_set_media_list(plist_, list_);
+    libvlc_media_list_player_set_media_player(plist_, player_);
+    libvlc_media_list_player_set_playback_mode(plist_, libvlc_playback_mode_loop);
+    libvlc_media_list_player_play(plist_);
+
+    std::cin.get();
+
+END:
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (player_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        libvlc_media_player_stop(player_);
+        libvlc_media_player_release(player_);
+        player_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (media_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        libvlc_media_release(media_);
+        media_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (plist_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        libvlc_media_list_player_release(plist_);
+        plist_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (list_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        libvlc_media_list_release(list_);
+        list_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (inst_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        libvlc_release(inst_);
+        inst_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- https://gongluck.github.io/cpp/badapple-taskmgr/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>字符动画播放器,不止BadApple!</title>
+        <link>https://gongluck.github.io/cpp/badapple-console/</link>
+        <pubDate>Tue, 07 Apr 2020 12:42:47 +0800</pubDate>
+        
+        <guid>https://gongluck.github.io/cpp/badapple-console/</guid>
+        <description>gongluck&#39;s blog https://gongluck.github.io/cpp/badapple-console/ -&lt;p&gt;有屏幕的地方就有BadApple!在B站看过好多版本,于是我也用控制台做了一个。网上很多人都是直接显示bmp图片的,但我这个版本是用libvlc实时解码和播放的,音频用libvlc播放,画面就是转换成字符后输出到控制台。除了BadApple这种黑白动画,也能播放彩色视频。具体可以看一下效果视频。&lt;/p&gt;
+&lt;h3 id=&#34;设计思路&#34;&gt;设计思路&lt;/h3&gt;
+&lt;p&gt;libvlc解码转码出RGBA和播放音频，再将RGBA量化为黑(&#39;*&#39;)白(&amp;rsquo; &amp;lsquo;)两个颜色并输出到屏幕。&lt;/p&gt;
+&lt;h3 id=&#34;效果视频&#34;&gt;效果视频&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.bilibili.com/video/BV1N64y1u7BD&#34;&gt;https://www.bilibili.com/video/BV1N64y1u7BD&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;代码仓库&#34;&gt;代码仓库&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/Character-player/tree/console&#34;&gt;https://github.com/gongluck/Character-player/tree/console&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;thread&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;atomic&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef _WIN32
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;Windows.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define ssize_t SSIZE_T
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;vlc/vlc.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#define CHECKEQUALRET(ret, compare)\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;if(ret == compare)\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;{\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    std::cerr &amp;lt;&amp;lt; &amp;#34;error ocurred in &amp;#34; &amp;lt;&amp;lt; __FILE__\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;`s line &amp;#34; &amp;lt;&amp;lt; __LINE__\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;, error &amp;#34; &amp;lt;&amp;lt; ret;\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    goto END;\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;}
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#define CHECKNEQUALRET(ret, compare)\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;if(ret != compare)\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;{\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    std::cerr &amp;lt;&amp;lt; &amp;#34;error ocurred in &amp;#34; &amp;lt;&amp;lt; __FILE__\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;`s line &amp;#34; &amp;lt;&amp;lt; __LINE__\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;, error &amp;#34; &amp;lt;&amp;lt; ret;\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    goto END;\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;}
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; WIDTH = &lt;span style=&#34;color:#b452cd&#34;&gt;200&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; HEIGHT = &lt;span style=&#34;color:#b452cd&#34;&gt;50&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;* out_buffer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;* tmp_buffer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;* print_buffer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+std::atomic&amp;lt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt;&amp;gt; atomiclock;
+std::atomic&amp;lt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt;&amp;gt; gotframe = &lt;span style=&#34;color:#658b00&#34;&gt;false&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;* &lt;span style=&#34;color:#008b45&#34;&gt;lock&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;* data, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;** p_pixels)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (atomiclock)
+    {
+        std::this_thread::sleep_for(std::chrono::microseconds(&lt;span style=&#34;color:#b452cd&#34;&gt;10&lt;/span&gt;));
+    }
+    atomiclock = &lt;span style=&#34;color:#658b00&#34;&gt;true&lt;/span&gt;;
+    *p_pixels = out_buffer;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;unlock&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;* data, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;* id, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;* &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt;* p_pixels)
+{
+    atomiclock = &lt;span style=&#34;color:#658b00&#34;&gt;false&lt;/span&gt;;
+    gotframe = &lt;span style=&#34;color:#658b00&#34;&gt;true&lt;/span&gt;;
+}
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;display&lt;/span&gt;(&lt;span style=&#34;color:#228b22&#34;&gt;/*void* data, void* id*/&lt;/span&gt;)
+{
+    atomiclock = &lt;span style=&#34;color:#658b00&#34;&gt;true&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (!gotframe)
+    {
+        atomiclock = &lt;span style=&#34;color:#658b00&#34;&gt;false&lt;/span&gt;;
+        std::this_thread::sleep_for(std::chrono::microseconds(&lt;span style=&#34;color:#b452cd&#34;&gt;10&lt;/span&gt;));
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt;;
+    }
+    memcpy(tmp_buffer, out_buffer, HEIGHT * WIDTH * &lt;span style=&#34;color:#b452cd&#34;&gt;4&lt;/span&gt;);
+    gotframe = &lt;span style=&#34;color:#658b00&#34;&gt;false&lt;/span&gt;;
+    atomiclock = &lt;span style=&#34;color:#658b00&#34;&gt;false&lt;/span&gt;;
+
+    HANDLE hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD pos = { &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt; };
+    SetConsoleCursorPosition(hConsoleOutput, pos);
+
+    RGBQUAD* rgba = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;RGBQUAD*&amp;gt;(tmp_buffer);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; HEIGHT; ++i)
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; j = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; j &amp;lt; WIDTH; ++j)
+        {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; point = rgba[WIDTH * i + j];
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; light = (point.rgbRed + point.rgbGreen + point.rgbBlue) / &lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;;
+            print_buffer[i * (WIDTH + &lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;) + j] = light &amp;gt; &lt;span style=&#34;color:#b452cd&#34;&gt;127&lt;/span&gt; ? &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;*&amp;#39;&lt;/span&gt; : &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt;;
+        }
+        print_buffer[i * (WIDTH + &lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;) + WIDTH] = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;\r&amp;#39;&lt;/span&gt;;
+        print_buffer[i * (WIDTH + &lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;) + WIDTH + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;] = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;\n&amp;#39;&lt;/span&gt;;
+    }
+    puts(print_buffer);
+}
+
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; argc, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;** argv)
+{
+    libvlc_instance_t* inst_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    libvlc_media_t* media_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    libvlc_media_player_t* player_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    libvlc_media_list_t* list_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    libvlc_media_list_player_t* plist_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; ret = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+
+    std::cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Usage: Character-player [media file] [out width] [out height]&amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; std::endl;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (argc &amp;gt;= &lt;span style=&#34;color:#b452cd&#34;&gt;4&lt;/span&gt;)
+    {
+        WIDTH = atoi(argv[&lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;]);
+        HEIGHT = atoi(argv[&lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;]);
+    }
+
+    HANDLE hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD size = { WIDTH + &lt;span style=&#34;color:#b452cd&#34;&gt;4&lt;/span&gt;, HEIGHT + &lt;span style=&#34;color:#b452cd&#34;&gt;5&lt;/span&gt; };
+    SetConsoleScreenBufferSize(hConsoleOutput, size);
+    SMALL_RECT rc = { &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;,&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, WIDTH + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;, HEIGHT + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt; };
+    SetConsoleWindowInfo(hConsoleOutput, &lt;span style=&#34;color:#658b00&#34;&gt;true&lt;/span&gt;, &amp;amp;rc);
+
+    libvlc_log_close(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt; exit = &lt;span style=&#34;color:#658b00&#34;&gt;false&lt;/span&gt;;
+    std::&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;thread&lt;/span&gt; th([&amp;amp;]()
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (!exit)
+        {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (atomiclock)
+            {
+                std::this_thread::sleep_for(std::chrono::microseconds(&lt;span style=&#34;color:#b452cd&#34;&gt;10&lt;/span&gt;));
+            }
+            display();
+        }
+    });
+
+    inst_ = libvlc_new(&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+    CHECKEQUALRET(inst_, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+    media_ = libvlc_media_new_path(inst_, argc &amp;lt;= &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt; ? &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;badapple.mp4&amp;#34;&lt;/span&gt; : argv[&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;]);
+    CHECKEQUALRET(media_, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+
+    out_buffer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static_cast&lt;/span&gt;&amp;lt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;*&amp;gt;(malloc(HEIGHT * WIDTH * &lt;span style=&#34;color:#b452cd&#34;&gt;4&lt;/span&gt;));
+    CHECKEQUALRET(out_buffer, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+    tmp_buffer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static_cast&lt;/span&gt;&amp;lt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;*&amp;gt;(malloc(HEIGHT * WIDTH * &lt;span style=&#34;color:#b452cd&#34;&gt;4&lt;/span&gt;));
+    CHECKEQUALRET(tmp_buffer, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+    print_buffer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static_cast&lt;/span&gt;&amp;lt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;*&amp;gt;(malloc(HEIGHT * (WIDTH + &lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;) + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;));
+    CHECKEQUALRET(print_buffer, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+    print_buffer[HEIGHT * (WIDTH + &lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;)] = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;\0&amp;#39;&lt;/span&gt;;
+
+    &lt;span style=&#34;color:#228b22&#34;&gt;//player_ = libvlc_media_player_new_from_media(media_);
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    player_ = libvlc_media_player_new(inst_);
+    CHECKEQUALRET(player_, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+
+    libvlc_video_set_callbacks(player_, lock, unlock, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+    libvlc_video_set_format(player_, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;RGBA&amp;#34;&lt;/span&gt;, WIDTH, HEIGHT, WIDTH * &lt;span style=&#34;color:#b452cd&#34;&gt;4&lt;/span&gt;);
+    &lt;span style=&#34;color:#228b22&#34;&gt;//libvlc_media_player_set_hwnd(player_, GetDesktopWindow());
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    
+    &lt;span style=&#34;color:#228b22&#34;&gt;// play loop
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    list_ = libvlc_media_list_new(inst_);
+    plist_ = libvlc_media_list_player_new(inst_);
+    libvlc_media_list_add_media(list_, media_);
+    libvlc_media_list_player_set_media_list(plist_, list_);
+    libvlc_media_list_player_set_media_player(plist_, player_);
+    libvlc_media_list_player_set_playback_mode(plist_, libvlc_playback_mode_loop);
+    libvlc_media_list_player_play(plist_);
+
+    std::cin.get();
+
+END:
+    exit = &lt;span style=&#34;color:#658b00&#34;&gt;true&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (th.joinable())
+    {
+        th.join();
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (player_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        libvlc_media_player_stop(player_);
+        libvlc_media_player_release(player_);
+        player_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (media_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        libvlc_media_release(media_);
+        media_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (plist_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        libvlc_media_list_player_release(plist_);
+        plist_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (list_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        libvlc_media_list_release(list_);
+        list_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (inst_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        libvlc_release(inst_);
+        inst_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (print_buffer != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        free(print_buffer);
+        print_buffer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (out_buffer != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        free(out_buffer);
+        out_buffer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (tmp_buffer != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        free(tmp_buffer);
+        tmp_buffer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- https://gongluck.github.io/cpp/badapple-console/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>第一篇博客</title>
+        <link>https://gongluck.github.io/default/first/</link>
+        <pubDate>Mon, 06 Apr 2020 19:43:00 +0800</pubDate>
+        
+        <guid>https://gongluck.github.io/default/first/</guid>
+        <description>gongluck&#39;s blog https://gongluck.github.io/default/first/ -&lt;h3 id=&#34;第一篇博客&#34;&gt;第一篇博客&lt;/h3&gt;
+&lt;p&gt;本博客网站使用Hugo创建,参考了&lt;a href=&#34;https://www.bilibili.com/video/av51574688&#34;&gt;视频&lt;/a&gt;,十分便捷。&lt;/p&gt;
+- https://gongluck.github.io/default/first/ - </description>
+        </item>
+    
+    
+  </channel>
+</rss> 
