@@ -392,6 +392,60 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
 					
 				
 			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e5%88%b6%e4%bd%9c%e5%ae%89%e8%a3%85%e5%8c%85" v-on:click="closeDrawer" id="制作安装包-nav">
+										 制作安装包
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e6%9c%80%e5%90%8e" v-on:click="closeDrawer" id="最后-nav">
+										 最后
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
 	</div>
 
 </div>
@@ -708,6 +762,60 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
 					
 				
 			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e5%88%b6%e4%bd%9c%e5%ae%89%e8%a3%85%e5%8c%85" v-on:click="closeDrawer" id="制作安装包-nav">
+										 制作安装包
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e6%9c%80%e5%90%8e" v-on:click="closeDrawer" id="最后-nav">
+										 最后
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
 	</div>
 
 </div>
@@ -809,7 +917,7 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
 <h3 id="简单项目">简单项目</h3>
 <p>创建目录<strong>mydemo</strong>，再在<strong>mydemo</strong>目录中创建<strong>CMakeLists.txt</strong>和<strong>main.c</strong>两个文件。</p>
 <div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#228b22">//main.c
-</span><span style="color:#228b22"></span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#228b22"></span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b"></span>
 <span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>()
 {
@@ -844,7 +952,7 @@ cmake --build ./build
 
 <span style="color:#1e889b">#endif</span><span style="color:#228b22">//__MYFUN_H__
 </span></code></pre></div><div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#228b22">//myfun.c
-</span><span style="color:#228b22"></span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;myfun.h&#34;</span><span style="color:#1e889b">
+</span><span style="color:#228b22"></span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;myfun.h&#34;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b"></span>
 <span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">myfun</span>(<span style="color:#00688b;font-weight:bold">int</span> a, <span style="color:#00688b;font-weight:bold">int</span> b)
 {
@@ -871,8 +979,8 @@ cmake --build ./build
 </span></code></pre></div><p><em><strong>SHARED</strong></em>可以省略，省略后相当于<em><strong>STATIC</strong></em>。</p>
 <p><strong>mydemo</strong>下的<strong>CMakeLists.txt</strong>和<strong>main.c</strong>也要做修改。然后，<strong>重新构建生成</strong>。</p>
 <div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#228b22">//main.c
-</span><span style="color:#228b22"></span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
-</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;myfun/myfun.h&#34;</span><span style="color:#1e889b">
+</span><span style="color:#228b22"></span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;myfun/myfun.h&#34;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b"></span>
 <span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>()
 {
@@ -928,9 +1036,9 @@ cmake --build ./build
 </span><span style="color:#228b22"></span><span style="color:#658b00">project</span>(${<span style="color:#00688b">CURRENT_FOLDER</span>})<span style="color:#a61717;background-color:#e3d2d2">
 </span><span style="color:#a61717;background-color:#e3d2d2">
 </span><span style="color:#a61717;background-color:#e3d2d2"></span><span style="color:#228b22"># 加入一个配置头文件用于处理 CMake 对源码的设置
-</span><span style="color:#228b22"></span><span style="color:#658b00">configure_file</span>(
-  ${<span style="color:#00688b">PROJECT_SOURCE_DIR</span>}<span style="color:#cd5555">/config.h.in</span>
-  ${<span style="color:#00688b">PROJECT_BINARY_DIR</span>}<span style="color:#cd5555">/config.h</span>
+</span><span style="color:#228b22"></span><span style="color:#658b00">configure_file</span>(<span style="color:#cd5555"></span>
+  ${<span style="color:#00688b">PROJECT_SOURCE_DIR</span>}<span style="color:#cd5555">/config.h.in</span>
+  ${<span style="color:#00688b">PROJECT_BINARY_DIR</span>}<span style="color:#cd5555">/config.h</span>
   )<span style="color:#a61717;background-color:#e3d2d2">
 </span><span style="color:#a61717;background-color:#e3d2d2">
 </span><span style="color:#a61717;background-color:#e3d2d2"></span><span style="color:#228b22"># 自定义编译选项
@@ -966,10 +1074,10 @@ cmake --build ./build
 <div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#228b22">/* #undef USESUBMODULE */</span>
 </code></pre></div><p><strong>main.c</strong>也需要调整：</p>
 <div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#228b22">//main.c
-</span><span style="color:#228b22"></span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#228b22"></span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b"></span>
 <span style="color:#1e889b">#ifdef USESUBMODULE
-</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;myfun.h&#34;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;myfun.h&#34;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b">#endif</span><span style="color:#228b22">//USESUBMODULE
 </span><span style="color:#228b22"></span>
 <span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>()
@@ -1050,11 +1158,11 @@ ctest --force-new-ctest-process -C Release
 </span><span style="color:#a61717;background-color:#e3d2d2"></span><span style="color:#658b00">endif</span>()<span style="color:#a61717;background-color:#e3d2d2">
 </span></code></pre></div><p>检查<em><strong>printf</strong></em>函数并且定义<em><strong>HAVEPRINTF</strong></em>宏。
 <strong>main.c</strong>也需要调整：</p>
-<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;config.h&#34;</span><span style="color:#1e889b">
-</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;config.h&#34;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b"></span>
 <span style="color:#1e889b">#ifdef USESUBMODULE
-</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;myfun.h&#34;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;myfun.h&#34;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b">#endif</span><span style="color:#228b22">//USESUBMODULE
 </span><span style="color:#228b22"></span>
 <span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>()
@@ -1091,7 +1199,23 @@ ctest --force-new-ctest-process -C Release
 </span><span style="color:#1e889b">#define VERSION_MINOR 0
 </span></code></pre></div><p>在<strong>main.c</strong>中就可以直接使用版本号：</p>
 <div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++">printf(<span style="color:#cd5555">&#34;hello, cmake!version:%d.%d</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, VERSION_MAJOR, VERSION_MINOR);
-</code></pre></div>
+</code></pre></div><h3 id="制作安装包">制作安装包</h3>
+<p>主模块<strong>CMakeLists.txt</strong>添加：</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-CMake" data-lang="CMake"><span style="color:#228b22"># 构建一个CPack安装包
+</span><span style="color:#228b22"></span><span style="color:#658b00">include</span>(<span style="color:#cd5555">InstallRequiredSystemLibraries</span>)<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span><span style="color:#228b22"># 设置安装包版本号
+</span><span style="color:#228b22"></span><span style="color:#658b00">set</span>(<span style="color:#cd5555">CPACK_PACKAGE_VERSION_MAJOR</span> <span style="color:#cd5555">&#34;${VERSION_MAJOR}&#34;</span>)<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span><span style="color:#658b00">set</span>(<span style="color:#cd5555">CPACK_PACKAGE_VERSION_MINOR</span> <span style="color:#cd5555">&#34;${VERSION_MINOR}&#34;</span>)<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span><span style="color:#658b00">include</span>(<span style="color:#cd5555">CPack</span>)<span style="color:#a61717;background-color:#e3d2d2">
+</span></code></pre></div><p>依次执行以下命令即可生成安装包：</p>
+<pre><code class="language-Command" data-lang="Command">cmake -S . -B ./build
+cmake --build ./build --config Release
+cpack --config ./build/CPackConfig.cmake -B E:\Code\CMAKE-DEMO\mydemo\package -C Release
+cpack --config ./build/CPackSourceConfig.cmake -B E:\Code\CMAKE-DEMO\mydemo\package -C Release
+</code></pre><p><em><strong>cpack</strong></em>命令的参数 <em><strong>-B</strong></em>后面是的安装包的生成目录，需要绝对路径。
+<img src="/img/cmake_build8.PNG" alt="cmake_build7.PNG"></p>
+<h3 id="最后">最后</h3>
+<p><strong>CMake</strong>、<strong>CTest</strong>和<strong>CPack</strong>的基本使用基本就这些了，生成工程、编译、测试、安装、制作包都基本使用到了。每个命令还有很多可选的功能没有提到，等以后需要再做补充。</p>
                     
                     <HR width="100%" id="EOF">
                     <p style="color:#777;">Last modified on 2020-05-17</p>
