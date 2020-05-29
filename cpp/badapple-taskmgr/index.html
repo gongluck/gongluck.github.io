@@ -14,6 +14,21 @@
 
 
 
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-163347799-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
 <script src="/vendor/js/jquery.min.js" ></script>
 <script src="/vendor/js/popper.min.js" ></script>
 <script src="/vendor/js/bootstrap.min.js" ></script>
@@ -540,16 +555,16 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
 <h3 id="代码仓库">代码仓库</h3>
 <p><a href="https://github.com/gongluck/Character-player/tree/taskmgr">https://github.com/gongluck/Character-player/tree/taskmgr</a></p>
 <div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#228b22">//process.cpp
-</span><span style="color:#228b22"></span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;process.h&#34;</span><span style="color:#1e889b">
-</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;../errcode.h&#34;</span><span style="color:#1e889b">
+</span><span style="color:#228b22"></span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;process.h&#34;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;../errcode.h&#34;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b"></span>
-<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;iostream&gt;</span><span style="color:#1e889b">
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;iostream&gt;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b"></span>
 <span style="color:#1e889b">#ifdef _WIN32
-</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;windows.h&gt;</span><span style="color:#1e889b">
-</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;TlHelp32.h&gt;</span><span style="color:#1e889b">
-</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;tchar.h&gt;</span><span style="color:#1e889b">
-</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;atlconv.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;windows.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;TlHelp32.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;tchar.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;atlconv.h&gt;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b">#endif
 </span><span style="color:#1e889b"></span>
 <span style="color:#8b008b;font-weight:bold">namespace</span> gprocess
@@ -638,35 +653,35 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
     }
 } <span style="color:#228b22">// namespace gprocess
 </span></code></pre></div><div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#228b22">//main.cpp
-</span><span style="color:#228b22"></span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;iostream&gt;</span><span style="color:#1e889b">
+</span><span style="color:#228b22"></span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;iostream&gt;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b"></span>
 <span style="color:#1e889b">#ifdef _WIN32
-</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;Windows.h&gt;</span><span style="color:#1e889b">
-</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;tchar.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;Windows.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;tchar.h&gt;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b">#define ssize_t SSIZE_T
 </span><span style="color:#1e889b">#endif
-</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;vlc/vlc.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;vlc/vlc.h&gt;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b"></span>
-<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;../../Code-snippet/cpp/process/process.h&#34;</span><span style="color:#1e889b">
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;../../Code-snippet/cpp/process/process.h&#34;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b"></span>
 <span style="color:#1e889b">#define CHECKEQUALRET(ret, compare)\
-</span><span style="color:#1e889b"></span><span style="color:#8b008b;font-weight:bold">if</span>(ret == compare)<span style="color:#a61717;background-color:#e3d2d2">\</span>
-{<span style="color:#a61717;background-color:#e3d2d2">\</span>
-    std::cerr &lt;&lt; <span style="color:#cd5555">&#34;error ocurred in &#34;</span> &lt;&lt; __FILE__<span style="color:#a61717;background-color:#e3d2d2">\</span>
-              &lt;&lt; <span style="color:#cd5555">&#34;`s line &#34;</span> &lt;&lt; __LINE__<span style="color:#a61717;background-color:#e3d2d2">\</span>
-              &lt;&lt; <span style="color:#cd5555">&#34;, error &#34;</span> &lt;&lt; ret;<span style="color:#a61717;background-color:#e3d2d2">\</span>
-    <span style="color:#8b008b;font-weight:bold">goto</span> END;<span style="color:#a61717;background-color:#e3d2d2">\</span>
-}
-
+</span><span style="color:#1e889b">if(ret == compare)\
+</span><span style="color:#1e889b">{\
+</span><span style="color:#1e889b">    std::cerr &lt;&lt; &#34;error ocurred in &#34; &lt;&lt; __FILE__\
+</span><span style="color:#1e889b">              &lt;&lt; &#34;`s line &#34; &lt;&lt; __LINE__\
+</span><span style="color:#1e889b">              &lt;&lt; &#34;, error &#34; &lt;&lt; ret;\
+</span><span style="color:#1e889b">    goto END;\
+</span><span style="color:#1e889b">}
+</span><span style="color:#1e889b"></span>
 <span style="color:#1e889b">#define CHECKNEQUALRET(ret, compare)\
-</span><span style="color:#1e889b"></span><span style="color:#8b008b;font-weight:bold">if</span>(ret != compare)<span style="color:#a61717;background-color:#e3d2d2">\</span>
-{<span style="color:#a61717;background-color:#e3d2d2">\</span>
-    std::cerr &lt;&lt; <span style="color:#cd5555">&#34;error ocurred in &#34;</span> &lt;&lt; __FILE__<span style="color:#a61717;background-color:#e3d2d2">\</span>
-              &lt;&lt; <span style="color:#cd5555">&#34;`s line &#34;</span> &lt;&lt; __LINE__<span style="color:#a61717;background-color:#e3d2d2">\</span>
-              &lt;&lt; <span style="color:#cd5555">&#34;, error &#34;</span> &lt;&lt; ret;<span style="color:#a61717;background-color:#e3d2d2">\</span>
-    <span style="color:#8b008b;font-weight:bold">goto</span> END;<span style="color:#a61717;background-color:#e3d2d2">\</span>
-}
-
+</span><span style="color:#1e889b">if(ret != compare)\
+</span><span style="color:#1e889b">{\
+</span><span style="color:#1e889b">    std::cerr &lt;&lt; &#34;error ocurred in &#34; &lt;&lt; __FILE__\
+</span><span style="color:#1e889b">              &lt;&lt; &#34;`s line &#34; &lt;&lt; __LINE__\
+</span><span style="color:#1e889b">              &lt;&lt; &#34;, error &#34; &lt;&lt; ret;\
+</span><span style="color:#1e889b">    goto END;\
+</span><span style="color:#1e889b">}
+</span><span style="color:#1e889b"></span>
 <span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">getwindows</span>(<span style="color:#8b008b;font-weight:bold">const</span> TCHAR* classname,
     <span style="color:#8b008b;font-weight:bold">const</span> gprocess::WindowInfo&amp; info,
     std::vector&lt;std::shared_ptr&lt;gprocess::WindowInfo&gt;&gt;&amp; result)
