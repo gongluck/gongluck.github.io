@@ -163,7 +163,10 @@ if (!doNotTrack) {
         
     </div>
 
-    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> 
+    <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
 
     <div class="nav-footer">
         
@@ -932,7 +935,7 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
 <h3 id="简单项目">简单项目</h3>
 <p>创建目录<strong>mydemo</strong>，再在<strong>mydemo</strong>目录中创建<strong>CMakeLists.txt</strong>和<strong>main.c</strong>两个文件。</p>
 <div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#228b22">//main.c
-</span><span style="color:#228b22"></span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#228b22"></span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b"></span>
 <span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>()
 {
@@ -967,7 +970,7 @@ cmake --build ./build
 
 <span style="color:#1e889b">#endif</span><span style="color:#228b22">//__MYFUN_H__
 </span></code></pre></div><div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#228b22">//myfun.c
-</span><span style="color:#228b22"></span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;myfun.h&#34;</span><span style="color:#1e889b">
+</span><span style="color:#228b22"></span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;myfun.h&#34;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b"></span>
 <span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">myfun</span>(<span style="color:#00688b;font-weight:bold">int</span> a, <span style="color:#00688b;font-weight:bold">int</span> b)
 {
@@ -994,8 +997,8 @@ cmake --build ./build
 </span></code></pre></div><p><em><strong>SHARED</strong></em>可以省略，省略后相当于<em><strong>STATIC</strong></em>。</p>
 <p><strong>mydemo</strong>下的<strong>CMakeLists.txt</strong>和<strong>main.c</strong>也要做修改。然后，<strong>重新构建生成</strong>。</p>
 <div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#228b22">//main.c
-</span><span style="color:#228b22"></span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
-</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;myfun/myfun.h&#34;</span><span style="color:#1e889b">
+</span><span style="color:#228b22"></span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;myfun/myfun.h&#34;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b"></span>
 <span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>()
 {
@@ -1051,9 +1054,9 @@ cmake --build ./build
 </span><span style="color:#228b22"></span><span style="color:#658b00">project</span>(${<span style="color:#00688b">CURRENT_FOLDER</span>})<span style="color:#a61717;background-color:#e3d2d2">
 </span><span style="color:#a61717;background-color:#e3d2d2">
 </span><span style="color:#a61717;background-color:#e3d2d2"></span><span style="color:#228b22"># 加入一个配置头文件用于处理 CMake 对源码的设置
-</span><span style="color:#228b22"></span><span style="color:#658b00">configure_file</span>(
-  ${<span style="color:#00688b">PROJECT_SOURCE_DIR</span>}<span style="color:#cd5555">/config.h.in</span>
-  ${<span style="color:#00688b">PROJECT_BINARY_DIR</span>}<span style="color:#cd5555">/config.h</span>
+</span><span style="color:#228b22"></span><span style="color:#658b00">configure_file</span>(<span style="color:#cd5555"></span>
+  ${<span style="color:#00688b">PROJECT_SOURCE_DIR</span>}<span style="color:#cd5555">/config.h.in</span>
+  ${<span style="color:#00688b">PROJECT_BINARY_DIR</span>}<span style="color:#cd5555">/config.h</span>
   )<span style="color:#a61717;background-color:#e3d2d2">
 </span><span style="color:#a61717;background-color:#e3d2d2">
 </span><span style="color:#a61717;background-color:#e3d2d2"></span><span style="color:#228b22"># 自定义编译选项
@@ -1089,10 +1092,10 @@ cmake --build ./build
 <div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#228b22">/* #undef USESUBMODULE */</span>
 </code></pre></div><p><strong>main.c</strong>也需要调整：</p>
 <div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#228b22">//main.c
-</span><span style="color:#228b22"></span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#228b22"></span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b"></span>
 <span style="color:#1e889b">#ifdef USESUBMODULE
-</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;myfun.h&#34;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;myfun.h&#34;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b">#endif</span><span style="color:#228b22">//USESUBMODULE
 </span><span style="color:#228b22"></span>
 <span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>()
@@ -1173,11 +1176,11 @@ ctest --force-new-ctest-process -C Release
 </span><span style="color:#a61717;background-color:#e3d2d2"></span><span style="color:#658b00">endif</span>()<span style="color:#a61717;background-color:#e3d2d2">
 </span></code></pre></div><p>检查<em><strong>printf</strong></em>函数并且定义<em><strong>HAVEPRINTF</strong></em>宏。
 <strong>main.c</strong>也需要调整：</p>
-<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;config.h&#34;</span><span style="color:#1e889b">
-</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;config.h&#34;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b"></span>
 <span style="color:#1e889b">#ifdef USESUBMODULE
-</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;myfun.h&#34;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;myfun.h&#34;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b">#endif</span><span style="color:#228b22">//USESUBMODULE
 </span><span style="color:#228b22"></span>
 <span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>()

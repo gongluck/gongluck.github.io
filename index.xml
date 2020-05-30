@@ -23,7 +23,7 @@
 &lt;h3 id=&#34;简单项目&#34;&gt;简单项目&lt;/h3&gt;
 &lt;p&gt;创建目录&lt;strong&gt;mydemo&lt;/strong&gt;，再在&lt;strong&gt;mydemo&lt;/strong&gt;目录中创建&lt;strong&gt;CMakeLists.txt&lt;/strong&gt;和&lt;strong&gt;main.c&lt;/strong&gt;两个文件。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//main.c
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
 &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;()
 {
@@ -58,7 +58,7 @@ cmake --build ./build
 
 &lt;span style=&#34;color:#1e889b&#34;&gt;#endif&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//__MYFUN_H__
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//myfun.c
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;myfun.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;myfun.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
 &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;myfun&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; a, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; b)
 {
@@ -85,8 +85,8 @@ cmake --build ./build
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;em&gt;&lt;strong&gt;SHARED&lt;/strong&gt;&lt;/em&gt;可以省略，省略后相当于&lt;em&gt;&lt;strong&gt;STATIC&lt;/strong&gt;&lt;/em&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;mydemo&lt;/strong&gt;下的&lt;strong&gt;CMakeLists.txt&lt;/strong&gt;和&lt;strong&gt;main.c&lt;/strong&gt;也要做修改。然后，&lt;strong&gt;重新构建生成&lt;/strong&gt;。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//main.c
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;myfun/myfun.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;myfun/myfun.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
 &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;()
 {
@@ -142,9 +142,9 @@ cmake --build ./build
 &lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;project&lt;/span&gt;(${&lt;span style=&#34;color:#00688b&#34;&gt;CURRENT_FOLDER&lt;/span&gt;})&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 加入一个配置头文件用于处理 CMake 对源码的设置
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;configure_file&lt;/span&gt;(
-  ${&lt;span style=&#34;color:#00688b&#34;&gt;PROJECT_SOURCE_DIR&lt;/span&gt;}&lt;span style=&#34;color:#cd5555&#34;&gt;/config.h.in&lt;/span&gt;
-  ${&lt;span style=&#34;color:#00688b&#34;&gt;PROJECT_BINARY_DIR&lt;/span&gt;}&lt;span style=&#34;color:#cd5555&#34;&gt;/config.h&lt;/span&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;configure_file&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&lt;/span&gt;
+  ${&lt;span style=&#34;color:#00688b&#34;&gt;PROJECT_SOURCE_DIR&lt;/span&gt;}&lt;span style=&#34;color:#cd5555&#34;&gt;/config.h.in&lt;/span&gt;
+  ${&lt;span style=&#34;color:#00688b&#34;&gt;PROJECT_BINARY_DIR&lt;/span&gt;}&lt;span style=&#34;color:#cd5555&#34;&gt;/config.h&lt;/span&gt;
   )&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 自定义编译选项
@@ -180,10 +180,10 @@ cmake --build ./build
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/* #undef USESUBMODULE */&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;main.c&lt;/strong&gt;也需要调整：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//main.c
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
 &lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef USESUBMODULE
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;myfun.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;myfun.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//USESUBMODULE
 &lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
 &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;()
@@ -264,11 +264,11 @@ ctest --force-new-ctest-process -C Release
 &lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;endif&lt;/span&gt;()&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;检查&lt;em&gt;&lt;strong&gt;printf&lt;/strong&gt;&lt;/em&gt;函数并且定义&lt;em&gt;&lt;strong&gt;HAVEPRINTF&lt;/strong&gt;&lt;/em&gt;宏。
 &lt;strong&gt;main.c&lt;/strong&gt;也需要调整：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;config.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;config.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
 &lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef USESUBMODULE
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;myfun.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;myfun.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//USESUBMODULE
 &lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
 &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;()
@@ -826,16 +826,16 @@ func SayHello(s string) {
 &lt;h3 id=&#34;代码仓库&#34;&gt;代码仓库&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/Character-player/tree/taskmgr&#34;&gt;https://github.com/gongluck/Character-player/tree/taskmgr&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//process.cpp
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;process.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;../errcode.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;process.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;../errcode.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
 &lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef _WIN32
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;windows.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;TlHelp32.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;tchar.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;atlconv.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;windows.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;TlHelp32.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;tchar.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;atlconv.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
 &lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
 &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;namespace&lt;/span&gt; gprocess
@@ -924,35 +924,35 @@ func SayHello(s string) {
     }
 } &lt;span style=&#34;color:#228b22&#34;&gt;// namespace gprocess
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//main.cpp
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
 &lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef _WIN32
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;Windows.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;tchar.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;Windows.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;tchar.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define ssize_t SSIZE_T
 &lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;vlc/vlc.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;vlc/vlc.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;../../Code-snippet/cpp/process/process.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;../../Code-snippet/cpp/process/process.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
 &lt;span style=&#34;color:#1e889b&#34;&gt;#define CHECKEQUALRET(ret, compare)\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;if(ret == compare)\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;{\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    std::cerr &amp;lt;&amp;lt; &amp;#34;error ocurred in &amp;#34; &amp;lt;&amp;lt; __FILE__\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;`s line &amp;#34; &amp;lt;&amp;lt; __LINE__\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;, error &amp;#34; &amp;lt;&amp;lt; ret;\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    goto END;\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;}
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(ret == compare)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+{&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+    std::cerr &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;error ocurred in &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; __FILE__&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+              &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;`s line &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; __LINE__&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+              &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;, error &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; ret;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;goto&lt;/span&gt; END;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+}
+
 &lt;span style=&#34;color:#1e889b&#34;&gt;#define CHECKNEQUALRET(ret, compare)\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;if(ret != compare)\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;{\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    std::cerr &amp;lt;&amp;lt; &amp;#34;error ocurred in &amp;#34; &amp;lt;&amp;lt; __FILE__\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;`s line &amp;#34; &amp;lt;&amp;lt; __LINE__\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;, error &amp;#34; &amp;lt;&amp;lt; ret;\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    goto END;\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;}
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(ret != compare)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+{&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+    std::cerr &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;error ocurred in &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; __FILE__&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+              &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;`s line &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; __LINE__&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+              &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;, error &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; ret;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;goto&lt;/span&gt; END;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+}
+
 &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;getwindows&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; TCHAR* classname,
     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; gprocess::WindowInfo&amp;amp; info,
     std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt;&amp;amp; result)
@@ -1093,34 +1093,34 @@ END:
 &lt;p&gt;&lt;a href=&#34;https://www.bilibili.com/video/BV1N64y1u7BD&#34;&gt;https://www.bilibili.com/video/BV1N64y1u7BD&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;代码仓库&#34;&gt;代码仓库&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/Character-player/tree/console&#34;&gt;https://github.com/gongluck/Character-player/tree/console&lt;/a&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;thread&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;atomic&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;thread&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;atomic&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
 &lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef _WIN32
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;Windows.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;Windows.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define ssize_t SSIZE_T
 &lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;vlc/vlc.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;vlc/vlc.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
 &lt;span style=&#34;color:#1e889b&#34;&gt;#define CHECKEQUALRET(ret, compare)\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;if(ret == compare)\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;{\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    std::cerr &amp;lt;&amp;lt; &amp;#34;error ocurred in &amp;#34; &amp;lt;&amp;lt; __FILE__\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;`s line &amp;#34; &amp;lt;&amp;lt; __LINE__\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;, error &amp;#34; &amp;lt;&amp;lt; ret;\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    goto END;\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;}
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(ret == compare)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+{&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+    std::cerr &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;error ocurred in &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; __FILE__&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+              &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;`s line &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; __LINE__&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+              &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;, error &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; ret;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;goto&lt;/span&gt; END;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+}
+
 &lt;span style=&#34;color:#1e889b&#34;&gt;#define CHECKNEQUALRET(ret, compare)\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;if(ret != compare)\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;{\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    std::cerr &amp;lt;&amp;lt; &amp;#34;error ocurred in &amp;#34; &amp;lt;&amp;lt; __FILE__\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;`s line &amp;#34; &amp;lt;&amp;lt; __LINE__\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;, error &amp;#34; &amp;lt;&amp;lt; ret;\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    goto END;\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;}
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(ret != compare)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+{&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+    std::cerr &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;error ocurred in &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; __FILE__&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+              &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;`s line &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; __LINE__&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+              &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;, error &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; ret;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;goto&lt;/span&gt; END;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+}
+
 &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; WIDTH = &lt;span style=&#34;color:#b452cd&#34;&gt;200&lt;/span&gt;;
 &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; HEIGHT = &lt;span style=&#34;color:#b452cd&#34;&gt;50&lt;/span&gt;;
 &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;* out_buffer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;

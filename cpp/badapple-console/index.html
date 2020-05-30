@@ -163,7 +163,10 @@ if (!doNotTrack) {
         
     </div>
 
-    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> 
+    <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
 
     <div class="nav-footer">
         
@@ -554,34 +557,34 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
 <p><a href="https://www.bilibili.com/video/BV1N64y1u7BD">https://www.bilibili.com/video/BV1N64y1u7BD</a></p>
 <h3 id="代码仓库">代码仓库</h3>
 <p><a href="https://github.com/gongluck/Character-player/tree/console">https://github.com/gongluck/Character-player/tree/console</a></p>
-<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;iostream&gt;</span><span style="color:#1e889b">
-</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;thread&gt;</span><span style="color:#1e889b">
-</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;atomic&gt;</span><span style="color:#1e889b">
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;iostream&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;thread&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;atomic&gt;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b"></span>
 <span style="color:#1e889b">#ifdef _WIN32
-</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;Windows.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;Windows.h&gt;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b">#define ssize_t SSIZE_T
 </span><span style="color:#1e889b">#endif
-</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;vlc/vlc.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;vlc/vlc.h&gt;</span><span style="color:#1e889b">
 </span><span style="color:#1e889b"></span>
 <span style="color:#1e889b">#define CHECKEQUALRET(ret, compare)\
-</span><span style="color:#1e889b">if(ret == compare)\
-</span><span style="color:#1e889b">{\
-</span><span style="color:#1e889b">    std::cerr &lt;&lt; &#34;error ocurred in &#34; &lt;&lt; __FILE__\
-</span><span style="color:#1e889b">              &lt;&lt; &#34;`s line &#34; &lt;&lt; __LINE__\
-</span><span style="color:#1e889b">              &lt;&lt; &#34;, error &#34; &lt;&lt; ret;\
-</span><span style="color:#1e889b">    goto END;\
-</span><span style="color:#1e889b">}
-</span><span style="color:#1e889b"></span>
+</span><span style="color:#1e889b"></span><span style="color:#8b008b;font-weight:bold">if</span>(ret == compare)<span style="color:#a61717;background-color:#e3d2d2">\</span>
+{<span style="color:#a61717;background-color:#e3d2d2">\</span>
+    std::cerr &lt;&lt; <span style="color:#cd5555">&#34;error ocurred in &#34;</span> &lt;&lt; __FILE__<span style="color:#a61717;background-color:#e3d2d2">\</span>
+              &lt;&lt; <span style="color:#cd5555">&#34;`s line &#34;</span> &lt;&lt; __LINE__<span style="color:#a61717;background-color:#e3d2d2">\</span>
+              &lt;&lt; <span style="color:#cd5555">&#34;, error &#34;</span> &lt;&lt; ret;<span style="color:#a61717;background-color:#e3d2d2">\</span>
+    <span style="color:#8b008b;font-weight:bold">goto</span> END;<span style="color:#a61717;background-color:#e3d2d2">\</span>
+}
+
 <span style="color:#1e889b">#define CHECKNEQUALRET(ret, compare)\
-</span><span style="color:#1e889b">if(ret != compare)\
-</span><span style="color:#1e889b">{\
-</span><span style="color:#1e889b">    std::cerr &lt;&lt; &#34;error ocurred in &#34; &lt;&lt; __FILE__\
-</span><span style="color:#1e889b">              &lt;&lt; &#34;`s line &#34; &lt;&lt; __LINE__\
-</span><span style="color:#1e889b">              &lt;&lt; &#34;, error &#34; &lt;&lt; ret;\
-</span><span style="color:#1e889b">    goto END;\
-</span><span style="color:#1e889b">}
-</span><span style="color:#1e889b"></span>
+</span><span style="color:#1e889b"></span><span style="color:#8b008b;font-weight:bold">if</span>(ret != compare)<span style="color:#a61717;background-color:#e3d2d2">\</span>
+{<span style="color:#a61717;background-color:#e3d2d2">\</span>
+    std::cerr &lt;&lt; <span style="color:#cd5555">&#34;error ocurred in &#34;</span> &lt;&lt; __FILE__<span style="color:#a61717;background-color:#e3d2d2">\</span>
+              &lt;&lt; <span style="color:#cd5555">&#34;`s line &#34;</span> &lt;&lt; __LINE__<span style="color:#a61717;background-color:#e3d2d2">\</span>
+              &lt;&lt; <span style="color:#cd5555">&#34;, error &#34;</span> &lt;&lt; ret;<span style="color:#a61717;background-color:#e3d2d2">\</span>
+    <span style="color:#8b008b;font-weight:bold">goto</span> END;<span style="color:#a61717;background-color:#e3d2d2">\</span>
+}
+
 <span style="color:#8b008b;font-weight:bold">static</span> <span style="color:#00688b;font-weight:bold">int</span> WIDTH = <span style="color:#b452cd">200</span>;
 <span style="color:#8b008b;font-weight:bold">static</span> <span style="color:#00688b;font-weight:bold">int</span> HEIGHT = <span style="color:#b452cd">50</span>;
 <span style="color:#8b008b;font-weight:bold">static</span> <span style="color:#00688b;font-weight:bold">char</span>* out_buffer = <span style="color:#8b008b;font-weight:bold">nullptr</span>;
