@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html><head>
-<title>Tags</title>
+<title>Shell基础</title>
 
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
@@ -56,13 +56,27 @@ if (!doNotTrack) {
 
 
 
-<style>
-  .toc{
-    display: none !important;
+<script src="https://gongluck.github.io/js/toc.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/vendor/js/md5.min.js"></script>
+<script>
+  var gitalk = new Gitalk({
+  clientID: '49c0a21d9340c4049e72',
+  clientSecret: '6a22a79ca072e86728e6b1385927d1ec92f3d4a8',
+  repo: 'blogtalk',
+  owner: 'gongluck',
+  admin: ['gongluck'],
+  id: md5(location.pathname),
+  distractionFreeMode: 'false'
+  });
+  window.onload = function () {
+        gitalk.render('gitalk-container')
   }
-</style>
-
-
+</script>
 
 
 
@@ -100,11 +114,9 @@ if (!doNotTrack) {
             
             
             
-                
             
             
-            
-            <a class="a-block nav-link-item active" href="/tags">
+            <a class="a-block nav-link-item false" href="/tags">
                 Tags
             </a>
             
@@ -172,6 +184,74 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
 </div><div ref="extraContainer" class="extra-container">
     
     
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e4%bd%bf%e7%94%a8shell" v-on:click="closeDrawer" id="使用shell-nav">
+										 使用Shell
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e7%ae%80%e5%8d%95shell%e6%96%87%e4%bb%b6" v-on:click="closeDrawer" id="简单shell文件-nav">
+										 简单Shell文件
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+    
     <div class="pagination">
         <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
             <i class="material-icons pagination-action-icon">
@@ -187,8 +267,6 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
                 brightness_7
             </i>
         </a>
-        
-        
         
         
     </div>
@@ -212,11 +290,9 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
                 
                 
                 
-                    
                 
                 
-                
-                <a class="a-block drawer-menu-item active" href="/tags">
+                <a class="a-block drawer-menu-item false" href="/tags">
                     Tags
                 </a>
                 
@@ -262,6 +338,74 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
                 
             
             
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e4%bd%bf%e7%94%a8shell" v-on:click="closeDrawer" id="使用shell-nav">
+										 使用Shell
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e7%ae%80%e5%8d%95shell%e6%96%87%e4%bb%b6" v-on:click="closeDrawer" id="简单shell文件-nav">
+										 简单Shell文件
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+            
         </div>
     </div>
 </div>
@@ -304,111 +448,128 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
             <div id="content">
 <div ref="streamContainer" class="stream-container">
     <div class="post-list-container post-list-container-shadow">
-        <a class="a-block">
-            <div class="post-item-wrapper post-item-wrapper-no-hover">
-                <div class="post-item post-item-no-gaps">
-                    <div class="post-item-info-wrapper">
-                        <div class="post-item-title post-item-title-small">
-                            Tags
-                        </div>
+        <div class="post">
+            
+            
+            
+                
+            
+
+            <div class="post-head-wrapper"
+                
+                    
+                    
+                    style="background-image: url('https://gongluck.github.io/img/linux_wh.jpg')"
+                    
+                
+            >
+                <div class="post-title">
+                    Shell基础
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2020-10-17 16:33
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/linux">linux</a>
+                                &nbsp;
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/linux">linux</a>
+                                &nbsp;
+                            
+                        
+                        
                     </div>
                 </div>
             </div>
-        </a>
-        
-        
-                <a href="https://gongluck.github.io/tags/linux/" class="a-block">
-                    <div class="post-item-wrapper">
-                        <div class="post-item post-item-no-gaps">
-                            <div class="post-item-info-wrapper"> 
-                                <div class="post-item-title">
-                                    linux
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h3 id="使用shell">使用Shell</h3>
+<p><strong>test.sh需要执行权限</strong></p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">/bin/bash ./test.sh
+<span style="color:#228b22">#或者</span>
+./test.sh
+</code></pre></div><h3 id="简单shell文件">简单Shell文件</h3>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#1e889b">#!/bin/bash
+</span><span style="color:#1e889b"></span><span style="color:#228b22">#第一句指明使用哪一个解析程序</span>
+
+<span style="color:#228b22">#输出字符串</span>
+<span style="color:#658b00">echo</span> <span style="color:#cd5555">&#34;hello, shell!&#34;</span>
+
+<span style="color:#228b22">#定义变量，=号之间不能有空格</span>
+<span style="color:#00688b">tmp</span>=<span style="color:#cd5555">&#34;test&#34;</span>
+<span style="color:#228b22">#输出变量，$紧跟变量名取变量值</span>
+<span style="color:#658b00">echo</span> <span style="color:#00688b">$tmp</span>
+
+<span style="color:#228b22">#循环输出文件名</span>
+<span style="color:#8b008b;font-weight:bold">for</span> file in <span style="color:#8b008b;font-weight:bold">$(</span>ls <span style="color:#00688b">$pwd</span><span style="color:#8b008b;font-weight:bold">)</span>; <span style="color:#8b008b;font-weight:bold">do</span>
+    <span style="color:#658b00">echo</span> <span style="color:#00688b">$file</span>
+<span style="color:#8b008b;font-weight:bold">done</span>
+
+<span style="color:#228b22">#循环加法</span>
+<span style="color:#00688b">sum</span>=0
+<span style="color:#8b008b;font-weight:bold">for</span> i in {1..100}; <span style="color:#8b008b;font-weight:bold">do</span>
+    <span style="color:#658b00">let</span> <span style="color:#00688b">sum</span>+=i  <span style="color:#228b22">#let 指明后面的是数字运算</span>
+<span style="color:#8b008b;font-weight:bold">done</span>
+<span style="color:#658b00">echo</span> <span style="color:#00688b">$sum</span>
+
+<span style="color:#228b22">#网络探寻</span>
+<span style="color:#8b008b;font-weight:bold">for</span> i in {1..254}; <span style="color:#8b008b;font-weight:bold">do</span>
+    ping -c <span style="color:#b452cd">2</span> -i 0.1 192.168.3.<span style="color:#00688b">$i</span> &amp;&gt; /dev/null
+    <span style="color:#8b008b;font-weight:bold">if</span> [ <span style="color:#00688b">$?</span> -eq <span style="color:#b452cd">0</span> ]; <span style="color:#8b008b;font-weight:bold">then</span>   <span style="color:#228b22"># $?可以获取上一个指令的执行结果</span>
+        <span style="color:#658b00">echo</span> 192.168.3.<span style="color:#00688b">$i</span> is up
+    <span style="color:#8b008b;font-weight:bold">else</span>
+        <span style="color:#658b00">echo</span> 192.168.3.<span style="color:#00688b">$i</span> is down
+    <span style="color:#8b008b;font-weight:bold">fi</span>
+<span style="color:#8b008b;font-weight:bold">done</span>
+</code></pre></div>
+                    
+                    <HR width="100%" id="EOF">
+                    <p style="color:#777;">Last modified on 2020-10-17</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts">
+                    Next<br>No newer posts.
                 </a>
-        
-                <a href="https://gongluck.github.io/tags/cmake/" class="a-block">
-                    <div class="post-item-wrapper">
-                        <div class="post-item post-item-no-gaps">
-                            <div class="post-item-info-wrapper"> 
-                                <div class="post-item-title">
-                                    cmake
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                
+                
+                
+                <a class="older-posts" href="https://gongluck.github.io/linux/wslssh/">
+                    Previous<br>搭建WSL的ssh服务
                 </a>
-        
-                <a href="https://gongluck.github.io/tags/cpp/" class="a-block">
-                    <div class="post-item-wrapper">
-                        <div class="post-item post-item-no-gaps">
-                            <div class="post-item-info-wrapper"> 
-                                <div class="post-item-title">
-                                    cpp
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-        
-                <a href="https://gongluck.github.io/tags/cgo/" class="a-block">
-                    <div class="post-item-wrapper">
-                        <div class="post-item post-item-no-gaps">
-                            <div class="post-item-info-wrapper"> 
-                                <div class="post-item-title">
-                                    cgo
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-        
-                <a href="https://gongluck.github.io/tags/go/" class="a-block">
-                    <div class="post-item-wrapper">
-                        <div class="post-item post-item-no-gaps">
-                            <div class="post-item-info-wrapper"> 
-                                <div class="post-item-title">
-                                    go
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-        
-                <a href="https://gongluck.github.io/tags/badapple/" class="a-block">
-                    <div class="post-item-wrapper">
-                        <div class="post-item post-item-no-gaps">
-                            <div class="post-item-info-wrapper"> 
-                                <div class="post-item-title">
-                                    BadApple
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-        
-                <a href="https://gongluck.github.io/tags/%E6%9D%82%E8%B0%88/" class="a-block">
-                    <div class="post-item-wrapper">
-                        <div class="post-item post-item-no-gaps">
-                            <div class="post-item-info-wrapper"> 
-                                <div class="post-item-title">
-                                    杂谈
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-        
-    </div>
-</div>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+<div id="gitalk-container"></div>
+
+
+
 
 
             </div>
+        </div>
+    </div>
+</div>
 
-
-<div id="single-column-footer">
+            </div><div id="single-column-footer">
 Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
 <br>
 Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linux on gongluck&#39;s blog</title>
+    <link>https://gongluck.github.io/categories/linux/</link>
+    <description>Recent content in linux on gongluck&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 17 Oct 2020 16:33:15 +0800</lastBuildDate>
+    
+	<atom:link href="https://gongluck.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Shell基础</title>
+      <link>https://gongluck.github.io/linux/shell/</link>
+      <pubDate>Sat, 17 Oct 2020 16:33:15 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/linux/shell/</guid>
+      <description>使用Shell test.sh需要执行权限
+/bin/bash ./test.sh#或者./test.sh简单Shell文件 #!/bin/bash#第一句指明使用哪一个解析程序#输出字符串echo &amp;#34;hello, shell!&amp;#34;#定义变量，=号之间不能有空格tmp=&amp;#34;test&amp;#34;#输出变量，$紧跟变量名取变量值echo $tmp#循环输出文件名for file in $(ls $pwd); doecho $filedone#循环加法sum=0for i in {1..100}; dolet sum+=i #let 指明后面的是数字运算doneecho $sum#网络探寻for i in {1..254}; doping -c 2 -i 0.1 192.168.3.$i &amp;amp;&amp;gt; /dev/nullif [ $? -eq 0 ]; then # $?可以获取上一个指令的执行结果echo 192.168.3.$i is upelseecho 192.</description>
+    </item>
+    
+    <item>
+      <title>搭建WSL的ssh服务</title>
+      <link>https://gongluck.github.io/linux/wslssh/</link>
+      <pubDate>Sat, 17 Oct 2020 16:33:15 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/linux/wslssh/</guid>
+      <description>sudo apt-get remove --purge openssh-serversudo apt-get install openssh-serversudo rm /etc/ssh/ssh_configsudo service ssh --full-restart</description>
+    </item>
+    
+  </channel>
+</rss>

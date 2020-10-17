@@ -4,9 +4,73 @@
     <link>https://gongluck.github.io/</link>
     <description>Recent content on gongluck&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 17 May 2020 14:17:09 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 17 Oct 2020 16:33:15 +0800</lastBuildDate>
     
         <atom:link href="https://gongluck.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>Shell基础</title>
+        <link>https://gongluck.github.io/linux/shell/</link>
+        <pubDate>Sat, 17 Oct 2020 16:33:15 +0800</pubDate>
+        
+        <guid>https://gongluck.github.io/linux/shell/</guid>
+        <description>gongluck&#39;s blog https://gongluck.github.io/linux/shell/ -&lt;h3 id=&#34;使用shell&#34;&gt;使用Shell&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;test.sh需要执行权限&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;/bin/bash ./test.sh
+&lt;span style=&#34;color:#228b22&#34;&gt;#或者&lt;/span&gt;
+./test.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;简单shell文件&#34;&gt;简单Shell文件&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;#第一句指明使用哪一个解析程序&lt;/span&gt;
+
+&lt;span style=&#34;color:#228b22&#34;&gt;#输出字符串&lt;/span&gt;
+&lt;span style=&#34;color:#658b00&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;hello, shell!&amp;#34;&lt;/span&gt;
+
+&lt;span style=&#34;color:#228b22&#34;&gt;#定义变量，=号之间不能有空格&lt;/span&gt;
+&lt;span style=&#34;color:#00688b&#34;&gt;tmp&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;test&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#228b22&#34;&gt;#输出变量，$紧跟变量名取变量值&lt;/span&gt;
+&lt;span style=&#34;color:#658b00&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#00688b&#34;&gt;$tmp&lt;/span&gt;
+
+&lt;span style=&#34;color:#228b22&#34;&gt;#循环输出文件名&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; file in &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;$(&lt;/span&gt;ls &lt;span style=&#34;color:#00688b&#34;&gt;$pwd&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;)&lt;/span&gt;; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;do&lt;/span&gt;
+    &lt;span style=&#34;color:#658b00&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#00688b&#34;&gt;$file&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;done&lt;/span&gt;
+
+&lt;span style=&#34;color:#228b22&#34;&gt;#循环加法&lt;/span&gt;
+&lt;span style=&#34;color:#00688b&#34;&gt;sum&lt;/span&gt;=0
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; i in {1..100}; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;do&lt;/span&gt;
+    &lt;span style=&#34;color:#658b00&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#00688b&#34;&gt;sum&lt;/span&gt;+=i  &lt;span style=&#34;color:#228b22&#34;&gt;#let 指明后面的是数字运算&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;done&lt;/span&gt;
+&lt;span style=&#34;color:#658b00&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#00688b&#34;&gt;$sum&lt;/span&gt;
+
+&lt;span style=&#34;color:#228b22&#34;&gt;#网络探寻&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; i in {1..254}; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;do&lt;/span&gt;
+    ping -c &lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt; -i 0.1 192.168.3.&lt;span style=&#34;color:#00688b&#34;&gt;$i&lt;/span&gt; &amp;amp;&amp;gt; /dev/null
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; [ &lt;span style=&#34;color:#00688b&#34;&gt;$?&lt;/span&gt; -eq &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt; ]; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;then&lt;/span&gt;   &lt;span style=&#34;color:#228b22&#34;&gt;# $?可以获取上一个指令的执行结果&lt;/span&gt;
+        &lt;span style=&#34;color:#658b00&#34;&gt;echo&lt;/span&gt; 192.168.3.&lt;span style=&#34;color:#00688b&#34;&gt;$i&lt;/span&gt; is up
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+        &lt;span style=&#34;color:#658b00&#34;&gt;echo&lt;/span&gt; 192.168.3.&lt;span style=&#34;color:#00688b&#34;&gt;$i&lt;/span&gt; is down
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;fi&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- https://gongluck.github.io/linux/shell/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>搭建WSL的ssh服务</title>
+        <link>https://gongluck.github.io/linux/wslssh/</link>
+        <pubDate>Sat, 17 Oct 2020 16:33:15 +0800</pubDate>
+        
+        <guid>https://gongluck.github.io/linux/wslssh/</guid>
+        <description>gongluck&#39;s blog https://gongluck.github.io/linux/wslssh/ -&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;sudo apt-get remove --purge openssh-server
+sudo apt-get install openssh-server
+sudo rm /etc/ssh/ssh_config
+sudo service ssh --full-restart
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- https://gongluck.github.io/linux/wslssh/ - </description>
+        </item>
     
     
     
