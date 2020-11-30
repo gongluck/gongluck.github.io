@@ -5,10 +5,20 @@
     <link>https://gongluck.github.io/categories/linux/</link>
     <description>Recent content in linux on gongluck&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 30 Nov 2020 20:52:27 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 30 Nov 2020 20:58:32 +0800</lastBuildDate>
     
 	<atom:link href="https://gongluck.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>基础组件开发专栏</title>
+      <link>https://gongluck.github.io/linux/%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%93%E6%A0%8F/</link>
+      <pubDate>Mon, 30 Nov 2020 20:58:32 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/linux/%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%93%E6%A0%8F/</guid>
+      <description>三、基础组件开发专栏 0.项目仓库  https://github.com/gongluck/CVIP.git  1.线程池原理与实现 1.1 线程池工作流程 1.2 线程池实现   线程池实现代码
+#include &amp;lt;pthread.h&amp;gt; // 添加队列节点#define LL_ADD(item, list) \ do \{ \item-&amp;gt;prev = NULL; \item-&amp;gt;next = list; \list = item; \} while (0)// 移除队列节点#define LL_REMOVE(item, list) \ do \{ \if (item-&amp;gt;prev != NULL) \item-&amp;gt;prev-&amp;gt;next = item-&amp;gt;next; \if (item-&amp;gt;next != NULL) \item-&amp;gt;next-&amp;gt;prev = item-&amp;gt;prev; \if (list == item) \list = item-&amp;gt;next; \item-&amp;gt;prev = item-&amp;gt;next = NULL; \} while (0)// 工作线程typedef struct WORKER{pthread_t thread;int terminate;struct WORKQUEUE *workqueue;struct WORKER *prev;struct WORKER *next;} Worker;// 工作任务typedef struct JOB{void (*job_function)(struct JOB *job);void *user_data;struct JOB *prev;struct JOB *next;} Job;// 工作调度typedef struct WORKQUEUE{struct WORKER *workers;struct JOB *waiting_jobs;pthread_mutex_t jobs_mtx;pthread_cond_t jobs_cond;} WorkQueue;typedef WorkQueue ThreadPool;// 工作线程回调函数static void *WorkerThread(void *ptr){Worker *worker = (Worker *)ptr;while (1){pthread_mutex_lock(&amp;amp;worker-&amp;gt;workqueue-&amp;gt;jobs_mtx);while (worker-&amp;gt;workqueue-&amp;gt;waiting_jobs == NULL){if (worker-&amp;gt;terminate)break;pthread_cond_wait(&amp;amp;worker-&amp;gt;workqueue-&amp;gt;jobs_cond, &amp;amp;worker-&amp;gt;workqueue-&amp;gt;jobs_mtx);}if (worker-&amp;gt;terminate){pthread_mutex_unlock(&amp;amp;worker-&amp;gt;workqueue-&amp;gt;jobs_mtx);break;}Job *job = worker-&amp;gt;workqueue-&amp;gt;waiting_jobs;if (job !</description>
+    </item>
     
     <item>
       <title>后台组件编程专栏</title>
