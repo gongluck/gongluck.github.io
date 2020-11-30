@@ -4,613 +4,23 @@
     <link>https://gongluck.github.io/</link>
     <description>Recent content on gongluck&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 30 Nov 2020 20:58:32 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 30 Nov 2020 21:02:48 +0800</lastBuildDate>
     
         <atom:link href="https://gongluck.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     
         <item>
-        <title>基础组件开发专栏</title>
-        <link>https://gongluck.github.io/linux/%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%93%E6%A0%8F/</link>
-        <pubDate>Mon, 30 Nov 2020 20:58:32 +0800</pubDate>
+        <title>开源框架专题</title>
+        <link>https://gongluck.github.io/linux/%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E4%B8%93%E9%A2%98/</link>
+        <pubDate>Mon, 30 Nov 2020 21:02:48 +0800</pubDate>
         
-        <guid>https://gongluck.github.io/linux/%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%93%E6%A0%8F/</guid>
-        <description>gongluck&#39;s blog https://gongluck.github.io/linux/%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%93%E6%A0%8F/ -&lt;h2 id=&#34;三基础组件开发专栏&#34;&gt;三、基础组件开发专栏&lt;/h2&gt;
+        <guid>https://gongluck.github.io/linux/%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E4%B8%93%E9%A2%98/</guid>
+        <description>gongluck&#39;s blog https://gongluck.github.io/linux/%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E4%B8%93%E9%A2%98/ -&lt;h2 id=&#34;四开源框架专题&#34;&gt;四、开源框架专题&lt;/h2&gt;
 &lt;h3 id=&#34;0项目仓库&#34;&gt;0.项目仓库&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP.git&#34;&gt;https://github.com/gongluck/CVIP.git&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;1线程池原理与实现&#34;&gt;1.线程池原理与实现&lt;/h3&gt;
-&lt;h4 id=&#34;11-线程池工作流程&#34;&gt;1.1 线程池工作流程&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/blob/master/images/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png&#34; alt=&#34;线程池工作流程&#34;&gt;&lt;/p&gt;
-&lt;h4 id=&#34;12-线程池实现&#34;&gt;1.2 线程池实现&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/threadpool/threadpool.c&#34;&gt;线程池实现代码&lt;/a&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;pthread.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
-&lt;span style=&#34;color:#228b22&#34;&gt;// 添加队列节点
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define LL_ADD(item, list) \
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;do&lt;/span&gt;                     &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-    {                      &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-        item-&amp;gt;prev = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;; &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-        item-&amp;gt;next = list; &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-        list = item;       &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
-  
-&lt;span style=&#34;color:#228b22&#34;&gt;// 移除队列节点
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define LL_REMOVE(item, list)              \
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;do&lt;/span&gt;                                     &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-    {                                      &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (item-&amp;gt;prev != &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)            &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-            item-&amp;gt;prev-&amp;gt;next = item-&amp;gt;next; &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (item-&amp;gt;next != &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)            &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-            item-&amp;gt;next-&amp;gt;prev = item-&amp;gt;prev; &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (list == item)                  &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-            list = item-&amp;gt;next;             &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-        item-&amp;gt;prev = item-&amp;gt;next = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;    &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
-  
-&lt;span style=&#34;color:#228b22&#34;&gt;// 工作线程
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; WORKER
-{
-    pthread_t &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;thread&lt;/span&gt;;
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; terminate;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; WORKQUEUE *workqueue;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; WORKER *prev;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; WORKER *next;
-} Worker;
-  
-&lt;span style=&#34;color:#228b22&#34;&gt;// 工作任务
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; JOB
-{
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; (*job_function)(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; JOB *job);
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *user_data;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; JOB *prev;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; JOB *next;
-} Job;
-  
-&lt;span style=&#34;color:#228b22&#34;&gt;// 工作调度
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; WORKQUEUE
-{
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; WORKER *workers;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; JOB *waiting_jobs;
-    pthread_mutex_t jobs_mtx;
-    pthread_cond_t jobs_cond;
-} WorkQueue;
-  
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; WorkQueue ThreadPool;
-  
-&lt;span style=&#34;color:#228b22&#34;&gt;// 工作线程回调函数
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *&lt;span style=&#34;color:#008b45&#34;&gt;WorkerThread&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *ptr)
-{
-    Worker *worker = (Worker *)ptr;
-  
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;)
-    {
-        pthread_mutex_lock(&amp;amp;worker-&amp;gt;workqueue-&amp;gt;jobs_mtx);
-  
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (worker-&amp;gt;workqueue-&amp;gt;waiting_jobs == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
-        {
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (worker-&amp;gt;terminate)
-                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;break&lt;/span&gt;;
-            pthread_cond_wait(&amp;amp;worker-&amp;gt;workqueue-&amp;gt;jobs_cond, &amp;amp;worker-&amp;gt;workqueue-&amp;gt;jobs_mtx);
-        }
-  
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (worker-&amp;gt;terminate)
-        {
-            pthread_mutex_unlock(&amp;amp;worker-&amp;gt;workqueue-&amp;gt;jobs_mtx);
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;break&lt;/span&gt;;
-        }
-  
-        Job *job = worker-&amp;gt;workqueue-&amp;gt;waiting_jobs;
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (job != &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
-        {
-            LL_REMOVE(job, worker-&amp;gt;workqueue-&amp;gt;waiting_jobs);
-        }
-  
-        pthread_mutex_unlock(&amp;amp;worker-&amp;gt;workqueue-&amp;gt;jobs_mtx);
-  
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (job == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;continue&lt;/span&gt;;
-  
-        job-&amp;gt;job_function(job);
-    }
-  
-    free(worker);
-    pthread_exit(&lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;);
-}
-  
-&lt;span style=&#34;color:#228b22&#34;&gt;// 创建线程池
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;ThreadPoolCreate&lt;/span&gt;(ThreadPool *workqueue, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; numWorkers)
-{
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (numWorkers &amp;lt; &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;)
-        numWorkers = &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
-    memset(workqueue, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(ThreadPool));
-  
-    pthread_mutex_init(&amp;amp;workqueue-&amp;gt;jobs_mtx, &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;);
-    pthread_cond_init(&amp;amp;workqueue-&amp;gt;jobs_cond, &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;);
-  
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; numWorkers; i++)
-    {
-        Worker *worker = (Worker *)malloc(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(Worker));
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (worker == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
-        {
-            perror(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;malloc&amp;#34;&lt;/span&gt;);
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
-        }
-  
-        memset(worker, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(Worker));
-        worker-&amp;gt;workqueue = workqueue;
-  
-        &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; ret = pthread_create(&amp;amp;worker-&amp;gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;thread&lt;/span&gt;, &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;, WorkerThread, (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *)worker);
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (ret)
-        {
-            perror(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;pthread_create&amp;#34;&lt;/span&gt;);
-            free(worker);
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
-        }
-  
-        LL_ADD(worker, worker-&amp;gt;workqueue-&amp;gt;workers);
-    }
-  
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
-}
-  
-&lt;span style=&#34;color:#228b22&#34;&gt;// 终止线程池
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;ThreadPoolShutdown&lt;/span&gt;(ThreadPool *workqueue)
-{
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (Worker *worker = workqueue-&amp;gt;workers; worker != &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;; worker = worker-&amp;gt;next)
-    {
-        worker-&amp;gt;terminate = &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
-    }
-  
-    pthread_mutex_lock(&amp;amp;workqueue-&amp;gt;jobs_mtx);
-  
-    workqueue-&amp;gt;workers = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
-    workqueue-&amp;gt;waiting_jobs = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
-  
-    pthread_cond_broadcast(&amp;amp;workqueue-&amp;gt;jobs_cond);
-  
-    pthread_mutex_unlock(&amp;amp;workqueue-&amp;gt;jobs_mtx);
-}
-  
-&lt;span style=&#34;color:#228b22&#34;&gt;// 添加任务
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;ThreadPoolQueue&lt;/span&gt;(ThreadPool *workqueue, Job *job)
-{
-    pthread_mutex_lock(&amp;amp;workqueue-&amp;gt;jobs_mtx);
-  
-    LL_ADD(job, workqueue-&amp;gt;waiting_jobs);
-  
-    pthread_cond_signal(&amp;amp;workqueue-&amp;gt;jobs_cond);
-    pthread_mutex_unlock(&amp;amp;workqueue-&amp;gt;jobs_mtx);
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;2cas和无锁队列&#34;&gt;2.CAS和无锁队列&lt;/h3&gt;
-&lt;h4 id=&#34;21-cas&#34;&gt;2.1 CAS&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;比较并交换（compare and swap，CAS），是&lt;strong&gt;原⼦操作&lt;/strong&gt;的⼀种，可⽤于在多线程编程中实现不被打断的数据交换操作，从而避免多线程同时改写某⼀数据时由于执行顺序不确定性以及中断的不可预知性产⽣的数据不一致问题有了CAS，我们就可以用它来实现各种无锁（lock free）的数据结构。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;该操作通过将内存中的值与指定数据进行比较，当数值⼀样时将内存中的数据替换为新的值。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;compare_and_swap&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; *reg, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; oldval, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; newval)
-{
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; old_ref_val = *reg;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(old_reg_val == oldval)&lt;span style=&#34;color:#228b22&#34;&gt;//compare
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        *reg = newval;&lt;span style=&#34;color:#228b22&#34;&gt;//swap
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; old_reg_val;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;gcc/g++中的CAS&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;__sync_bool_compare_and_swap&lt;/span&gt;(type *ptr, type oldval type newval, ...);
-type &lt;span style=&#34;color:#008b45&#34;&gt;__sync_val_compare_and_swap&lt;/span&gt;(type *ptr, type oldval type newval, ...);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Windows的CAS&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;InterlockedCompareExchange(__inout LONG &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;volatile&lt;/span&gt;  *Target, __in LONG Exchange, __in LONG Comperand);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;C++11标准库的CAS&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;template&amp;lt; class T &amp;gt;
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt; atomic_compare_exchange_weak(std::atomic&amp;lt;T&amp;gt;* obj, T* expected, T desired);
-template&amp;lt; class T &amp;gt;
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt; atomic_compare_exchange_weak(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;volatile&lt;/span&gt; std::atomic&amp;lt;T&amp;gt;* obj, T* expected, T desired );
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;22-无锁队列&#34;&gt;2.2 无锁队列&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/cas/cas.h&#34;&gt;无锁队列代码&lt;/a&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/*
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @Author: gongluck 
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @Date: 2020-11-16 16:02:56 
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @Last Modified by:   gongluck 
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @Last Modified time: 2020-11-16 16:02:56 
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; */&lt;/span&gt;
-  
-template &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typename&lt;/span&gt; ElemType&amp;gt;
-class Queue
-{
-public:
-    Queue();
-    ~Queue();
-  
-public:
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; push(ElemType elem);
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;pop&lt;/span&gt;();
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;show&lt;/span&gt;();
-  
-private:
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _qNode
-    {
-        _qNode() : _next(nullptr) {}
-        _qNode(ElemType elem) : _elem(elem), _next(nullptr) {}
-        ElemType _elem;
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _qNode *_next;
-    };
-  
-private:
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _qNode *_head;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _qNode *_tail;
-};
-  
-template &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typename&lt;/span&gt; ElemType&amp;gt;
-Queue&amp;lt;ElemType&amp;gt;::Queue()
-{
-    _head = _tail = new _qNode();
-}
-  
-template &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typename&lt;/span&gt; ElemType&amp;gt;
-Queue&amp;lt;ElemType&amp;gt;::~Queue()
-{
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (_head != nullptr)
-    {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _qNode *tempNode = _head;
-        _head = _head-&amp;gt;_next;
-        delete tempNode;
-    }
-}
-  
-template &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typename&lt;/span&gt; ElemType&amp;gt;
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; Queue&amp;lt;ElemType&amp;gt;::push(ElemType elem)
-{
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _qNode *newNode = new &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _qNode(elem);
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _qNode *oldp = _tail;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (!__sync_bool_compare_and_swap(&amp;amp;_tail-&amp;gt;_next, nullptr, newNode))
-        ;
-    __sync_bool_compare_and_swap(&amp;amp;_tail, oldp, newNode);
-}
-  
-template &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typename&lt;/span&gt; ElemType&amp;gt;
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt; Queue&amp;lt;ElemType&amp;gt;::pop()
-{
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _qNode *p;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;do&lt;/span&gt;
-    {
-        p = _head;
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (p-&amp;gt;_next == nullptr)
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;false&lt;/span&gt;;
-    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (!__sync_bool_compare_and_swap(&amp;amp;_head, p, p-&amp;gt;_next));
-    delete p;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;true&lt;/span&gt;;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;3内存池&#34;&gt;3.内存池&lt;/h3&gt;
-&lt;h4 id=&#34;31-nginx内存池结构&#34;&gt;3.1 Nginx内存池结构&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Nginx内存池结构&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/blob/master/images/Nginx%E5%86%85%E5%AD%98%E6%B1%A0%E7%BB%93%E6%9E%84.jpg&#34; alt=&#34;Nginx内存池结构&#34;&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;nginx对内存的管理分为大内存与小内存，当某一个申请的内存大于某一个值时，就需要从大内存中分配空间，否则从小内存中分配空间。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;nginx中的内存池是在创建的时候就设定好了大小，在以后分配小块内存的时候，如果内存不够，则是重新创建一块内存串到内存池中，而不是将原有的内存池进行扩张。当要分配大块内存是，则是在内存池外面再分配空间进行管理的，称为大块内存池。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Nginx内存池中大内存块和小内存块的分配与释放是不一样的。使用内存池时，可以使用ngx_palloc进行分配，使用ngx_pfree释放。对于大内存，这样做是没有问题的，而对于小内存就不一样了，分配的小内存，不会进行释放。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;32-nginx内存池的实现httpsgithubcomgongluckcvipblobmastercodemmpoolngx_pallocc&#34;&gt;3.2 &lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/mmpool/ngx_palloc.c&#34;&gt;Nginx内存池的实现&lt;/a&gt;&lt;/h4&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;ngx_pool_t *
-&lt;span style=&#34;color:#008b45&#34;&gt;ngx_create_pool&lt;/span&gt;(size_t size, ngx_log_t *log)
-{
-    ngx_pool_t  *p;
-
-    p = ngx_memalign(NGX_POOL_ALIGNMENT, size, log);
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (p == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
-    }
-
-    p-&amp;gt;d.last = (u_char *) p + &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(ngx_pool_t);&lt;span style=&#34;color:#228b22&#34;&gt;//初始状态：last指向ngx_pool_t结构体之后数据取起始位置
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    p-&amp;gt;d.end = (u_char *) p + size;&lt;span style=&#34;color:#228b22&#34;&gt;//end指向分配的整个size大小的内存的末尾
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    p-&amp;gt;d.next = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
-    p-&amp;gt;d.failed = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
-
-    size = size - &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(ngx_pool_t);
-    p-&amp;gt;max = (size &amp;lt; NGX_MAX_ALLOC_FROM_POOL) ? size : NGX_MAX_ALLOC_FROM_POOL;
-
-    p-&amp;gt;current = p;
-    p-&amp;gt;chain = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
-    p-&amp;gt;large = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
-    p-&amp;gt;cleanup = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
-    p-&amp;gt;log = log;
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; p;
-}
-
-
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;
-&lt;span style=&#34;color:#008b45&#34;&gt;ngx_destroy_pool&lt;/span&gt;(ngx_pool_t *pool)
-{
-    ngx_pool_t          *p, *n;
-    ngx_pool_large_t    *l;
-    ngx_pool_cleanup_t  *c;
-
-    &lt;span style=&#34;color:#228b22&#34;&gt;//首先调用所有的数据清理函数
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (c = pool-&amp;gt;cleanup; c; c = c-&amp;gt;next) {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (c-&amp;gt;handler) {
-            ngx_log_debug1(NGX_LOG_DEBUG_ALLOC, pool-&amp;gt;log, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;,
-                           &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;run cleanup: %p&amp;#34;&lt;/span&gt;, c);
-            c-&amp;gt;handler(c-&amp;gt;data);
-        }
-    }
-
-&lt;span style=&#34;color:#1e889b&#34;&gt;#if (NGX_DEBUG)
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#228b22&#34;&gt;/*
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * we could allocate the pool-&amp;gt;log from this pool
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * so we cannot use this log while free()ing the pool
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     */&lt;/span&gt;
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (l = pool-&amp;gt;large; l; l = l-&amp;gt;next) {
-        ngx_log_debug1(NGX_LOG_DEBUG_ALLOC, pool-&amp;gt;log, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;free: %p&amp;#34;&lt;/span&gt;, l-&amp;gt;alloc);
-    }
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (p = pool, n = pool-&amp;gt;d.next; &lt;span style=&#34;color:#228b22&#34;&gt;/* void */&lt;/span&gt;; p = n, n = n-&amp;gt;d.next) {
-        ngx_log_debug2(NGX_LOG_DEBUG_ALLOC, pool-&amp;gt;log, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;,
-                       &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;free: %p, unused: %uz&amp;#34;&lt;/span&gt;, p, p-&amp;gt;d.end - p-&amp;gt;d.last);
-
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (n == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) {
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;break&lt;/span&gt;;
-        }
-    }
-
-&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#228b22&#34;&gt;//释放所有的大块内存
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (l = pool-&amp;gt;large; l; l = l-&amp;gt;next) {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (l-&amp;gt;alloc) {
-            ngx_free(l-&amp;gt;alloc);
-        }
-    }
-
-    &lt;span style=&#34;color:#228b22&#34;&gt;//最后释放所有内存池中的内存块
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (p = pool, n = pool-&amp;gt;d.next; &lt;span style=&#34;color:#228b22&#34;&gt;/* void */&lt;/span&gt;; p = n, n = n-&amp;gt;d.next) {
-        ngx_free(p);
-
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (n == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) {
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;break&lt;/span&gt;;
-        }
-    }
-}
-
-
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;
-&lt;span style=&#34;color:#008b45&#34;&gt;ngx_reset_pool&lt;/span&gt;(ngx_pool_t *pool)
-{
-    ngx_pool_t        *p;
-    ngx_pool_large_t  *l;
-
-    &lt;span style=&#34;color:#228b22&#34;&gt;//释放所有大块内存
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (l = pool-&amp;gt;large; l; l = l-&amp;gt;next) {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (l-&amp;gt;alloc) {
-            ngx_free(l-&amp;gt;alloc);
-        }
-    }
-
-    &lt;span style=&#34;color:#228b22&#34;&gt;//重置所有小块内存区
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (p = pool; p; p = p-&amp;gt;d.next) {
-        p-&amp;gt;d.last = (u_char *) p + &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(ngx_pool_t);
-        p-&amp;gt;d.failed = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
-    }
-
-    pool-&amp;gt;current = pool;
-    pool-&amp;gt;chain = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
-    pool-&amp;gt;large = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
-}
-
-
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *
-&lt;span style=&#34;color:#008b45&#34;&gt;ngx_palloc&lt;/span&gt;(ngx_pool_t *pool, size_t size)
-{
-&lt;span style=&#34;color:#1e889b&#34;&gt;#if !(NGX_DEBUG_PALLOC)
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (size &amp;lt;= pool-&amp;gt;max) {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; ngx_palloc_small(pool, size, &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;);
-    }
-&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; ngx_palloc_large(pool, size);
-}
-
-
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *
-&lt;span style=&#34;color:#008b45&#34;&gt;ngx_pnalloc&lt;/span&gt;(ngx_pool_t *pool, size_t size)
-{
-&lt;span style=&#34;color:#1e889b&#34;&gt;#if !(NGX_DEBUG_PALLOC)
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (size &amp;lt;= pool-&amp;gt;max) {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; ngx_palloc_small(pool, size, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
-    }
-&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; ngx_palloc_large(pool, size);
-}
-
-
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; ngx_inline &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *
-&lt;span style=&#34;color:#008b45&#34;&gt;ngx_palloc_small&lt;/span&gt;(ngx_pool_t *pool, size_t size, ngx_uint_t align)
-{
-    u_char      *m;
-    ngx_pool_t  *p;
-
-    p = pool-&amp;gt;current;
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;do&lt;/span&gt; {
-        m = p-&amp;gt;d.last;
-
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (align) {
-            m = ngx_align_ptr(m, NGX_ALIGNMENT);
-        }
-
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; ((size_t) (p-&amp;gt;d.end - m) &amp;gt;= size) {&lt;span style=&#34;color:#228b22&#34;&gt;//如果在当前内存块有效范围内，进行内存指针的移动
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            p-&amp;gt;d.last = m + size;
-
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; m;
-        }
-
-        p = p-&amp;gt;d.next;&lt;span style=&#34;color:#228b22&#34;&gt;//如果当前内存块有效容量不够分配，则移动到下一个内存块进行分配
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
-    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (p);
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; ngx_palloc_block(pool, size);
-}
-
-
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *
-&lt;span style=&#34;color:#008b45&#34;&gt;ngx_palloc_block&lt;/span&gt;(ngx_pool_t *pool, size_t size)
-{
-    u_char      *m;
-    size_t       psize;
-    ngx_pool_t  *p, *new;
-
-    psize = (size_t) (pool-&amp;gt;d.end - (u_char *) pool);&lt;span style=&#34;color:#228b22&#34;&gt;//计算内存池第一个内存块的大小
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
-    m = ngx_memalign(NGX_POOL_ALIGNMENT, psize, pool-&amp;gt;log);&lt;span style=&#34;color:#228b22&#34;&gt;//分配和第一个内存块同样大小的内存块
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (m == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
-    }
-
-    new = (ngx_pool_t *) m;
-
-    new-&amp;gt;d.end = m + psize;&lt;span style=&#34;color:#228b22&#34;&gt;//设置新内存块的end
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    new-&amp;gt;d.next = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
-    new-&amp;gt;d.failed = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
-
-    m += &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(ngx_pool_data_t);&lt;span style=&#34;color:#228b22&#34;&gt;//将指针m移动到d后面的一个位置，作为起始位置
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    m = ngx_align_ptr(m, NGX_ALIGNMENT);
-    new-&amp;gt;d.last = m + size;&lt;span style=&#34;color:#228b22&#34;&gt;//设置新内存块的last，即申请使用size大小的内存
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#228b22&#34;&gt;//这里的循环用来找最后一个链表节点，这里failed用来控制循环的长度，如果分配失败次数达到5次，就忽略，不需要每次都从头找起
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (p = pool-&amp;gt;current; p-&amp;gt;d.next; p = p-&amp;gt;d.next) {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (p-&amp;gt;d.failed++ &amp;gt; &lt;span style=&#34;color:#b452cd&#34;&gt;4&lt;/span&gt;) {
-            pool-&amp;gt;current = p-&amp;gt;d.next;
-        }
-    }
-
-    p-&amp;gt;d.next = new;
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; m;
-}
-
-
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *
-&lt;span style=&#34;color:#008b45&#34;&gt;ngx_palloc_large&lt;/span&gt;(ngx_pool_t *pool, size_t size)
-{
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;              *p;
-    ngx_uint_t         n;
-    ngx_pool_large_t  *large;
-
-    &lt;span style=&#34;color:#228b22&#34;&gt;//直接在系统堆中分配一块空间
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    p = ngx_alloc(size, pool-&amp;gt;log);
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (p == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
-    }
-
-    n = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
-    &lt;span style=&#34;color:#228b22&#34;&gt;//查找到一个空的large区，如果有，则将刚才分配的空间交由它管理
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (large = pool-&amp;gt;large; large; large = large-&amp;gt;next) {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (large-&amp;gt;alloc == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) {
-            large-&amp;gt;alloc = p;
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; p;
-        }
-
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (n++ &amp;gt; &lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;) {
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;break&lt;/span&gt;;
-        }
-    }
-
-    &lt;span style=&#34;color:#228b22&#34;&gt;//为了提高效率， 如果在三次内没有找到空的large结构体，则创建一个
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    large = ngx_palloc_small(pool, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(ngx_pool_large_t), &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;);
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (large == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) {
-        ngx_free(p);
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
-    }
-
-    large-&amp;gt;alloc = p;
-    large-&amp;gt;next = pool-&amp;gt;large;
-    pool-&amp;gt;large = large;
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; p;
-}
-
-
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *
-&lt;span style=&#34;color:#008b45&#34;&gt;ngx_pmemalign&lt;/span&gt;(ngx_pool_t *pool, size_t size, size_t alignment)
-{
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;              *p;
-    ngx_pool_large_t  *large;
-
-    p = ngx_memalign(alignment, size, pool-&amp;gt;log);
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (p == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
-    }
-
-    large = ngx_palloc_small(pool, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(ngx_pool_large_t), &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;);
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (large == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) {
-        ngx_free(p);
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
-    }
-
-    large-&amp;gt;alloc = p;
-    large-&amp;gt;next = pool-&amp;gt;large;
-    pool-&amp;gt;large = large;
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; p;
-}
-
-
-ngx_int_t
-&lt;span style=&#34;color:#008b45&#34;&gt;ngx_pfree&lt;/span&gt;(ngx_pool_t *pool, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *p)
-{
-    ngx_pool_large_t  *l;
-
-    &lt;span style=&#34;color:#228b22&#34;&gt;//只检查是否是大内存块，如果是大内存块则释放
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (l = pool-&amp;gt;large; l; l = l-&amp;gt;next) {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (p == l-&amp;gt;alloc) {
-            ngx_log_debug1(NGX_LOG_DEBUG_ALLOC, pool-&amp;gt;log, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;,
-                           &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;free: %p&amp;#34;&lt;/span&gt;, l-&amp;gt;alloc);
-            ngx_free(l-&amp;gt;alloc);
-            l-&amp;gt;alloc = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
-
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; NGX_OK;
-        }
-    }
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; NGX_DECLINED;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;h2 id=&#34;四开源框架专题&#34;&gt;四、开源框架专题&lt;/h2&gt;
 &lt;h3 id=&#34;1字符编码和压缩&#34;&gt;1.字符编码和压缩&lt;/h3&gt;
 &lt;h4 id=&#34;11-字符编码&#34;&gt;1.1 字符编码&lt;/h4&gt;
 &lt;ul&gt;
@@ -1970,6 +1380,611 @@ sudo make install
     }
 
     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+- https://gongluck.github.io/linux/%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E4%B8%93%E9%A2%98/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>基础组件开发专栏</title>
+        <link>https://gongluck.github.io/linux/%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%93%E6%A0%8F/</link>
+        <pubDate>Mon, 30 Nov 2020 20:58:32 +0800</pubDate>
+        
+        <guid>https://gongluck.github.io/linux/%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%93%E6%A0%8F/</guid>
+        <description>gongluck&#39;s blog https://gongluck.github.io/linux/%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%93%E6%A0%8F/ -&lt;h2 id=&#34;三基础组件开发专栏&#34;&gt;三、基础组件开发专栏&lt;/h2&gt;
+&lt;h3 id=&#34;0项目仓库&#34;&gt;0.项目仓库&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP.git&#34;&gt;https://github.com/gongluck/CVIP.git&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;1线程池原理与实现&#34;&gt;1.线程池原理与实现&lt;/h3&gt;
+&lt;h4 id=&#34;11-线程池工作流程&#34;&gt;1.1 线程池工作流程&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/blob/master/images/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png&#34; alt=&#34;线程池工作流程&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;12-线程池实现&#34;&gt;1.2 线程池实现&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/threadpool/threadpool.c&#34;&gt;线程池实现代码&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;pthread.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 添加队列节点
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define LL_ADD(item, list) \
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;do&lt;/span&gt;                     &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+    {                      &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+        item-&amp;gt;prev = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;; &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+        item-&amp;gt;next = list; &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+        list = item;       &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 移除队列节点
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define LL_REMOVE(item, list)              \
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;do&lt;/span&gt;                                     &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+    {                                      &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (item-&amp;gt;prev != &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)            &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+            item-&amp;gt;prev-&amp;gt;next = item-&amp;gt;next; &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (item-&amp;gt;next != &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)            &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+            item-&amp;gt;next-&amp;gt;prev = item-&amp;gt;prev; &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (list == item)                  &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+            list = item-&amp;gt;next;             &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+        item-&amp;gt;prev = item-&amp;gt;next = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;    &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 工作线程
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; WORKER
+{
+    pthread_t &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;thread&lt;/span&gt;;
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; terminate;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; WORKQUEUE *workqueue;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; WORKER *prev;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; WORKER *next;
+} Worker;
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 工作任务
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; JOB
+{
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; (*job_function)(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; JOB *job);
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *user_data;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; JOB *prev;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; JOB *next;
+} Job;
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 工作调度
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; WORKQUEUE
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; WORKER *workers;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; JOB *waiting_jobs;
+    pthread_mutex_t jobs_mtx;
+    pthread_cond_t jobs_cond;
+} WorkQueue;
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; WorkQueue ThreadPool;
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 工作线程回调函数
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *&lt;span style=&#34;color:#008b45&#34;&gt;WorkerThread&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *ptr)
+{
+    Worker *worker = (Worker *)ptr;
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;)
+    {
+        pthread_mutex_lock(&amp;amp;worker-&amp;gt;workqueue-&amp;gt;jobs_mtx);
+  
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (worker-&amp;gt;workqueue-&amp;gt;waiting_jobs == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+        {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (worker-&amp;gt;terminate)
+                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;break&lt;/span&gt;;
+            pthread_cond_wait(&amp;amp;worker-&amp;gt;workqueue-&amp;gt;jobs_cond, &amp;amp;worker-&amp;gt;workqueue-&amp;gt;jobs_mtx);
+        }
+  
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (worker-&amp;gt;terminate)
+        {
+            pthread_mutex_unlock(&amp;amp;worker-&amp;gt;workqueue-&amp;gt;jobs_mtx);
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;break&lt;/span&gt;;
+        }
+  
+        Job *job = worker-&amp;gt;workqueue-&amp;gt;waiting_jobs;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (job != &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+        {
+            LL_REMOVE(job, worker-&amp;gt;workqueue-&amp;gt;waiting_jobs);
+        }
+  
+        pthread_mutex_unlock(&amp;amp;worker-&amp;gt;workqueue-&amp;gt;jobs_mtx);
+  
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (job == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;continue&lt;/span&gt;;
+  
+        job-&amp;gt;job_function(job);
+    }
+  
+    free(worker);
+    pthread_exit(&lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;);
+}
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 创建线程池
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;ThreadPoolCreate&lt;/span&gt;(ThreadPool *workqueue, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; numWorkers)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (numWorkers &amp;lt; &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;)
+        numWorkers = &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+    memset(workqueue, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(ThreadPool));
+  
+    pthread_mutex_init(&amp;amp;workqueue-&amp;gt;jobs_mtx, &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;);
+    pthread_cond_init(&amp;amp;workqueue-&amp;gt;jobs_cond, &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;);
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; numWorkers; i++)
+    {
+        Worker *worker = (Worker *)malloc(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(Worker));
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (worker == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+        {
+            perror(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;malloc&amp;#34;&lt;/span&gt;);
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+        }
+  
+        memset(worker, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(Worker));
+        worker-&amp;gt;workqueue = workqueue;
+  
+        &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; ret = pthread_create(&amp;amp;worker-&amp;gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;thread&lt;/span&gt;, &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;, WorkerThread, (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *)worker);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (ret)
+        {
+            perror(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;pthread_create&amp;#34;&lt;/span&gt;);
+            free(worker);
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+        }
+  
+        LL_ADD(worker, worker-&amp;gt;workqueue-&amp;gt;workers);
+    }
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 终止线程池
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;ThreadPoolShutdown&lt;/span&gt;(ThreadPool *workqueue)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (Worker *worker = workqueue-&amp;gt;workers; worker != &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;; worker = worker-&amp;gt;next)
+    {
+        worker-&amp;gt;terminate = &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+    }
+  
+    pthread_mutex_lock(&amp;amp;workqueue-&amp;gt;jobs_mtx);
+  
+    workqueue-&amp;gt;workers = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+    workqueue-&amp;gt;waiting_jobs = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+  
+    pthread_cond_broadcast(&amp;amp;workqueue-&amp;gt;jobs_cond);
+  
+    pthread_mutex_unlock(&amp;amp;workqueue-&amp;gt;jobs_mtx);
+}
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 添加任务
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;ThreadPoolQueue&lt;/span&gt;(ThreadPool *workqueue, Job *job)
+{
+    pthread_mutex_lock(&amp;amp;workqueue-&amp;gt;jobs_mtx);
+  
+    LL_ADD(job, workqueue-&amp;gt;waiting_jobs);
+  
+    pthread_cond_signal(&amp;amp;workqueue-&amp;gt;jobs_cond);
+    pthread_mutex_unlock(&amp;amp;workqueue-&amp;gt;jobs_mtx);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2cas和无锁队列&#34;&gt;2.CAS和无锁队列&lt;/h3&gt;
+&lt;h4 id=&#34;21-cas&#34;&gt;2.1 CAS&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;比较并交换（compare and swap，CAS），是&lt;strong&gt;原⼦操作&lt;/strong&gt;的⼀种，可⽤于在多线程编程中实现不被打断的数据交换操作，从而避免多线程同时改写某⼀数据时由于执行顺序不确定性以及中断的不可预知性产⽣的数据不一致问题有了CAS，我们就可以用它来实现各种无锁（lock free）的数据结构。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;该操作通过将内存中的值与指定数据进行比较，当数值⼀样时将内存中的数据替换为新的值。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;compare_and_swap&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; *reg, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; oldval, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; newval)
+{
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; old_ref_val = *reg;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(old_reg_val == oldval)&lt;span style=&#34;color:#228b22&#34;&gt;//compare
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        *reg = newval;&lt;span style=&#34;color:#228b22&#34;&gt;//swap
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; old_reg_val;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;gcc/g++中的CAS&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;__sync_bool_compare_and_swap&lt;/span&gt;(type *ptr, type oldval type newval, ...);
+type &lt;span style=&#34;color:#008b45&#34;&gt;__sync_val_compare_and_swap&lt;/span&gt;(type *ptr, type oldval type newval, ...);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Windows的CAS&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;InterlockedCompareExchange(__inout LONG &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;volatile&lt;/span&gt;  *Target, __in LONG Exchange, __in LONG Comperand);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;C++11标准库的CAS&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;template&amp;lt; class T &amp;gt;
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt; atomic_compare_exchange_weak(std::atomic&amp;lt;T&amp;gt;* obj, T* expected, T desired);
+template&amp;lt; class T &amp;gt;
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt; atomic_compare_exchange_weak(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;volatile&lt;/span&gt; std::atomic&amp;lt;T&amp;gt;* obj, T* expected, T desired );
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;22-无锁队列&#34;&gt;2.2 无锁队列&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/cas/cas.h&#34;&gt;无锁队列代码&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/*
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @Author: gongluck 
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @Date: 2020-11-16 16:02:56 
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @Last Modified by:   gongluck 
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @Last Modified time: 2020-11-16 16:02:56 
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; */&lt;/span&gt;
+  
+template &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typename&lt;/span&gt; ElemType&amp;gt;
+class Queue
+{
+public:
+    Queue();
+    ~Queue();
+  
+public:
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; push(ElemType elem);
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;pop&lt;/span&gt;();
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;show&lt;/span&gt;();
+  
+private:
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _qNode
+    {
+        _qNode() : _next(nullptr) {}
+        _qNode(ElemType elem) : _elem(elem), _next(nullptr) {}
+        ElemType _elem;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _qNode *_next;
+    };
+  
+private:
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _qNode *_head;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _qNode *_tail;
+};
+  
+template &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typename&lt;/span&gt; ElemType&amp;gt;
+Queue&amp;lt;ElemType&amp;gt;::Queue()
+{
+    _head = _tail = new _qNode();
+}
+  
+template &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typename&lt;/span&gt; ElemType&amp;gt;
+Queue&amp;lt;ElemType&amp;gt;::~Queue()
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (_head != nullptr)
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _qNode *tempNode = _head;
+        _head = _head-&amp;gt;_next;
+        delete tempNode;
+    }
+}
+  
+template &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typename&lt;/span&gt; ElemType&amp;gt;
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; Queue&amp;lt;ElemType&amp;gt;::push(ElemType elem)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _qNode *newNode = new &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _qNode(elem);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _qNode *oldp = _tail;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (!__sync_bool_compare_and_swap(&amp;amp;_tail-&amp;gt;_next, nullptr, newNode))
+        ;
+    __sync_bool_compare_and_swap(&amp;amp;_tail, oldp, newNode);
+}
+  
+template &amp;lt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typename&lt;/span&gt; ElemType&amp;gt;
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt; Queue&amp;lt;ElemType&amp;gt;::pop()
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _qNode *p;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;do&lt;/span&gt;
+    {
+        p = _head;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (p-&amp;gt;_next == nullptr)
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;false&lt;/span&gt;;
+    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (!__sync_bool_compare_and_swap(&amp;amp;_head, p, p-&amp;gt;_next));
+    delete p;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;true&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3内存池&#34;&gt;3.内存池&lt;/h3&gt;
+&lt;h4 id=&#34;31-nginx内存池结构&#34;&gt;3.1 Nginx内存池结构&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Nginx内存池结构&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/blob/master/images/Nginx%E5%86%85%E5%AD%98%E6%B1%A0%E7%BB%93%E6%9E%84.jpg&#34; alt=&#34;Nginx内存池结构&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;nginx对内存的管理分为大内存与小内存，当某一个申请的内存大于某一个值时，就需要从大内存中分配空间，否则从小内存中分配空间。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;nginx中的内存池是在创建的时候就设定好了大小，在以后分配小块内存的时候，如果内存不够，则是重新创建一块内存串到内存池中，而不是将原有的内存池进行扩张。当要分配大块内存是，则是在内存池外面再分配空间进行管理的，称为大块内存池。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Nginx内存池中大内存块和小内存块的分配与释放是不一样的。使用内存池时，可以使用ngx_palloc进行分配，使用ngx_pfree释放。对于大内存，这样做是没有问题的，而对于小内存就不一样了，分配的小内存，不会进行释放。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;32-nginx内存池的实现httpsgithubcomgongluckcvipblobmastercodemmpoolngx_pallocc&#34;&gt;3.2 &lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/mmpool/ngx_palloc.c&#34;&gt;Nginx内存池的实现&lt;/a&gt;&lt;/h4&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;ngx_pool_t *
+&lt;span style=&#34;color:#008b45&#34;&gt;ngx_create_pool&lt;/span&gt;(size_t size, ngx_log_t *log)
+{
+    ngx_pool_t  *p;
+
+    p = ngx_memalign(NGX_POOL_ALIGNMENT, size, log);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (p == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+    }
+
+    p-&amp;gt;d.last = (u_char *) p + &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(ngx_pool_t);&lt;span style=&#34;color:#228b22&#34;&gt;//初始状态：last指向ngx_pool_t结构体之后数据取起始位置
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    p-&amp;gt;d.end = (u_char *) p + size;&lt;span style=&#34;color:#228b22&#34;&gt;//end指向分配的整个size大小的内存的末尾
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    p-&amp;gt;d.next = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+    p-&amp;gt;d.failed = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+
+    size = size - &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(ngx_pool_t);
+    p-&amp;gt;max = (size &amp;lt; NGX_MAX_ALLOC_FROM_POOL) ? size : NGX_MAX_ALLOC_FROM_POOL;
+
+    p-&amp;gt;current = p;
+    p-&amp;gt;chain = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+    p-&amp;gt;large = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+    p-&amp;gt;cleanup = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+    p-&amp;gt;log = log;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; p;
+}
+
+
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;
+&lt;span style=&#34;color:#008b45&#34;&gt;ngx_destroy_pool&lt;/span&gt;(ngx_pool_t *pool)
+{
+    ngx_pool_t          *p, *n;
+    ngx_pool_large_t    *l;
+    ngx_pool_cleanup_t  *c;
+
+    &lt;span style=&#34;color:#228b22&#34;&gt;//首先调用所有的数据清理函数
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (c = pool-&amp;gt;cleanup; c; c = c-&amp;gt;next) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (c-&amp;gt;handler) {
+            ngx_log_debug1(NGX_LOG_DEBUG_ALLOC, pool-&amp;gt;log, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;,
+                           &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;run cleanup: %p&amp;#34;&lt;/span&gt;, c);
+            c-&amp;gt;handler(c-&amp;gt;data);
+        }
+    }
+
+&lt;span style=&#34;color:#1e889b&#34;&gt;#if (NGX_DEBUG)
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#228b22&#34;&gt;/*
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * we could allocate the pool-&amp;gt;log from this pool
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * so we cannot use this log while free()ing the pool
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     */&lt;/span&gt;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (l = pool-&amp;gt;large; l; l = l-&amp;gt;next) {
+        ngx_log_debug1(NGX_LOG_DEBUG_ALLOC, pool-&amp;gt;log, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;free: %p&amp;#34;&lt;/span&gt;, l-&amp;gt;alloc);
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (p = pool, n = pool-&amp;gt;d.next; &lt;span style=&#34;color:#228b22&#34;&gt;/* void */&lt;/span&gt;; p = n, n = n-&amp;gt;d.next) {
+        ngx_log_debug2(NGX_LOG_DEBUG_ALLOC, pool-&amp;gt;log, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;,
+                       &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;free: %p, unused: %uz&amp;#34;&lt;/span&gt;, p, p-&amp;gt;d.end - p-&amp;gt;d.last);
+
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (n == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;break&lt;/span&gt;;
+        }
+    }
+
+&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#228b22&#34;&gt;//释放所有的大块内存
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (l = pool-&amp;gt;large; l; l = l-&amp;gt;next) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (l-&amp;gt;alloc) {
+            ngx_free(l-&amp;gt;alloc);
+        }
+    }
+
+    &lt;span style=&#34;color:#228b22&#34;&gt;//最后释放所有内存池中的内存块
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (p = pool, n = pool-&amp;gt;d.next; &lt;span style=&#34;color:#228b22&#34;&gt;/* void */&lt;/span&gt;; p = n, n = n-&amp;gt;d.next) {
+        ngx_free(p);
+
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (n == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;break&lt;/span&gt;;
+        }
+    }
+}
+
+
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;
+&lt;span style=&#34;color:#008b45&#34;&gt;ngx_reset_pool&lt;/span&gt;(ngx_pool_t *pool)
+{
+    ngx_pool_t        *p;
+    ngx_pool_large_t  *l;
+
+    &lt;span style=&#34;color:#228b22&#34;&gt;//释放所有大块内存
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (l = pool-&amp;gt;large; l; l = l-&amp;gt;next) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (l-&amp;gt;alloc) {
+            ngx_free(l-&amp;gt;alloc);
+        }
+    }
+
+    &lt;span style=&#34;color:#228b22&#34;&gt;//重置所有小块内存区
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (p = pool; p; p = p-&amp;gt;d.next) {
+        p-&amp;gt;d.last = (u_char *) p + &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(ngx_pool_t);
+        p-&amp;gt;d.failed = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+    }
+
+    pool-&amp;gt;current = pool;
+    pool-&amp;gt;chain = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+    pool-&amp;gt;large = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+}
+
+
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *
+&lt;span style=&#34;color:#008b45&#34;&gt;ngx_palloc&lt;/span&gt;(ngx_pool_t *pool, size_t size)
+{
+&lt;span style=&#34;color:#1e889b&#34;&gt;#if !(NGX_DEBUG_PALLOC)
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (size &amp;lt;= pool-&amp;gt;max) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; ngx_palloc_small(pool, size, &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;);
+    }
+&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; ngx_palloc_large(pool, size);
+}
+
+
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *
+&lt;span style=&#34;color:#008b45&#34;&gt;ngx_pnalloc&lt;/span&gt;(ngx_pool_t *pool, size_t size)
+{
+&lt;span style=&#34;color:#1e889b&#34;&gt;#if !(NGX_DEBUG_PALLOC)
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (size &amp;lt;= pool-&amp;gt;max) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; ngx_palloc_small(pool, size, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+    }
+&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; ngx_palloc_large(pool, size);
+}
+
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; ngx_inline &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *
+&lt;span style=&#34;color:#008b45&#34;&gt;ngx_palloc_small&lt;/span&gt;(ngx_pool_t *pool, size_t size, ngx_uint_t align)
+{
+    u_char      *m;
+    ngx_pool_t  *p;
+
+    p = pool-&amp;gt;current;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;do&lt;/span&gt; {
+        m = p-&amp;gt;d.last;
+
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (align) {
+            m = ngx_align_ptr(m, NGX_ALIGNMENT);
+        }
+
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; ((size_t) (p-&amp;gt;d.end - m) &amp;gt;= size) {&lt;span style=&#34;color:#228b22&#34;&gt;//如果在当前内存块有效范围内，进行内存指针的移动
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            p-&amp;gt;d.last = m + size;
+
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; m;
+        }
+
+        p = p-&amp;gt;d.next;&lt;span style=&#34;color:#228b22&#34;&gt;//如果当前内存块有效容量不够分配，则移动到下一个内存块进行分配
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (p);
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; ngx_palloc_block(pool, size);
+}
+
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *
+&lt;span style=&#34;color:#008b45&#34;&gt;ngx_palloc_block&lt;/span&gt;(ngx_pool_t *pool, size_t size)
+{
+    u_char      *m;
+    size_t       psize;
+    ngx_pool_t  *p, *new;
+
+    psize = (size_t) (pool-&amp;gt;d.end - (u_char *) pool);&lt;span style=&#34;color:#228b22&#34;&gt;//计算内存池第一个内存块的大小
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+    m = ngx_memalign(NGX_POOL_ALIGNMENT, psize, pool-&amp;gt;log);&lt;span style=&#34;color:#228b22&#34;&gt;//分配和第一个内存块同样大小的内存块
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (m == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+    }
+
+    new = (ngx_pool_t *) m;
+
+    new-&amp;gt;d.end = m + psize;&lt;span style=&#34;color:#228b22&#34;&gt;//设置新内存块的end
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    new-&amp;gt;d.next = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+    new-&amp;gt;d.failed = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+
+    m += &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(ngx_pool_data_t);&lt;span style=&#34;color:#228b22&#34;&gt;//将指针m移动到d后面的一个位置，作为起始位置
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    m = ngx_align_ptr(m, NGX_ALIGNMENT);
+    new-&amp;gt;d.last = m + size;&lt;span style=&#34;color:#228b22&#34;&gt;//设置新内存块的last，即申请使用size大小的内存
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#228b22&#34;&gt;//这里的循环用来找最后一个链表节点，这里failed用来控制循环的长度，如果分配失败次数达到5次，就忽略，不需要每次都从头找起
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (p = pool-&amp;gt;current; p-&amp;gt;d.next; p = p-&amp;gt;d.next) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (p-&amp;gt;d.failed++ &amp;gt; &lt;span style=&#34;color:#b452cd&#34;&gt;4&lt;/span&gt;) {
+            pool-&amp;gt;current = p-&amp;gt;d.next;
+        }
+    }
+
+    p-&amp;gt;d.next = new;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; m;
+}
+
+
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *
+&lt;span style=&#34;color:#008b45&#34;&gt;ngx_palloc_large&lt;/span&gt;(ngx_pool_t *pool, size_t size)
+{
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;              *p;
+    ngx_uint_t         n;
+    ngx_pool_large_t  *large;
+
+    &lt;span style=&#34;color:#228b22&#34;&gt;//直接在系统堆中分配一块空间
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    p = ngx_alloc(size, pool-&amp;gt;log);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (p == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+    }
+
+    n = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+    &lt;span style=&#34;color:#228b22&#34;&gt;//查找到一个空的large区，如果有，则将刚才分配的空间交由它管理
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (large = pool-&amp;gt;large; large; large = large-&amp;gt;next) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (large-&amp;gt;alloc == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) {
+            large-&amp;gt;alloc = p;
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; p;
+        }
+
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (n++ &amp;gt; &lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;) {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;break&lt;/span&gt;;
+        }
+    }
+
+    &lt;span style=&#34;color:#228b22&#34;&gt;//为了提高效率， 如果在三次内没有找到空的large结构体，则创建一个
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    large = ngx_palloc_small(pool, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(ngx_pool_large_t), &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (large == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) {
+        ngx_free(p);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+    }
+
+    large-&amp;gt;alloc = p;
+    large-&amp;gt;next = pool-&amp;gt;large;
+    pool-&amp;gt;large = large;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; p;
+}
+
+
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *
+&lt;span style=&#34;color:#008b45&#34;&gt;ngx_pmemalign&lt;/span&gt;(ngx_pool_t *pool, size_t size, size_t alignment)
+{
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;              *p;
+    ngx_pool_large_t  *large;
+
+    p = ngx_memalign(alignment, size, pool-&amp;gt;log);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (p == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+    }
+
+    large = ngx_palloc_small(pool, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(ngx_pool_large_t), &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (large == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) {
+        ngx_free(p);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+    }
+
+    large-&amp;gt;alloc = p;
+    large-&amp;gt;next = pool-&amp;gt;large;
+    pool-&amp;gt;large = large;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; p;
+}
+
+
+ngx_int_t
+&lt;span style=&#34;color:#008b45&#34;&gt;ngx_pfree&lt;/span&gt;(ngx_pool_t *pool, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *p)
+{
+    ngx_pool_large_t  *l;
+
+    &lt;span style=&#34;color:#228b22&#34;&gt;//只检查是否是大内存块，如果是大内存块则释放
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (l = pool-&amp;gt;large; l; l = l-&amp;gt;next) {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (p == l-&amp;gt;alloc) {
+            ngx_log_debug1(NGX_LOG_DEBUG_ALLOC, pool-&amp;gt;log, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;,
+                           &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;free: %p&amp;#34;&lt;/span&gt;, l-&amp;gt;alloc);
+            ngx_free(l-&amp;gt;alloc);
+            l-&amp;gt;alloc = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; NGX_OK;
+        }
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; NGX_DECLINED;
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
 - https://gongluck.github.io/linux/%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%93%E6%A0%8F/ - </description>
@@ -6914,274 +6929,6 @@ func SayHello(s string) {
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;从Go1.10开始CGO新增加了一个_GoString_预定义的C语言类型，用来表示Go语言字符串。&lt;/strong&gt;&lt;/em&gt;
 上面一个GO源码文件中,发生了这样的调用过程。GO的main函数中,调用了&amp;quot;C&amp;quot;包中的 &lt;em&gt;&lt;strong&gt;SayHello&lt;/strong&gt;&lt;/em&gt; 这个C函数,实际这个 &lt;em&gt;&lt;strong&gt;SayHello&lt;/strong&gt;&lt;/em&gt; C函数是GO实现的,所以转向调用GO中的 &lt;em&gt;&lt;strong&gt;SayHello&lt;/strong&gt;&lt;/em&gt; 。&lt;/p&gt;- https://gongluck.github.io/go/cgo_quick_start/ - </description>
-        </item>
-    
-    
-    
-        <item>
-        <title>任务管理器播放BadApple</title>
-        <link>https://gongluck.github.io/cpp/badapple-taskmgr/</link>
-        <pubDate>Wed, 08 Apr 2020 18:28:36 +0800</pubDate>
-        
-        <guid>https://gongluck.github.io/cpp/badapple-taskmgr/</guid>
-        <description>gongluck&#39;s blog https://gongluck.github.io/cpp/badapple-taskmgr/ -&lt;p&gt;有屏幕的地方就有BadApple!前面做了在控制台显示BadApple了,这一次把画面渲染到任务管理器上！&lt;/p&gt;
-&lt;h3 id=&#34;设计思路&#34;&gt;设计思路&lt;/h3&gt;
-&lt;p&gt;和上一篇差不多,只是设置指定窗口为libvlc的渲染窗口。找到指定的窗口比较复杂。&lt;/p&gt;
-&lt;h3 id=&#34;效果视频&#34;&gt;效果视频&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.bilibili.com/video/BV1B64y1u7rv&#34;&gt;https://www.bilibili.com/video/BV1B64y1u7rv&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&#34;代码仓库&#34;&gt;代码仓库&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/Character-player/tree/taskmgr&#34;&gt;https://github.com/gongluck/Character-player/tree/taskmgr&lt;/a&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//process.cpp
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;process.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;../errcode.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef _WIN32
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;windows.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;TlHelp32.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;tchar.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;atlconv.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;namespace&lt;/span&gt; gprocess
-{
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;gethandle&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;* processname, std::vector&amp;lt;ProcessInfo&amp;gt;&amp;amp; result)
-    {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (processname == &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
-        {
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; G_ERROR_INVALIDPARAM;
-        }
-
-&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef _WIN32
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
-        USES_CONVERSION;
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; processT = A2T(processname);
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (hSnapshot == INVALID_HANDLE_VALUE || processT == &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
-        {
-            std::cerr &amp;lt;&amp;lt; __FILE__ &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; : &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; __LINE__ &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; : &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; GetLastError() &amp;lt;&amp;lt; std::endl;
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; G_ERROR_INTERNAL;
-        }
-
-        result.clear();
-        ProcessInfo info = { &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt; };
-        PROCESSENTRY32 pe = { &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(pe) };
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; fOk = FALSE;
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (fOk = Process32First(hSnapshot, &amp;amp;pe); fOk; fOk = Process32Next(hSnapshot, &amp;amp;pe))
-        {
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (!_tcscmp(pe.szExeFile, processT))
-            {
-                info.processid = pe.th32ProcessID;
-                info.parentid = pe.th32ParentProcessID;
-                result.push_back(info);
-            }
-        }
-        CloseHandle(hSnapshot);
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; G_ERROR_SUCCEED;
-&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; G_ERROR_SUCCEED;
-    }
-
-&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef _WIN32
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;    BOOL CALLBACK &lt;span style=&#34;color:#008b45&#34;&gt;EnumChildWindowCB&lt;/span&gt;(HWND h, LPARAM l)
-    {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; pinfo = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;WindowInfo*&amp;gt;(l);
-        DWORD pid = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
-        GetWindowThreadProcessId(h, &amp;amp;pid);
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (pid == pinfo-&amp;gt;processid)
-        {
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; pchild = std::make_shared&amp;lt;WindowInfo&amp;gt;();
-            pchild-&amp;gt;processid = pid;
-            pchild-&amp;gt;window = h;
-            pinfo-&amp;gt;childs.push_back(pchild);
-            EnumChildWindows(h, EnumChildWindowCB, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;LPARAM&amp;gt;(pchild.get()));
-        }
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; TRUE;
-    }
-    BOOL CALLBACK &lt;span style=&#34;color:#008b45&#34;&gt;EnumWindowCB&lt;/span&gt;(HWND h, LPARAM l)
-    {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; pinfo = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;WindowInfo*&amp;gt;(l);
-        DWORD pid = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
-        GetWindowThreadProcessId(h, &amp;amp;pid);
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (pid == pinfo-&amp;gt;processid)
-        {
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; pchild = std::make_shared&amp;lt;WindowInfo&amp;gt;();
-            pchild-&amp;gt;processid = pid;
-            pchild-&amp;gt;window = h;
-            pinfo-&amp;gt;childs.push_back(pchild);
-            EnumChildWindows(h, EnumChildWindowCB, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;LPARAM&amp;gt;(pchild.get()));
-        }
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; TRUE;
-    }
-&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;getallwindows&lt;/span&gt;(WindowInfo* info)
-    {
-&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef _WIN32
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (EnumWindows(EnumWindowCB, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;LPARAM&amp;gt;(info)) != TRUE)
-        {
-            std::cerr &amp;lt;&amp;lt; __FILE__ &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; : &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; __LINE__ &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; : &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; GetLastError() &amp;lt;&amp;lt; std::endl;
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; G_ERROR_INTERNAL;
-        }
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; G_ERROR_SUCCEED;
-&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; G_ERROR_SUCCEED;
-    }
-} &lt;span style=&#34;color:#228b22&#34;&gt;// namespace gprocess
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//main.cpp
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef _WIN32
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;Windows.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;tchar.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define ssize_t SSIZE_T
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;vlc/vlc.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;../../Code-snippet/cpp/process/process.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#1e889b&#34;&gt;#define CHECKEQUALRET(ret, compare)\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(ret == compare)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-{&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-    std::cerr &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;error ocurred in &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; __FILE__&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-              &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;`s line &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; __LINE__&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-              &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;, error &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; ret;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;goto&lt;/span&gt; END;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-}
-
-&lt;span style=&#34;color:#1e889b&#34;&gt;#define CHECKNEQUALRET(ret, compare)\
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt;(ret != compare)&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-{&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-    std::cerr &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;error ocurred in &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; __FILE__&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-              &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;`s line &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; __LINE__&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-              &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;, error &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; ret;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;goto&lt;/span&gt; END;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
-}
-
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;getwindows&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; TCHAR* classname,
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; gprocess::WindowInfo&amp;amp; info,
-    std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt;&amp;amp; result)
-{
-    std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt; tmp;
-    TCHAR classname_[MAX_PATH] = { &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt; };
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; info.childs.size(); ++i)
-    {
-        GetClassName(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;HWND&amp;gt;(info.childs[i]-&amp;gt;window), classname_, _countof(classname_));
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (_tcscmp(classname_, classname) == &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
-        {
-            tmp.push_back(info.childs[i]);
-        }
-    }
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt;&amp;amp; each : tmp)
-    {
-        result.push_back(each);
-    }
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
-}
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;getwindows&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; TCHAR* classname,
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt;&amp;amp; windows,
-    std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt;&amp;amp; result)
-{
-    std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt; tmp;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; windows.size(); ++i)
-    {
-        getwindows(classname, *windows[i], tmp);
-    }
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt;&amp;amp; each : tmp)
-    {
-        result.push_back(each);
-    }
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
-}
-
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; argc, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;** argv)
-{
-    libvlc_instance_t* inst_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
-    libvlc_media_t* media_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
-    libvlc_media_player_t* player_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
-    libvlc_media_list_t* list_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
-    libvlc_media_list_player_t* plist_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
-    HWND wnd_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
-
-    std::vector&amp;lt;gprocess::ProcessInfo&amp;gt; result;
-    gprocess::WindowInfo windowinfo;
-    std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt; windows;
-    std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt; tmpwindows;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; ret = gprocess::gethandle(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Taskmgr.exe&amp;#34;&lt;/span&gt;, result);
-    CHECKNEQUALRET(ret, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
-    windowinfo.processid = result[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;].processid;
-    ret = gprocess::getallwindows(&amp;amp;windowinfo);
-    CHECKNEQUALRET(ret, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
-
-    ret = getwindows(TEXT(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;TaskManagerWindow&amp;#34;&lt;/span&gt;), windowinfo, windows);
-    CHECKNEQUALRET(ret, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
-    ret = getwindows(TEXT(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;NativeHWNDHost&amp;#34;&lt;/span&gt;), windows, tmpwindows);
-    CHECKNEQUALRET(ret, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
-    windows.clear();
-    windows.swap(tmpwindows);
-    ret = getwindows(TEXT(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;DirectUIHWND&amp;#34;&lt;/span&gt;), windows, tmpwindows);
-    CHECKNEQUALRET(ret, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
-    windows.clear();
-    windows.swap(tmpwindows);
-    ret = getwindows(TEXT(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;CvChartWindow&amp;#34;&lt;/span&gt;), windows, tmpwindows);
-    CHECKNEQUALRET(ret, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
-    CHECKEQUALRET(tmpwindows.size(), &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
-
-    wnd_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;HWND&amp;gt;(tmpwindows[tmpwindows.size() - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;]-&amp;gt;window);
-
-    inst_ = libvlc_new(&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
-    CHECKEQUALRET(inst_, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
-    media_ = libvlc_media_new_path(inst_, argc &amp;lt;= &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt; ? &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;badapple.mp4&amp;#34;&lt;/span&gt; : argv[&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;]);
-    CHECKEQUALRET(media_, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
-
-    &lt;span style=&#34;color:#228b22&#34;&gt;//player_ = libvlc_media_player_new_from_media(media_);
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    player_ = libvlc_media_player_new(inst_);
-    CHECKEQUALRET(player_, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
-
-    libvlc_media_player_set_hwnd(player_, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;*&amp;gt;(wnd_));
-
-    &lt;span style=&#34;color:#228b22&#34;&gt;// play loop
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    list_ = libvlc_media_list_new(inst_);
-    plist_ = libvlc_media_list_player_new(inst_);
-    libvlc_media_list_add_media(list_, media_);
-    libvlc_media_list_player_set_media_list(plist_, list_);
-    libvlc_media_list_player_set_media_player(plist_, player_);
-    libvlc_media_list_player_set_playback_mode(plist_, libvlc_playback_mode_loop);
-    libvlc_media_list_player_play(plist_);
-
-    std::cin.get();
-
-END:
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (player_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
-    {
-        libvlc_media_player_stop(player_);
-        libvlc_media_player_release(player_);
-        player_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
-    }
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (media_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
-    {
-        libvlc_media_release(media_);
-        media_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
-    }
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (plist_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
-    {
-        libvlc_media_list_player_release(plist_);
-        plist_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
-    }
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (list_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
-    {
-        libvlc_media_list_release(list_);
-        list_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
-    }
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (inst_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
-    {
-        libvlc_release(inst_);
-        inst_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- https://gongluck.github.io/cpp/badapple-taskmgr/ - </description>
         </item>
     
     

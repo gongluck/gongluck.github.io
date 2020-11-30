@@ -5,10 +5,27 @@
     <link>https://gongluck.github.io/linux/</link>
     <description>Recent content in Linuxes on gongluck&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 30 Nov 2020 20:58:32 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 30 Nov 2020 21:02:48 +0800</lastBuildDate>
     
 	<atom:link href="https://gongluck.github.io/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>开源框架专题</title>
+      <link>https://gongluck.github.io/linux/%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E4%B8%93%E9%A2%98/</link>
+      <pubDate>Mon, 30 Nov 2020 21:02:48 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/linux/%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E4%B8%93%E9%A2%98/</guid>
+      <description>四、开源框架专题 0.项目仓库  https://github.com/gongluck/CVIP.git  1.字符编码和压缩 1.1 字符编码   ASCII（American Standard Code for Information Interchange），128个字符，用7位二进制表示（00000000-01111111即0x00-0x7F）;EASCII（Extended ASCII），256个字符，用8位二进制表示（00000000-11111111即0x00-0xFF）。当计算机传到了欧洲，国际标准化组织在ASCII的基础上进行了扩展，形成了ISO-8859标准，跟EASCII类似，兼容ASCII，在高128个码位上有所区别。但是由于欧洲的语言环境十分复杂，所以根据各地区的语言又形成了很多子标准，ISO-8859-1、ISO-8859- 2、ISO-8859-3、……、ISO-8859-16。
+  双字节编码可以是变长的，也就是说同一个编码里面有些字符是单字节表示，有些字符是双字节表示。这样做的好处是，一方面可以兼容ASCII，另一方面可以节省存储容量，代价就是会损失一部分码位。
+ GBK（Chinese Internal Code Specification汉字内码扩展规范）是GB2312的扩展（gbk编码能够用来同时表示繁体字和简体字），按理说都属于双字节编码，码位是一样的，根本谈不上扩展，但实际上是预留空间在起作用。 UNICODE字符集（国际标准字符集），它将世界各种语言的每个字符定义一个唯一的编码，以满足跨语言、跨平台的文本信息转换。有多个编码方式，分别是UTF-8，UTF-16，UTF-32编码。    UTF是Unicode Transformation Format的缩写，意思是“Unicode转换格式”，后面的数字表明至少使用多少个比特位（Bit）来存储字符。
+  UFT-8：一种变长的编码方案，使用1~6个字节来存储；
+  UFT-32：一种固定长度的编码方案，不管字符编号大小，直接存储Unicode编号，始终使用4个字节来存储；
+  UTF-16：介于UTF-8和UTF-32之间，使用2个或者4个字节来存储，长度既固定又可变。
+  UTF格式在文件中的固定文件头
+    1.2 libiconv字符编码转换库   libiconv例子
+/** @Author: gongluck * @Date: 2020-11-18 07:52:34 * @Last Modified by: gongluck* @Last Modified time: 2020-11-18 09:14:11*/#include &amp;lt;stdio.</description>
+    </item>
     
     <item>
       <title>基础组件开发专栏</title>
