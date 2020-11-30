@@ -4,9 +4,2342 @@
     <link>https://gongluck.github.io/</link>
     <description>Recent content on gongluck&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 17 Oct 2020 16:33:15 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 30 Nov 2020 20:35:46 +0800</lastBuildDate>
     
         <atom:link href="https://gongluck.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>算法与设计模式专栏</title>
+        <link>https://gongluck.github.io/linux/%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%93%E6%A0%8F/</link>
+        <pubDate>Mon, 30 Nov 2020 20:35:46 +0800</pubDate>
+        
+        <guid>https://gongluck.github.io/linux/%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%93%E6%A0%8F/</guid>
+        <description>gongluck&#39;s blog https://gongluck.github.io/linux/%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%93%E6%A0%8F/ -&lt;h2 id=&#34;一算法与设计模式专栏&#34;&gt;一、算法与设计模式专栏&lt;/h2&gt;
+&lt;h3 id=&#34;0项目仓库&#34;&gt;0.项目仓库&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP.git&#34;&gt;https://github.com/gongluck/CVIP.git&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;1查找与排序kmp算法栈队列&#34;&gt;1.查找与排序/KMP算法，栈/队列&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/master/images/%E6%8E%92%E5%BA%8F%E6%AF%94%E8%BE%83.png&#34; alt=&#34;排序比较&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;11-希尔排序&#34;&gt;1.1 希尔排序&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;希尔排序，也称递减增量排序算法，是插入排序的一种更高效的改进版本。但希尔排序是非稳定排序算法。&lt;/p&gt;
+&lt;p&gt;希尔排序是基于插入排序的以下两点性质而提出改进方法的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;插入排序在对几乎已经排好序的数据操作时，效率高，即可以达到线性排序的效率；&lt;/li&gt;
+&lt;li&gt;但插入排序一般来说是低效的，因为插入排序每次只能将数据移动一位；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;希尔排序的基本思想是：先将整个待排序的记录序列分割成为若干子序列分别进行直接插入排序，待整个序列中的记录&amp;quot;基本有序&amp;quot;时，再对全体记录进行依次直接插入排序。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;算法步骤&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;选择一个增量序列 t1，t2，……，tk，其中 ti &amp;gt; tj, tk = 1；&lt;/li&gt;
+&lt;li&gt;按增量序列个数 k，对序列进行 k 趟排序；&lt;/li&gt;
+&lt;li&gt;每趟排序，根据对应的增量 ti，将待排序列分割成若干长度为 m 的子序列，分别对各子表进行直接插入排序。仅增量因子为 1 时，整个序列作为一个表来处理，表长度即为整个序列的长度。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/sort/sort.c&#34;&gt;代码&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;shell_sort&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; *data, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; length)
+{
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; gap = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, j = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; temp = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;// 外层分组
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (gap = length / &lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;; gap &amp;gt;= &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;; gap /= &lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;)
+    {
+        &lt;span style=&#34;color:#228b22&#34;&gt;// 插入排序
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (i = gap; i &amp;lt; length; ++i)
+        {
+            temp = data[i];
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (j = i - gap; j &amp;gt;= &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt; &amp;amp;&amp;amp; temp &amp;lt; data[j]; j -= gap)
+            {
+                &lt;span style=&#34;color:#228b22&#34;&gt;// 将data[j]右移
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                data[j + gap] = data[j];
+            }
+            &lt;span style=&#34;color:#228b22&#34;&gt;// 将temp(开始的data[i])放到循环跳出的地方
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            data[j + gap] = temp;
+        }
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;12-归并排序&#34;&gt;1.2 归并排序&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;归并排序（Merge sort）是建立在归并操作上的一种有效的排序算法。该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;作为一种典型的分而治之思想的算法应用，归并排序的实现由两种方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;自上而下的递归（所有递归的方法都可以用迭代重写，所以就有了第 2 种方法）；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;自下而上的迭代；&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;和选择排序一样，归并排序的性能不受输入数据的影响，但表现比选择排序好的多，因为始终都是 O(nlogn) 的时间复杂度。代价是需要额外的内存空间。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;算法步骤&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;申请空间，使其大小为两个已经排序序列之和，该空间用来存放合并后的序列；&lt;/li&gt;
+&lt;li&gt;设定两个指针，最初位置分别为两个已经排序序列的起始位置；&lt;/li&gt;
+&lt;li&gt;比较两个指针所指向的元素，选择相对小的元素放入到合并空间，并移动指针到下一位置；&lt;/li&gt;
+&lt;li&gt;重复步骤 3 直到某一指针达到序列尾；&lt;/li&gt;
+&lt;li&gt;将另一序列剩下的所有元素直接复制到合并序列尾。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/sort/sort.c&#34;&gt;代码&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;merge&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; *data, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; *temp, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; start, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; middle, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; end)
+{
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = start, j = middle + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;, k = start;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (i &amp;lt;= middle &amp;amp;&amp;amp; j &amp;lt;= end)
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (data[i] &amp;gt; data[j])
+        {
+            temp[k++] = data[j++];
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+        {
+            temp[k++] = data[i++];
+        }
+    }
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (i &amp;lt;= middle)
+    {
+        temp[k++] = data[i++];
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (j &amp;lt;= end)
+    {
+        temp[k++] = data[j++];
+    }
+      
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (i = start; i &amp;lt;= end; i++)
+    {
+        data[i] = temp[i];
+    }
+}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;merge_sort&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; *data, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; *temp, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; start, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; end)
+{
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; middle;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (start &amp;lt; end)
+    {
+        middle = start + (end - start) / &lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;;
+        merge_sort(data, temp, start, middle);
+        merge_sort(data, temp, middle + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;, end);
+        merge(data, temp, start, middle, end);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;13-快速排序&#34;&gt;1.3 快速排序&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;快速排序是由东尼·霍尔所发展的一种排序算法。在平均状况下，排序 n 个项目要 Ο(nlogn) 次比较。在最坏状况下则需要 Ο(n2) 次比较，但这种状况并不常见。事实上，快速排序通常明显比其他 Ο(nlogn) 算法更快，因为它的内部循环（inner loop）可以在大部分的架构上很有效率地被实现出来。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;快速排序使用分治法（Divide and conquer）策略来把一个串行（list）分为两个子串行（sub-lists）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;快速排序又是一种分而治之思想在排序算法上的典型应用。本质上来看，快速排序应该算是在冒泡排序基础上的递归分治法。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;快速排序的名字起的是简单粗暴，因为一听到这个名字你就知道它存在的意义，就是快，而且效率高！它是处理大数据最快的排序算法之一了。虽然 Worst Case 的时间复杂度达到了 O(n²)，但是人家就是优秀，在大多数情况下都比平均时间复杂度为 O(n logn) 的排序算法表现要更好。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;算法步骤&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;从数列中挑出一个元素，称为 &amp;ldquo;基准&amp;rdquo;（pivot）;&lt;/li&gt;
+&lt;li&gt;重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面（相同的数可以到任一边）。在这个分区退出之后，该基准就处于数列的中间位置。这个称为分区（partition）操作；&lt;/li&gt;
+&lt;li&gt;递归地（recursive）把小于基准值元素的子数列和大于基准值元素的子数列排序；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/sort/sort.c&#34;&gt;代码&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;quick&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; *data, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; left, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; right)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (left &amp;gt;= right)
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt;;
+  
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = left;
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; j = right;
+    &lt;span style=&#34;color:#228b22&#34;&gt;// 哨兵
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; key = data[left];
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (i &amp;lt; j)
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (i &amp;lt; j &amp;amp;&amp;amp; key &amp;lt;= data[j])
+        {
+            j--;
+        }
+        data[i] = data[j];
+  
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (i &amp;lt; j &amp;amp;&amp;amp; key &amp;gt;= data[i])
+        {
+            i++;
+        }
+        data[j] = data[i];
+    }
+  
+    data[i] = key;
+    quick(data, left, i - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;);
+    quick(data, i + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;, right);
+}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;quick_sort&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; *data, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; length)
+{
+    quick(data, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, length - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;14-kmp算法&#34;&gt;1.4 KMP算法&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Knuth-Morris-Pratt字符串查找算法&lt;/strong&gt;（简称为&lt;strong&gt;KMP算法&lt;/strong&gt;）可在一个&lt;strong&gt;主文本字符串&lt;/strong&gt;&lt;code&gt;S&lt;/code&gt;内查找一个&lt;strong&gt;词&lt;/strong&gt;&lt;code&gt;W&lt;/code&gt;的出现位置。此算法通过运用对这个词在不匹配时本身就包含足够的信息来确定下一个匹配将在哪里开始的发现，从而避免重新检查先前匹配的字符。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;部分匹配表&lt;/strong&gt;，又称为&lt;strong&gt;失配函数&lt;/strong&gt;，作用是让算法无需多次匹配&lt;code&gt;S&lt;/code&gt;中的任何字符。能够实现线性时间搜索的关键是在主串的一些字段中检查模式串的&lt;em&gt;初始字段&lt;/em&gt;，我们可以确切地知道在当前位置之前的一个潜在匹配的位置。换句话说，在不错过任何潜在匹配的情况下，我们&amp;quot;预搜索&amp;quot;这个模式串本身并将其译成一个包含所有可能失配的位置对应可以绕过最多无效字符的列表。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;对于&lt;code&gt;W&lt;/code&gt;中的任何位置，我们都希望能够查询那个位置前（不包括那个位置）有可能的&lt;code&gt;W&lt;/code&gt;的最长初始字段的长度，而不是从&lt;code&gt;W[0]&lt;/code&gt;开始失配的整个字段，这长度就是我们查找下一个匹配时回退的距离。因此&lt;code&gt;T[i]&lt;/code&gt;是&lt;code&gt;W&lt;/code&gt;的可能的&lt;em&gt;适当&lt;/em&gt;初始字段同时也是结束于&lt;code&gt;W[i - 1]&lt;/code&gt;的子串的最大长度。我们使空串长度是0。当一个失配出现在模式串的最开始，这是特殊情况（无法回退），我们设置&lt;code&gt;T[0] = -1&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/search/kmp.c&#34;&gt;代码&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;make_next&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *pattern, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; *next)
+{
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; q, k;&lt;span style=&#34;color:#228b22&#34;&gt;// k前缀下标，q后缀下标
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; m = strlen(pattern);
+  
+    next[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;] = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (q = &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;, k = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; q &amp;lt; m; q++)
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (k &amp;gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt; &amp;amp;&amp;amp; pattern[q] != pattern[k])
+            k = next[k - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;];
+  
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (pattern[q] == pattern[k])
+        {
+            k++;
+        }
+  
+        next[q] = k;
+    }
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;// abcabc
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;// next[0] = 0;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;// q=1, k=0, pattern[q]:pattern[k] = b:a, next[1] = 0;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;// q=2, k=0, pattern[q]:pattern[k] = c:a, next[2] = 0;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;// q=3, k=0, pattern[q]:pattern[k] = a:a, k++, next[3] = 1;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;// q=4, k=1, pattern[q]:pattern[k] = b:b, k++, next[4] = 2;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;// q=5, k=2, pattern[q]:pattern[k] = c:c, k++, next[5] = 3;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;// q=6, k=3, pattern[q]:pattern[k] = d:a, k=next[k-1] -&amp;gt; k=0; next[6] = 0;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;kmp&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *text, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *pattern, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; *next)
+{
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; n = strlen(text);
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; m = strlen(pattern);
+    make_next(pattern, next);
+  
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i, q;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, q = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; n; i++)
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (q &amp;gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt; &amp;amp;&amp;amp; pattern[q] != text[i])
+        {
+            q = next[q - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;];
+        }
+  
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (pattern[q] == text[i])
+        {
+            q++;
+        }
+  
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (q == m)
+        {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;break&lt;/span&gt;;
+        }
+    }
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; i - q + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2二叉树与红黑树&#34;&gt;2.二叉树与红黑树&lt;/h3&gt;
+&lt;h4 id=&#34;21-二叉树&#34;&gt;2.1 二叉树&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;二叉树&lt;/strong&gt;是n(n&amp;gt;=0)个结点的有限集合，该集合或者为空集（称为空二叉树），或者由一个根结点和两棵互不相交的、分别称为根结点的左子树和右子树组成。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;二叉树特点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每个结点最多有两颗子树，所以二叉树中不存在度大于2的结点。&lt;/li&gt;
+&lt;li&gt;左子树和右子树是有顺序的，次序不能任意颠倒。&lt;/li&gt;
+&lt;li&gt;即使树中某结点只有一棵子树，也要区分它是左子树还是右子树。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/tree/btree.c&#34;&gt;代码&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; KEY_VALUE;
+  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#define BSTREE_ENTRY(name, type) \
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; name                  &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+    {                            &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; type *left;       &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; type *right;      &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;\&lt;/span&gt;
+    }
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; bstree_node
+{
+    KEY_VALUE data;
+    BSTREE_ENTRY(, bstree_node)
+    bst;
+};
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; bstree
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; bstree_node *root;
+};
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; bstree_node *&lt;span style=&#34;color:#008b45&#34;&gt;bstree_create_node&lt;/span&gt;(KEY_VALUE key)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; bstree_node *node = (&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; bstree_node *)malloc(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; bstree_node));
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (node == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+    {
+        assert(&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+    }
+    node-&amp;gt;data = key;
+    node-&amp;gt;bst.left = node-&amp;gt;bst.right = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; node;
+}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;bstree_insert&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; bstree *T, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; key)
+{
+    assert(T != &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (T-&amp;gt;root == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+    {
+        T-&amp;gt;root = bstree_create_node(key);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+    }
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; bstree_node *node = T-&amp;gt;root;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; bstree_node *tmp = T-&amp;gt;root;&lt;span style=&#34;color:#228b22&#34;&gt;//保存父节点
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (node != &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+    {
+        tmp = node;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (key &amp;lt; node-&amp;gt;data)
+        {
+            node = node-&amp;gt;bst.left;
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+        {
+            node = node-&amp;gt;bst.right;
+        }
+    }
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (key &amp;lt; tmp-&amp;gt;data)
+    {
+        tmp-&amp;gt;bst.left = bstree_create_node(key);
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+    {
+        tmp-&amp;gt;bst.right = bstree_create_node(key);
+    }
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;bstree_traversal&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; bstree_node *node)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (node == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+  
+    bstree_traversal(node-&amp;gt;bst.left);
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;%4d &amp;#34;&lt;/span&gt;, node-&amp;gt;data);
+    bstree_traversal(node-&amp;gt;bst.right);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;22-红黑树&#34;&gt;2.2 红黑树&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/blob/master/images/%E7%BA%A2%E9%BB%91%E6%A0%91.jpg&#34; alt=&#34;红黑树&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;R-B Tree，全称是Red-Black Tree，又称为“红黑树”，它一种特殊的二叉查找树。红黑树的每个节点上都有存储位表示节点的颜色，可以是红(Red)或黑(Black)。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;红黑树的特性&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每个节点或者是黑色，或者是红色。&lt;/li&gt;
+&lt;li&gt;根节点是黑色。&lt;/li&gt;
+&lt;li&gt;每个叶子节点（NIL）是黑色。这里叶子节点，是指为空(NIL或NULL)的叶子节点！&lt;/li&gt;
+&lt;li&gt;如果一个节点是红色的，则它的子节点必须是黑色的。&lt;/li&gt;
+&lt;li&gt;从一个节点到该节点的子孙节点的所有路径上包含相同数目的黑节点。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/tree/rbtree.c&#34;&gt;代码&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define RED 1
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define BLACK 2
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; KEY_TYPE;
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _rbtree_node
+{
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; color;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _rbtree_node *right;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _rbtree_node *left;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _rbtree_node *parent;
+    KEY_TYPE key;
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *value;
+} rbtree_node;
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _rbtree
+{
+    rbtree_node *root;
+    rbtree_node *nil;
+} rbtree;
+  
+rbtree_node *&lt;span style=&#34;color:#008b45&#34;&gt;rbtree_mini&lt;/span&gt;(rbtree *T, rbtree_node *x)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (x-&amp;gt;left != T-&amp;gt;nil)
+    {
+        x = x-&amp;gt;left;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; x;
+}
+  
+rbtree_node *&lt;span style=&#34;color:#008b45&#34;&gt;rbtree_maxi&lt;/span&gt;(rbtree *T, rbtree_node *x)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (x-&amp;gt;right != T-&amp;gt;nil)
+    {
+        x = x-&amp;gt;right;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; x;
+}
+  
+rbtree_node *&lt;span style=&#34;color:#008b45&#34;&gt;rbtree_successor&lt;/span&gt;(rbtree *T, rbtree_node *x)
+{
+    rbtree_node *y = x-&amp;gt;parent;
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (x-&amp;gt;right != T-&amp;gt;nil)
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; rbtree_mini(T, x-&amp;gt;right);
+    }
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; ((y != T-&amp;gt;nil) &amp;amp;&amp;amp; (x == y-&amp;gt;right))
+    {
+        x = y;
+        y = y-&amp;gt;parent;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; y;
+}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;rbtree_left_rotate&lt;/span&gt;(rbtree *T, rbtree_node *x)
+{
+    rbtree_node *y = x-&amp;gt;right; &lt;span style=&#34;color:#228b22&#34;&gt;// x  --&amp;gt; y  ,  y --&amp;gt; x,   right --&amp;gt; left,  left --&amp;gt; right
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;  
+    x-&amp;gt;right = y-&amp;gt;left; &lt;span style=&#34;color:#228b22&#34;&gt;//1 1
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (y-&amp;gt;left != T-&amp;gt;nil)
+    { &lt;span style=&#34;color:#228b22&#34;&gt;//1 2
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        y-&amp;gt;left-&amp;gt;parent = x;
+    }
+  
+    y-&amp;gt;parent = x-&amp;gt;parent; &lt;span style=&#34;color:#228b22&#34;&gt;//1 3
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (x-&amp;gt;parent == T-&amp;gt;nil)
+    { &lt;span style=&#34;color:#228b22&#34;&gt;//1 4
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        T-&amp;gt;root = y;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (x == x-&amp;gt;parent-&amp;gt;left)
+    {
+        x-&amp;gt;parent-&amp;gt;left = y;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+    {
+        x-&amp;gt;parent-&amp;gt;right = y;
+    }
+  
+    y-&amp;gt;left = x;   &lt;span style=&#34;color:#228b22&#34;&gt;//1 5
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    x-&amp;gt;parent = y; &lt;span style=&#34;color:#228b22&#34;&gt;//1 6
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;rbtree_right_rotate&lt;/span&gt;(rbtree *T, rbtree_node *y)
+{
+    rbtree_node *x = y-&amp;gt;left;
+  
+    y-&amp;gt;left = x-&amp;gt;right;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (x-&amp;gt;right != T-&amp;gt;nil)
+    {
+        x-&amp;gt;right-&amp;gt;parent = y;
+    }
+  
+    x-&amp;gt;parent = y-&amp;gt;parent;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (y-&amp;gt;parent == T-&amp;gt;nil)
+    {
+        T-&amp;gt;root = x;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (y == y-&amp;gt;parent-&amp;gt;right)
+    {
+        y-&amp;gt;parent-&amp;gt;right = x;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+    {
+        y-&amp;gt;parent-&amp;gt;left = x;
+    }
+  
+    x-&amp;gt;right = y;
+    y-&amp;gt;parent = x;
+}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;rbtree_insert_fixup&lt;/span&gt;(rbtree *T, rbtree_node *z)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (z-&amp;gt;parent-&amp;gt;color == RED)
+    { &lt;span style=&#34;color:#228b22&#34;&gt;//z ---&amp;gt; RED
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (z-&amp;gt;parent == z-&amp;gt;parent-&amp;gt;parent-&amp;gt;left)
+        {
+            rbtree_node *y = z-&amp;gt;parent-&amp;gt;parent-&amp;gt;right;
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (y-&amp;gt;color == RED)
+            {
+                z-&amp;gt;parent-&amp;gt;color = BLACK;
+                y-&amp;gt;color = BLACK;
+                z-&amp;gt;parent-&amp;gt;parent-&amp;gt;color = RED;
+  
+                z = z-&amp;gt;parent-&amp;gt;parent; &lt;span style=&#34;color:#228b22&#34;&gt;//z --&amp;gt; RED
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            }
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+            {
+                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (z == z-&amp;gt;parent-&amp;gt;right)
+                {
+                    z = z-&amp;gt;parent;
+                    rbtree_left_rotate(T, z);
+                }
+  
+                z-&amp;gt;parent-&amp;gt;color = BLACK;
+                z-&amp;gt;parent-&amp;gt;parent-&amp;gt;color = RED;
+                rbtree_right_rotate(T, z-&amp;gt;parent-&amp;gt;parent);
+            }
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+        {
+            rbtree_node *y = z-&amp;gt;parent-&amp;gt;parent-&amp;gt;left;
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (y-&amp;gt;color == RED)
+            {
+                z-&amp;gt;parent-&amp;gt;color = BLACK;
+                y-&amp;gt;color = BLACK;
+                z-&amp;gt;parent-&amp;gt;parent-&amp;gt;color = RED;
+  
+                z = z-&amp;gt;parent-&amp;gt;parent; &lt;span style=&#34;color:#228b22&#34;&gt;//z --&amp;gt; RED
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            }
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+            {
+                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (z == z-&amp;gt;parent-&amp;gt;left)
+                {
+                    z = z-&amp;gt;parent;
+                    rbtree_right_rotate(T, z);
+                }
+  
+                z-&amp;gt;parent-&amp;gt;color = BLACK;
+                z-&amp;gt;parent-&amp;gt;parent-&amp;gt;color = RED;
+                rbtree_left_rotate(T, z-&amp;gt;parent-&amp;gt;parent);
+            }
+        }
+    }
+  
+    T-&amp;gt;root-&amp;gt;color = BLACK;
+}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;rbtree_insert&lt;/span&gt;(rbtree *T, rbtree_node *z)
+{
+    rbtree_node *y = T-&amp;gt;nil;
+    rbtree_node *x = T-&amp;gt;root;
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (x != T-&amp;gt;nil)
+    {
+        y = x;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (z-&amp;gt;key &amp;lt; x-&amp;gt;key)
+        {
+            x = x-&amp;gt;left;
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (z-&amp;gt;key &amp;gt; x-&amp;gt;key)
+        {
+            x = x-&amp;gt;right;
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+        { &lt;span style=&#34;color:#228b22&#34;&gt;//Exist
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt;;
+        }
+    }
+  
+    z-&amp;gt;parent = y;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (y == T-&amp;gt;nil)
+    {
+        T-&amp;gt;root = z;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (z-&amp;gt;key &amp;lt; y-&amp;gt;key)
+    {
+        y-&amp;gt;left = z;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+    {
+        y-&amp;gt;right = z;
+    }
+  
+    z-&amp;gt;left = T-&amp;gt;nil;
+    z-&amp;gt;right = T-&amp;gt;nil;
+    z-&amp;gt;color = RED;
+  
+    rbtree_insert_fixup(T, z);
+}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;rbtree_delete_fixup&lt;/span&gt;(rbtree *T, rbtree_node *x)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; ((x != T-&amp;gt;root) &amp;amp;&amp;amp; (x-&amp;gt;color == BLACK))
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (x == x-&amp;gt;parent-&amp;gt;left)
+        {
+            rbtree_node *w = x-&amp;gt;parent-&amp;gt;right;
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (w-&amp;gt;color == RED)
+            {
+                w-&amp;gt;color = BLACK;
+                x-&amp;gt;parent-&amp;gt;color = RED;
+  
+                rbtree_left_rotate(T, x-&amp;gt;parent);
+                w = x-&amp;gt;parent-&amp;gt;right;
+            }
+  
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; ((w-&amp;gt;left-&amp;gt;color == BLACK) &amp;amp;&amp;amp; (w-&amp;gt;right-&amp;gt;color == BLACK))
+            {
+                w-&amp;gt;color = RED;
+                x = x-&amp;gt;parent;
+            }
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+            {
+                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (w-&amp;gt;right-&amp;gt;color == BLACK)
+                {
+                    w-&amp;gt;left-&amp;gt;color = BLACK;
+                    w-&amp;gt;color = RED;
+                    rbtree_right_rotate(T, w);
+                    w = x-&amp;gt;parent-&amp;gt;right;
+                }
+  
+                w-&amp;gt;color = x-&amp;gt;parent-&amp;gt;color;
+                x-&amp;gt;parent-&amp;gt;color = BLACK;
+                w-&amp;gt;right-&amp;gt;color = BLACK;
+                rbtree_left_rotate(T, x-&amp;gt;parent);
+  
+                x = T-&amp;gt;root;
+            }
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+        {
+            rbtree_node *w = x-&amp;gt;parent-&amp;gt;left;
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (w-&amp;gt;color == RED)
+            {
+                w-&amp;gt;color = BLACK;
+                x-&amp;gt;parent-&amp;gt;color = RED;
+                rbtree_right_rotate(T, x-&amp;gt;parent);
+                w = x-&amp;gt;parent-&amp;gt;left;
+            }
+  
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; ((w-&amp;gt;left-&amp;gt;color == BLACK) &amp;amp;&amp;amp; (w-&amp;gt;right-&amp;gt;color == BLACK))
+            {
+                w-&amp;gt;color = RED;
+                x = x-&amp;gt;parent;
+            }
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+            {
+                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (w-&amp;gt;left-&amp;gt;color == BLACK)
+                {
+                    w-&amp;gt;right-&amp;gt;color = BLACK;
+                    w-&amp;gt;color = RED;
+                    rbtree_left_rotate(T, w);
+                    w = x-&amp;gt;parent-&amp;gt;left;
+                }
+  
+                w-&amp;gt;color = x-&amp;gt;parent-&amp;gt;color;
+                x-&amp;gt;parent-&amp;gt;color = BLACK;
+                w-&amp;gt;left-&amp;gt;color = BLACK;
+                rbtree_right_rotate(T, x-&amp;gt;parent);
+  
+                x = T-&amp;gt;root;
+            }
+        }
+    }
+  
+    x-&amp;gt;color = BLACK;
+}
+  
+rbtree_node *&lt;span style=&#34;color:#008b45&#34;&gt;rbtree_delete&lt;/span&gt;(rbtree *T, rbtree_node *z)
+{
+    rbtree_node *y = T-&amp;gt;nil;
+    rbtree_node *x = T-&amp;gt;nil;
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; ((z-&amp;gt;left == T-&amp;gt;nil) || (z-&amp;gt;right == T-&amp;gt;nil))
+    {
+        y = z;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+    {
+        y = rbtree_successor(T, z);
+    }
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (y-&amp;gt;left != T-&amp;gt;nil)
+    {
+        x = y-&amp;gt;left;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (y-&amp;gt;right != T-&amp;gt;nil)
+    {
+        x = y-&amp;gt;right;
+    }
+  
+    x-&amp;gt;parent = y-&amp;gt;parent;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (y-&amp;gt;parent == T-&amp;gt;nil)
+    {
+        T-&amp;gt;root = x;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (y == y-&amp;gt;parent-&amp;gt;left)
+    {
+        y-&amp;gt;parent-&amp;gt;left = x;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+    {
+        y-&amp;gt;parent-&amp;gt;right = x;
+    }
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (y != z)
+    {
+        z-&amp;gt;key = y-&amp;gt;key;
+        z-&amp;gt;value = y-&amp;gt;value;
+    }
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (y-&amp;gt;color == BLACK)
+    {
+        rbtree_delete_fixup(T, x);
+    }
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; y;
+}
+  
+rbtree_node *&lt;span style=&#34;color:#008b45&#34;&gt;rbtree_search&lt;/span&gt;(rbtree *T, KEY_TYPE key)
+{
+    rbtree_node *node = T-&amp;gt;root;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (node != T-&amp;gt;nil)
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (key &amp;lt; node-&amp;gt;key)
+        {
+            node = node-&amp;gt;left;
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (key &amp;gt; node-&amp;gt;key)
+        {
+            node = node-&amp;gt;right;
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+        {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; node;
+        }
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; T-&amp;gt;nil;
+}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;rbtree_traversal&lt;/span&gt;(rbtree *T, rbtree_node *node)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (node != T-&amp;gt;nil)
+    {
+        rbtree_traversal(T, node-&amp;gt;left);
+        printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;key:%d, color:%d&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, node-&amp;gt;key, node-&amp;gt;color);
+        rbtree_traversal(T, node-&amp;gt;right);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3b-树&#34;&gt;3.B-树&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/blob/master/images/B%E6%A0%91.png&#34; alt=&#34;B树&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;B树也称B-树，它是一颗多路平衡查找树。我们描述一颗B树时需要指定它的阶数，阶数表示了一个结点最多有多少个孩子结点，一般用字母m表示阶数。当m取2时，就是我们常见的二叉搜索树。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;一颗m阶的B树定义&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每个结点最多有m-1个关键字。&lt;/li&gt;
+&lt;li&gt;根结点最少可以只有1个关键字。&lt;/li&gt;
+&lt;li&gt;非根结点至少有Math.ceil(m/2)-1个关键字。&lt;/li&gt;
+&lt;li&gt;每个结点中的关键字都按照从小到大的顺序排列，每个关键字的左子树中的所有关键字都小于它，而右子树中的所有关键字都大于它。&lt;/li&gt;
+&lt;li&gt;所有叶子结点都位于同一层，或者说根结点到每个叶子结点的长度都相同。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/tree/b-tree.c&#34;&gt;代码&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define DEGREE 3
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; KEY_VALUE;
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _btree_node
+{
+    KEY_VALUE *keys;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _btree_node **childrens;
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; num;
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; leaf;
+} btree_node;
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; _btree
+{
+    btree_node *root;
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; t;
+} btree;
+  
+btree_node *&lt;span style=&#34;color:#008b45&#34;&gt;btree_create_node&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; t, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; leaf)
+{
+    btree_node *node = (btree_node *)calloc(&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(btree_node));
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (node == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+        assert(&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+  
+    node-&amp;gt;leaf = leaf;
+    node-&amp;gt;keys = (KEY_VALUE *)calloc(&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;, (&lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt; * t - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;) * &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(KEY_VALUE));
+    node-&amp;gt;childrens = (btree_node **)calloc(&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;, (&lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt; * t) * &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(btree_node));
+    node-&amp;gt;num = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; node;
+}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;btree_destroy_node&lt;/span&gt;(btree_node *node)
+{
+    assert(node);
+  
+    free(node-&amp;gt;childrens);
+    free(node-&amp;gt;keys);
+    free(node);
+}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;btree_create&lt;/span&gt;(btree *T, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; t)
+{
+    T-&amp;gt;t = t;
+  
+    btree_node *x = btree_create_node(t, &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;);
+    T-&amp;gt;root = x;
+}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;btree_split_child&lt;/span&gt;(btree *T, btree_node *x, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i)
+{
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; t = T-&amp;gt;t;
+  
+    btree_node *y = x-&amp;gt;childrens[i];
+    btree_node *z = btree_create_node(t, y-&amp;gt;leaf);
+  
+    z-&amp;gt;num = t - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+  
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; j = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (j = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; j &amp;lt; t - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;; j++)
+    {
+        z-&amp;gt;keys[j] = y-&amp;gt;keys[j + t];
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (y-&amp;gt;leaf == &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (j = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; j &amp;lt; t; j++)
+        {
+            z-&amp;gt;childrens[j] = y-&amp;gt;childrens[j + t];
+        }
+    }
+  
+    y-&amp;gt;num = t - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (j = x-&amp;gt;num; j &amp;gt;= i + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;; j--)
+    {
+        x-&amp;gt;childrens[j + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;] = x-&amp;gt;childrens[j];
+    }
+  
+    x-&amp;gt;childrens[i + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;] = z;
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (j = x-&amp;gt;num - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;; j &amp;gt;= i; j--)
+    {
+        x-&amp;gt;keys[j + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;] = x-&amp;gt;keys[j];
+    }
+    x-&amp;gt;keys[i] = y-&amp;gt;keys[t - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;];
+    x-&amp;gt;num += &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;btree_insert_nonfull&lt;/span&gt;(btree *T, btree_node *x, KEY_VALUE k)
+{
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = x-&amp;gt;num - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (x-&amp;gt;leaf == &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;)
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (i &amp;gt;= &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt; &amp;amp;&amp;amp; x-&amp;gt;keys[i] &amp;gt; k)
+        {
+            x-&amp;gt;keys[i + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;] = x-&amp;gt;keys[i];
+            i--;
+        }
+        x-&amp;gt;keys[i + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;] = k;
+        x-&amp;gt;num += &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (i &amp;gt;= &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt; &amp;amp;&amp;amp; x-&amp;gt;keys[i] &amp;gt; k)
+            i--;
+  
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (x-&amp;gt;childrens[i + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;]-&amp;gt;num == (&lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt; * (T-&amp;gt;t)) - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;)
+        {
+            btree_split_child(T, x, i + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;);
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (k &amp;gt; x-&amp;gt;keys[i + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;])
+                i++;
+        }
+  
+        btree_insert_nonfull(T, x-&amp;gt;childrens[i + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;], k);
+    }
+}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;btree_insert&lt;/span&gt;(btree *T, KEY_VALUE key)
+{
+    &lt;span style=&#34;color:#228b22&#34;&gt;//int t = T-&amp;gt;t;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    btree_node *r = T-&amp;gt;root;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (r-&amp;gt;num == &lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt; * T-&amp;gt;t - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;)
+    {
+        btree_node *node = btree_create_node(T-&amp;gt;t, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+        T-&amp;gt;root = node;
+  
+        node-&amp;gt;childrens[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;] = r;
+  
+        btree_split_child(T, node, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+  
+        &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (node-&amp;gt;keys[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;] &amp;lt; key)
+            i++;
+        btree_insert_nonfull(T, node-&amp;gt;childrens[i], key);
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+    {
+        btree_insert_nonfull(T, r, key);
+    }
+}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;btree_traverse&lt;/span&gt;(btree_node *x)
+{
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; x-&amp;gt;num; i++)
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (x-&amp;gt;leaf == &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
+            btree_traverse(x-&amp;gt;childrens[i]);
+        printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;%C &amp;#34;&lt;/span&gt;, x-&amp;gt;keys[i]);
+    }
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (x-&amp;gt;leaf == &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
+        btree_traverse(x-&amp;gt;childrens[i]);
+}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;btree_print&lt;/span&gt;(btree *T, btree_node *node, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; layer)
+{
+    btree_node *p = node;
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (p)
+    {
+        printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;layer = %d keynum = %d is_leaf = %d&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, layer, p-&amp;gt;num, p-&amp;gt;leaf);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; node-&amp;gt;num; i++)
+            printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;%c &amp;#34;&lt;/span&gt;, p-&amp;gt;keys[i]);
+        printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;);
+  
+        layer++;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt;= p-&amp;gt;num; i++)
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (p-&amp;gt;childrens[i])
+                btree_print(T, p-&amp;gt;childrens[i], layer);
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+        printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;the tree is empty&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;);
+}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;btree_bin_search&lt;/span&gt;(btree_node *node, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; low, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; high, KEY_VALUE key)
+{
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; mid;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (low &amp;gt; high || low &amp;lt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt; || high &amp;lt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+    }
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (low &amp;lt;= high)
+    {
+        mid = (low + high) / &lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (key &amp;gt; node-&amp;gt;keys[mid])
+        {
+            low = mid + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+        {
+            high = mid - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+        }
+    }
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; low;
+}
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;//{child[idx], key[idx], child[idx+1]}
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;btree_merge&lt;/span&gt;(btree *T, btree_node *node, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; idx)
+{
+    btree_node *left = node-&amp;gt;childrens[idx];
+    btree_node *right = node-&amp;gt;childrens[idx + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;];
+  
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;/////data merge
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    left-&amp;gt;keys[T-&amp;gt;t - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;] = node-&amp;gt;keys[idx];
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; T-&amp;gt;t - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;; i++)
+    {
+        left-&amp;gt;keys[T-&amp;gt;t + i] = right-&amp;gt;keys[i];
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (!left-&amp;gt;leaf)
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; T-&amp;gt;t; i++)
+        {
+            left-&amp;gt;childrens[T-&amp;gt;t + i] = right-&amp;gt;childrens[i];
+        }
+    }
+    left-&amp;gt;num += T-&amp;gt;t;
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;//destroy right
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    btree_destroy_node(right);
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;//node
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (i = idx + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;; i &amp;lt; node-&amp;gt;num; i++)
+    {
+        node-&amp;gt;keys[i - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;] = node-&amp;gt;keys[i];
+        node-&amp;gt;childrens[i] = node-&amp;gt;childrens[i + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;];
+    }
+    node-&amp;gt;childrens[i + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;] = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+    node-&amp;gt;num -= &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (node-&amp;gt;num == &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
+    {
+        T-&amp;gt;root = left;
+        btree_destroy_node(node);
+    }
+}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;btree_delete_key&lt;/span&gt;(btree *T, btree_node *node, KEY_VALUE key)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (node == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt;;
+  
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; idx = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, i;
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (idx &amp;lt; node-&amp;gt;num &amp;amp;&amp;amp; key &amp;gt; node-&amp;gt;keys[idx])
+    {
+        idx++;
+    }
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (idx &amp;lt; node-&amp;gt;num &amp;amp;&amp;amp; key == node-&amp;gt;keys[idx])
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (node-&amp;gt;leaf)
+        {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (i = idx; i &amp;lt; node-&amp;gt;num - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;; i++)
+            {
+                node-&amp;gt;keys[i] = node-&amp;gt;keys[i + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;];
+            }
+  
+            node-&amp;gt;keys[node-&amp;gt;num - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;] = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+            node-&amp;gt;num--;
+  
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (node-&amp;gt;num == &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
+            { &lt;span style=&#34;color:#228b22&#34;&gt;//root
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                free(node);
+                T-&amp;gt;root = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+            }
+  
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (node-&amp;gt;childrens[idx]-&amp;gt;num &amp;gt;= T-&amp;gt;t)
+        {
+            btree_node *left = node-&amp;gt;childrens[idx];
+            node-&amp;gt;keys[idx] = left-&amp;gt;keys[left-&amp;gt;num - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;];
+  
+            btree_delete_key(T, left, left-&amp;gt;keys[left-&amp;gt;num - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;]);
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (node-&amp;gt;childrens[idx + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;]-&amp;gt;num &amp;gt;= T-&amp;gt;t)
+        {
+            btree_node *right = node-&amp;gt;childrens[idx + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;];
+            node-&amp;gt;keys[idx] = right-&amp;gt;keys[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;];
+  
+            btree_delete_key(T, right, right-&amp;gt;keys[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;]);
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+        {
+            btree_merge(T, node, idx);
+            btree_delete_key(T, node-&amp;gt;childrens[idx], key);
+        }
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+    {
+        btree_node *child = node-&amp;gt;childrens[idx];
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (child == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+        {
+            printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Cannot del key = %d&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, key);
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt;;
+        }
+  
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (child-&amp;gt;num == T-&amp;gt;t - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;)
+        {
+            btree_node *left = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+            btree_node *right = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (idx - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt; &amp;gt;= &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
+                left = node-&amp;gt;childrens[idx - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;];
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (idx + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt; &amp;lt;= node-&amp;gt;num)
+                right = node-&amp;gt;childrens[idx + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;];
+  
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; ((left &amp;amp;&amp;amp; left-&amp;gt;num &amp;gt;= T-&amp;gt;t) ||
+                (right &amp;amp;&amp;amp; right-&amp;gt;num &amp;gt;= T-&amp;gt;t))
+            {
+                &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; richR = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (right)
+                    richR = &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (left &amp;amp;&amp;amp; right)
+                    richR = (right-&amp;gt;num &amp;gt; left-&amp;gt;num) ? &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt; : &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+  
+                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (right &amp;amp;&amp;amp; right-&amp;gt;num &amp;gt;= T-&amp;gt;t &amp;amp;&amp;amp; richR)
+                { &lt;span style=&#34;color:#228b22&#34;&gt;//borrow from next
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                    child-&amp;gt;keys[child-&amp;gt;num] = node-&amp;gt;keys[idx];
+                    child-&amp;gt;childrens[child-&amp;gt;num + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;] = right-&amp;gt;childrens[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;];
+                    child-&amp;gt;num++;
+  
+                    node-&amp;gt;keys[idx] = right-&amp;gt;keys[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;];
+                    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; right-&amp;gt;num - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;; i++)
+                    {
+                        right-&amp;gt;keys[i] = right-&amp;gt;keys[i + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;];
+                        right-&amp;gt;childrens[i] = right-&amp;gt;childrens[i + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;];
+                    }
+  
+                    right-&amp;gt;keys[right-&amp;gt;num - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;] = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+                    right-&amp;gt;childrens[right-&amp;gt;num - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;] = right-&amp;gt;childrens[right-&amp;gt;num];
+                    right-&amp;gt;childrens[right-&amp;gt;num] = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+                    right-&amp;gt;num--;
+                }
+                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+                { &lt;span style=&#34;color:#228b22&#34;&gt;//borrow from prev
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;  
+                    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (i = child-&amp;gt;num; i &amp;gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i--)
+                    {
+                        child-&amp;gt;keys[i] = child-&amp;gt;keys[i - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;];
+                        child-&amp;gt;childrens[i + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;] = child-&amp;gt;childrens[i];
+                    }
+  
+                    child-&amp;gt;childrens[&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;] = child-&amp;gt;childrens[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;];
+                    child-&amp;gt;childrens[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;] = left-&amp;gt;childrens[left-&amp;gt;num];
+                    child-&amp;gt;keys[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;] = node-&amp;gt;keys[idx - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;];
+  
+                    child-&amp;gt;num++;
+  
+                    node-&amp;gt;keys[idx - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;] = left-&amp;gt;keys[left-&amp;gt;num - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;];
+                    left-&amp;gt;keys[left-&amp;gt;num - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;] = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+                    left-&amp;gt;childrens[left-&amp;gt;num] = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+                    left-&amp;gt;num--;
+                }
+            }
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; ((!left || (left-&amp;gt;num == T-&amp;gt;t - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;)) &amp;amp;&amp;amp; (!right || (right-&amp;gt;num == T-&amp;gt;t - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;)))
+            {
+                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (left &amp;amp;&amp;amp; left-&amp;gt;num == T-&amp;gt;t - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;)
+                {
+                    btree_merge(T, node, idx - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;);
+                    child = left;
+                }
+                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (right &amp;amp;&amp;amp; right-&amp;gt;num == T-&amp;gt;t - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;)
+                {
+                    btree_merge(T, node, idx);
+                }
+            }
+        }
+  
+        btree_delete_key(T, child, key);
+    }
+}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;btree_delete&lt;/span&gt;(btree *T, KEY_VALUE key)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (!T-&amp;gt;root)
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+  
+    btree_delete_key(T, T-&amp;gt;root, key);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;4布隆过滤器&#34;&gt;4.布隆过滤器&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/blob/master/images/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8.png&#34; alt=&#34;布隆过滤器&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;bloom算法类似一个hash set，用来判断某个元素（key）是否在某个集合中。和一般的hash set不同的是，这个算法无需存储key的值，对于每个key，只需要k个比特位，每个存储一个标志，用来判断key是否在集合中。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;算法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;首先需要k个hash函数，每个函数可以把key散列成为1个整数&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;初始化时，需要一个长度为n比特的数组，每个比特位初始化为0&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;某个key加入集合时，用k个hash函数计算出k个散列值，并把数组中对应的比特位置为1&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;判断某个key是否在集合时，用k个hash函数计算出k个散列值，并查询数组中对应的比特位，如果所有的比特位都是1，认为在集合中。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;优点：不需要存储key，节省空间&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;缺点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;算法判断key在集合中时，有一定的概率key其实不在集合中&lt;/li&gt;
+&lt;li&gt;无法删除&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;典型的应用场景：
+某些存储系统的设计中，会存在空查询缺陷：当查询一个不存在的key时，需要访问慢设备，导致效率低下。比如一个前端页面的缓存系统，可能这样设计：先查询某个页面在本地是否存在，如果存在就直接返回，如果不存在，就从后端获取。但是当频繁从缓存系统查询一个页面时，缓存系统将会频繁请求后端，把压力导入后端。这时只要增加一个bloom算法的服务，后端插入一个key时，在这个服务中设置一次
+需要查询后端时，先判断key在后端是否存在，这样就能避免后端的压力。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/bloomfilter/bloomfilter.h&#34;&gt;代码&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *  BloomFilter使用例子：
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *  static BaseBloomFilter stBloomFilter = {0};
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *  初始化BloomFilter(最大100000元素，不超过0.00001的错误率)：
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *      InitBloomFilter(&amp;amp;stBloomFilter, 0, 100000, 0.00001);
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *  重置BloomFilter：
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *      ResetBloomFilter(&amp;amp;stBloomFilter);
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *  释放BloomFilter:
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *      FreeBloomFilter(&amp;amp;stBloomFilter);
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *  向BloomFilter中新增一个数值（0-正常，1-加入数值过多）：
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *      uint32_t dwValue;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *      iRet = BloomFilter_Add(&amp;amp;stBloomFilter, &amp;amp;dwValue, sizeof(uint32_t));
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *  检查数值是否在BloomFilter内（0-存在，1-不存在）：
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *      iRet = BloomFilter_Check(&amp;amp;stBloomFilter, &amp;amp;dwValue, sizeof(uint32_t));
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *  (1.1新增) 将生成好的BloomFilter写入文件:
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *      iRet = SaveBloomFilterToFile(&amp;amp;stBloomFilter, &amp;#34;dump.bin&amp;#34;)
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *  (1.1新增) 从文件读取生成好的BloomFilter:
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *      iRet = LoadBloomFilterFromFile(&amp;amp;stBloomFilter, &amp;#34;dump.bin&amp;#34;)
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;**/&lt;/span&gt;
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 注意，要让Add/Check函数内联，必须使用 -O2 或以上的优化等级
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define FORCE_INLINE __attribute__((always_inline))
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#define BYTE_BITS (8)
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define MIX_UINT64(v) ((uint32_t)((v &amp;gt;&amp;gt; 32) ^ (v)))
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#define SETBIT(filter, n) (filter-&amp;gt;pstFilter[n / BYTE_BITS] |= (1 &amp;lt;&amp;lt; (n % BYTE_BITS)))
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define GETBIT(filter, n) (filter-&amp;gt;pstFilter[n / BYTE_BITS] &amp;amp; (1 &amp;lt;&amp;lt; (n % BYTE_BITS)))
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#pragma pack(1)
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#228b22&#34;&gt;// BloomFilter结构定义
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt;
+{
+    uint8_t cInitFlag; &lt;span style=&#34;color:#228b22&#34;&gt;// 初始化标志，为0时的第一次Add()会对stFilter[]做初始化
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    uint8_t cResv[&lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;];
+  
+    uint32_t dwMaxItems;   &lt;span style=&#34;color:#228b22&#34;&gt;// n - BloomFilter中最大元素个数 (输入量)
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;double&lt;/span&gt; dProbFalse;     &lt;span style=&#34;color:#228b22&#34;&gt;// p - 假阳概率(误判率) (输入量，比如万分之一：0.00001)
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    uint32_t dwFilterBits; &lt;span style=&#34;color:#228b22&#34;&gt;// m =  ; - BloomFilter的比特数
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    uint32_t dwHashFuncs;  &lt;span style=&#34;color:#228b22&#34;&gt;// k = round(log(2.0) * m / n); - 哈希函数个数
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;  
+    uint32_t dwSeed;  &lt;span style=&#34;color:#228b22&#34;&gt;// MurmurHash的种子偏移量
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    uint32_t dwCount; &lt;span style=&#34;color:#228b22&#34;&gt;// Add()的计数，超过MAX_BLOOMFILTER_N则返回失败
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;  
+    uint32_t dwFilterSize;    &lt;span style=&#34;color:#228b22&#34;&gt;// dwFilterBits / BYTE_BITS
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *pstFilter; &lt;span style=&#34;color:#228b22&#34;&gt;// BloomFilter存储指针，使用malloc分配
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    uint32_t *pdwHashPos;     &lt;span style=&#34;color:#228b22&#34;&gt;// 存储上次hash得到的K个bit位置数组(由bloom_hash填充)
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;} BaseBloomFilter;
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// BloomFilter文件头部定义
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt;
+{
+    uint32_t dwMagicCode; &lt;span style=&#34;color:#228b22&#34;&gt;// 文件头部标识，填充 __MGAIC_CODE__
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    uint32_t dwSeed;
+    uint32_t dwCount;
+  
+    uint32_t dwMaxItems;   &lt;span style=&#34;color:#228b22&#34;&gt;// n - BloomFilter中最大元素个数 (输入量)
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;double&lt;/span&gt; dProbFalse;     &lt;span style=&#34;color:#228b22&#34;&gt;// p - 假阳概率 (输入量，比如万分之一：0.00001)
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    uint32_t dwFilterBits; &lt;span style=&#34;color:#228b22&#34;&gt;// m = ceil((n * log(p)) / log(1.0 / (pow(2.0, log(2.0))))); - BloomFilter的比特数
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    uint32_t dwHashFuncs;  &lt;span style=&#34;color:#228b22&#34;&gt;// k = round(log(2.0) * m / n); - 哈希函数个数
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;  
+    uint32_t dwResv[&lt;span style=&#34;color:#b452cd&#34;&gt;6&lt;/span&gt;];
+    uint32_t dwFileCrc;    &lt;span style=&#34;color:#228b22&#34;&gt;// (未使用)整个文件的校验和
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    uint32_t dwFilterSize; &lt;span style=&#34;color:#228b22&#34;&gt;// 后面Filter的Buffer长度
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;} BloomFileHead;
+  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#pragma pack()
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 计算BloomFilter的参数m,k
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;inline&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;_CalcBloomFilterParam&lt;/span&gt;(uint32_t n, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;double&lt;/span&gt; p, uint32_t *pm, uint32_t *pk)
+{
+    &lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     *  n - Number of items in the filter
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     *  p - Probability of false positives, float between 0 and 1 or a number indicating 1-in-p
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     *  m - Number of bits in the filter
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     *  k - Number of hash functions
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     *
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     *  f = ln(2) × ln(1/2) × m / n = (0.6185) ^ (m/n)
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     *  m = -1 * ln(p) × n / 0.6185 , 这里有错误
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     *  k = ln(2) × m / n = 0.6931 * m / n
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * darren修正：
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * m = -1*n*ln(p)/((ln(2))^2) = -1*n*ln(p)/(ln(2)*ln(2)) = -1*n*ln(p)/(0.69314718055995*0.69314718055995))
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     *   = -1*n*ln(p)/0.4804530139182079271955440025
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * k = ln(2)*m/n
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;    **/&lt;/span&gt;
+  
+    uint32_t m, k, m2;
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;//    printf(&amp;#34;ln(2):%lf, ln(p):%lf\n&amp;#34;, log(2), log(p)); // 用来验证函数正确性
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;  
+    &lt;span style=&#34;color:#228b22&#34;&gt;// 计算指定假阳(误差)概率下需要的比特数
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    m = (uint32_t)ceil(-&lt;span style=&#34;color:#b452cd&#34;&gt;1.0&lt;/span&gt; * n * log(p) / &lt;span style=&#34;color:#b452cd&#34;&gt;0.480453&lt;/span&gt;); &lt;span style=&#34;color:#228b22&#34;&gt;//darren 修正
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;  
+    m = (m - m % &lt;span style=&#34;color:#b452cd&#34;&gt;64&lt;/span&gt;) + &lt;span style=&#34;color:#b452cd&#34;&gt;64&lt;/span&gt;; &lt;span style=&#34;color:#228b22&#34;&gt;// 8字节对齐
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                           &lt;span style=&#34;color:#228b22&#34;&gt;//    m2 =(uint32_t) ceil(-1 * n * log(p) / 0.480453); //错误写法
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;// 计算哈希函数个数
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;double&lt;/span&gt; double_k = (&lt;span style=&#34;color:#b452cd&#34;&gt;0.69314&lt;/span&gt; * m / n); &lt;span style=&#34;color:#228b22&#34;&gt;// ln(2)*m/n // 这里只是为了debug出来看看具体的浮点数值
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    k = round(double_k);                 &lt;span style=&#34;color:#228b22&#34;&gt;// 返回x的四舍五入整数值。
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;orig_k:%lf, k:%u&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, double_k, k);
+  
+    *pm = m;
+    *pk = k;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt;;
+}
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 根据目标精度和数据个数，初始化BloomFilter结构
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @brief 初始化布隆过滤器
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @param pstBloomfilter 布隆过滤器实例
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @param dwSeed    hash种子
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @param dwMaxItems 存储容量
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @param dProbFalse 允许的误判率
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @return 返回值
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *      -1 传入的布隆过滤器为空
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; *      -2 hash种子错误或误差&amp;gt;=1
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; */&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;inline&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;InitBloomFilter&lt;/span&gt;(BaseBloomFilter *pstBloomfilter,
+                           uint32_t dwSeed,
+                           uint32_t dwMaxItems, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;double&lt;/span&gt; dProbFalse)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (pstBloomfilter == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; ((dProbFalse &amp;lt;= &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;) || (dProbFalse &amp;gt;= &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;))
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;;
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;// 先检查是否重复Init，释放内存
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (pstBloomfilter-&amp;gt;pstFilter != &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+        free(pstBloomfilter-&amp;gt;pstFilter);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (pstBloomfilter-&amp;gt;pdwHashPos != &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+        free(pstBloomfilter-&amp;gt;pdwHashPos);
+  
+    memset(pstBloomfilter, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(BaseBloomFilter));
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;// 初始化内存结构，并计算BloomFilter需要的空间
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    pstBloomfilter-&amp;gt;dwMaxItems = dwMaxItems; &lt;span style=&#34;color:#228b22&#34;&gt;// 最大存储
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    pstBloomfilter-&amp;gt;dProbFalse = dProbFalse; &lt;span style=&#34;color:#228b22&#34;&gt;// 误差
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    pstBloomfilter-&amp;gt;dwSeed = dwSeed;         &lt;span style=&#34;color:#228b22&#34;&gt;// hash种子
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;  
+    &lt;span style=&#34;color:#228b22&#34;&gt;// 计算 m, k
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    _CalcBloomFilterParam(pstBloomfilter-&amp;gt;dwMaxItems, pstBloomfilter-&amp;gt;dProbFalse,
+                          &amp;amp;pstBloomfilter-&amp;gt;dwFilterBits, &amp;amp;pstBloomfilter-&amp;gt;dwHashFuncs);
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;// 分配BloomFilter的存储空间
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    pstBloomfilter-&amp;gt;dwFilterSize = pstBloomfilter-&amp;gt;dwFilterBits / BYTE_BITS;
+    pstBloomfilter-&amp;gt;pstFilter = (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *)malloc(pstBloomfilter-&amp;gt;dwFilterSize);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt; == pstBloomfilter-&amp;gt;pstFilter)
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;;
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;// 哈希结果数组，每个哈希函数一个
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    pstBloomfilter-&amp;gt;pdwHashPos = (uint32_t *)malloc(pstBloomfilter-&amp;gt;dwHashFuncs * &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(uint32_t));
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt; == pstBloomfilter-&amp;gt;pdwHashPos)
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;200&lt;/span&gt;;
+  
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&amp;gt;&amp;gt;&amp;gt; Init BloomFilter(n=%u, p=%e, m=%u, k=%d), malloc() size=%.6fMB, items:bits=1:%0.1lf&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;,
+           pstBloomfilter-&amp;gt;dwMaxItems, pstBloomfilter-&amp;gt;dProbFalse, pstBloomfilter-&amp;gt;dwFilterBits,
+           pstBloomfilter-&amp;gt;dwHashFuncs, (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;double&lt;/span&gt;)pstBloomfilter-&amp;gt;dwFilterSize / &lt;span style=&#34;color:#b452cd&#34;&gt;1024&lt;/span&gt; / &lt;span style=&#34;color:#b452cd&#34;&gt;1024&lt;/span&gt;,
+           pstBloomfilter-&amp;gt;dwFilterBits * &lt;span style=&#34;color:#b452cd&#34;&gt;1.0&lt;/span&gt; / pstBloomfilter-&amp;gt;dwMaxItems);
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;// 初始化BloomFilter的内存
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    memset(pstBloomfilter-&amp;gt;pstFilter, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, pstBloomfilter-&amp;gt;dwFilterSize);
+    pstBloomfilter-&amp;gt;cInitFlag = &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 释放BloomFilter
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;inline&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;FreeBloomFilter&lt;/span&gt;(BaseBloomFilter *pstBloomfilter)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (pstBloomfilter == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+  
+    pstBloomfilter-&amp;gt;cInitFlag = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+    pstBloomfilter-&amp;gt;dwCount = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+  
+    free(pstBloomfilter-&amp;gt;pstFilter);
+    pstBloomfilter-&amp;gt;pstFilter = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+    free(pstBloomfilter-&amp;gt;pdwHashPos);
+    pstBloomfilter-&amp;gt;pdwHashPos = &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 重置BloomFilter
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// 注意: Reset()函数不会立即初始化stFilter，而是当一次Add()时去memset
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;inline&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;ResetBloomFilter&lt;/span&gt;(BaseBloomFilter *pstBloomfilter)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (pstBloomfilter == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+  
+    pstBloomfilter-&amp;gt;cInitFlag = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+    pstBloomfilter-&amp;gt;dwCount = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 和ResetBloomFilter不同，调用后立即memset内存
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;inline&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;RealResetBloomFilter&lt;/span&gt;(BaseBloomFilter *pstBloomfilter)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (pstBloomfilter == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+  
+    memset(pstBloomfilter-&amp;gt;pstFilter, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, pstBloomfilter-&amp;gt;dwFilterSize);
+    pstBloomfilter-&amp;gt;cInitFlag = &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+    pstBloomfilter-&amp;gt;dwCount = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;///
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;///  函数FORCE_INLINE，加速执行
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;///
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// MurmurHash2, 64-bit versions, by Austin Appleby
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// https://sites.google.com/site/murmurhash/
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;FORCE_INLINE uint64_t &lt;span style=&#34;color:#008b45&#34;&gt;MurmurHash2_x64&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *key, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; len, uint32_t seed)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; uint64_t m = &lt;span style=&#34;color:#b452cd&#34;&gt;0xc6a4a7935bd1e995&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; r = &lt;span style=&#34;color:#b452cd&#34;&gt;47&lt;/span&gt;;
+  
+    uint64_t h = seed ^ (len * m);
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; uint64_t *data = (&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; uint64_t *)key;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; uint64_t *end = data + (len / &lt;span style=&#34;color:#b452cd&#34;&gt;8&lt;/span&gt;);
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (data != end)
+    {
+        uint64_t k = *data++;
+  
+        k *= m;
+        k ^= k &amp;gt;&amp;gt; r;
+        k *= m;
+  
+        h ^= k;
+        h *= m;
+    }
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; uint8_t *data2 = (&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; uint8_t *)data;
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;switch&lt;/span&gt; (len &amp;amp; &lt;span style=&#34;color:#b452cd&#34;&gt;7&lt;/span&gt;)
+    {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;7&lt;/span&gt;:
+        h ^= ((uint64_t)data2[&lt;span style=&#34;color:#b452cd&#34;&gt;6&lt;/span&gt;]) &amp;lt;&amp;lt; &lt;span style=&#34;color:#b452cd&#34;&gt;48&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;6&lt;/span&gt;:
+        h ^= ((uint64_t)data2[&lt;span style=&#34;color:#b452cd&#34;&gt;5&lt;/span&gt;]) &amp;lt;&amp;lt; &lt;span style=&#34;color:#b452cd&#34;&gt;40&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;5&lt;/span&gt;:
+        h ^= ((uint64_t)data2[&lt;span style=&#34;color:#b452cd&#34;&gt;4&lt;/span&gt;]) &amp;lt;&amp;lt; &lt;span style=&#34;color:#b452cd&#34;&gt;32&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;4&lt;/span&gt;:
+        h ^= ((uint64_t)data2[&lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;]) &amp;lt;&amp;lt; &lt;span style=&#34;color:#b452cd&#34;&gt;24&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;:
+        h ^= ((uint64_t)data2[&lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;]) &amp;lt;&amp;lt; &lt;span style=&#34;color:#b452cd&#34;&gt;16&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;:
+        h ^= ((uint64_t)data2[&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;]) &amp;lt;&amp;lt; &lt;span style=&#34;color:#b452cd&#34;&gt;8&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;:
+        h ^= ((uint64_t)data2[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;]);
+        h *= m;
+    };
+  
+    h ^= h &amp;gt;&amp;gt; r;
+    h *= m;
+    h ^= h &amp;gt;&amp;gt; r;
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; h;
+}
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 双重散列封装，k个函数函数, 比如要20个
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;FORCE_INLINE &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;bloom_hash&lt;/span&gt;(BaseBloomFilter *pstBloomfilter, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *key, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; len)
+{
+    &lt;span style=&#34;color:#228b22&#34;&gt;//if (pstBloomfilter == NULL) return;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i;
+    uint32_t dwFilterBits = pstBloomfilter-&amp;gt;dwFilterBits;
+    uint64_t hash1 = MurmurHash2_x64(key, len, pstBloomfilter-&amp;gt;dwSeed);
+    uint64_t hash2 = MurmurHash2_x64(key, len, MIX_UINT64(hash1));
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;)pstBloomfilter-&amp;gt;dwHashFuncs; i++)
+    {
+        &lt;span style=&#34;color:#228b22&#34;&gt;// k0 = (hash1 + 0*hash2) % dwFilterBits; // dwFilterBits bit向量的长度
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;// k1 = (hash1 + 1*hash2) % dwFilterBits;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        pstBloomfilter-&amp;gt;pdwHashPos[i] = (hash1 + i * hash2) % dwFilterBits;
+    }
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt;;
+}
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 向BloomFilter中新增一个元素
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// 成功返回0，当添加数据超过限制值时返回1提示用户
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;FORCE_INLINE &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;BloomFilter_Add&lt;/span&gt;(BaseBloomFilter *pstBloomfilter, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *key, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; len)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; ((pstBloomfilter == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) || (key == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) || (len &amp;lt;= &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;))
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+  
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i;
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (pstBloomfilter-&amp;gt;cInitFlag != &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;)
+    {
+        &lt;span style=&#34;color:#228b22&#34;&gt;// Reset后没有初始化，使用前需要memset
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        memset(pstBloomfilter-&amp;gt;pstFilter, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, pstBloomfilter-&amp;gt;dwFilterSize);
+        pstBloomfilter-&amp;gt;cInitFlag = &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+    }
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;// hash key到bloomfilter中, 为了计算不同hash命中的位置，保存pdwHashPos数组
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    bloom_hash(pstBloomfilter, key, len);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;)pstBloomfilter-&amp;gt;dwHashFuncs; i++)
+    {
+        &lt;span style=&#34;color:#228b22&#34;&gt;// dwHashFuncs[0] = hash0(key)
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;// dwHashFuncs[1] = hash1(key)
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;// dwHashFuncs[k-1] = hashk-1(key)
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        SETBIT(pstBloomfilter, pstBloomfilter-&amp;gt;pdwHashPos[i]);
+    }
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;// 增加count数
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    pstBloomfilter-&amp;gt;dwCount++;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (pstBloomfilter-&amp;gt;dwCount &amp;lt;= pstBloomfilter-&amp;gt;dwMaxItems)
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;; &lt;span style=&#34;color:#228b22&#34;&gt;// 超过N最大值，可能出现准确率下降等情况
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;}
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 检查一个元素是否在bloomfilter中
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// 返回：0-存在，1-不存在，负数表示失败
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;FORCE_INLINE &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;BloomFilter_Check&lt;/span&gt;(BaseBloomFilter *pstBloomfilter, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *key, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; len)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; ((pstBloomfilter == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) || (key == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) || (len &amp;lt;= &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;))
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+  
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i;
+  
+    bloom_hash(pstBloomfilter, key, len);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;)pstBloomfilter-&amp;gt;dwHashFuncs; i++)
+    {
+        &lt;span style=&#34;color:#228b22&#34;&gt;// 如果有任意bit不为1，说明key不在bloomfilter中
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;// 注意: GETBIT()返回不是0|1，高位可能出现128之类的情况
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (GETBIT(pstBloomfilter, pstBloomfilter-&amp;gt;pdwHashPos[i]) == &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+    }
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;/* 文件相关封装 */&lt;/span&gt;
+&lt;span style=&#34;color:#228b22&#34;&gt;// 将生成好的BloomFilter写入文件
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;inline&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;SaveBloomFilterToFile&lt;/span&gt;(BaseBloomFilter *pstBloomfilter, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *szFileName)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; ((pstBloomfilter == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) || (szFileName == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;))
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+  
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; iRet;
+    FILE *pFile;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; BloomFileHead stFileHeader = {&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;};
+  
+    pFile = fopen(szFileName, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;wb&amp;#34;&lt;/span&gt;);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (pFile == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+    {
+        perror(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;fopen&amp;#34;&lt;/span&gt;);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;11&lt;/span&gt;;
+    }
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;// 先写入文件头
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    stFileHeader.dwMagicCode = __MGAIC_CODE__;
+    stFileHeader.dwSeed = pstBloomfilter-&amp;gt;dwSeed;
+    stFileHeader.dwCount = pstBloomfilter-&amp;gt;dwCount;
+    stFileHeader.dwMaxItems = pstBloomfilter-&amp;gt;dwMaxItems;
+    stFileHeader.dProbFalse = pstBloomfilter-&amp;gt;dProbFalse;
+    stFileHeader.dwFilterBits = pstBloomfilter-&amp;gt;dwFilterBits;
+    stFileHeader.dwHashFuncs = pstBloomfilter-&amp;gt;dwHashFuncs;
+    stFileHeader.dwFilterSize = pstBloomfilter-&amp;gt;dwFilterSize;
+  
+    iRet = fwrite((&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *)&amp;amp;stFileHeader, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(stFileHeader), &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;, pFile);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (iRet != &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;)
+    {
+        perror(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;fwrite(head)&amp;#34;&lt;/span&gt;);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;21&lt;/span&gt;;
+    }
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;// 接着写入BloomFilter的内容
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    iRet = fwrite(pstBloomfilter-&amp;gt;pstFilter, &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;, pstBloomfilter-&amp;gt;dwFilterSize, pFile);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; ((uint32_t)iRet != pstBloomfilter-&amp;gt;dwFilterSize)
+    {
+        perror(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;fwrite(data)&amp;#34;&lt;/span&gt;);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;31&lt;/span&gt;;
+    }
+  
+    fclose(pFile);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 从文件读取生成好的BloomFilter
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;inline&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;LoadBloomFilterFromFile&lt;/span&gt;(BaseBloomFilter *pstBloomfilter, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *szFileName)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; ((pstBloomfilter == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;) || (szFileName == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;))
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+  
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; iRet;
+    FILE *pFile;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; BloomFileHead stFileHeader = {&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;};
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (pstBloomfilter-&amp;gt;pstFilter != &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+        free(pstBloomfilter-&amp;gt;pstFilter);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (pstBloomfilter-&amp;gt;pdwHashPos != &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+        free(pstBloomfilter-&amp;gt;pdwHashPos);
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;//
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    pFile = fopen(szFileName, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;rb&amp;#34;&lt;/span&gt;);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (pFile == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+    {
+        perror(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;fopen&amp;#34;&lt;/span&gt;);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;11&lt;/span&gt;;
+    }
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;// 读取并检查文件头
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    iRet = fread((&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *)&amp;amp;stFileHeader, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(stFileHeader), &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;, pFile);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (iRet != &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;)
+    {
+        perror(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;fread(head)&amp;#34;&lt;/span&gt;);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;21&lt;/span&gt;;
+    }
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; ((stFileHeader.dwMagicCode != __MGAIC_CODE__) || (stFileHeader.dwFilterBits != stFileHeader.dwFilterSize * BYTE_BITS))
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;50&lt;/span&gt;;
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;// 初始化传入的 BaseBloomFilter 结构
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    pstBloomfilter-&amp;gt;dwMaxItems = stFileHeader.dwMaxItems;
+    pstBloomfilter-&amp;gt;dProbFalse = stFileHeader.dProbFalse;
+    pstBloomfilter-&amp;gt;dwFilterBits = stFileHeader.dwFilterBits;
+    pstBloomfilter-&amp;gt;dwHashFuncs = stFileHeader.dwHashFuncs;
+    pstBloomfilter-&amp;gt;dwSeed = stFileHeader.dwSeed;
+    pstBloomfilter-&amp;gt;dwCount = stFileHeader.dwCount;
+    pstBloomfilter-&amp;gt;dwFilterSize = stFileHeader.dwFilterSize;
+  
+    pstBloomfilter-&amp;gt;pstFilter = (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *)malloc(pstBloomfilter-&amp;gt;dwFilterSize);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt; == pstBloomfilter-&amp;gt;pstFilter)
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;;
+    pstBloomfilter-&amp;gt;pdwHashPos = (uint32_t *)malloc(pstBloomfilter-&amp;gt;dwHashFuncs * &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(uint32_t));
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt; == pstBloomfilter-&amp;gt;pdwHashPos)
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;200&lt;/span&gt;;
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;// 将后面的Data部分读入 pstFilter
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    iRet = fread((&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *)(pstBloomfilter-&amp;gt;pstFilter), &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;, pstBloomfilter-&amp;gt;dwFilterSize, pFile);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; ((uint32_t)iRet != pstBloomfilter-&amp;gt;dwFilterSize)
+    {
+        perror(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;fread(data)&amp;#34;&lt;/span&gt;);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;31&lt;/span&gt;;
+    }
+    pstBloomfilter-&amp;gt;cInitFlag = &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+  
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&amp;gt;&amp;gt;&amp;gt; Load BloomFilter(n=%u, p=%f, m=%u, k=%d), malloc() size=%.2fMB&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;,
+           pstBloomfilter-&amp;gt;dwMaxItems, pstBloomfilter-&amp;gt;dProbFalse, pstBloomfilter-&amp;gt;dwFilterBits,
+           pstBloomfilter-&amp;gt;dwHashFuncs, (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;double&lt;/span&gt;)pstBloomfilter-&amp;gt;dwFilterSize / &lt;span style=&#34;color:#b452cd&#34;&gt;1024&lt;/span&gt; / &lt;span style=&#34;color:#b452cd&#34;&gt;1024&lt;/span&gt;);
+  
+    fclose(pFile);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;5设计模式&#34;&gt;5.设计模式&lt;/h3&gt;
+&lt;h4 id=&#34;51-观察者模式&#34;&gt;5.1 观察者模式&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/blob/master/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F.png&#34; alt=&#34;观察者模式&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;定义对象间一种一对多的依赖关系，使得每当一个对象改变状态，则所有依赖于它的对象都会得到通知并被自动更新。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/designpattern/observer.cpp&#34;&gt;代码&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// 简单变形示例——区别对待观察者
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/*
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;1：范例需求
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;这是一个实际系统的简化需求：在一个水质监测系统中有这样一个功能，当水中的杂质为正常的时候，只是通知监测人员做记录；
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;当为轻度污染的时候，除了通知监测人员做记录外，还要通知预警人员，判断是否需要预警；当为中度或者高度污染的时候，
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;除了通知监测人员做记录外，还要通知预警人员，判断是否需要预警，同时还要通知监测部门领导做相应的处理。
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;*/&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;list&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;using&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;namespace&lt;/span&gt; std;
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;WaterQualitySubject&lt;/span&gt;;
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 观察者的接口
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * 水质观察者接口定义
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; */&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;WatcherObserver&lt;/span&gt;
+{
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;:
+    WatcherObserver() {}
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; ~WatcherObserver() {}
+    &lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * 被通知的方法
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * @param subject 传入被观察的目标对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     */&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;update&lt;/span&gt;(WaterQualitySubject *subject) = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;// 和普通观察者模式， 增加了角色
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * 设置观察人员的职务
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * @param job 观察人员的职务
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     */&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setJob&lt;/span&gt;(string job) = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * 获取观察人员的职务
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * @return 观察人员的职务
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     */&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; string &lt;span style=&#34;color:#008b45&#34;&gt;getJob&lt;/span&gt;() = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+};
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;* 定义水质监测的目标对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;*/&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;WaterQualitySubject&lt;/span&gt;
+{
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;:
+    WaterQualitySubject() {}
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; ~WaterQualitySubject() {}
+    &lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;    * 注册观察者对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * @param observer 观察者对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     */&lt;/span&gt;
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;attach&lt;/span&gt;(WatcherObserver *observer)
+    {
+        observers.push_back(observer);
+    }
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * 删除观察者对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * @param observer 观察者对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     */&lt;/span&gt;
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;detach&lt;/span&gt;(WatcherObserver *observer)
+    {
+        observers.remove(observer);
+    }
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * 通知相应的观察者对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     */&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;notifyWatchers&lt;/span&gt;() = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * 获取水质污染的级别
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * @return 水质污染的级别
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     */&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;getPolluteLevel&lt;/span&gt;() = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;protected&lt;/span&gt;:
+    &lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * 用来保存注册的观察者对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     */&lt;/span&gt;
+    list&amp;lt;WatcherObserver *&amp;gt; observers;
+};
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * 具体的观察者实现
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; */&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;Watcher&lt;/span&gt; : &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; WatcherObserver
+{
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;:
+    Watcher() {}
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; ~Watcher() {}
+    string &lt;span style=&#34;color:#008b45&#34;&gt;getJob&lt;/span&gt;()
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; m_job;
+    }
+  
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setJob&lt;/span&gt;(string job)
+    {
+        m_job = job;
+    }
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;update&lt;/span&gt;(WaterQualitySubject *subject)
+    {
+        &lt;span style=&#34;color:#228b22&#34;&gt;//这里采用的是拉的方式
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        cout &amp;lt;&amp;lt; m_job &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; 获取到通知，当前污染级别为：&amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; subject-&amp;gt;getPolluteLevel() &amp;lt;&amp;lt; endl;
+    }
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt;:
+    &lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * 职务
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     */&lt;/span&gt;
+    string m_job;
+};
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * 具体的水质监测对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; */&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;WaterQuality&lt;/span&gt; : &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; WaterQualitySubject
+{
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;:
+    WaterQuality() {}
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; ~WaterQuality() {}
+    &lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * 获取水质污染的级别
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * @return 水质污染的级别
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     */&lt;/span&gt;
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;getPolluteLevel&lt;/span&gt;()
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; m_polluteLevel;
+    }
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * 当监测水质情况后，设置水质污染的级别
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * @param polluteLevel 水质污染的级别
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     */&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;setPolluteLevel&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; polluteLevel)
+    {
+        m_polluteLevel = polluteLevel;
+        &lt;span style=&#34;color:#228b22&#34;&gt;//通知相应的观察者
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        notifyWatchers();
+    }
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * 通知相应的观察者对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     */&lt;/span&gt;
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;notifyWatchers&lt;/span&gt;()
+    {
+        &lt;span style=&#34;color:#228b22&#34;&gt;//循环所有注册的观察者
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (WatcherObserver *watcher : observers)
+        {
+            &lt;span style=&#34;color:#228b22&#34;&gt;//开始根据污染级别判断是否需要通知，由这里总控
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (m_polluteLevel &amp;gt;= &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
+            {
+                &lt;span style=&#34;color:#228b22&#34;&gt;//通知监测员做记录
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (watcher-&amp;gt;getJob().compare(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;监测人员&amp;#34;&lt;/span&gt;) == &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
+                {
+                    watcher-&amp;gt;update(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;);
+                }
+            }
+  
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (m_polluteLevel &amp;gt;= &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;)
+            {
+                &lt;span style=&#34;color:#228b22&#34;&gt;//通知预警人员
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (watcher-&amp;gt;getJob().compare(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;预警人员&amp;#34;&lt;/span&gt;) == &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
+                {
+                    watcher-&amp;gt;update(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;);
+                }
+            }
+  
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (m_polluteLevel &amp;gt;= &lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;)
+            {
+                &lt;span style=&#34;color:#228b22&#34;&gt;//通知监测部门领导
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (watcher-&amp;gt;getJob().compare(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;监测部门领导&amp;#34;&lt;/span&gt;) == &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
+                {
+                    watcher-&amp;gt;update(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;this&lt;/span&gt;);
+                }
+            }
+        }
+    }
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt;:
+    &lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * 污染的级别，0表示正常，1表示轻度污染，2表示中度污染，3表示高度污染
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     */&lt;/span&gt;
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; m_polluteLevel = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+};
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;()
+{
+    &lt;span style=&#34;color:#228b22&#34;&gt;//创建水质主题对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    WaterQuality *subject = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; WaterQuality();
+    &lt;span style=&#34;color:#228b22&#34;&gt;//创建几个观察者, 观察者分了不同角色
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    WatcherObserver *watcher1 = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Watcher();
+    watcher1-&amp;gt;setJob(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;监测人员&amp;#34;&lt;/span&gt;);
+    WatcherObserver *watcher2 = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Watcher();
+    watcher2-&amp;gt;setJob(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;预警人员&amp;#34;&lt;/span&gt;);
+    WatcherObserver *watcher3 = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Watcher();
+    watcher3-&amp;gt;setJob(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;监测部门领导&amp;#34;&lt;/span&gt;);
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;//注册观察者
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    subject-&amp;gt;attach(watcher1);
+    subject-&amp;gt;attach(watcher2);
+    subject-&amp;gt;attach(watcher3);
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;//填写水质报告
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;当水质为正常的时候------------------〉&amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; endl;
+    subject-&amp;gt;setPolluteLevel(&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+  
+    cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;当水质为轻度污染的时候---------------〉&amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; endl;
+    subject-&amp;gt;setPolluteLevel(&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;);
+  
+    cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;当水质为中度污染的时候---------------〉&amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; endl;
+    subject-&amp;gt;setPolluteLevel(&lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;);
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;// 释放观察者
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    subject-&amp;gt;detach(watcher1);
+    subject-&amp;gt;detach(watcher2);
+    subject-&amp;gt;detach(watcher3);
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;delete&lt;/span&gt; watcher1;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;delete&lt;/span&gt; watcher2;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;delete&lt;/span&gt; watcher3;
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;delete&lt;/span&gt; subject;
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;52-工厂模式&#34;&gt;5.2 工厂模式&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/blob/master/images/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F.png&#34; alt=&#34;工厂模式&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法是一个类的实例化延迟到其子类。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/designpattern/factory.cpp&#34;&gt;代码&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;using&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;namespace&lt;/span&gt; std;
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;ExportFileProduct&lt;/span&gt;
+{
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;:
+    ExportFileProduct() {}
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; ~ExportFileProduct() {}
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;Export&lt;/span&gt;(string data) = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+};
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 保存成文件
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;ExportTextProduct&lt;/span&gt; : &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; ExportFileProduct
+{
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;:
+    ExportTextProduct() {}
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; ~ExportTextProduct() {}
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;Export&lt;/span&gt;(string data)
+    {
+        cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;导出数据:[&amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; data &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;]保存成文本的方式&amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; endl;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;true&lt;/span&gt;;
+    }
+};
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;ExportDBProduct&lt;/span&gt; : &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; ExportFileProduct
+{
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;:
+    ExportDBProduct() {}
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; ~ExportDBProduct() {}
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;Export&lt;/span&gt;(string data)
+    {
+        cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;导出数据:[&amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; data &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;]保存数据库的方式&amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; endl;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;true&lt;/span&gt;;
+    }
+};
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;ExportFactory&lt;/span&gt;
+{
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;:
+    ExportFactory() {}
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; ~ExportFactory() {}
+    &lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * @brief Export
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * @param type 导出的类型
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * @param data 具体的数据
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     * @return
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;     */&lt;/span&gt;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;Export&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; type, string data)
+    {
+        ExportFileProduct *product = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+        product = factoryMethod(type);
+  
+        &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt; ret = &lt;span style=&#34;color:#658b00&#34;&gt;false&lt;/span&gt;;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (product)
+        {
+            ret = product-&amp;gt;Export(data);
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;delete&lt;/span&gt; product;
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+        {
+            cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;没有对应的导出方式&amp;#34;&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; ret;
+    }
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;protected&lt;/span&gt;:
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; ExportFileProduct *factoryMethod(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; type)
+    {
+        ExportFileProduct *product = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt; == type)
+        {
+            product = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; ExportTextProduct();
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt; == type)
+        {
+            product = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; ExportDBProduct();
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; product;
+    }
+};
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 加一种新的导出方式:
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// (1)修改原来的工厂方法
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// (2)继承工厂方法去拓展
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;ExportXMLProduct&lt;/span&gt; : &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; ExportFileProduct
+{
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;:
+    ExportXMLProduct() {}
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; ~ExportXMLProduct() {}
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;Export&lt;/span&gt;(string data)
+    {
+        cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;导出数据:[&amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; data &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;]保存XML的方式&amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; endl;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;true&lt;/span&gt;;
+    }
+};
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;ExportPortobufferProduct&lt;/span&gt; : &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; ExportFileProduct
+{
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;:
+    ExportPortobufferProduct() {}
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; ~ExportPortobufferProduct() {}
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;Export&lt;/span&gt;(string data)
+    {
+        cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;导出数据:[&amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; data &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;]保存Portobuffer的方式&amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; endl;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;true&lt;/span&gt;;
+    }
+};
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;ExportFactory2&lt;/span&gt; : &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt; ExportFactory
+{
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;:
+    ExportFactory2() {}
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; ~ExportFactory2() {}
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;protected&lt;/span&gt;:
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;virtual&lt;/span&gt; ExportFileProduct *factoryMethod(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; type)
+    {
+        ExportFileProduct *product = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt; == type)
+        {
+            product = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; ExportXMLProduct();
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#b452cd&#34;&gt;4&lt;/span&gt; == type)
+        {
+            product = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; ExportPortobufferProduct();
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+        {
+            product = ExportFactory::factoryMethod(type);
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; product;
+    }
+};
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;()
+{
+    cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;ExportFactory&amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; endl;
+    ExportFactory *factory = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; ExportFactory();
+  
+    factory-&amp;gt;Export(&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;上课人数&amp;#34;&lt;/span&gt;);
+    factory-&amp;gt;Export(&lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;上课人数&amp;#34;&lt;/span&gt;);
+    factory-&amp;gt;Export(&lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;上课人数&amp;#34;&lt;/span&gt;);
+  
+    cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;ExportFactory2&amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; endl;
+    ExportFactory *factory2 = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; ExportFactory2();
+  
+    factory2-&amp;gt;Export(&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;上课人数&amp;#34;&lt;/span&gt;);
+    factory2-&amp;gt;Export(&lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;上课人数&amp;#34;&lt;/span&gt;);
+    factory2-&amp;gt;Export(&lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;上课人数&amp;#34;&lt;/span&gt;);
+    factory2-&amp;gt;Export(&lt;span style=&#34;color:#b452cd&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;上课人数&amp;#34;&lt;/span&gt;);
+  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;delete&lt;/span&gt; factory;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;delete&lt;/span&gt; factory2;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;53-单例模式&#34;&gt;5.3 单例模式&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;确保某一个类只有一个实例，而且自行实例化并向整个系统提供这个实例。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/designpattern/singleton.cpp&#34;&gt;代码&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define SINGLETON_INDEX 6 &lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// 开关，不同模式的开关
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#228b22&#34;&gt;/*
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * 补充：
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * =default: 用于显式要求编译器提供合成版本的四大函数(构造、拷贝、析构、赋值)
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * =delete: 用于定义删除函数，在旧标准下，我们如果希望阻止拷贝可以通过显式声明拷贝构造函数和拷贝赋值函数为private，但新标准下允许我们定义删除函数
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; */&lt;/span&gt;
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 反汇编举例 objdump -S -d 4-singleton-c++11 &amp;gt; 4-singleton-c++11.txt
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// 直接汇编：g++ -S -o main2-2.s main2.cpp -std=c++11
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#228b22&#34;&gt;//1、原始懒汉式单例模式 懒汉式单例就是需要使用这个单例对象的时候才去创建这个单例对象。
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#if SINGLETON_INDEX == 1
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;Singleton&lt;/span&gt;
+{
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt;:
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; Singleton *m_singleton;
+    Singleton() = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;default&lt;/span&gt;;                             &lt;span style=&#34;color:#228b22&#34;&gt;// 自动生成默认构造函数
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    Singleton(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; Singleton &amp;amp;s) = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;delete&lt;/span&gt;;            &lt;span style=&#34;color:#228b22&#34;&gt;// 禁用拷贝构造函数
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    Singleton &amp;amp;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;operator&lt;/span&gt;=(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; Singleton &amp;amp;s) = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;delete&lt;/span&gt;; &lt;span style=&#34;color:#228b22&#34;&gt;// 禁用拷贝赋值操作符
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;  
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;GarbageCollector&lt;/span&gt;
+    {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;:
+        ~GarbageCollector()
+        {
+            cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;~GarbageCollector&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;;
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (Singleton::m_singleton)
+            {
+                cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;free m_singleton&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;;
+                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;delete&lt;/span&gt; Singleton::m_singleton;
+                Singleton::m_singleton = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+            }
+        }
+    };
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; GarbageCollector m_gc;
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;:
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; Singleton *getInstance()
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (Singleton::m_singleton == &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(&lt;span style=&#34;color:#b452cd&#34;&gt;10&lt;/span&gt;)); &lt;span style=&#34;color:#228b22&#34;&gt;//休眠，模拟创建实例的时间
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            m_singleton = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Singleton();
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; m_singleton;
+    }
+};
+&lt;span style=&#34;color:#228b22&#34;&gt;// 必须在类外初始化
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;Singleton *Singleton::m_singleton = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+Singleton::GarbageCollector Singleton::m_gc;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#elif SINGLETON_INDEX == 2
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// 2 线程安全的懒汉式单例模式
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//线程安全的懒汉式单例
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;Singleton&lt;/span&gt;
+{
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt;:
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; Singleton *m_singleton;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; mutex m_mutex;
+    Singleton() = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;default&lt;/span&gt;;
+    Singleton(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; Singleton &amp;amp;s) = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;delete&lt;/span&gt;;            &lt;span style=&#34;color:#228b22&#34;&gt;// 禁用拷贝构造函数
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    Singleton &amp;amp;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;operator&lt;/span&gt;=(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; Singleton &amp;amp;s) = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;delete&lt;/span&gt;; &lt;span style=&#34;color:#228b22&#34;&gt;// 禁用拷贝赋值操作符
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;GarbageCollector&lt;/span&gt;
+    {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;:
+        ~GarbageCollector()
+        {
+            cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;~GarbageCollector&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;;
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (Singleton::m_singleton)
+            {
+                cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;free m_singleton&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;;
+                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;delete&lt;/span&gt; Singleton::m_singleton;
+                Singleton::m_singleton = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+            }
+        }
+    };
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; GarbageCollector m_gc;
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;:
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; Singleton *getInstance()
+    {                   &lt;span style=&#34;color:#228b22&#34;&gt;// 加锁的粒度大，效率较低， 对高并发的访问
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        m_mutex.lock(); &lt;span style=&#34;color:#228b22&#34;&gt;// 加锁，保证只有一个线程在访问下面的语句
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (Singleton::m_singleton == &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+        {
+            &lt;span style=&#34;color:#228b22&#34;&gt;//std::this_thread::sleep_for(std::chrono::milliseconds(1000)); //休眠，模拟创建实例的时间
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            m_singleton = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Singleton();
+        }
+        m_mutex.unlock(); &lt;span style=&#34;color:#228b22&#34;&gt;//解锁
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; m_singleton;
+    }
+};
+Singleton *Singleton::m_singleton = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+mutex Singleton::m_mutex;
+Singleton::GarbageCollector Singleton::m_gc;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#elif SINGLETON_INDEX == 3
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// 3、锁住初始化实例语句之后再次检查实例是否被创建
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/* 双检查锁，但由于内存读写reorder不安全 因为C++创建对象时，会执行1、分配内存，2 调用构造，3 赋值操作三步操作，
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;然而现代CPU和编译器高并发下可能会进行乱序重排操作，因而创建对象new CSingleton的第2步可能会晚于第3步进行指令调用，
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;因而导致出现未定义的的行为。*/&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;Singleton&lt;/span&gt;
+{
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt;:
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; Singleton *m_singleton;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; mutex m_mutex;
+    Singleton() = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;default&lt;/span&gt;;
+    Singleton(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; Singleton &amp;amp;s) = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;default&lt;/span&gt;;
+    Singleton &amp;amp;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;operator&lt;/span&gt;=(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; Singleton &amp;amp;s) = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;default&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;GarbageCollector&lt;/span&gt;
+    {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;:
+        ~GarbageCollector()
+        {
+            cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;~GarbageCollector&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;;
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (Singleton::m_singleton)
+            {
+                cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;free m_singleton&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;;
+                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;delete&lt;/span&gt; Singleton::m_singleton;
+                Singleton::m_singleton = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+            }
+        }
+    };
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; GarbageCollector m_gc;
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;:
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *getSingletonAddress()
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; m_singleton;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; Singleton *&lt;span style=&#34;color:#008b45&#34;&gt;getInstance&lt;/span&gt;()
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (Singleton::m_singleton == &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+        {
+            m_mutex.lock(); &lt;span style=&#34;color:#228b22&#34;&gt;// 加锁，保证只有一个线程在访问线程内的代码
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (Singleton::m_singleton == &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+            {                                  &lt;span style=&#34;color:#228b22&#34;&gt;//再次检查
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                m_singleton = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Singleton(); &lt;span style=&#34;color:#228b22&#34;&gt;// 对象的new不是原子操作 1、分配内存，2 调用构造，3 赋值操作，到第3步的时候才是m_singleton非空
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                                               &lt;span style=&#34;color:#228b22&#34;&gt;//  1、分配内存，2 赋值操作 3 调用构造，到第2步的时候才是m_singleton非空
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;            }
+            m_mutex.unlock(); &lt;span style=&#34;color:#228b22&#34;&gt;//解锁
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; m_singleton;
+    }
+};
+Singleton *Singleton::m_singleton = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+mutex Singleton::m_mutex;
+Singleton::GarbageCollector Singleton::m_gc;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#elif SINGLETON_INDEX == 4
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// 4、C++ 11版本之后的跨平台实现
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;Singleton&lt;/span&gt;
+{
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt;:
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; std::atomic&amp;lt;Singleton *&amp;gt; m_instance;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; std::mutex m_mutex;
+    Singleton() = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;default&lt;/span&gt;;
+    Singleton(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; Singleton &amp;amp;s) = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;default&lt;/span&gt;;
+    Singleton &amp;amp;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;operator&lt;/span&gt;=(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; Singleton &amp;amp;s) = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;default&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;GarbageCollector&lt;/span&gt;
+    {
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;:
+        ~GarbageCollector()
+        {
+            cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;~GarbageCollector&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;;
+            Singleton *tmp = m_instance.load(std::memory_order_relaxed);
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (tmp)
+            {
+                cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;free m_singleton: &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; tmp &amp;lt;&amp;lt; endl;
+                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;delete&lt;/span&gt; tmp;
+            }
+        }
+    };
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; GarbageCollector m_gc;
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;:
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *getSingletonAddress()
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; m_instance;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; Singleton *&lt;span style=&#34;color:#008b45&#34;&gt;getInstance&lt;/span&gt;()
+    {
+        Singleton *tmp = m_instance.load(std::memory_order_relaxed);
+        std::atomic_thread_fence(std::memory_order_acquire); &lt;span style=&#34;color:#228b22&#34;&gt;//获取内存fence
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (tmp == &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+        {
+            std::lock_guard&amp;lt;std::mutex&amp;gt; lock(m_mutex);
+            tmp = m_instance.load(std::memory_order_relaxed);
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (tmp == &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+            {
+                tmp = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; Singleton();                               &lt;span style=&#34;color:#228b22&#34;&gt;// 1、分配内存，2 调用构造，3 赋值操作
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                std::atomic_thread_fence(std::memory_order_release); &lt;span style=&#34;color:#228b22&#34;&gt;//释放内存fence
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;                m_instance.store(tmp, std::memory_order_relaxed);
+            }
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; tmp;
+    }
+};
+std::atomic&amp;lt;Singleton *&amp;gt; Singleton::m_instance;
+std::mutex Singleton::m_mutex;
+Singleton::GarbageCollector Singleton::m_gc;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#elif SINGLETON_INDEX == 5
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// 懒汉式
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;Singleton&lt;/span&gt;
+{
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt;:
+    &lt;span style=&#34;color:#228b22&#34;&gt;//Singleton() = default;  // 自动生成默认构造函数
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    Singleton()
+    { &lt;span style=&#34;color:#228b22&#34;&gt;// 构造函数会影响局部静态变量，不能用隐式的构造函数
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Singleton construct&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;;
+    }
+    Singleton(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; Singleton &amp;amp;s) = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;delete&lt;/span&gt;;            &lt;span style=&#34;color:#228b22&#34;&gt;// 禁用拷贝构造函数
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    Singleton &amp;amp;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;operator&lt;/span&gt;=(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; Singleton &amp;amp;s) = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;delete&lt;/span&gt;; &lt;span style=&#34;color:#228b22&#34;&gt;// 禁用拷贝赋值操作符
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;:
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; Singleton *getInstance()
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; Singleton s_singleton; &lt;span style=&#34;color:#228b22&#34;&gt;// C++11线程安全，C++11之前不是线程安全  __cxa_guard_acquire 和 __cxa_guard_release
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &amp;amp;s_singleton;
+    }
+};
+&lt;span style=&#34;color:#1e889b&#34;&gt;#elif SINGLETON_INDEX == 6
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// 饿汉式，在main函数运行前初始化，绝对安全
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#008b45;font-weight:bold&#34;&gt;Singleton&lt;/span&gt;
+{
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;private&lt;/span&gt;:
+    &lt;span style=&#34;color:#228b22&#34;&gt;//Singleton() = default;   //自动生成默认构造函数
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    Singleton()
+    {
+        cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Singleton construct&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;;
+    }
+    Singleton(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; Singleton &amp;amp;s) = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;delete&lt;/span&gt;;            &lt;span style=&#34;color:#228b22&#34;&gt;// 禁用拷贝构造函数
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    Singleton &amp;amp;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;operator&lt;/span&gt;=(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; Singleton &amp;amp;s) = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;delete&lt;/span&gt;; &lt;span style=&#34;color:#228b22&#34;&gt;// 禁用拷贝赋值操作符
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; Singleton m_singleton;
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;public&lt;/span&gt;:
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; Singleton *getInstance()
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &amp;amp;m_singleton;
+    }
+};
+Singleton Singleton::m_singleton;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+- https://gongluck.github.io/linux/%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%93%E6%A0%8F/ - </description>
+        </item>
     
     
     
