@@ -5,10 +5,23 @@
     <link>https://gongluck.github.io/linux/</link>
     <description>Recent content in Linuxes on gongluck&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 30 Nov 2020 20:35:46 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 30 Nov 2020 20:52:27 +0800</lastBuildDate>
     
 	<atom:link href="https://gongluck.github.io/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>后台组件编程专栏</title>
+      <link>https://gongluck.github.io/linux/%E5%90%8E%E5%8F%B0%E7%BB%84%E4%BB%B6%E7%BC%96%E7%A8%8B%E4%B8%93%E6%A0%8F/</link>
+      <pubDate>Mon, 30 Nov 2020 20:52:27 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/linux/%E5%90%8E%E5%8F%B0%E7%BB%84%E4%BB%B6%E7%BC%96%E7%A8%8B%E4%B8%93%E6%A0%8F/</guid>
+      <description>二、后台组件编程专栏 0.项目仓库  https://github.com/gongluck/CVIP.git  1.MySQL基本操作与编程 1.1 MySQL基础逻辑框架 1.2 基本操作   安装
+sudo apt-get install mysql-server mysql-client -y  启动、重启、关闭
+sudo /etc/init.d/mysql start|stop|restart  连接
+mysql -h127.0.0.1 -uroot -p #root用户默认密码为空  ERROR 1698 (28000): Access denied for user &amp;lsquo;root&amp;rsquo;@&amp;lsquo;localhost&#39;问题解决
+# 查看/etc/mysql/debian.cnfsudo vim /etc/mysql/debian.cnf############################################################ Automatically generated for Debian scripts. DO NOT TOUCH![client]host = localhostuser = debian-sys-maint # 记住这两项password = 5VRSokq1P0uQ2S39 # 记住这两项socket = /var/run/mysqld/mysqld.</description>
+    </item>
     
     <item>
       <title>算法与设计模式专栏</title>

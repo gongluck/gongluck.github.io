@@ -4,9 +4,1751 @@
     <link>https://gongluck.github.io/</link>
     <description>Recent content on gongluck&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 30 Nov 2020 20:35:46 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 30 Nov 2020 20:52:27 +0800</lastBuildDate>
     
         <atom:link href="https://gongluck.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>后台组件编程专栏</title>
+        <link>https://gongluck.github.io/linux/%E5%90%8E%E5%8F%B0%E7%BB%84%E4%BB%B6%E7%BC%96%E7%A8%8B%E4%B8%93%E6%A0%8F/</link>
+        <pubDate>Mon, 30 Nov 2020 20:52:27 +0800</pubDate>
+        
+        <guid>https://gongluck.github.io/linux/%E5%90%8E%E5%8F%B0%E7%BB%84%E4%BB%B6%E7%BC%96%E7%A8%8B%E4%B8%93%E6%A0%8F/</guid>
+        <description>gongluck&#39;s blog https://gongluck.github.io/linux/%E5%90%8E%E5%8F%B0%E7%BB%84%E4%BB%B6%E7%BC%96%E7%A8%8B%E4%B8%93%E6%A0%8F/ -&lt;h2 id=&#34;二后台组件编程专栏&#34;&gt;二、后台组件编程专栏&lt;/h2&gt;
+&lt;h3 id=&#34;0项目仓库&#34;&gt;0.项目仓库&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP.git&#34;&gt;https://github.com/gongluck/CVIP.git&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;1mysql基本操作与编程&#34;&gt;1.MySQL基本操作与编程&lt;/h3&gt;
+&lt;h4 id=&#34;11-mysql基础逻辑框架&#34;&gt;1.1 MySQL基础逻辑框架&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/blob/master/images/MySQL%E5%9F%BA%E7%A1%80%E9%80%BB%E8%BE%91%E6%A1%86%E6%9E%B6.png&#34; alt=&#34;MySQL基础逻辑框架&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;12-基本操作&#34;&gt;1.2 基本操作&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;安装&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;sudo apt-get install mysql-server mysql-client -y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;启动、重启、关闭&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;sudo /etc/init.d/mysql start|stop|restart
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;连接&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;mysql -h127.0.0.1 -uroot -p &lt;span style=&#34;color:#228b22&#34;&gt;#root用户默认密码为空&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ERROR 1698 (28000): Access denied for user &amp;lsquo;root&amp;rsquo;@&amp;lsquo;localhost&#39;问题解决&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 查看/etc/mysql/debian.cnf&lt;/span&gt;
+sudo vim /etc/mysql/debian.cnf
+&lt;span style=&#34;color:#228b22&#34;&gt;###########################################################&lt;/span&gt;
+&lt;span style=&#34;color:#228b22&#34;&gt;# Automatically generated for Debian scripts. DO NOT TOUCH!&lt;/span&gt;
+[client]
+&lt;span style=&#34;color:#00688b&#34;&gt;host&lt;/span&gt;     = localhost
+&lt;span style=&#34;color:#00688b&#34;&gt;user&lt;/span&gt;     = debian-sys-maint &lt;span style=&#34;color:#228b22&#34;&gt;# 记住这两项&lt;/span&gt;
+&lt;span style=&#34;color:#00688b&#34;&gt;password&lt;/span&gt; = 5VRSokq1P0uQ2S39 &lt;span style=&#34;color:#228b22&#34;&gt;# 记住这两项&lt;/span&gt;
+&lt;span style=&#34;color:#00688b&#34;&gt;socket&lt;/span&gt;   = /var/run/mysqld/mysqld.sock
+[mysql_upgrade]
+&lt;span style=&#34;color:#00688b&#34;&gt;host&lt;/span&gt;     = localhost
+&lt;span style=&#34;color:#00688b&#34;&gt;user&lt;/span&gt;     = debian-sys-maint
+&lt;span style=&#34;color:#00688b&#34;&gt;password&lt;/span&gt; = 5VRSokq1P0uQ2S39
+&lt;span style=&#34;color:#00688b&#34;&gt;socket&lt;/span&gt;   = /var/run/mysqld/mysqld.sock
+&lt;span style=&#34;color:#228b22&#34;&gt;###########################################################&lt;/span&gt;
+mysql -udebian-sys-maint -p5VRSokq1P0uQ2S39
+&lt;span style=&#34;color:#228b22&#34;&gt;# 登录MySQL成功后&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;select&lt;/span&gt; user, plugin from mysql.user;
+update mysql.user &lt;span style=&#34;color:#658b00&#34;&gt;set&lt;/span&gt; &lt;span style=&#34;color:#00688b&#34;&gt;authentication_string&lt;/span&gt;=PASSWORD(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;123&amp;#39;&lt;/span&gt;), &lt;span style=&#34;color:#00688b&#34;&gt;plugin&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;mysql_native_password&amp;#39;&lt;/span&gt; where &lt;span style=&#34;color:#00688b&#34;&gt;user&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;root&amp;#39;&lt;/span&gt;;
+flush privileges;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;数据库操作&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;# &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;创建数据库&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;create&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;database&lt;/span&gt; `test` &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;default&lt;/span&gt; &lt;span style=&#34;color:#658b00&#34;&gt;character&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;set&lt;/span&gt; utf8;
+# &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;使用数据库&lt;/span&gt;
+use test;
+# &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;创建表&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;create&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;table&lt;/span&gt; user_info (
+  id &lt;span style=&#34;color:#658b00&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;not&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;null&lt;/span&gt; auto_increment,
+  `name` &lt;span style=&#34;color:#658b00&#34;&gt;varchar&lt;/span&gt;(&lt;span style=&#34;color:#b452cd&#34;&gt;20&lt;/span&gt;),
+  `title` &lt;span style=&#34;color:#658b00&#34;&gt;varchar&lt;/span&gt;(&lt;span style=&#34;color:#b452cd&#34;&gt;20&lt;/span&gt;),
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;primary&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;key&lt;/span&gt;(id)
+)engine = InnoDB charset = utf8;
+# &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;增删查改&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;insert&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;into&lt;/span&gt; user_info(`name`, `title`)&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;values&lt;/span&gt;(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;gongluck&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;test&amp;#39;&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;select&lt;/span&gt; * &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;from&lt;/span&gt; user_info;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;update&lt;/span&gt; user_info &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;set&lt;/span&gt; `name`=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;test&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;where&lt;/span&gt; id = &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;delete&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;from&lt;/span&gt; user_info &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;where&lt;/span&gt; id = &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;用户操作&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;# &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;创建用户&lt;/span&gt;
+#&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;CREATE&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;USER&lt;/span&gt; username@&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;host&lt;/span&gt; IDENTIFIED &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;BY&lt;/span&gt; password;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;CREATE&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;USER&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;gongluck&amp;#39;&lt;/span&gt;@&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;%&amp;#39;&lt;/span&gt; IDENTIFIED &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;BY&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;123&amp;#39;&lt;/span&gt;;
+  
+# &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;授权&lt;/span&gt;
+#&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;GRANT&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;privileges&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;ON&lt;/span&gt; databasename.tablename &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;TO&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;username&amp;#39;&lt;/span&gt;@&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;host&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;WITH&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;GRANT&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;OPTION&lt;/span&gt;;
+#&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;privileges&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;：用户的操作权限，如&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;SELECT&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;，&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;INSERT&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;，&lt;/span&gt;UPDATE等&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;，如果要授予所的权限则使用&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;ALL&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;GRANT&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;SELECT&lt;/span&gt;, REPLICATION SLAVE, REPLICATION CLIENT &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;ON&lt;/span&gt; *.* &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;TO&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;gongluck&amp;#39;&lt;/span&gt;@&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;%&amp;#39;&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;GRANT&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;ALL&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;PRIVILEGES&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;ON&lt;/span&gt; *.* &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;TO&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;gongluck&amp;#39;&lt;/span&gt;@&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;%&amp;#39;&lt;/span&gt;;
+FLUSH &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;PRIVILEGES&lt;/span&gt;;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;13-libmysql编程环境&#34;&gt;1.3 libmysql编程环境&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;安装&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;sudo apt-get install libmysqlclient-dev -y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/mysql/mysql.h&#34;&gt;头文件（/usr/include/mysql/mysql.h）&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/* Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   This program is free software; you can redistribute it and/or modify
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   it under the terms of the GNU General Public License, version 2.0,
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   as published by the Free Software Foundation.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   This program is also distributed with certain software (including
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   but not limited to OpenSSL) that is licensed under separate terms,
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   as designated in a particular file or component or in included license
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   documentation.  The authors of MySQL hereby grant you an additional
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   permission to link the program and your derivative works with the
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   separately licensed software that they have included with MySQL.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   Without limiting anything contained in the foregoing, this file,
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   which is part of C Driver for MySQL (Connector/C), is also subject to the
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   Universal FOSS Exception, version 1.0, a copy of which can be found at
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   http://oss.oracle.com/licenses/universal-foss-exception.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   This program is distributed in the hope that it will be useful,
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   but WITHOUT ANY WARRANTY; without even the implied warranty of
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   GNU General Public License, version 2.0, for more details.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   You should have received a copy of the GNU General Public License
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   along with this program; if not, write to the Free Software
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */&lt;/span&gt;
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;/*
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  This file defines the client API to MySQL and also the ABI of the
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  dynamically linked libmysqlclient.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  The ABI should never be changed in a released product of MySQL,
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  thus you need to take great care when changing the file. In case
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  the file is changed so the ABI is broken, you must also update
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  the SHARED_LIB_MAJOR_VERSION in cmake/mysql_version.cmake
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;*/&lt;/span&gt;
+  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifndef _mysql_h
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define _mysql_h
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef	__cplusplus
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;extern&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;C&amp;#34;&lt;/span&gt; {
+&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifndef MY_GLOBAL_INCLUDED                &lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/* If not standard header */&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#ifndef MYSQL_ABI_CHECK
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;sys/types.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; my_bool;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#if !defined(_WIN32)
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define STDCALL
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#else
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define STDCALL __stdcall
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifndef my_socket_defined
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef _WIN32
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;windows.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef WIN32_LEAN_AND_MEAN
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;winsock2.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define my_socket SOCKET
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#else
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; my_socket;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#endif &lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/* _WIN32 */&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif &lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/* my_socket_defined */&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif &lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/* MY_GLOBAL_INCLUDED */&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;mysql_version.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;mysql_com.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;mysql_time.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;my_list.h&amp;#34; /* for LISTs used in &amp;#39;MYSQL&amp;#39; and &amp;#39;MYSQL_STMT&amp;#39; */&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#228b22&#34;&gt;/* Include declarations of plug-in API */&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;mysql/client_plugin.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;extern&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; mysql_port;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;extern&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *mysql_unix_port;
+  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#define CLIENT_NET_READ_TIMEOUT		365*24*3600	&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/* Timeout on read */&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define CLIENT_NET_WRITE_TIMEOUT	365*24*3600	&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/* Timeout on write */&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#define IS_PRI_KEY(n)	((n) &amp;amp; PRI_KEY_FLAG)
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define IS_NOT_NULL(n)	((n) &amp;amp; NOT_NULL_FLAG)
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define IS_BLOB(n)	((n) &amp;amp; BLOB_FLAG)
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   Returns true if the value is a number which does not need quotes for
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;   the sql_lex.cc parser to parse correctly.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;*/&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#define IS_NUM(t)	(((t) &amp;lt;= MYSQL_TYPE_INT24 &amp;amp;&amp;amp; (t) != MYSQL_TYPE_TIMESTAMP) || (t) == MYSQL_TYPE_YEAR || (t) == MYSQL_TYPE_NEWDECIMAL)
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define IS_LONGDATA(t) ((t) &amp;gt;= MYSQL_TYPE_TINY_BLOB &amp;amp;&amp;amp; (t) &amp;lt;= MYSQL_TYPE_STRING)
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql_field {
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *name;                 &lt;span style=&#34;color:#228b22&#34;&gt;/* Name of column */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *org_name;             &lt;span style=&#34;color:#228b22&#34;&gt;/* Original column name, if an alias */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *table;                &lt;span style=&#34;color:#228b22&#34;&gt;/* Table of column if column was a field */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *org_table;            &lt;span style=&#34;color:#228b22&#34;&gt;/* Org table name, if table was an alias */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *db;                   &lt;span style=&#34;color:#228b22&#34;&gt;/* Database for table */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *catalog;	      &lt;span style=&#34;color:#228b22&#34;&gt;/* Catalog for table */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *def;                  &lt;span style=&#34;color:#228b22&#34;&gt;/* Default value (set by mysql_list_fields) */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; length;       &lt;span style=&#34;color:#228b22&#34;&gt;/* Width of column (create length) */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; max_length;   &lt;span style=&#34;color:#228b22&#34;&gt;/* Max width for selected set */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; name_length;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; org_name_length;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; table_length;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; org_table_length;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; db_length;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; catalog_length;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; def_length;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; flags;         &lt;span style=&#34;color:#228b22&#34;&gt;/* Div flags */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; decimals;      &lt;span style=&#34;color:#228b22&#34;&gt;/* Number of decimals in field */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; charsetnr;     &lt;span style=&#34;color:#228b22&#34;&gt;/* Character set */&lt;/span&gt;
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;enum&lt;/span&gt; enum_field_types type; &lt;span style=&#34;color:#228b22&#34;&gt;/* Type of field. See mysql_com.h for types */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *extension;
+} MYSQL_FIELD;
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; **MYSQL_ROW;		&lt;span style=&#34;color:#228b22&#34;&gt;/* return data as array of strings */&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; MYSQL_FIELD_OFFSET; &lt;span style=&#34;color:#228b22&#34;&gt;/* offset to current field */&lt;/span&gt;
+  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifndef MY_GLOBAL_INCLUDED
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#if defined (_WIN32)
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;__int64&lt;/span&gt; my_ulonglong;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#else
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; my_ulonglong;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;typelib.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#define MYSQL_COUNT_ERROR (~(my_ulonglong) 0)
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#228b22&#34;&gt;/* backward compatibility define - to be removed eventually */&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#define ER_WARN_DATA_TRUNCATED WARN_DATA_TRUNCATED
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql_rows {
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql_rows *next;		&lt;span style=&#34;color:#228b22&#34;&gt;/* list of rows */&lt;/span&gt;
+  MYSQL_ROW data;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; length;
+} MYSQL_ROWS;
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; MYSQL_ROWS *MYSQL_ROW_OFFSET;	&lt;span style=&#34;color:#228b22&#34;&gt;/* offset to current row */&lt;/span&gt;
+  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;my_alloc.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; embedded_query_result EMBEDDED_QUERY_RESULT;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql_data {
+  MYSQL_ROWS *data;
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; embedded_query_result *embedded_info;
+  MEM_ROOT alloc;
+  my_ulonglong rows;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; fields;
+  &lt;span style=&#34;color:#228b22&#34;&gt;/* extra info for embedded library */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *extension;
+} MYSQL_DATA;
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;enum&lt;/span&gt; mysql_option 
+{
+  MYSQL_OPT_CONNECT_TIMEOUT, MYSQL_OPT_COMPRESS, MYSQL_OPT_NAMED_PIPE,
+  MYSQL_INIT_COMMAND, MYSQL_READ_DEFAULT_FILE, MYSQL_READ_DEFAULT_GROUP,
+  MYSQL_SET_CHARSET_DIR, MYSQL_SET_CHARSET_NAME, MYSQL_OPT_LOCAL_INFILE,
+  MYSQL_OPT_PROTOCOL, MYSQL_SHARED_MEMORY_BASE_NAME, MYSQL_OPT_READ_TIMEOUT,
+  MYSQL_OPT_WRITE_TIMEOUT, MYSQL_OPT_USE_RESULT,
+  MYSQL_OPT_USE_REMOTE_CONNECTION, MYSQL_OPT_USE_EMBEDDED_CONNECTION,
+  MYSQL_OPT_GUESS_CONNECTION, MYSQL_SET_CLIENT_IP, MYSQL_SECURE_AUTH,
+  MYSQL_REPORT_DATA_TRUNCATION, MYSQL_OPT_RECONNECT,
+  MYSQL_OPT_SSL_VERIFY_SERVER_CERT, MYSQL_PLUGIN_DIR, MYSQL_DEFAULT_AUTH,
+  MYSQL_OPT_BIND,
+  MYSQL_OPT_SSL_KEY, MYSQL_OPT_SSL_CERT, 
+  MYSQL_OPT_SSL_CA, MYSQL_OPT_SSL_CAPATH, MYSQL_OPT_SSL_CIPHER,
+  MYSQL_OPT_SSL_CRL, MYSQL_OPT_SSL_CRLPATH,
+  MYSQL_OPT_CONNECT_ATTR_RESET, MYSQL_OPT_CONNECT_ATTR_ADD,
+  MYSQL_OPT_CONNECT_ATTR_DELETE,
+  MYSQL_SERVER_PUBLIC_KEY,
+  MYSQL_ENABLE_CLEARTEXT_PLUGIN,
+  MYSQL_OPT_CAN_HANDLE_EXPIRED_PASSWORDS,
+  MYSQL_OPT_SSL_ENFORCE,
+  MYSQL_OPT_MAX_ALLOWED_PACKET, MYSQL_OPT_NET_BUFFER_LENGTH,
+  MYSQL_OPT_TLS_VERSION,
+  MYSQL_OPT_SSL_MODE,
+  MYSQL_OPT_GET_SERVER_PUBLIC_KEY
+};
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;/**
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  @todo remove the &amp;#34;extension&amp;#34;, move st_mysql_options completely
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  out of mysql.h
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;*/&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql_options_extention; 
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql_options {
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; connect_timeout, read_timeout, write_timeout;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; port, protocol;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; client_flag;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *host,*user,*password,*unix_socket,*db;
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_dynamic_array *init_commands;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *my_cnf_file,*my_cnf_group, *charset_dir, *charset_name;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *ssl_key;				&lt;span style=&#34;color:#228b22&#34;&gt;/* PEM key file */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *ssl_cert;				&lt;span style=&#34;color:#228b22&#34;&gt;/* PEM cert file */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *ssl_ca;					&lt;span style=&#34;color:#228b22&#34;&gt;/* PEM CA file */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *ssl_capath;				&lt;span style=&#34;color:#228b22&#34;&gt;/* PEM directory of CA-s? */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *ssl_cipher;				&lt;span style=&#34;color:#228b22&#34;&gt;/* cipher to use */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *shared_memory_base_name;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; max_allowed_packet;
+  my_bool use_ssl;                              &lt;span style=&#34;color:#228b22&#34;&gt;/* Deprecated ! Former use_ssl */&lt;/span&gt;
+  my_bool compress,named_pipe;
+  my_bool unused1;
+  my_bool unused2;
+  my_bool unused3;
+  my_bool unused4;
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;enum&lt;/span&gt; mysql_option methods_to_use;
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;union&lt;/span&gt; {
+    &lt;span style=&#34;color:#228b22&#34;&gt;/*
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;      The ip/hostname to use when authenticating
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;      client against embedded server built with
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;      grant tables - only used in embedded server
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;    */&lt;/span&gt;
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *client_ip;
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;/*
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;      The local address to bind when connecting to
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;      remote server - not used in embedded server
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;    */&lt;/span&gt;
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *bind_address;
+  } ci;
+  my_bool unused5;
+  &lt;span style=&#34;color:#228b22&#34;&gt;/* 0 - never report, 1 - always report (default) */&lt;/span&gt;
+  my_bool report_data_truncation;
+  
+  &lt;span style=&#34;color:#228b22&#34;&gt;/* function pointers for local infile support */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; (*local_infile_init)(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; **, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *);
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; (*local_infile_read)(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;);
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; (*local_infile_end)(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *);
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; (*local_infile_error)(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;);
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *local_infile_userdata;
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql_options_extention *extension;
+};
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;enum&lt;/span&gt; mysql_status 
+{
+  MYSQL_STATUS_READY, MYSQL_STATUS_GET_RESULT, MYSQL_STATUS_USE_RESULT,
+  MYSQL_STATUS_STATEMENT_GET_RESULT
+};
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;enum&lt;/span&gt; mysql_protocol_type 
+{
+  MYSQL_PROTOCOL_DEFAULT, MYSQL_PROTOCOL_TCP, MYSQL_PROTOCOL_SOCKET,
+  MYSQL_PROTOCOL_PIPE, MYSQL_PROTOCOL_MEMORY
+};
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;enum&lt;/span&gt; mysql_ssl_mode
+{
+  SSL_MODE_DISABLED= &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;, SSL_MODE_PREFERRED, SSL_MODE_REQUIRED,
+  SSL_MODE_VERIFY_CA, SSL_MODE_VERIFY_IDENTITY
+};
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; character_set
+{
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;      number;     &lt;span style=&#34;color:#228b22&#34;&gt;/* character set number              */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;      state;      &lt;span style=&#34;color:#228b22&#34;&gt;/* character set state               */&lt;/span&gt;
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;        *csname;    &lt;span style=&#34;color:#228b22&#34;&gt;/* collation name                    */&lt;/span&gt;
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;        *name;      &lt;span style=&#34;color:#228b22&#34;&gt;/* character set name                */&lt;/span&gt;
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;        *comment;   &lt;span style=&#34;color:#228b22&#34;&gt;/* comment                           */&lt;/span&gt;
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;        *dir;       &lt;span style=&#34;color:#228b22&#34;&gt;/* character set directory           */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;      mbminlen;   &lt;span style=&#34;color:#228b22&#34;&gt;/* min. length for multibyte strings */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;      mbmaxlen;   &lt;span style=&#34;color:#228b22&#34;&gt;/* max. length for multibyte strings */&lt;/span&gt;
+} MY_CHARSET_INFO;
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql_methods;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql_stmt;
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql
+{
+  NET		net;			&lt;span style=&#34;color:#228b22&#34;&gt;/* Communication parameters */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;	*connector_fd;		&lt;span style=&#34;color:#228b22&#34;&gt;/* ConnectorFd for SSL */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;		*host,*user,*passwd,*unix_socket,*server_version,*host_info;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;          *info, *db;
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; charset_info_st *charset;
+  MYSQL_FIELD	*fields;
+  MEM_ROOT	field_alloc;
+  my_ulonglong affected_rows;
+  my_ulonglong insert_id;		&lt;span style=&#34;color:#228b22&#34;&gt;/* id if insert on table with NEXTNR */&lt;/span&gt;
+  my_ulonglong extra_info;		&lt;span style=&#34;color:#228b22&#34;&gt;/* Not used */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; thread_id;		&lt;span style=&#34;color:#228b22&#34;&gt;/* Id for connection in server */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; packet_length;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;	port;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; client_flag,server_capabilities;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;	protocol_version;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;	field_count;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; 	server_status;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;  server_language;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;	warning_count;
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql_options options;
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;enum&lt;/span&gt; mysql_status status;
+  my_bool	free_me;		&lt;span style=&#34;color:#228b22&#34;&gt;/* If free in mysql_close */&lt;/span&gt;
+  my_bool	reconnect;		&lt;span style=&#34;color:#228b22&#34;&gt;/* set to 1 if automatic reconnect */&lt;/span&gt;
+  
+  &lt;span style=&#34;color:#228b22&#34;&gt;/* session-wide random string */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;	        scramble[SCRAMBLE_LENGTH+&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;];
+  my_bool unused1;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *unused2, *unused3, *unused4, *unused5;
+  
+  LIST  *stmts;                     &lt;span style=&#34;color:#228b22&#34;&gt;/* list of all statements */&lt;/span&gt;
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql_methods *methods;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *thd;
+  &lt;span style=&#34;color:#228b22&#34;&gt;/*
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;    Points to boolean flag in MYSQL_RES  or MYSQL_STMT. We set this flag 
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;    from mysql_stmt_close if close had to cancel result set of this object.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  */&lt;/span&gt;
+  my_bool *unbuffered_fetch_owner;
+  &lt;span style=&#34;color:#228b22&#34;&gt;/* needed for embedded server - no net buffer to store the &amp;#39;info&amp;#39; */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *info_buffer;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *extension;
+} MYSQL;
+  
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql_res {
+  my_ulonglong  row_count;
+  MYSQL_FIELD	*fields;
+  MYSQL_DATA	*data;
+  MYSQL_ROWS	*data_cursor;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; *lengths;		&lt;span style=&#34;color:#228b22&#34;&gt;/* column lengths of current row */&lt;/span&gt;
+  MYSQL		*handle;		&lt;span style=&#34;color:#228b22&#34;&gt;/* for unbuffered reads */&lt;/span&gt;
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql_methods *methods;
+  MYSQL_ROW	row;			&lt;span style=&#34;color:#228b22&#34;&gt;/* If unbuffered read */&lt;/span&gt;
+  MYSQL_ROW	current_row;		&lt;span style=&#34;color:#228b22&#34;&gt;/* buffer to current row */&lt;/span&gt;
+  MEM_ROOT	field_alloc;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;	field_count, current_field;
+  my_bool	eof;			&lt;span style=&#34;color:#228b22&#34;&gt;/* Used by mysql_fetch_row */&lt;/span&gt;
+  &lt;span style=&#34;color:#228b22&#34;&gt;/* mysql_stmt_close() had to cancel this result */&lt;/span&gt;
+  my_bool       unbuffered_fetch_cancelled;  
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *extension;
+} MYSQL_RES;
+  
+  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#if !defined(MYSQL_SERVER) &amp;amp;&amp;amp; !defined(MYSQL_CLIENT)
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define MYSQL_CLIENT
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#228b22&#34;&gt;/*
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  Set up and bring down the server; to ensure that applications will
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  work when linked against either the standard client library or the
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  embedded server library, these functions should be called.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;*/&lt;/span&gt;
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_server_init&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; argc, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; **argv, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; **groups);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_server_end&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;);
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;/*
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  mysql_server_init/end need to be called when using libmysqld or
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  libmysqlclient (exactly, mysql_server_init() is called by mysql_init() so
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  you don&amp;#39;t need to call it explicitely; but you need to call
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  mysql_server_end() to free memory). The names are a bit misleading
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  (mysql_SERVER* to be used when using libmysqlCLIENT). So we add more general
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  names which suit well whether you&amp;#39;re using libmysqld or libmysqlclient. We
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  intend to promote these aliases over the mysql_server* ones.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;*/&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#define mysql_library_init mysql_server_init
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define mysql_library_end mysql_server_end
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;/*
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  Set up and bring down a thread; these function should be called
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  for each thread in an application which opens at least one MySQL
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  connection.  All uses of the connection(s) should be between these
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  function calls.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;*/&lt;/span&gt;
+my_bool STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_thread_init&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_thread_end&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;);
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;/*
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  Functions to get information from the MYSQL and MYSQL_RES structures
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  Should definitely be used if one uses shared libraries.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;*/&lt;/span&gt;
+  
+my_ulonglong STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_num_rows&lt;/span&gt;(MYSQL_RES *res);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_num_fields&lt;/span&gt;(MYSQL_RES *res);
+my_bool STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_eof&lt;/span&gt;(MYSQL_RES *res);
+MYSQL_FIELD *STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_fetch_field_direct&lt;/span&gt;(MYSQL_RES *res,
+                        &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; fieldnr);
+MYSQL_FIELD * STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_fetch_fields&lt;/span&gt;(MYSQL_RES *res);
+MYSQL_ROW_OFFSET STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_row_tell&lt;/span&gt;(MYSQL_RES *res);
+MYSQL_FIELD_OFFSET STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_field_tell&lt;/span&gt;(MYSQL_RES *res);
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_field_count&lt;/span&gt;(MYSQL *mysql);
+my_ulonglong STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_affected_rows&lt;/span&gt;(MYSQL *mysql);
+my_ulonglong STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_insert_id&lt;/span&gt;(MYSQL *mysql);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_errno&lt;/span&gt;(MYSQL *mysql);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; * STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_error&lt;/span&gt;(MYSQL *mysql);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_sqlstate&lt;/span&gt;(MYSQL *mysql);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_warning_count&lt;/span&gt;(MYSQL *mysql);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; * STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_info&lt;/span&gt;(MYSQL *mysql);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_thread_id&lt;/span&gt;(MYSQL *mysql);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; * STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_character_set_name&lt;/span&gt;(MYSQL *mysql);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;          STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_set_character_set&lt;/span&gt;(MYSQL *mysql, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *csname);
+  
+MYSQL *		STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_init&lt;/span&gt;(MYSQL *mysql);
+my_bool		STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_ssl_set&lt;/span&gt;(MYSQL *mysql, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *key,
+                    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *cert, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *ca,
+                    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *capath, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *cipher);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *    STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_get_ssl_cipher&lt;/span&gt;(MYSQL *mysql);
+my_bool		STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_change_user&lt;/span&gt;(MYSQL *mysql, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *user, 
+                    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *passwd, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *db);
+MYSQL *		STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_real_connect&lt;/span&gt;(MYSQL *mysql, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *host,
+                     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *user,
+                     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *passwd,
+                     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *db,
+                     &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; port,
+                     &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *unix_socket,
+                     &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; clientflag);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;		STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_select_db&lt;/span&gt;(MYSQL *mysql, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *db);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;		STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_query&lt;/span&gt;(MYSQL *mysql, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *q);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;		STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_send_query&lt;/span&gt;(MYSQL *mysql, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *q,
+                   &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; length);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;		STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_real_query&lt;/span&gt;(MYSQL *mysql, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *q,
+                  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; length);
+MYSQL_RES *     STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_store_result&lt;/span&gt;(MYSQL *mysql);
+MYSQL_RES *     STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_use_result&lt;/span&gt;(MYSQL *mysql);
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;        STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_get_character_set_info&lt;/span&gt;(MYSQL *mysql,
+                           MY_CHARSET_INFO *charset);
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_session_track_get_first&lt;/span&gt;(MYSQL *mysql,
+                                          &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;enum&lt;/span&gt; enum_session_state_type type,
+                                          &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; **data,
+                                          size_t *length);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_session_track_get_next&lt;/span&gt;(MYSQL *mysql,
+                                         &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;enum&lt;/span&gt; enum_session_state_type type,
+                                         &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; **data,
+                                         size_t *length);
+&lt;span style=&#34;color:#228b22&#34;&gt;/* local infile support */&lt;/span&gt;
+  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#define LOCAL_INFILE_ERROR_LEN 512
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;
+&lt;span style=&#34;color:#008b45&#34;&gt;mysql_set_local_infile_handler&lt;/span&gt;(MYSQL *mysql,
+                               &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; (*local_infile_init)(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; **, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *,
+                            &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *),
+                               &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; (*local_infile_read)(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *,
+                          &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;),
+                               &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; (*local_infile_end)(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *),
+                               &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; (*local_infile_error)(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;*,
+                           &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;),
+                               &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *);
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;
+&lt;span style=&#34;color:#008b45&#34;&gt;mysql_set_local_infile_default&lt;/span&gt;(MYSQL *mysql);
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;		STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_shutdown&lt;/span&gt;(MYSQL *mysql,
+                                       &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;enum&lt;/span&gt; mysql_enum_shutdown_level
+                                       shutdown_level);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;		STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_dump_debug_info&lt;/span&gt;(MYSQL *mysql);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;		STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_refresh&lt;/span&gt;(MYSQL *mysql,
+                   &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; refresh_options);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;		STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_kill&lt;/span&gt;(MYSQL *mysql,&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; pid);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;		STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_set_server_option&lt;/span&gt;(MYSQL *mysql,
+                      &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;enum&lt;/span&gt; enum_mysql_set_option
+                      option);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;		STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_ping&lt;/span&gt;(MYSQL *mysql);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *	STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stat&lt;/span&gt;(MYSQL *mysql);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *	STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_get_server_info&lt;/span&gt;(MYSQL *mysql);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *	STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_get_client_info&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt;	STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_get_client_version&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *	STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_get_host_info&lt;/span&gt;(MYSQL *mysql);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt;	STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_get_server_version&lt;/span&gt;(MYSQL *mysql);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;	STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_get_proto_info&lt;/span&gt;(MYSQL *mysql);
+MYSQL_RES *	STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_list_dbs&lt;/span&gt;(MYSQL *mysql,&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *wild);
+MYSQL_RES *	STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_list_tables&lt;/span&gt;(MYSQL *mysql,&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *wild);
+MYSQL_RES *	STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_list_processes&lt;/span&gt;(MYSQL *mysql);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;		STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_options&lt;/span&gt;(MYSQL *mysql,&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;enum&lt;/span&gt; mysql_option option,
+                    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *arg);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;		STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_options4&lt;/span&gt;(MYSQL *mysql,&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;enum&lt;/span&gt; mysql_option option,
+                                       &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *arg1, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *arg2);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;             STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_get_option&lt;/span&gt;(MYSQL *mysql, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;enum&lt;/span&gt; mysql_option option,
+                                         &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *arg);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;		STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_free_result&lt;/span&gt;(MYSQL_RES *result);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;		STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_data_seek&lt;/span&gt;(MYSQL_RES *result,
+                  my_ulonglong offset);
+MYSQL_ROW_OFFSET STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_row_seek&lt;/span&gt;(MYSQL_RES *result,
+                      MYSQL_ROW_OFFSET offset);
+MYSQL_FIELD_OFFSET STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_field_seek&lt;/span&gt;(MYSQL_RES *result,
+                     MYSQL_FIELD_OFFSET offset);
+MYSQL_ROW	STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_fetch_row&lt;/span&gt;(MYSQL_RES *result);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; * STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_fetch_lengths&lt;/span&gt;(MYSQL_RES *result);
+MYSQL_FIELD *	STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_fetch_field&lt;/span&gt;(MYSQL_RES *result);
+MYSQL_RES *     STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_list_fields&lt;/span&gt;(MYSQL *mysql, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *table,
+                    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *wild);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt;	STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_escape_string&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *to,&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *from,
+                      &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; from_length);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt;	STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_hex_string&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *to,&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *from,
+                                         &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; from_length);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_real_escape_string&lt;/span&gt;(MYSQL *mysql,
+                         &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *to,&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *from,
+                         &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; length);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_real_escape_string_quote&lt;/span&gt;(MYSQL *mysql,
+                 &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *to, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *from,
+                 &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; length, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; quote);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;          STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_debug&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *debug);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;          STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;myodbc_remove_escape&lt;/span&gt;(MYSQL *mysql,&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *name);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;  STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_thread_safe&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;);
+my_bool       STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_embedded&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;);
+my_bool       STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_read_query_result&lt;/span&gt;(MYSQL *mysql);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;           STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_reset_connection&lt;/span&gt;(MYSQL *mysql);
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;/*
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  The following definitions are added for the enhanced 
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  client-server protocol
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;*/&lt;/span&gt;
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;/* statement state */&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;enum&lt;/span&gt; enum_mysql_stmt_state
+{
+  MYSQL_STMT_INIT_DONE= &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;, MYSQL_STMT_PREPARE_DONE, MYSQL_STMT_EXECUTE_DONE,
+  MYSQL_STMT_FETCH_DONE
+};
+  
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;/*
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  This structure is used to define bind information, and
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  internally by the client library.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  Public members with their descriptions are listed below
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  (conventionally `On input&amp;#39; refers to the binds given to
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  mysql_stmt_bind_param, `On output&amp;#39; refers to the binds given
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  to mysql_stmt_bind_result):
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  buffer_type    - One of the MYSQL_* types, used to describe
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   the host language type of buffer.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   On output: if column type is different from
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   buffer_type, column value is automatically converted
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   to buffer_type before it is stored in the buffer.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  buffer         - On input: points to the buffer with input data.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   On output: points to the buffer capable to store
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   output data.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   The type of memory pointed by buffer must correspond
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   to buffer_type. See the correspondence table in
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   the comment to mysql_stmt_bind_param.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  The two above members are mandatory for any kind of bind.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  buffer_length  - the length of the buffer. You don&amp;#39;t have to set
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   it for any fixed length buffer: float, double,
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   int, etc. It must be set however for variable-length
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   types, such as BLOBs or STRINGs.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  length         - On input: in case when lengths of input values
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   are different for each execute, you can set this to
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   point at a variable containining value length. This
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   way the value length can be different in each execute.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   If length is not NULL, buffer_length is not used.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   Note, length can even point at buffer_length if
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   you keep bind structures around while fetching:
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   this way you can change buffer_length before
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   each execution, everything will work ok.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   On output: if length is set, mysql_stmt_fetch will
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   write column length into it.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  is_null        - On input: points to a boolean variable that should
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   be set to TRUE for NULL values.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   This member is useful only if your data may be
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   NULL in some but not all cases.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   If your data is never NULL, is_null should be set to 0.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   If your data is always NULL, set buffer_type
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   to MYSQL_TYPE_NULL, and is_null will not be used.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  is_unsigned    - On input: used to signify that values provided for one
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   of numeric types are unsigned.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   On output describes signedness of the output buffer.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   If, taking into account is_unsigned flag, column data
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   is out of range of the output buffer, data for this column
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   is regarded truncated. Note that this has no correspondence
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   to the sign of result set column, if you need to find it out
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   use mysql_stmt_result_metadata.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  error          - where to write a truncation error if it is present.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   possible error value is:
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   0  no truncation
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;                   1  value is out of range or buffer is too small
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  Please note that MYSQL_BIND also has internals members.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;*/&lt;/span&gt;
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql_bind
+{
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt;	*length;          &lt;span style=&#34;color:#228b22&#34;&gt;/* output length pointer */&lt;/span&gt;
+  my_bool       *is_null;	  &lt;span style=&#34;color:#228b22&#34;&gt;/* Pointer to null indicator */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;		*buffer;	  &lt;span style=&#34;color:#228b22&#34;&gt;/* buffer to get/put data */&lt;/span&gt;
+  &lt;span style=&#34;color:#228b22&#34;&gt;/* set this if you want to track data truncations happened during fetch */&lt;/span&gt;
+  my_bool       *error;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *row_ptr;         &lt;span style=&#34;color:#228b22&#34;&gt;/* for the current data position */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; (*store_param_func)(NET *net, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql_bind *param);
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; (*fetch_result)(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql_bind *, MYSQL_FIELD *,
+                       &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; **row);
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; (*skip_result)(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql_bind *, MYSQL_FIELD *,
+            &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; **row);
+  &lt;span style=&#34;color:#228b22&#34;&gt;/* output buffer length, must be set when fetching str/binary */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; buffer_length;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; offset;           &lt;span style=&#34;color:#228b22&#34;&gt;/* offset position for char/binary fetch */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; length_value;     &lt;span style=&#34;color:#228b22&#34;&gt;/* Used if length is 0 */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;	param_number;	  &lt;span style=&#34;color:#228b22&#34;&gt;/* For null count and error messages */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;  pack_length;	  &lt;span style=&#34;color:#228b22&#34;&gt;/* Internal length for packed data */&lt;/span&gt;
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;enum&lt;/span&gt; enum_field_types buffer_type;	&lt;span style=&#34;color:#228b22&#34;&gt;/* buffer type */&lt;/span&gt;
+  my_bool       error_value;      &lt;span style=&#34;color:#228b22&#34;&gt;/* used if error is 0 */&lt;/span&gt;
+  my_bool       is_unsigned;      &lt;span style=&#34;color:#228b22&#34;&gt;/* set if integer type is unsigned */&lt;/span&gt;
+  my_bool	long_data_used;	  &lt;span style=&#34;color:#228b22&#34;&gt;/* If used with mysql_send_long_data */&lt;/span&gt;
+  my_bool	is_null_value;    &lt;span style=&#34;color:#228b22&#34;&gt;/* Used if is_null is 0 */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *extension;
+} MYSQL_BIND;
+  
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql_stmt_extension;
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;/* statement handler */&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql_stmt
+{
+  MEM_ROOT       mem_root;             &lt;span style=&#34;color:#228b22&#34;&gt;/* root allocations */&lt;/span&gt;
+  LIST           list;                 &lt;span style=&#34;color:#228b22&#34;&gt;/* list to keep track of all stmts */&lt;/span&gt;
+  MYSQL          *mysql;               &lt;span style=&#34;color:#228b22&#34;&gt;/* connection handle */&lt;/span&gt;
+  MYSQL_BIND     *params;              &lt;span style=&#34;color:#228b22&#34;&gt;/* input parameters */&lt;/span&gt;
+  MYSQL_BIND     *bind;                &lt;span style=&#34;color:#228b22&#34;&gt;/* output parameters */&lt;/span&gt;
+  MYSQL_FIELD    *fields;              &lt;span style=&#34;color:#228b22&#34;&gt;/* result set metadata */&lt;/span&gt;
+  MYSQL_DATA     result;               &lt;span style=&#34;color:#228b22&#34;&gt;/* cached result set */&lt;/span&gt;
+  MYSQL_ROWS     *data_cursor;         &lt;span style=&#34;color:#228b22&#34;&gt;/* current row in cached result */&lt;/span&gt;
+  &lt;span style=&#34;color:#228b22&#34;&gt;/*
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;    mysql_stmt_fetch() calls this function to fetch one row (it&amp;#39;s different
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;    for buffered, unbuffered and cursor fetch).
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;            (*read_row_func)(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql_stmt *stmt, 
+                                  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; **row);
+  &lt;span style=&#34;color:#228b22&#34;&gt;/* copy of mysql-&amp;gt;affected_rows after statement execution */&lt;/span&gt;
+  my_ulonglong   affected_rows;
+  my_ulonglong   insert_id;            &lt;span style=&#34;color:#228b22&#34;&gt;/* copy of mysql-&amp;gt;insert_id */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt;	 stmt_id;	       &lt;span style=&#34;color:#228b22&#34;&gt;/* Id for prepared statement */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt;  flags;                &lt;span style=&#34;color:#228b22&#34;&gt;/* i.e. type of cursor to open */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt;  prefetch_rows;        &lt;span style=&#34;color:#228b22&#34;&gt;/* number of rows per one COM_FETCH */&lt;/span&gt;
+  &lt;span style=&#34;color:#228b22&#34;&gt;/*
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;    Copied from mysql-&amp;gt;server_status after execute/fetch to know
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;    server-side cursor status for this statement.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;   server_status;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;	 last_errno;	       &lt;span style=&#34;color:#228b22&#34;&gt;/* error code */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;   param_count;          &lt;span style=&#34;color:#228b22&#34;&gt;/* input parameter count */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;   field_count;          &lt;span style=&#34;color:#228b22&#34;&gt;/* number of columns in result set */&lt;/span&gt;
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;enum&lt;/span&gt; enum_mysql_stmt_state state;    &lt;span style=&#34;color:#228b22&#34;&gt;/* statement state */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;		 last_error[MYSQL_ERRMSG_SIZE]; &lt;span style=&#34;color:#228b22&#34;&gt;/* error message */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;		 sqlstate[SQLSTATE_LENGTH+&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;];
+  &lt;span style=&#34;color:#228b22&#34;&gt;/* Types of input parameters should be sent to server */&lt;/span&gt;
+  my_bool        send_types_to_server;
+  my_bool        bind_param_done;      &lt;span style=&#34;color:#228b22&#34;&gt;/* input buffers were supplied */&lt;/span&gt;
+  &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;  bind_result_done;     &lt;span style=&#34;color:#228b22&#34;&gt;/* output buffers were supplied */&lt;/span&gt;
+  &lt;span style=&#34;color:#228b22&#34;&gt;/* mysql_stmt_close() had to cancel this result */&lt;/span&gt;
+  my_bool       unbuffered_fetch_cancelled;  
+  &lt;span style=&#34;color:#228b22&#34;&gt;/*
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;    Is set to true if we need to calculate field-&amp;gt;max_length for 
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;    metadata fields when doing mysql_stmt_store_result.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  */&lt;/span&gt;
+  my_bool       update_max_length;     
+  &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; st_mysql_stmt_extension *extension;
+} MYSQL_STMT;
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;enum&lt;/span&gt; enum_stmt_attr_type
+{
+  &lt;span style=&#34;color:#228b22&#34;&gt;/*
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;    When doing mysql_stmt_store_result calculate max_length attribute
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;    of statement metadata. This is to be consistent with the old API, 
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;    where this was done automatically.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;    In the new API we do that only by request because it slows down
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;    mysql_stmt_store_result sufficiently.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  */&lt;/span&gt;
+  STMT_ATTR_UPDATE_MAX_LENGTH,
+  &lt;span style=&#34;color:#228b22&#34;&gt;/*
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;    unsigned long with combination of cursor flags (read only, for update,
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;    etc)
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  */&lt;/span&gt;
+  STMT_ATTR_CURSOR_TYPE,
+  &lt;span style=&#34;color:#228b22&#34;&gt;/*
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;    Amount of rows to retrieve from server per one fetch if using cursors.
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;    Accepts unsigned long attribute in the range 1 - ulong_max
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;  */&lt;/span&gt;
+  STMT_ATTR_PREFETCH_ROWS
+};
+  
+  
+MYSQL_STMT * STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_init&lt;/span&gt;(MYSQL *mysql);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_prepare&lt;/span&gt;(MYSQL_STMT *stmt, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *query,
+                               &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; length);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_execute&lt;/span&gt;(MYSQL_STMT *stmt);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_fetch&lt;/span&gt;(MYSQL_STMT *stmt);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_fetch_column&lt;/span&gt;(MYSQL_STMT *stmt, MYSQL_BIND *bind_arg, 
+                                    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; column,
+                                    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; offset);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_store_result&lt;/span&gt;(MYSQL_STMT *stmt);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_param_count&lt;/span&gt;(MYSQL_STMT * stmt);
+my_bool STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_attr_set&lt;/span&gt;(MYSQL_STMT *stmt,
+                                    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;enum&lt;/span&gt; enum_stmt_attr_type attr_type,
+                                    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *attr);
+my_bool STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_attr_get&lt;/span&gt;(MYSQL_STMT *stmt,
+                                    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;enum&lt;/span&gt; enum_stmt_attr_type attr_type,
+                                    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *attr);
+my_bool STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_bind_param&lt;/span&gt;(MYSQL_STMT * stmt, MYSQL_BIND * bnd);
+my_bool STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_bind_result&lt;/span&gt;(MYSQL_STMT * stmt, MYSQL_BIND * bnd);
+my_bool STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_close&lt;/span&gt;(MYSQL_STMT * stmt);
+my_bool STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_reset&lt;/span&gt;(MYSQL_STMT * stmt);
+my_bool STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_free_result&lt;/span&gt;(MYSQL_STMT *stmt);
+my_bool STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_send_long_data&lt;/span&gt;(MYSQL_STMT *stmt, 
+                                          &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; param_number,
+                                          &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *data, 
+                                          &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; length);
+MYSQL_RES *STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_result_metadata&lt;/span&gt;(MYSQL_STMT *stmt);
+MYSQL_RES *STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_param_metadata&lt;/span&gt;(MYSQL_STMT *stmt);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_errno&lt;/span&gt;(MYSQL_STMT * stmt);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_error&lt;/span&gt;(MYSQL_STMT * stmt);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_sqlstate&lt;/span&gt;(MYSQL_STMT * stmt);
+MYSQL_ROW_OFFSET STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_row_seek&lt;/span&gt;(MYSQL_STMT *stmt, 
+                                             MYSQL_ROW_OFFSET offset);
+MYSQL_ROW_OFFSET STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_row_tell&lt;/span&gt;(MYSQL_STMT *stmt);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_data_seek&lt;/span&gt;(MYSQL_STMT *stmt, my_ulonglong offset);
+my_ulonglong STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_num_rows&lt;/span&gt;(MYSQL_STMT *stmt);
+my_ulonglong STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_affected_rows&lt;/span&gt;(MYSQL_STMT *stmt);
+my_ulonglong STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_insert_id&lt;/span&gt;(MYSQL_STMT *stmt);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_field_count&lt;/span&gt;(MYSQL_STMT *stmt);
+  
+my_bool STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_commit&lt;/span&gt;(MYSQL * mysql);
+my_bool STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_rollback&lt;/span&gt;(MYSQL * mysql);
+my_bool STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_autocommit&lt;/span&gt;(MYSQL * mysql, my_bool auto_mode);
+my_bool STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_more_results&lt;/span&gt;(MYSQL *mysql);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_next_result&lt;/span&gt;(MYSQL *mysql);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_stmt_next_result&lt;/span&gt;(MYSQL_STMT *stmt);
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; STDCALL &lt;span style=&#34;color:#008b45&#34;&gt;mysql_close&lt;/span&gt;(MYSQL *sock);
+  
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;/* status return codes */&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#define MYSQL_NO_DATA        100
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define MYSQL_DATA_TRUNCATED 101
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#define mysql_reload(mysql) mysql_refresh((mysql),REFRESH_GRANT)
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#define HAVE_MYSQL_REAL_CONNECT
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef	__cplusplus
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;}
+&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#endif &lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/* _mysql_h */&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/mysql/mysql.c&#34;&gt;例子代码&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;MYSQL *conn;
+MYSQL_RES *res;
+MYSQL_ROW row;
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; server[] = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;;
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; user[] = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;gongluck&amp;#34;&lt;/span&gt;;
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; password[] = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;123&amp;#34;&lt;/span&gt;;
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; database[] = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;test&amp;#34;&lt;/span&gt;;
+  
+conn = mysql_init(&lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (mysql_real_connect(conn, server, user, password, database, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;))
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;%s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, mysql_error(conn));
+}
+  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; sql[&lt;span style=&#34;color:#b452cd&#34;&gt;128&lt;/span&gt;] = {&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;};
+sprintf(sql, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;insert into user_info(`name`,title)values(&amp;#39;gongluck&amp;#39;, &amp;#39;test&amp;#39;);&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (mysql_query(conn, sql))
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;%s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, mysql_error(conn));
+}
+  
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (mysql_query(conn, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;select * from user_info&amp;#34;&lt;/span&gt;))
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;%s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, mysql_error(conn));
+}
+  
+res = mysql_use_result(conn);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; ((row = mysql_fetch_row(res)) != &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
+{
+     printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;%s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\t&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, row[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;]);
+     printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;%s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\t&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, row[&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;]);
+     printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;%s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, row[&lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;]);
+}
+  
+mysql_free_result(res);
+mysql_close(conn);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2mysql事务索引存储引擎&#34;&gt;2.MySQL事务、索引、存储引擎&lt;/h3&gt;
+&lt;h4 id=&#34;21-mysql事务&#34;&gt;2.1 MySQL事务&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;在MySQL中只有使用了Innodb数据库引擎的数据库或表才支持事务。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;事务处理可以用来维护数据库的完整性，保证成批的SQL语句要么全部执行，要么全部不执行。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;事务用来管理insert,update,delete语句。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;事务四大特征：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;原子性（Atomicity，或称不可分割性）&lt;/li&gt;
+&lt;li&gt;一致性（Consistency）&lt;/li&gt;
+&lt;li&gt;隔离性（Isolation，又称独立性）&lt;/li&gt;
+&lt;li&gt;持久性（Durability）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;按照锁的粒度把数据库锁分为行级锁(INNODB引擎)、表级锁(MYISAM引擎)和页级锁(BDB引擎 )。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;行级锁
+&lt;ul&gt;
+&lt;li&gt;行级锁是Mysql中锁定粒度最细的一种锁，表示只针对当前操作的行进行加锁。&lt;/li&gt;
+&lt;li&gt;行级锁能大大减少数据库操作的冲突。&lt;/li&gt;
+&lt;li&gt;其加锁粒度最小，但加锁的开销也最大。&lt;/li&gt;
+&lt;li&gt;行级锁分为共享锁和排他锁。&lt;/li&gt;
+&lt;li&gt;特点：开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突的概率最低，并发度也最高。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;表级锁
+&lt;ul&gt;
+&lt;li&gt;表级锁是MySQL中锁定粒度最大的一种锁，表示对当前操作的整张表加锁，它实现简单，资源消耗较少，被大部分 MySQL引擎支持。&lt;/li&gt;
+&lt;li&gt;最常使用的MYISAM与INNODB都支持表级锁定。&lt;/li&gt;
+&lt;li&gt;表级锁定分为表共享读锁（共享锁）与表独占写锁 （排他锁）。&lt;/li&gt;
+&lt;li&gt;特点：开销小，加锁快；不会出现死锁；锁定粒度大，发出锁冲突的概率最高，并发度最低。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;页级锁
+&lt;ul&gt;
+&lt;li&gt;页级锁是MySQL中锁定粒度介于行级锁和表级锁中间的一种锁。&lt;/li&gt;
+&lt;li&gt;表级锁速度快，但冲突多，行级冲突少，但速度慢。 所以取了折衷的页级，一次锁定相邻的一组记录。&lt;/li&gt;
+&lt;li&gt;BDB支持页级锁&lt;/li&gt;
+&lt;li&gt;特点：开销和加锁时间界于表锁和行锁之间；会出现死锁；锁定粒度界于表锁和行锁之间，并发度一般。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;22-mysql索引&#34;&gt;2.2 MySQL索引&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;根据存储分类&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;B-树索引&lt;/li&gt;
+&lt;li&gt;哈希索引&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;根据用途分类&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;普通索引&lt;/li&gt;
+&lt;li&gt;唯一性索引&lt;/li&gt;
+&lt;li&gt;主键索引&lt;/li&gt;
+&lt;li&gt;空间索引&lt;/li&gt;
+&lt;li&gt;全文索引&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;索引的实现原理&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;MyISAM引擎使用B+Tree作为索引结构，叶节点的data域存放的是数据记录的地址。&lt;/li&gt;
+&lt;li&gt;InnoDB也使用B+Tree作为索引结构，InnoDB的数据文件本身就是索引文件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;23-mysql存储引擎&#34;&gt;2.3 MySQL存储引擎&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/blob/master/images/MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.png&#34; alt=&#34;MySQL存储引擎&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;创建表指定存储引擎（默认InnoDB）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;CREATE&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;TABLE&lt;/span&gt; `test`(`id` &lt;span style=&#34;color:#658b00&#34;&gt;int&lt;/span&gt;(&lt;span style=&#34;color:#b452cd&#34;&gt;11&lt;/span&gt;) &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;NOT&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;NULL&lt;/span&gt; AUTO_INCREMENT) ENGINE = InnoDB; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;修改数据表命令&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;alter&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;table&lt;/span&gt; test engine = MyISAM;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;InnoDB&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;所有的数据按照主键来组织。数据和索引放在一块，都位于B+数的叶子节点上&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;InnoDB存储引擎在磁盘中存放的对应的表的磁盘文件有*.frm*、*.ibd*这两个文件&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;frm文件是存放表结构，表的定义信息&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ibd文件是存放表中的数据、索引信息&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;MyISAM&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;主键索引的叶子节点只存放数据在物理磁盘上的指针&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;MyISAM索引文件在数据库中存放的对应表的磁盘文件有*.frm*、*.MYD*、*.MYI*结尾的三个文件&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;frm文件是存放的表结构，表的定义信息&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;MYD文件是存放着表中的数据&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;MYI文件存放着表的索引信息&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3nginx反向代理负载均衡配置&#34;&gt;3.Nginx反向代理负载均衡配置&lt;/h3&gt;
+&lt;h4 id=&#34;31-安装编译&#34;&gt;3.1 安装编译&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 安装依赖&lt;/span&gt;
+sudo apt-get update
+sudo apt-get install build-essential libtool -y
+sudo apt-get install libpcre3 libpcre3-dev -y
+sudo apt-get install zlib1g-dev -y
+sudo apt-get install openssl -y
+&lt;span style=&#34;color:#228b22&#34;&gt;#下载nginx&lt;/span&gt;
+wget http://nginx.org/download/nginx-1.19.0.tar.gz
+tar zxvf nginx-1.19.0.tar.gz
+&lt;span style=&#34;color:#658b00&#34;&gt;cd&lt;/span&gt; nginx-1.19.0/
+&lt;span style=&#34;color:#228b22&#34;&gt;# 配置&lt;/span&gt;
+./configure --prefix=/usr/local/nginx --with-http_ssl_module --with-http_realip_module --with-http_addition_module --with-http_gzip_static_module --with-http_secure_link_module --with-http_stub_status_module --with-stream --with-pcre &lt;span style=&#34;color:#228b22&#34;&gt;#--with-zlib --with-openssl&lt;/span&gt;
+&lt;span style=&#34;color:#228b22&#34;&gt;# 编译&lt;/span&gt;
+make -j 8
+&lt;span style=&#34;color:#228b22&#34;&gt;# 安装&lt;/span&gt;
+sudo make install
+&lt;span style=&#34;color:#228b22&#34;&gt;# 启动&lt;/span&gt;
+sudo /usr/local/nginx/sbin/nginx -c test.conf
+&lt;span style=&#34;color:#228b22&#34;&gt;# 停止&lt;/span&gt;
+sudo /usr/local/nginx/sbin/nginx -s stop
+&lt;span style=&#34;color:#228b22&#34;&gt;# 重新加载配置文件&lt;/span&gt;
+sudo /usr/local/nginx/sbin/nginx -s reload
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;32-配置文件&#34;&gt;3.2 配置文件&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-nginx&#34; data-lang=&#34;nginx&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;worker_processes&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;4&lt;/span&gt;;&lt;span style=&#34;color:#228b22&#34;&gt;#工作进程数
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;events&lt;/span&gt; {
+	&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;worker_connections&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;1024&lt;/span&gt;;&lt;span style=&#34;color:#228b22&#34;&gt;#单个工作进程可以允许同时建立外部连接的数量
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;}
+
+&lt;span style=&#34;color:#228b22&#34;&gt;#设定http服务器，利用它的反向代理功能提供负载均衡支持
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;http&lt;/span&gt; {
+    &lt;span style=&#34;color:#228b22&#34;&gt;#负载均衡配置
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;	&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;upstream&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;test&lt;/span&gt; {
+        &lt;span style=&#34;color:#228b22&#34;&gt;#upstream的负载均衡，weight是权重，可以根据机器配置定义权重。
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#228b22&#34;&gt;#weigth参数表示权值，权值越高被分配到的几率越大。
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;		&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;server&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;www.baidu.com&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;weight=2&lt;/span&gt;;
+		&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;server&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;www.163.com&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;weight=1&lt;/span&gt;;
+		&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;server&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;www.example7.com&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;weight=1&lt;/span&gt;;
+	}
+
+	&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;server&lt;/span&gt; {
+		&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;listen&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;8888&lt;/span&gt;;
+		&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;server_name&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;localhost&lt;/span&gt;;
+		
+		&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;client_max_body_size&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;100m&lt;/span&gt;;
+		
+        &lt;span style=&#34;color:#228b22&#34;&gt;#反向代理
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;		&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;location&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;/&lt;/span&gt; {
+&lt;span style=&#34;color:#228b22&#34;&gt;#			root /usr/local/nginx/html/;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;#			proxy_pass http://172.20.106.204;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;			&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;proxy_pass&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;http://test&lt;/span&gt;;
+			
+&lt;span style=&#34;color:#228b22&#34;&gt;#			proxy_redirect   off;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;			&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;proxy_set_header&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;Host&lt;/span&gt;             &lt;span style=&#34;color:#cd5555&#34;&gt;www.example7.com&lt;/span&gt;;
+&lt;span style=&#34;color:#228b22&#34;&gt;#			proxy_set_header X-Real-IP        $remote_addr;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;#			proxy_set_header X-Forwarded-For  $proxy_add_x_forwarded_for;
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;		}
+
+		&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;location&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;/images/&lt;/span&gt; {
+			&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;root&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;/usr/local/nginx/&lt;/span&gt;;&lt;span style=&#34;color:#228b22&#34;&gt;#访问/usr/local/nginx/images/
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;		}
+		
+		&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;location&lt;/span&gt; ~ &lt;span style=&#34;color:#1c7e71&#34;&gt;\.(mp3|mp4)&lt;/span&gt; {
+			&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;root&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;/usr/local/nginx/media/&lt;/span&gt;;&lt;span style=&#34;color:#228b22&#34;&gt;#访问/usr/local/nginx/media/
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;		}	
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;4http和restful&#34;&gt;4.HTTP和Restful&lt;/h3&gt;
+&lt;h4 id=&#34;41-http&#34;&gt;4.1 Http&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/blob/master/images/http%E5%92%8Chttps.png&#34; alt=&#34;http和https&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;HTTP协议，即超文本传输协议（Hypertext transfer protocol）。是一种详细规定了浏览器和万维网（WWW = World Wide Web）服务器之间互相通信的规则，通过因特网传送万维网文档的数据传送协议，可以传输文本，图片，视频等。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;HTTP协议作为TCP/IP模型中应用层的协议也不例外。HTTP 协议通常承载于TCP协议之 上，有时也承载于TLS或SSL协议层之上，这个时候，就成了我们常说的HTTPS。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;HTTP默认的端口号为 80，HTTPS的端口号为443。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;HTTP0.9和1.0使用非持续连接：限制每次连接只处理一个请求，服务器处理完客户的请求，并收到客户的应答后，即断开连接。HTTP1.1使用持续连接：不必为每个web对象创建一个新的连接，一个连接可以传送多个对象，采用这种方式可以节省传输时间。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;HTTP是媒体独立的：这意味着，只要客户端和服务器知道如何处理的数据内容，任何类型的数据都可以通过HTTP发 送。客户端以及服务器指定使用适合的MIME-type内容类型。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;HTTP是无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处 理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;HTTP1.0定义了三种请求方法: GET、POST和HEAD方法。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;HTTP1.1新增了六种请求方法: OPTIONS、PUT、PATCH、DELETE、TRACE和CONNECT方法。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;center&#34;&gt;方法&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;GET&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;请求指定的页面信息，并返回实体主体。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;HEAD&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;类似于GET请求，只不过返回的响应中没有具体的内容，用于获取报头。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;POST&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。 数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;PUT&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;从客户端向服务器传送的数据取代指定的文档的内容。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;DELETE&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;请求服务器删除指定的页面。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;CONNECT&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;OPTIONS&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;允许客户端查看服务器的性能。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;TRACE&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;回显服务器收到的请求，主要用于测试或诊断。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;PATCH&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;是对 PUT 方法的补充，用来对已知资源进行局部更新。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;HTTP响应头信息&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;center&#34;&gt;应答头&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;Allow&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;服务器支持哪些请求方法（如GET、POST等）。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;Content-Encoding&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;文档的编码（Encode）方法。只有在解码之后才可以得到Content-Type头指定的内容类型。利用gzip压缩文档能够显著地减少HTML文档的下载时间。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;Content-Length&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;表示内容长度。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;Content-Type&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;表示后面的文档属于什么MIME类型。Servlet默认为text/plain，但通常需要显式 地指定为text/html。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;Location&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;表示客户应当到哪里去提取文档。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;Set-Cookie&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;设置和页面关联的Cookie。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;42-restful&#34;&gt;4.2 Restful&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;REST全称是Representational State Transfer，中文意思是表述（编者注：通常译为表征）性状态转移。 它首次出现在2000年Roy Fielding的博士论文中，Roy Fielding是HTTP规范的主要编写者之一。 他在论文中提到：&amp;ldquo;我这篇文章的写作目的，就是想在符合架构原理的前提下，理解和评估以网络为基础的应用软件的架构设计，得到一个功能强、性能好、适宜通信的架构。REST指的是一组架构约束条件和原则。&amp;rdquo; 如果一个架构符合REST的约束条件和原则，我们就称它为RESTful架构。&lt;/li&gt;
+&lt;li&gt;REST本身并没有创造新的技术、组件或服务，而隐藏在RESTful背后的理念就是使用Web的现有特征和能力，更好地使用现有Web标准中的一些准则和约束。虽然REST本身受Web技术的影响很深，但是理论上REST架构风格并不是绑定在HTTP上，只不过目前HTTP是唯一与REST相关的实例。所以我们这里描述的REST也是通过HTTP实现的REST。&lt;/li&gt;
+&lt;li&gt;RESTful架构应该遵循统一接口原则，统一接口包含了一组受限的预定义的操作，不论什么样的资源，都是通过使用相同的接口进行资源的访问。接口应该使用标准的HTTP方法如GET，PUT和POST，并遵循这些方法的语义。&lt;/li&gt;
+&lt;li&gt;如果按照HTTP方法的语义来暴露资源，那么接口将会拥有安全性和幂等性的特性，例如GET和HEAD请求都是安全的，无论请求多少次，都不会改变服务器状态。而GET、HEAD、PUT和DELETE请求都是幂等的，无论对资源操作多少次，结果总是一样的，后面的请求并不会产生比第一次更多的影响。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;5redis操作和编程&#34;&gt;5.Redis操作和编程&lt;/h3&gt;
+&lt;h4 id=&#34;51-redis操作&#34;&gt;5.1 Redis操作&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;REmote DIctionary Server（Redis）是一个由Salvatore Sanfilippo写的key-value存储系统。Redis是一个开源的使用ANSI C语言编写、遵守 BSD 协议、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API。它通常被称为数据结构服务器，因为值（value）可以是字符串(String)、哈希(Hash)、列表(list)、集合(sets)和有序集合(sorted sets)等类型。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;编译安装&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 下载源码&lt;/span&gt;
+wget http://download.redis.io/releases/redis-6.0.0.tar.gz
+tar zxvf redis-6.0.0.tar.gz
+&lt;span style=&#34;color:#228b22&#34;&gt;# 编译&lt;/span&gt;
+&lt;span style=&#34;color:#658b00&#34;&gt;cd&lt;/span&gt; redis-6.0.0/
+make -j 8
+&lt;span style=&#34;color:#228b22&#34;&gt;# 安装（默认安装到/usr/local/bin/目录）&lt;/span&gt;
+sudo make install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;常用命令&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;查看版本&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;redis-server -v
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;启动&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;redis-server redis.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;redis-cli&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;连接&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;redis-cli -h 127.0.0.1 -p &lt;span style=&#34;color:#b452cd&#34;&gt;6379&lt;/span&gt; -a 123456
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;停止服务&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;redis-cli -h 127.0.0.1 -p &lt;span style=&#34;color:#b452cd&#34;&gt;6379&lt;/span&gt; shutdown
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;内部命令&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;center&#34;&gt;命令&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;DEL key&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;该命令用于在key存在时删除 key。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;DUMP key&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;序列化给定key，并返回被序列化的值。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;EXISTS key&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;检查给定key是否存在。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;EXPIRE key seconds&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;为给定key设置过期时间，以秒计。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;EXPIREAT key timestamp&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;EXPIREAT的作用和EXPIRE类似，都用于为key设置过期时间。不同在于EXPIREAT命令接受的时间参数是UNIX时间戳(unix timestamp)。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;PEXPIRE key milliseconds&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;设置key的过期时间以毫秒计。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;PEXPIREAT key milliseconds-timestamp&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;设置key过期时间的时间戳(unix timestamp) 以毫秒计。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;KEYS pattern&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;查找所有符合给定模式( pattern)的key。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;MOVE key db&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;将当前数据库的key移动到给定的数据库db当中。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;PERSIST key&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;移除key的过期时间，key将持久保持。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;PTTL key&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;以毫秒为单位返回key的剩余的过期时间。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;TTL key&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;以秒为单位，返回给定key的剩余生存时间(TTL, time to live)。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;RANDOMKEY&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;从当前数据库中随机返回一个key。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;RENAME key newkey&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;修改key的名称。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;RENAMENX key newkey&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;仅当newkey不存在时，将key改名为newkey。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;TYPE key&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;返回key所储存的值的类型。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;redis基本数据结构&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/blob/master/images/redis%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png&#34; alt=&#34;redis基本数据结构&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;52-hiredis编程&#34;&gt;5.2 hiredis编程&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;编译安装hiredis&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#658b00&#34;&gt;cd&lt;/span&gt; deps/hiredis
+make -j 8
+sudo make install
+sudo ldconfig
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/redis/hiredis.c&#34;&gt;例子代码&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// 连接Redis服务
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;redisContext *context = redisConnect(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#b452cd&#34;&gt;6379&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (context == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt; || context-&amp;gt;err)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (context)
+    {
+        printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;%s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, context-&amp;gt;errstr);
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
+    {
+        printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;redisConnect error&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;);
+    }
+    exit(EXIT_FAILURE);
+}
+printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;-----------------connect success--------------------&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;);
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// REDIS_REPLY_STRING == 1 :返回值是字符串,字符串储存在redis-&amp;gt;str当中,字符串长度为redis-&amp;gt;len。
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// REDIS_REPLY_ARRAY == 2 :返回值是数组,数组大小存在redis-&amp;gt;elements里面,数组值存储在redis-&amp;gt;element[i]里面。数组里面存储的是指向redisReply的指针,数组里面的返回值可以通过redis-&amp;gt;element[i]-&amp;gt;str来访问,数组的结果里全是type==REDIS_REPLY_STRING的redisReply对象指针。
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// REDIS_REPLY_INTEGER == 3 :返回值为整数long long。
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// REDIS_REPLY_NIL == 4 :返回值为空表示执行结果为空。
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// REDIS_REPLY_STATUS == 5 :返回命令执行的状态,比如set foo bar返回的状态为OK,存储在str当中reply-&amp;gt;str == &amp;#34;OK&amp;#34;。
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// REDIS_REPLY_ERROR == 6 :命令执行错误,错误信息存放在reply-&amp;gt;str当中。
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#228b22&#34;&gt;// 授权
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;redisReply *reply = redisCommand(context, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;auth gongluck&amp;#34;&lt;/span&gt;);
+printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;type : %d&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, reply-&amp;gt;type);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_STATUS)
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;auth ok&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;);
+}
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_ERROR)
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;auth err : %s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, reply-&amp;gt;str);
+}
+freeReplyObject(reply);
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// Set Key Value
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *key = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;str&amp;#34;&lt;/span&gt;;
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *val = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Hello World&amp;#34;&lt;/span&gt;;
+reply = redisCommand(context, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;SET %s %s&amp;#34;&lt;/span&gt;, key, val);
+printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;type : %d&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, reply-&amp;gt;type);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_STATUS)
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;SET %s %s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, key, val);
+}
+freeReplyObject(reply);
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// GET Key
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;reply = redisCommand(context, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;GET %s&amp;#34;&lt;/span&gt;, key);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_STRING)
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;GET str %s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, reply-&amp;gt;str);
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;GET len %ld&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, reply-&amp;gt;len);
+}
+freeReplyObject(reply);
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// APPEND key value
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; *append = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; I am your GOD&amp;#34;&lt;/span&gt;;
+reply = redisCommand(context, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;APPEND %s %s&amp;#34;&lt;/span&gt;, key, append);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_INTEGER)
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;APPEND %s %s &lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, key, append);
+}
+freeReplyObject(reply);
+  
+reply = redisCommand(context, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;GET %s&amp;#34;&lt;/span&gt;, key);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_STRING)
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;GET %s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, reply-&amp;gt;str);
+}
+freeReplyObject(reply);
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// INCR key
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;reply = redisCommand(context, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;INCR counter&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_INTEGER)
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;INCR counter %lld&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, reply-&amp;gt;integer);
+}
+freeReplyObject(reply);
+reply = redisCommand(context, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;INCR counter&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_INTEGER)
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;INCR counter %lld&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, reply-&amp;gt;integer);
+}
+freeReplyObject(reply);
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// DECR key
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;reply = redisCommand(context, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;DECR counter&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_INTEGER)
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;DECR counter %lld&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, reply-&amp;gt;integer);
+}
+freeReplyObject(reply);
+reply = redisCommand(context, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;DECR counter&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_INTEGER)
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;DECR counter %lld&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, reply-&amp;gt;integer);
+}
+freeReplyObject(reply);
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// DECRBY key decrement
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;reply = redisCommand(context, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;DECRBY counter 5&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_INTEGER)
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;DECRBY counter %lld&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, reply-&amp;gt;integer);
+}
+freeReplyObject(reply);
+reply = redisCommand(context, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;DECRBY counter 5&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_INTEGER)
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;DECRBY counter %lld&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, reply-&amp;gt;integer);
+}
+freeReplyObject(reply);
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// INCRBY key increment
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;reply = redisCommand(context, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;INCRBY counter 5&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_INTEGER)
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;INCRBY counter %lld&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, reply-&amp;gt;integer);
+}
+freeReplyObject(reply);
+  
+reply = redisCommand(context, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;INCRBY counter 5&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_INTEGER)
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;INCRBY counter %lld&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, reply-&amp;gt;integer);
+}
+freeReplyObject(reply);
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// GETRANGE key start end
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;reply = redisCommand(context, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;GETRANGE str 0 5&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_STRING)
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;GETRANGE %s %s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, key, reply-&amp;gt;str);
+}
+freeReplyObject(reply);
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;// GETSET key value
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;reply = redisCommand(context, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;GETSET %s %s&amp;#34;&lt;/span&gt;, key, val);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_STRING)
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;GETSET %s %s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, key, reply-&amp;gt;str);
+}
+freeReplyObject(reply);
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;/*INCRBYFLOAT key increment*/&lt;/span&gt;
+reply = redisCommand(context, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;INCRBYFLOAT f 2.1&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_STRING)
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;INCRBYFLOAT counter %s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, reply-&amp;gt;str);
+}
+freeReplyObject(reply);
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;/*MSET key value [key value ...]*/&lt;/span&gt;
+reply = redisCommand(context, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;MSET k1 hello k2 world k3 good&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_STATUS)
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;MSET k1 hello k2 world k3 good&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;);
+}
+freeReplyObject(reply);
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;/*MGET key [key ...]*/&lt;/span&gt;
+reply = redisCommand(context, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;MGET k1 k2 k3&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_ARRAY)
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;MGET k1  k2  k3 &lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;);
+    redisReply **pReply = reply-&amp;gt;element;
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+    size_t len = reply-&amp;gt;elements;
+    &lt;span style=&#34;color:#228b22&#34;&gt;//hello world good
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (; i &amp;lt; len; ++i)
+    {
+        printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;%s &amp;#34;&lt;/span&gt;, pReply[i]-&amp;gt;str);
+    }
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;);
+}
+freeReplyObject(reply);
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;/*STRLEN key*/&lt;/span&gt;
+reply = redisCommand(context, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;STRLEN str&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_INTEGER)
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;STRLEN str %lld &lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, reply-&amp;gt;integer);
+}
+freeReplyObject(reply);
+  
+&lt;span style=&#34;color:#228b22&#34;&gt;/*SETEX key seconds value*/&lt;/span&gt;
+reply = redisCommand(context, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;SETEX s 10 10seconds&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_STATUS)
+{
+    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;SETEX s 10 10seconds&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;);
+    freeReplyObject(reply);
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (i++ &amp;lt; &lt;span style=&#34;color:#b452cd&#34;&gt;12&lt;/span&gt;)
+    {
+        reply = redisCommand(context, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;GET s&amp;#34;&lt;/span&gt;);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_STRING)
+        {
+            printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;%d s %s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, i, reply-&amp;gt;str);
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reply-&amp;gt;type == REDIS_REPLY_NIL)
+        {
+            printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;%d s nil&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, i);
+        }
+        freeReplyObject(reply);
+        sleep(&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;);
+    }
+}
+  
+redisFree(context);
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; EXIT_SUCCESS;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;6mongodb操作和编程&#34;&gt;6.MongoDB操作和编程&lt;/h3&gt;
+&lt;h4 id=&#34;61-mongodb操作&#34;&gt;6.1 MongoDB操作&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;MongoDB概念&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;center&#34;&gt;SQL术语/概念&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;MongoDB术语/概念&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;解释/说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;database&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;database&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;数据库&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;table&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;collection&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;数据库表/集合&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;row&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;document&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;数据记录行/文档&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;column&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;field&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;数据字段/域&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;index&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;index&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;索引&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;table joins&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;-&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;表连接，MongoDB不支持&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;primary key&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;primary key&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;主键，MongoDB自动将_id字段设置为主键&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;安装MongoDB&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1804-4.4.1.tgz
+tar -zxvf mongodb-linux-x86_64-ubuntu1804-4.4.1.tgz 
+sudo mv mongodb-linux-x86_64-ubuntu1804-4.4.1 /usr/local/mongodb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;启动MongoDB&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;MongoDB的数据存储在data目录的db目录下，但是这个目录在安装过程不会自动创建，所以需要手动创建data目录，并在data目录中创建db目录。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;可以在命令行中执行mongo安装目录中的bin目录执行mongod命令来启动mongdb服务。如果数据库目录不是/data/db，可以通过&amp;ndash;dbpath来指定。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;/usr/local/mongodb/bin/mongod --dbpath=/data/db --bind_ip=0.0.0.0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;MongoDB后台管理&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;MongoDB Shell是MongoDB自带的交互式Javascript shell，用来对MongoDB进行操作和管理的交互式环境。它默认会链接到test文档（数据库）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;/usr/local/mongodb/bin/mongo
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;显示所有数据的列表&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;show&lt;/span&gt; dbs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;显示当前数据库对象或集合&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;db
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;（创建）连接到一个指定的数据库。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;use gongluck
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;插入数据&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;db.gongluck.&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;insert&lt;/span&gt;(&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;gongluck&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;}&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;删除当前数据库&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;db.dropDatabase()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;创建集合&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;db.createCollection(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;test&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;查看已有集合&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;show&lt;/span&gt; collections
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;删除集合&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;db.test.&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;drop&lt;/span&gt;()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;插入文档&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;db.test.&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;insert&lt;/span&gt;(&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;gongluck&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;socre&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;}&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;查看已插入文档&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;db.test.find().pretty()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;更新文档&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;db.test.&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;update&lt;/span&gt;(&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;gongluck&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;}&lt;/span&gt;, &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;{$&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;set&lt;/span&gt;:&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;updated&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;}}&lt;/span&gt;, &lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;{&lt;/span&gt;multi:&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;}&lt;/span&gt;)
+db.test.save(&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;_id&amp;#34;&lt;/span&gt;:ObjectId(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;5fafd5407f51c6334abca881&amp;#34;&lt;/span&gt;),&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;gongluck&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;socre&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;}&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;删除文档&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;db.test.remove(&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;gongluck&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;}&lt;/span&gt;)
+db.test.remove()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;创建索引&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;# &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;:&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;升序&lt;/span&gt;,-&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;:&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;降序&lt;/span&gt;
+db.test.createIndex(&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;,&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;score&amp;#34;&lt;/span&gt;:-&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;}&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;62-mongodb编程&#34;&gt;6.2 MongoDB编程&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;编译mongo-c-driver&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;wget https://github.com/mongodb/mongo-c-driver/releases/download/1.17.2/mongo-c-driver-1.17.2.tar.gz
+tar -zxvf mongo-c-driver-1.17.2.tar.gz
+mongo-c-driver-1.17.2/
+mkdir cmake-build
+&lt;span style=&#34;color:#658b00&#34;&gt;cd&lt;/span&gt; cmake-build
+cmake -DENABLE_AUTOMATIC_INIT_AND_CLEANUP=OFF ..
+cmake --build .
+sudo cmake --build . --target install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/mongodb/mongodb.c&#34;&gt;例子代码&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//gcc mongodb.c -I/usr/local/include/libmongoc-1.0 -I/usr/local/include/libbson-1.0/ -lmongoc-1.0 -lbson-1.0
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;bson.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;mongoc.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;()
+{
+    mongoc_client_t *client;
+    mongoc_collection_t *collection;
+    bson_t *insert;
+    bson_error_t error;
+  
+    &lt;span style=&#34;color:#228b22&#34;&gt;//初始化libmongoc驱动
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    mongoc_init();
+      
+    &lt;span style=&#34;color:#228b22&#34;&gt;//创建连接对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    client = mongoc_client_new(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;mongodb://localhost:27017&amp;#34;&lt;/span&gt;);
+      
+    &lt;span style=&#34;color:#228b22&#34;&gt;//获取指定数据库和集合
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    collection = mongoc_client_get_collection(client, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;gongluck&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;test&amp;#34;&lt;/span&gt;);
+      
+    &lt;span style=&#34;color:#228b22&#34;&gt;//字段为hello，值为world字符串
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    insert = BCON_NEW(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;hello&amp;#34;&lt;/span&gt;, BCON_UTF8(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;world&amp;#34;&lt;/span&gt;));
+      
+    &lt;span style=&#34;color:#228b22&#34;&gt;//插入文档
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (!mongoc_collection_insert(collection, MONGOC_INSERT_NONE, insert, &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;, &amp;amp;error))
+    {
+        fprintf(stderr, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;%s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, error.message);
+    }
+      
+    bson_destroy(insert);
+      
+    mongoc_collection_destroy(collection); &lt;span style=&#34;color:#228b22&#34;&gt;//释放表对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    mongoc_client_destroy(client);         &lt;span style=&#34;color:#228b22&#34;&gt;//释放连接对象
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    mongoc_cleanup();                      &lt;span style=&#34;color:#228b22&#34;&gt;//释放libmongoc驱动
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+- https://gongluck.github.io/linux/%E5%90%8E%E5%8F%B0%E7%BB%84%E4%BB%B6%E7%BC%96%E7%A8%8B%E4%B8%93%E6%A0%8F/ - </description>
+        </item>
     
     
     
@@ -22,7 +1764,7 @@
 &lt;li&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP.git&#34;&gt;https://github.com/gongluck/CVIP.git&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;1查找与排序kmp算法栈队列&#34;&gt;1.查找与排序/KMP算法，栈/队列&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/master/images/%E6%8E%92%E5%BA%8F%E6%AF%94%E8%BE%83.png&#34; alt=&#34;排序比较&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/blob/master/images/%E6%8E%92%E5%BA%8F%E6%AF%94%E8%BE%83.png&#34; alt=&#34;排序比较&#34;&gt;&lt;/p&gt;
 &lt;h4 id=&#34;11-希尔排序&#34;&gt;1.1 希尔排序&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -3694,19 +5436,6 @@ END:
     }
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- https://gongluck.github.io/cpp/badapple-console/ - </description>
-        </item>
-    
-    
-    
-        <item>
-        <title>第一篇博客</title>
-        <link>https://gongluck.github.io/default/first/</link>
-        <pubDate>Mon, 06 Apr 2020 19:43:00 +0800</pubDate>
-        
-        <guid>https://gongluck.github.io/default/first/</guid>
-        <description>gongluck&#39;s blog https://gongluck.github.io/default/first/ -&lt;h3 id=&#34;第一篇博客&#34;&gt;第一篇博客&lt;/h3&gt;
-&lt;p&gt;本博客网站使用Hugo创建,参考了&lt;a href=&#34;https://www.bilibili.com/video/av51574688&#34;&gt;视频&lt;/a&gt;,十分便捷。&lt;/p&gt;
-- https://gongluck.github.io/default/first/ - </description>
         </item>
     
     
