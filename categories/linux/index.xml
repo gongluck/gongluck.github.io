@@ -5,10 +5,22 @@
     <link>https://gongluck.github.io/categories/linux/</link>
     <description>Recent content in linux on gongluck&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 30 Nov 2020 21:02:48 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 30 Nov 2020 21:05:04 +0800</lastBuildDate>
     
 	<atom:link href="https://gongluck.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>网络服务专题</title>
+      <link>https://gongluck.github.io/linux/%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%93%E9%A2%98/</link>
+      <pubDate>Mon, 30 Nov 2020 21:05:04 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/linux/%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%93%E9%A2%98/</guid>
+      <description>五、网络服务专题 0.项目仓库  https://github.com/gongluck/CVIP.git  1.Reactor反应堆 1.1 Reactor模型   Reactor释义“反应堆”，是一种事件驱动机制。和普通函数调用的不同之处在于：应用程序不是主动的调用某个API完成处理，而是恰恰 相反，Reactor逆置了事件处理流程，应用程序需要提供相应的接口并注册到Reactor上，如果相应的时间发生，Reactor将主动调用应用程序注册的接口，这些接口又称为“回调函数”。
+  Reactor模式是处理并发I/O比较常见的一种模式，用于同步I/O，中心思想是将所有要处理的I/O事件注册到一个中心I/O多路复用器上，同时主线程/进程阻塞在多路复用器上；一旦有I/O事件到来或是准备就绪（文件描述符或socket可读、写），多路复用器返回并将事先注册的相应I/O事件分发到对应的处理器中。
+  Reactor模型有三个重要的组件：
+​	 多路复用器：由操作系统提供，在linux上一般是select、poll、epoll等系统调用。 事件分发器：将多路复用器中返回的就绪事件分到对应的处理函数中。 事件处理器：负责处理特定事件的处理函数。    1.2 Reactor实现 /** @Author: gongluck * @Date: 2020-11-26 09:41:40 * @Last Modified by: gongluck* @Last Modified time: 2020-11-26 16:58:43*/#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;stdlib.h&amp;gt;#include &amp;lt;string.h&amp;gt;#include &amp;lt;sys/socket.h&amp;gt;#include &amp;lt;sys/epoll.h&amp;gt;#include &amp;lt;arpa/inet.h&amp;gt;#include &amp;lt;fcntl.h&amp;gt;#include &amp;lt;unistd.h&amp;gt;#include &amp;lt;errno.h&amp;gt;#define BUFFER_LENGTH 4096#define MAX_EPOLL_EVENTS 1024#define SERVER_PORT 8888typedef int NCALLBACK(int, int, void *);struct ntyevent{int fd;int events;void *arg;int (*callback)(int fd, int events, void *arg);int status;//是否已经添加到epoll中 char buffer[BUFFER_LENGTH];int length;long last_active;};struct ntyreactor{int epfd;struct ntyevent events[MAX_EPOLL_EVENTS];};void nty_event_set(struct ntyevent *ev, int fd, NCALLBACK callback, void *arg){ev-&amp;gt;fd = fd;ev-&amp;gt;callback = callback;ev-&amp;gt;events = 0;ev-&amp;gt;arg = arg;ev-&amp;gt;last_active = time(NULL);return;}int nty_event_add(int epfd, int events, struct ntyevent *ev){struct epoll_event ep_ev = {0, {0}};ep_ev.</description>
+    </item>
     
     <item>
       <title>开源框架专题</title>
