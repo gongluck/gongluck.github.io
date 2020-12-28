@@ -17,6 +17,10 @@
         
         <guid>https://gongluck.github.io/linux/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%93%E9%A2%98/</guid>
         <description>gongluck&#39;s blog https://gongluck.github.io/linux/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%93%E9%A2%98/ -&lt;h2 id=&#34;十三分布式专题&#34;&gt;十三、分布式专题&lt;/h2&gt;
+&lt;h3 id=&#34;0项目仓库&#34;&gt;0.项目仓库&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP.git&#34;&gt;https://github.com/gongluck/CVIP.git&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;1udp可靠传输&#34;&gt;1.UDP可靠传输&lt;/h3&gt;
 &lt;h4 id=&#34;11-tcp和udp比较&#34;&gt;1.1 TCP和UDP比较&lt;/h4&gt;
 &lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/blob/master/images/TCP%E5%92%8CUDP.png?raw=true&#34; alt=&#34;TCP和UDP&#34;&gt;&lt;/p&gt;
@@ -81,6 +85,10 @@
         
         <guid>https://gongluck.github.io/linux/%E9%9B%86%E7%BE%A4%E4%B8%93%E9%A2%98/</guid>
         <description>gongluck&#39;s blog https://gongluck.github.io/linux/%E9%9B%86%E7%BE%A4%E4%B8%93%E9%A2%98/ -&lt;h2 id=&#34;十二集群专题&#34;&gt;十二、集群专题&lt;/h2&gt;
+&lt;h3 id=&#34;0项目仓库&#34;&gt;0.项目仓库&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP.git&#34;&gt;https://github.com/gongluck/CVIP.git&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;1redis集群&#34;&gt;1.Redis集群&lt;/h3&gt;
 &lt;h4 id=&#34;11-主从复制&#34;&gt;1.1 主从复制&lt;/h4&gt;
 &lt;ul&gt;
@@ -269,6 +277,10 @@ sudo service docker restart
         
         <guid>https://gongluck.github.io/linux/linux%E5%86%85%E6%A0%B8%E4%B8%93%E9%A2%98/</guid>
         <description>gongluck&#39;s blog https://gongluck.github.io/linux/linux%E5%86%85%E6%A0%B8%E4%B8%93%E9%A2%98/ -&lt;h2 id=&#34;十一linux内核专题&#34;&gt;十一、Linux内核专题&lt;/h2&gt;
+&lt;h3 id=&#34;0项目仓库&#34;&gt;0.项目仓库&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP.git&#34;&gt;https://github.com/gongluck/CVIP.git&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;1openresty&#34;&gt;1.OpenResty&lt;/h3&gt;
 &lt;h4 id=&#34;11-简介&#34;&gt;1.1 简介&lt;/h4&gt;
 &lt;ul&gt;
@@ -319,6 +331,10 @@ update-grub
         
         <guid>https://gongluck.github.io/linux/%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%93%E9%A2%98/</guid>
         <description>gongluck&#39;s blog https://gongluck.github.io/linux/%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%93%E9%A2%98/ -&lt;h2 id=&#34;十中间件开发专题&#34;&gt;十、中间件开发专题&lt;/h2&gt;
+&lt;h3 id=&#34;0项目仓库&#34;&gt;0.项目仓库&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP.git&#34;&gt;https://github.com/gongluck/CVIP.git&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;1用户态协议栈&#34;&gt;1.用户态协议栈&lt;/h3&gt;
 &lt;h4 id=&#34;11-netmap&#34;&gt;1.1 Netmap&lt;/h4&gt;
 &lt;ul&gt;
@@ -450,6 +466,10 @@ sudo insmod netmap.ko
         
         <guid>https://gongluck.github.io/linux/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%93%E9%A2%98/</guid>
         <description>gongluck&#39;s blog https://gongluck.github.io/linux/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%93%E9%A2%98/ -&lt;h2 id=&#34;九源码分析专题&#34;&gt;九、源码分析专题&lt;/h2&gt;
+&lt;h3 id=&#34;0项目仓库&#34;&gt;0.项目仓库&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP.git&#34;&gt;https://github.com/gongluck/CVIP.git&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;1nginx架构和模块&#34;&gt;1.Nginx架构和模块&lt;/h3&gt;
 &lt;h4 id=&#34;11-nginx架构&#34;&gt;1.1 Nginx架构&lt;/h4&gt;
 &lt;ul&gt;
@@ -1369,6 +1389,10 @@ sudo ldconfig
         
         <guid>https://gongluck.github.io/linux/%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E4%B8%93%E9%A2%98/</guid>
         <description>gongluck&#39;s blog https://gongluck.github.io/linux/%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E4%B8%93%E9%A2%98/ -&lt;h2 id=&#34;八分布式存储专题&#34;&gt;八、分布式存储专题&lt;/h2&gt;
+&lt;h3 id=&#34;0项目仓库&#34;&gt;0.项目仓库&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP.git&#34;&gt;https://github.com/gongluck/CVIP.git&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;1fastdfs&#34;&gt;1.FastDFS&lt;/h3&gt;
 &lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/blob/master/images/FastDFS%E6%9E%B6%E6%9E%84.png?raw=true&#34; alt=&#34;FastDFS架构&#34;&gt;&lt;/p&gt;
 &lt;h4 id=&#34;11-编译安装&#34;&gt;1.1 编译安装&lt;/h4&gt;
@@ -2279,6 +2303,10 @@ sudo make install
         
         <guid>https://gongluck.github.io/linux/%E4%BB%A3%E7%A0%81%E5%B7%A5%E7%A8%8B%E5%8C%96%E4%B8%93%E9%A2%98/</guid>
         <description>gongluck&#39;s blog https://gongluck.github.io/linux/%E4%BB%A3%E7%A0%81%E5%B7%A5%E7%A8%8B%E5%8C%96%E4%B8%93%E9%A2%98/ -&lt;h2 id=&#34;七代码工程化专题&#34;&gt;七、代码工程化专题&lt;/h2&gt;
+&lt;h3 id=&#34;0项目仓库&#34;&gt;0.项目仓库&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP.git&#34;&gt;https://github.com/gongluck/CVIP.git&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;1代码版本工具&#34;&gt;1.代码版本工具&lt;/h3&gt;
 &lt;h4 id=&#34;11-git&#34;&gt;1.1 git&lt;/h4&gt;
 &lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/blob/master/images/git%E5%8E%9F%E7%90%86.png?raw=true&#34; alt=&#34;git原理&#34;&gt;&lt;/p&gt;
@@ -2417,6 +2445,10 @@ git submodule update --init --recurise
         
         <guid>https://gongluck.github.io/linux/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E4%B8%93%E9%A2%98/</guid>
         <description>gongluck&#39;s blog https://gongluck.github.io/linux/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E4%B8%93%E9%A2%98/ -&lt;h2 id=&#34;六性能测试专题&#34;&gt;六、性能测试专题&lt;/h2&gt;
+&lt;h3 id=&#34;0项目仓库&#34;&gt;0.项目仓库&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP.git&#34;&gt;https://github.com/gongluck/CVIP.git&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;1性能分析工具&#34;&gt;1.性能分析工具&lt;/h3&gt;
 &lt;h4 id=&#34;11-valgrind&#34;&gt;1.1 Valgrind&lt;/h4&gt;
 &lt;ul&gt;

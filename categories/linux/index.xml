@@ -16,7 +16,7 @@
       <pubDate>Mon, 28 Dec 2020 22:24:36 +0800</pubDate>
       
       <guid>https://gongluck.github.io/linux/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%93%E9%A2%98/</guid>
-      <description>十三、分布式专题 1.UDP可靠传输 1.1 TCP和UDP比较 1.2 KCP   KCP是一个快速可靠协议，能以比TCP浪费10%-20%的带宽的代价，换取平均延迟降低30%-40%，且最大延迟降低三倍的传输效果。纯算法实现，并不负责底层协议（如UDP）的收发，需要使用者自己定义下层数据包的发送方式，以callback的方式提供给KCP。 连时钟都需要外部传递进来，内部不会有任何一次系统调用。
+      <description>十三、分布式专题 0.项目仓库  https://github.com/gongluck/CVIP.git  1.UDP可靠传输 1.1 TCP和UDP比较 1.2 KCP   KCP是一个快速可靠协议，能以比TCP浪费10%-20%的带宽的代价，换取平均延迟降低30%-40%，且最大延迟降低三倍的传输效果。纯算法实现，并不负责底层协议（如UDP）的收发，需要使用者自己定义下层数据包的发送方式，以callback的方式提供给KCP。 连时钟都需要外部传递进来，内部不会有任何一次系统调用。
   整个协议只有ikcp.h，ikcp.c两个源文件，可以方便的集成到用户自己的协议栈中。
   TCP是为流量设计的（每秒内可以传输多少KB的数据），讲究的是充分利用带宽。而KCP是为流速设计的（单个数据包从一端发送到一端需要多少时间），以10%-20%带宽浪费的代价换取了比TCP快30%-40%的传输速度。TCP信道是一条流速很慢，但每秒流量很大的大运河，而KCP是水流湍急的小激流。KCP有正常模式和快速模式两种。
   RTO翻倍vs不翻倍：
@@ -34,11 +34,10 @@
       <pubDate>Mon, 28 Dec 2020 22:23:37 +0800</pubDate>
       
       <guid>https://gongluck.github.io/linux/%E9%9B%86%E7%BE%A4%E4%B8%93%E9%A2%98/</guid>
-      <description>十二、集群专题 1.Redis集群 1.1 主从复制  主从模式的一个作用是备份数据，这样当一个节点损坏时，数据因为有备份，可以方便恢复。另一个作用是负载均衡，所有客户端都访问一个节点肯定会影响Redis工作效率，有了主 从以后，查询操作就可以通过查询从节点来完成。 默认配置下，master节点可以进行读和写，slave节点只能进行读操作，写操作被禁止。 不要修改配置让slave节点支持写操作，没有意义，原因一，写入的数据不会被同步到其他节点；原因二，当master节点修改同一条数据后，slave节点的数据会被覆盖掉。 slave节点挂了不影响其他slave节点的读和master节点的读和写，重新启动后会将数据从master节点同步过来。master节点挂了以后，不影响slave节点的读，Redis将不再提供写服务，master节点启动后Redis将重新对外提供写服务。master节点挂了以后，slave节点重新不会选一个master。  1.2 Sentinel模式   Sentinel的主要功能包括主节点存活检测、主从运行情况检测、自动故障转移、主从切换。由一个或多个Sentinel实例组成的Sentinel系统可以监视任意多个主服务器，以及所有从服务器，并在被监视的主服务器进入下线状态时，自动将下线主服务器属下的某个从服务器升 级为新的主服务器，然后由新的主服务器代替已下线的主服务器继续处理命令请求。
+      <description>十二、集群专题 0.项目仓库  https://github.com/gongluck/CVIP.git  1.Redis集群 1.1 主从复制  主从模式的一个作用是备份数据，这样当一个节点损坏时，数据因为有备份，可以方便恢复。另一个作用是负载均衡，所有客户端都访问一个节点肯定会影响Redis工作效率，有了主 从以后，查询操作就可以通过查询从节点来完成。 默认配置下，master节点可以进行读和写，slave节点只能进行读操作，写操作被禁止。 不要修改配置让slave节点支持写操作，没有意义，原因一，写入的数据不会被同步到其他节点；原因二，当master节点修改同一条数据后，slave节点的数据会被覆盖掉。 slave节点挂了不影响其他slave节点的读和master节点的读和写，重新启动后会将数据从master节点同步过来。master节点挂了以后，不影响slave节点的读，Redis将不再提供写服务，master节点启动后Redis将重新对外提供写服务。master节点挂了以后，slave节点重新不会选一个master。  1.2 Sentinel模式   Sentinel的主要功能包括主节点存活检测、主从运行情况检测、自动故障转移、主从切换。由一个或多个Sentinel实例组成的Sentinel系统可以监视任意多个主服务器，以及所有从服务器，并在被监视的主服务器进入下线状态时，自动将下线主服务器属下的某个从服务器升 级为新的主服务器，然后由新的主服务器代替已下线的主服务器继续处理命令请求。
   Redis的Sentinel最小配置是一主一从。Redis的Sentinel系统可以用来管理多个Redis服务器，该系统可以执行以下四个任务：
  监控  Sentinel会不断的检查主服务器和从服务器是否正常运行。   通知  当被监控的某个Redis服务器出现问题，Sentinel通过API脚本向管理员或者其他的应用程序发送通知。   自动故障转移  当主节点不能正常工作时，Sentinel会开始一次自动的故障转移操作，它会将与失效主节点是主从关系的其中一个从节点升级为新的主节点，并且将其他的从节点指向新的主节点。   配置提供者  在Redis Sentinel模式下，客户端应用在初始化时连接的是 Sentinel节点集合，从中获取主节点的信息。      1.3 Cluster模式   redis cluster是 Redis的分布式解决方案，在3.0版本推出后有效地解决了redis分布式方面的需求。自动将数据进行分片，每个master上放一部分数据。提供内置的高可用支持，部分master不可用时，还是可以继续工作的支撑N个redis master node，每个master node都可以挂载多个slave node高可用，因为每个master都有salve节点，那么如果mater挂掉，redis cluster这套机制，就会自动将某个slave切换成master。
-  2.去中心化技术 2.1 去中心化网络 2.2 网络地址映射   服务器发送数据与路由器公网IP时，能够将数据映射到私网中的机器；私网内的机器发送数据给服务器，路由器也能够映射为公网IP地址的过程，成为网络地址映射。
-  3.</description>
+  2.去中心化技术 2.1 去中心化网络 2.2 网络地址映射   服务器发送数据与路由器公网IP时，能够将数据映射到私网中的机器；私网内的机器发送数据给服务器，路由器也能够映射为公网IP地址的过程，成为网络地址映射。</description>
     </item>
     
     <item>
@@ -47,7 +46,7 @@
       <pubDate>Mon, 28 Dec 2020 22:22:43 +0800</pubDate>
       
       <guid>https://gongluck.github.io/linux/linux%E5%86%85%E6%A0%B8%E4%B8%93%E9%A2%98/</guid>
-      <description>十一、Linux内核专题 1.OpenResty 1.1 简介  openresty是一个基于nginx与lua的高性能web平台，其内部集成了大量精良的lua库、第三方模块以及大多数的依赖项。用于方便搭建能够处理超高并发、扩展性极高的动态web应用、web服务和动态网关。 openresty通过汇聚各种设计精良的nginx模块，从而将nginx有效地变成一个强大的通用 Web应用平台。这样，Web开发人员和系统工程师可以使用Lua脚本语言调动Nginx支持的各种C以及Lua模块，快速构造出足以胜任10K乃至1000K以上单机并发连接的高性能Web应用系统。 openresty的目标是让Web服务直接跑在Nginx服务内部，充分利用Nginx的非阻塞I/O模型，不仅仅对HTTP客户端请求，甚至于对远程后端诸如MySQL、PostgreSQL、Memcached以及Redis等都进行一致的高性能响应。  1.2 lua-nginx-module 1.3 cosocket 1.4 环境搭建 apt-get install libpcre3-dev libssl-dev perl make build-essential curl -ywget https://openresty.org/download/openresty-1.19.3.1.tar.gztar -xzvf openresty-1.19.3.1.tar.gzcd openresty-1.19.3.1/./configuremake -j 8sudo make install2.Linux内核编程 2.1 Linux内核编译升级 wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.10.tar.xztar -xvf linux-5.10.tar.xzcd linux-5.10cp /boot/config-xxx ./.configmake menuconfigmake -j 8sudo sumake modules_installmake bzImagecp arch/x86/boot/bzImage /boot/vmlinuz-4.4.16cp .config /boot/config-4.4.16cd /lib/modules/4.</description>
+      <description>十一、Linux内核专题 0.项目仓库  https://github.com/gongluck/CVIP.git  1.OpenResty 1.1 简介  openresty是一个基于nginx与lua的高性能web平台，其内部集成了大量精良的lua库、第三方模块以及大多数的依赖项。用于方便搭建能够处理超高并发、扩展性极高的动态web应用、web服务和动态网关。 openresty通过汇聚各种设计精良的nginx模块，从而将nginx有效地变成一个强大的通用 Web应用平台。这样，Web开发人员和系统工程师可以使用Lua脚本语言调动Nginx支持的各种C以及Lua模块，快速构造出足以胜任10K乃至1000K以上单机并发连接的高性能Web应用系统。 openresty的目标是让Web服务直接跑在Nginx服务内部，充分利用Nginx的非阻塞I/O模型，不仅仅对HTTP客户端请求，甚至于对远程后端诸如MySQL、PostgreSQL、Memcached以及Redis等都进行一致的高性能响应。  1.2 lua-nginx-module 1.3 cosocket 1.4 环境搭建 apt-get install libpcre3-dev libssl-dev perl make build-essential curl -ywget https://openresty.org/download/openresty-1.19.3.1.tar.gztar -xzvf openresty-1.19.3.1.tar.gzcd openresty-1.19.3.1/./configuremake -j 8sudo make install2.Linux内核编程 2.1 Linux内核编译升级 wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.10.tar.xztar -xvf linux-5.10.tar.xzcd linux-5.10cp /boot/config-xxx ./.configmake menuconfigmake -j 8sudo sumake modules_installmake bzImagecp arch/x86/boot/bzImage /boot/vmlinuz-4.4.16cp .</description>
     </item>
     
     <item>
@@ -56,7 +55,7 @@
       <pubDate>Mon, 28 Dec 2020 22:21:34 +0800</pubDate>
       
       <guid>https://gongluck.github.io/linux/%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%93%E9%A2%98/</guid>
-      <description>十、中间件开发专题 1.用户态协议栈 1.1 Netmap   Netmap是一个高性能收发原始数据包的框架，由Luigi Rizzo等人开发完成，其包含了内核模块以及用户态库函数。其目标是，不修改现有操作系统软件以及不需要特殊硬件支持，实现用户态和网卡之间数据包的高性能传递。数据包不经过操作系统内核进行处理，用户空间程序收发数据包时，直接与网卡进行通信。
+      <description>十、中间件开发专题 0.项目仓库  https://github.com/gongluck/CVIP.git  1.用户态协议栈 1.1 Netmap   Netmap是一个高性能收发原始数据包的框架，由Luigi Rizzo等人开发完成，其包含了内核模块以及用户态库函数。其目标是，不修改现有操作系统软件以及不需要特殊硬件支持，实现用户态和网卡之间数据包的高性能传递。数据包不经过操作系统内核进行处理，用户空间程序收发数据包时，直接与网卡进行通信。
   网卡通过循环队列（即NIC环）来管理数据包的传输，每个网卡至少维护一对NIC环，分别用以管理发送和接收两个方向的数据包。每一个环被划分为很多槽，每一个槽都包含存储数据包的缓冲区的信息：缓冲区长度、缓冲区的物理地址等。在通常情况下，主机网络堆栈可以访问NIC环上指定的槽，也就可以访问到存放数据包的缓冲区，实现数据包的发送和接收。
   网卡所管理的内存空间是内核空间，运行在用户态的应用程序正常情况下无权访问内核空间，因此，需要进行从内核空间到用户空间的拷贝，零拷贝就是减少或消除这种拷贝，如直接缓存访问（direct buffer access)。DBA为了节省内核态和用户态之间的拷贝，可以将应用程序直接跑在内核态，如内核态的Click。也可以选择将内核中的数据包缓存区直接暴露给用户态程序，如PF_RING和Linux的PACKET_MMAP。
   netmap也是一个基于零拷贝思想的高速网络I/O架构。当网卡运行在netmap模式下，NIC环会与主机协议栈进行断开，netmap会拷贝一份NIC环，被称作netmap环。同时，netmap还会维护一对环，用于与主机协议栈进行交互。这些环所指向的用于存储数据包内容的缓存位于共享空间，网卡直接将数据包存入这些缓存。应用程序可以通过调用netmap API访问netmap环中的数据包内容，也就可以访问用于存储数据包的缓存，也就是说，当应用程序需要访问数据包内容时，无需从内核空间到用户空间的拷贝，可以直接访问，从而实现了网络数据包的零拷贝。此外，netmap并不会将网卡寄存器和内核的关键内存区域暴露给应用程序，因而用户态的应用程序并不会导致操作系统崩溃，所以相对一些其他的零拷贝架构，netmap更为安全。
@@ -75,7 +74,7 @@ git clone https://github.com/luigirizzo/netmap.git./configuremake -j 8sudo ma
       <pubDate>Mon, 28 Dec 2020 22:20:02 +0800</pubDate>
       
       <guid>https://gongluck.github.io/linux/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%93%E9%A2%98/</guid>
-      <description>九、源码分析专题 1.Nginx架构和模块 1.1 Nginx架构   nginx在启动后，在unix系统中会以daemon的方式在后台运行，后台进程包含一个master进程和多个worker进程。
+      <description>九、源码分析专题 0.项目仓库  https://github.com/gongluck/CVIP.git  1.Nginx架构和模块 1.1 Nginx架构   nginx在启动后，在unix系统中会以daemon的方式在后台运行，后台进程包含一个master进程和多个worker进程。
   master进程主要用来管理worker进程，包含：
  接收来自外界的信号， 向各worker进程发送信号， 监控worker进程的运行状态， 当worker进程退出后(异常情况下)，会自动重新启动新的worker进程。    而基本的网络事件，则是放在worker进程中来处理了。多个worker进程之间是对等的，他们同等竞争来自客户端的请求，各进程互相之间是独立的。
   每个worker进程都是从master进程fork过来，在master进程里面，先建立好需要listen的socket（listenfd）之后，然后再fork出多个worker进程。所有worker进程的listenfd会在新连接到来时变得可读，为保证只有一个进程处理该连接，所有worker 进程在注册listenfd读事件前抢accept_mutex，抢到互斥锁的那个进程注册listenfd读事件，在读事件里调用accept接受该连接。当一个worker进程在accept这个连接之后，就开始读取请求，解析请求，处理请求，产生数据后，再返回给客户端，最后才断开连接，这样一个完整的请求就是这样的了。
@@ -92,7 +91,7 @@ struct ngx_connection_s {void *data;ngx_event_t *read;ngx_event_t *write;ngx
       <pubDate>Mon, 28 Dec 2020 22:18:35 +0800</pubDate>
       
       <guid>https://gongluck.github.io/linux/%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E4%B8%93%E9%A2%98/</guid>
-      <description>八、分布式存储专题 1.FastDFS 1.1 编译安装 # 下载wget https://github.com/happyfish100/libfastcommon/archive/V1.0.43.tar.gz# 解压sudo tar -xzvf V1.0.43.tar.gz libfastcommon-1.0.43# 进入解压后的目录cd libfastcommon-1.0.43# 编译代码sudo ./make.sh# 安装sudo ./make.sh install#export LD_LIBRARY_PATH=/usr/lib64/:$LD_LIBRARY_PATHsudo ln -s /usr/lib64/libfastcommon.so /usr/lib/libfastcommon.so# 下载wget https://github.com/happyfish100/fastdfs/archive/V6.06.tar.gz# 解压sudo tar -zxvf V6.06.tar.gz fastdfs-6.06# 进入解压后的目录cd fastdfs-6.06# 编译代码sudo ./make.sh# 安装sudo ./make.sh install1.2 tracker.conf # is this config file disabled# false for enabled# true for disableddisabled = false# bind an address of this host# empty for bind all addresses of this hostbind_addr = 172.</description>
+      <description>八、分布式存储专题 0.项目仓库  https://github.com/gongluck/CVIP.git  1.FastDFS 1.1 编译安装 # 下载wget https://github.com/happyfish100/libfastcommon/archive/V1.0.43.tar.gz# 解压sudo tar -xzvf V1.0.43.tar.gz libfastcommon-1.0.43# 进入解压后的目录cd libfastcommon-1.0.43# 编译代码sudo ./make.sh# 安装sudo ./make.sh install#export LD_LIBRARY_PATH=/usr/lib64/:$LD_LIBRARY_PATHsudo ln -s /usr/lib64/libfastcommon.so /usr/lib/libfastcommon.so# 下载wget https://github.com/happyfish100/fastdfs/archive/V6.06.tar.gz# 解压sudo tar -zxvf V6.06.tar.gz fastdfs-6.06# 进入解压后的目录cd fastdfs-6.06# 编译代码sudo ./make.sh# 安装sudo ./make.sh install1.2 tracker.conf # is this config file disabled# false for enabled# true for disableddisabled = false# bind an address of this host# empty for bind all addresses of this hostbind_addr = 172.</description>
     </item>
     
     <item>
@@ -101,9 +100,8 @@ struct ngx_connection_s {void *data;ngx_event_t *read;ngx_event_t *write;ngx
       <pubDate>Mon, 28 Dec 2020 22:17:27 +0800</pubDate>
       
       <guid>https://gongluck.github.io/linux/%E4%BB%A3%E7%A0%81%E5%B7%A5%E7%A8%8B%E5%8C%96%E4%B8%93%E9%A2%98/</guid>
-      <description>七、代码工程化专题 1.代码版本工具 1.1 git   常用命令
-# 查看分支git branch# 创建develop分支git branch develop# 创建FT-123456的一个feature分支git checkout –b feature/FT-123456# 切换分支git checkout develop# 合并分支git merge feature/FT-123456# 删除FT-123456的feature分支git branch –d feature/FT-123456# 推送分支git push –u origin hotfix/ISSUE-345678# 整理commitgit rebase -i# 子模块git submodule add giturl loaclpathgit submodule update --init --recurise  2.工程管理 2.1 CMake https://github.com/gongluck/CMAKE-DEMO.git
-# CMake最低版本要求cmake_minimum_required(VERSION 3.</description>
+      <description>七、代码工程化专题 0.项目仓库  https://github.com/gongluck/CVIP.git  1.代码版本工具 1.1 git   常用命令
+# 查看分支git branch# 创建develop分支git branch develop# 创建FT-123456的一个feature分支git checkout –b feature/FT-123456# 切换分支git checkout develop# 合并分支git merge feature/FT-123456# 删除FT-123456的feature分支git branch –d feature/FT-123456# 推送分支git push –u origin hotfix/ISSUE-345678# 整理commitgit rebase -i# 子模块git submodule add giturl loaclpathgit submodule update --init --recurise  2.工程管理 2.1 CMake https://github.</description>
     </item>
     
     <item>
@@ -112,15 +110,14 @@ struct ngx_connection_s {void *data;ngx_event_t *read;ngx_event_t *write;ngx
       <pubDate>Mon, 28 Dec 2020 22:15:32 +0800</pubDate>
       
       <guid>https://gongluck.github.io/linux/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E4%B8%93%E9%A2%98/</guid>
-      <description>六、性能测试专题 1.性能分析工具 1.1 Valgrind   Valgrind是一套Linux下，开放源代码（GPL V2）的仿真调试工具的集合。Valgrind由内核（core）以及基于内核的其他调试工具组成。内核类似于一个框架（framework）， 它模拟了一个CPU环境，并提供服务给其他工具；而其他工具则类似于插件(plug-in)，利用内核提供的服务完成各种特定的内存调试任务。
+      <description>六、性能测试专题 0.项目仓库  https://github.com/gongluck/CVIP.git  1.性能分析工具 1.1 Valgrind   Valgrind是一套Linux下，开放源代码（GPL V2）的仿真调试工具的集合。Valgrind由内核（core）以及基于内核的其他调试工具组成。内核类似于一个框架（framework）， 它模拟了一个CPU环境，并提供服务给其他工具；而其他工具则类似于插件(plug-in)，利用内核提供的服务完成各种特定的内存调试任务。
   编译安装
 wget https://sourceware.org/pub/valgrind/valgrind-3.16.1.tar.bz2tar -jxvf valgrind-3.16.1.tar.bz2cd valgrind-3.16.1./configuremake -j 8sudo make install  使用valgrind
   为了使valgrind发现的错误更精确，如能够定位到源代码行，建议在编译时加上**-g**参数，编译优化选项请选择**-O0**，虽然这会降低程序的执行效率。
 gcc -g -O0 test.c  使用命令
 valgrind [valgrind-options] your-prog [your-progoptions]valgrind --log-file=./valgrind_report.log --leak-check=full --show-leak-kinds=all --showreachable=no --track-origins=yes your-prog [your-progoptions]    1.2 GDB   一般要调试某个程序，为了能清晰地看到调试的每一行代码、调用的堆栈信息、变量名和函数名等信息，需要调试程序含有调试符号信息。使用gcc编译程序时，如果加上**-g**选项即可在编译后的程序中保留调试符号信息。
   除了不加**-g**选项，也可以使用Linux的**strip**命令移除掉某个程序中的调试信息。
-strip a.out  gdb直接调试目标程序
-gdb a.out  gdb附加进程</description>
+strip a.out  gdb直接调试目标程序</description>
     </item>
     
     <item>
