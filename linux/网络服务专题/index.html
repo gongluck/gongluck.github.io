@@ -1150,7 +1150,7 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
 </ul>
 <h3 id="1reactor反应堆">1.Reactor反应堆</h3>
 <h4 id="11-reactor模型">1.1 Reactor模型</h4>
-<p><img src="https://github.com/gongluck/CVIP/blob/master/images/Reactor%E6%A8%A1%E5%9E%8B.png" alt="Reactor模型"></p>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/Reactor%E6%A8%A1%E5%9E%8B.png?raw=true" alt="Reactor模型"></p>
 <ul>
 <li>
 <p>Reactor释义“反应堆”，是一种事件驱动机制。和普通函数调用的不同之处在于：应用程序不是主动的调用某个API完成处理，而是恰恰 相反，Reactor逆置了事件处理流程，应用程序需要提供相应的接口并注册到Reactor上，如果相应的时间发生，Reactor将主动调用应用程序注册的接口，这些接口又称为“回调函数”。</p>
@@ -1160,7 +1160,7 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
 </li>
 <li>
 <p>Reactor模型有三个重要的组件：</p>
-<p>​	<img src="https://github.com/gongluck/CVIP/blob/master/images/Reactor%E7%BB%84%E4%BB%B6.png" alt="Reactor组件"></p>
+<p>​	<img src="https://github.com/gongluck/CVIP/blob/master/images/Reactor%E7%BB%84%E4%BB%B6.png?raw=true" alt="Reactor组件"></p>
 <ul>
 <li>多路复用器：由操作系统提供，在linux上一般是select、poll、epoll等系统调用。</li>
 <li>事件分发器：将多路复用器中返回的就绪事件分到对应的处理函数中。</li>
@@ -1499,11 +1499,11 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
 </code></pre></div><!-- raw HTML omitted -->
 <h3 id="2日志模块">2.日志模块</h3>
 <h4 id="21-log4cpp模块">2.1 log4cpp模块</h4>
-<p><img src="https://github.com/gongluck/CVIP/blob/master/images/log4cpp%E6%A8%A1%E5%9D%97%E5%9B%BE.png" alt="log4cpp模块图"></p>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/log4cpp%E6%A8%A1%E5%9D%97%E5%9B%BE.png?raw=true" alt="log4cpp模块图"></p>
 <ul>
 <li>
 <p>log4cpp有且只⼀个根Category，可以有多个⼦Category组成树型结构。</p>
-<p><img src="https://github.com/gongluck/CVIP/blob/master/images/log4cpp%E7%9A%84appender%E7%A7%8D%E7%B1%BB.png" alt="log4cpp的appender种类"></p>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/log4cpp%E7%9A%84appender%E7%A7%8D%E7%B1%BB.png?raw=true" alt="log4cpp的appender种类"></p>
 </li>
 <li>
 <p>Appender负责将⽇志写⼊相应的设备，⽐如控制台、⽂件、调试器、Windows⽇志、syslog等。</p>
@@ -1683,8 +1683,8 @@ sudo ldconfig
             <nav class="post-pagination">
 
                 
-                <a class="newer-posts">
-                    Next<br>No newer posts.
+                <a class="newer-posts" href="https://gongluck.github.io/linux/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E4%B8%93%E9%A2%98/">
+                    Next<br>性能测试专题
                 </a>
                 
                 
