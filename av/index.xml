@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Avs on gongluck&#39;s blog</title>
+    <link>https://gongluck.github.io/av/</link>
+    <description>Recent content in Avs on gongluck&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 08 Sep 2024 18:54:21 +0800</lastBuildDate><atom:link href="https://gongluck.github.io/av/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>编译Android系统源码中screencap</title>
+      <link>https://gongluck.github.io/av/screencap/</link>
+      <pubDate>Sun, 08 Sep 2024 18:54:21 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/av/screencap/</guid>
+      <description>&lt;p&gt;之前需要在安卓系统上做采集屏幕，第一时间查到的都是使用&lt;code&gt;java&lt;/code&gt;的方案，就想能不能使用纯&lt;code&gt;cpp&lt;/code&gt;就可以实现呢？刚好安卓源码中就有一个自带的截图工具&lt;code&gt;screencap&lt;/code&gt;，是纯&lt;code&gt;cpp&lt;/code&gt;源码实现的。但是要编译出来，还是有些额外的准备工作的。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

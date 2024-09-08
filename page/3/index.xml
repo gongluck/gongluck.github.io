@@ -4,9 +4,277 @@
     <link>https://gongluck.github.io/</link>
     <description>Recent content on gongluck&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 28 Dec 2020 22:24:36 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 08 Sep 2024 18:54:21 +0800</lastBuildDate>
     
         <atom:link href="https://gongluck.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>任务管理器播放BadApple</title>
+        <link>https://gongluck.github.io/cpp/badapple-taskmgr/</link>
+        <pubDate>Wed, 08 Apr 2020 18:28:36 +0800</pubDate>
+        
+        <guid>https://gongluck.github.io/cpp/badapple-taskmgr/</guid>
+        <description>gongluck&#39;s blog https://gongluck.github.io/cpp/badapple-taskmgr/ -&lt;p&gt;有屏幕的地方就有BadApple!前面做了在控制台显示BadApple了,这一次把画面渲染到任务管理器上！&lt;/p&gt;
+&lt;h3 id=&#34;设计思路&#34;&gt;设计思路&lt;/h3&gt;
+&lt;p&gt;和上一篇差不多,只是设置指定窗口为libvlc的渲染窗口。找到指定的窗口比较复杂。&lt;/p&gt;
+&lt;h3 id=&#34;效果视频&#34;&gt;效果视频&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.bilibili.com/video/BV1B64y1u7rv&#34;&gt;https://www.bilibili.com/video/BV1B64y1u7rv&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;代码仓库&#34;&gt;代码仓库&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/Character-player/tree/taskmgr&#34;&gt;https://github.com/gongluck/Character-player/tree/taskmgr&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//process.cpp
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;process.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;../errcode.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef _WIN32
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;windows.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;TlHelp32.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;tchar.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;atlconv.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;namespace&lt;/span&gt; gprocess
+{
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;gethandle&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;* processname, std::vector&amp;lt;ProcessInfo&amp;gt;&amp;amp; result)
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (processname == &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+        {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; G_ERROR_INVALIDPARAM;
+        }
+
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef _WIN32
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+        USES_CONVERSION;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; processT = A2T(processname);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (hSnapshot == INVALID_HANDLE_VALUE || processT == &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+        {
+            std::cerr &amp;lt;&amp;lt; __FILE__ &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; : &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; __LINE__ &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; : &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; GetLastError() &amp;lt;&amp;lt; std::endl;
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; G_ERROR_INTERNAL;
+        }
+
+        result.clear();
+        ProcessInfo info = { &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt; };
+        PROCESSENTRY32 pe = { &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(pe) };
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; fOk = FALSE;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (fOk = Process32First(hSnapshot, &amp;amp;pe); fOk; fOk = Process32Next(hSnapshot, &amp;amp;pe))
+        {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (!_tcscmp(pe.szExeFile, processT))
+            {
+                info.processid = pe.th32ProcessID;
+                info.parentid = pe.th32ParentProcessID;
+                result.push_back(info);
+            }
+        }
+        CloseHandle(hSnapshot);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; G_ERROR_SUCCEED;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; G_ERROR_SUCCEED;
+    }
+
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef _WIN32
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;    BOOL CALLBACK &lt;span style=&#34;color:#008b45&#34;&gt;EnumChildWindowCB&lt;/span&gt;(HWND h, LPARAM l)
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; pinfo = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;WindowInfo*&amp;gt;(l);
+        DWORD pid = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+        GetWindowThreadProcessId(h, &amp;amp;pid);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (pid == pinfo-&amp;gt;processid)
+        {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; pchild = std::make_shared&amp;lt;WindowInfo&amp;gt;();
+            pchild-&amp;gt;processid = pid;
+            pchild-&amp;gt;window = h;
+            pinfo-&amp;gt;childs.push_back(pchild);
+            EnumChildWindows(h, EnumChildWindowCB, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;LPARAM&amp;gt;(pchild.get()));
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; TRUE;
+    }
+    BOOL CALLBACK &lt;span style=&#34;color:#008b45&#34;&gt;EnumWindowCB&lt;/span&gt;(HWND h, LPARAM l)
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; pinfo = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;WindowInfo*&amp;gt;(l);
+        DWORD pid = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+        GetWindowThreadProcessId(h, &amp;amp;pid);
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (pid == pinfo-&amp;gt;processid)
+        {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; pchild = std::make_shared&amp;lt;WindowInfo&amp;gt;();
+            pchild-&amp;gt;processid = pid;
+            pchild-&amp;gt;window = h;
+            pinfo-&amp;gt;childs.push_back(pchild);
+            EnumChildWindows(h, EnumChildWindowCB, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;LPARAM&amp;gt;(pchild.get()));
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; TRUE;
+    }
+&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;getallwindows&lt;/span&gt;(WindowInfo* info)
+    {
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef _WIN32
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (EnumWindows(EnumWindowCB, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;LPARAM&amp;gt;(info)) != TRUE)
+        {
+            std::cerr &amp;lt;&amp;lt; __FILE__ &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; : &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; __LINE__ &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; : &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; GetLastError() &amp;lt;&amp;lt; std::endl;
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; G_ERROR_INTERNAL;
+        }
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; G_ERROR_SUCCEED;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; G_ERROR_SUCCEED;
+    }
+} &lt;span style=&#34;color:#228b22&#34;&gt;// namespace gprocess
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;//main.cpp
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef _WIN32
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;Windows.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;tchar.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define ssize_t SSIZE_T
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;vlc/vlc.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;../../Code-snippet/cpp/process/process.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#define CHECKEQUALRET(ret, compare)\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;if(ret == compare)\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;{\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    std::cerr &amp;lt;&amp;lt; &amp;#34;error ocurred in &amp;#34; &amp;lt;&amp;lt; __FILE__\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;`s line &amp;#34; &amp;lt;&amp;lt; __LINE__\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;, error &amp;#34; &amp;lt;&amp;lt; ret;\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    goto END;\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;}
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#define CHECKNEQUALRET(ret, compare)\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;if(ret != compare)\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;{\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    std::cerr &amp;lt;&amp;lt; &amp;#34;error ocurred in &amp;#34; &amp;lt;&amp;lt; __FILE__\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;`s line &amp;#34; &amp;lt;&amp;lt; __LINE__\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;, error &amp;#34; &amp;lt;&amp;lt; ret;\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    goto END;\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;}
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;getwindows&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; TCHAR* classname,
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; gprocess::WindowInfo&amp;amp; info,
+    std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt;&amp;amp; result)
+{
+    std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt; tmp;
+    TCHAR classname_[MAX_PATH] = { &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt; };
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; info.childs.size(); ++i)
+    {
+        GetClassName(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;HWND&amp;gt;(info.childs[i]-&amp;gt;window), classname_, _countof(classname_));
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (_tcscmp(classname_, classname) == &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
+        {
+            tmp.push_back(info.childs[i]);
+        }
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt;&amp;amp; each : tmp)
+    {
+        result.push_back(each);
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;getwindows&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; TCHAR* classname,
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt;&amp;amp; windows,
+    std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt;&amp;amp; result)
+{
+    std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt; tmp;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; windows.size(); ++i)
+    {
+        getwindows(classname, *windows[i], tmp);
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt;&amp;amp; each : tmp)
+    {
+        result.push_back(each);
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; argc, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;** argv)
+{
+    libvlc_instance_t* inst_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    libvlc_media_t* media_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    libvlc_media_player_t* player_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    libvlc_media_list_t* list_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    libvlc_media_list_player_t* plist_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    HWND wnd_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+
+    std::vector&amp;lt;gprocess::ProcessInfo&amp;gt; result;
+    gprocess::WindowInfo windowinfo;
+    std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt; windows;
+    std::vector&amp;lt;std::shared_ptr&amp;lt;gprocess::WindowInfo&amp;gt;&amp;gt; tmpwindows;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; ret = gprocess::gethandle(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Taskmgr.exe&amp;#34;&lt;/span&gt;, result);
+    CHECKNEQUALRET(ret, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+    windowinfo.processid = result[&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;].processid;
+    ret = gprocess::getallwindows(&amp;amp;windowinfo);
+    CHECKNEQUALRET(ret, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+
+    ret = getwindows(TEXT(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;TaskManagerWindow&amp;#34;&lt;/span&gt;), windowinfo, windows);
+    CHECKNEQUALRET(ret, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+    ret = getwindows(TEXT(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;NativeHWNDHost&amp;#34;&lt;/span&gt;), windows, tmpwindows);
+    CHECKNEQUALRET(ret, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+    windows.clear();
+    windows.swap(tmpwindows);
+    ret = getwindows(TEXT(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;DirectUIHWND&amp;#34;&lt;/span&gt;), windows, tmpwindows);
+    CHECKNEQUALRET(ret, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+    windows.clear();
+    windows.swap(tmpwindows);
+    ret = getwindows(TEXT(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;CvChartWindow&amp;#34;&lt;/span&gt;), windows, tmpwindows);
+    CHECKNEQUALRET(ret, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+    CHECKEQUALRET(tmpwindows.size(), &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+
+    wnd_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;HWND&amp;gt;(tmpwindows[tmpwindows.size() - &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;]-&amp;gt;window);
+
+    inst_ = libvlc_new(&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+    CHECKEQUALRET(inst_, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+    media_ = libvlc_media_new_path(inst_, argc &amp;lt;= &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt; ? &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;badapple.mp4&amp;#34;&lt;/span&gt; : argv[&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;]);
+    CHECKEQUALRET(media_, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+
+    &lt;span style=&#34;color:#228b22&#34;&gt;//player_ = libvlc_media_player_new_from_media(media_);
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    player_ = libvlc_media_player_new(inst_);
+    CHECKEQUALRET(player_, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+
+    libvlc_media_player_set_hwnd(player_, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;*&amp;gt;(wnd_));
+
+    &lt;span style=&#34;color:#228b22&#34;&gt;// play loop
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    list_ = libvlc_media_list_new(inst_);
+    plist_ = libvlc_media_list_player_new(inst_);
+    libvlc_media_list_add_media(list_, media_);
+    libvlc_media_list_player_set_media_list(plist_, list_);
+    libvlc_media_list_player_set_media_player(plist_, player_);
+    libvlc_media_list_player_set_playback_mode(plist_, libvlc_playback_mode_loop);
+    libvlc_media_list_player_play(plist_);
+
+    std::cin.get();
+
+END:
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (player_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        libvlc_media_player_stop(player_);
+        libvlc_media_player_release(player_);
+        player_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (media_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        libvlc_media_release(media_);
+        media_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (plist_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        libvlc_media_list_player_release(plist_);
+        plist_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (list_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        libvlc_media_list_release(list_);
+        list_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (inst_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        libvlc_release(inst_);
+        inst_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- https://gongluck.github.io/cpp/badapple-taskmgr/ - </description>
+        </item>
     
     
     
