@@ -1,0 +1,1824 @@
+<!DOCTYPE html>
+<html><head>
+<title>网络服务专题</title>
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-163347799-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+<script src="/vendor/js/jquery.min.js" ></script>
+<script src="/vendor/js/popper.min.js" ></script>
+<script src="/vendor/js/bootstrap.min.js" ></script>
+<script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+<script src="/vendor/js/vue.min.js" ></script>
+
+
+
+
+<link rel="stylesheet" href="https://gongluck.github.io/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
+
+
+
+<link rel="stylesheet" href="https://gongluck.github.io/scss/dark-mode.min.b8ced257adf01d727091488aba5d273c60910773635166b513b27c1c28b9c866.css" integrity="sha256-uM7SV63wHXJwkUiKul0nPGCRB3NjUWa1E7J8HCi5yGY=" media="screen">
+
+
+<script src="https://gongluck.github.io/js/loadCSS.js"></script>
+<script>
+  loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
+</script>
+
+<script src="https://gongluck.github.io/js/table.js"></script>
+
+
+
+
+<script src="https://gongluck.github.io/js/toc.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/vendor/js/md5.min.js"></script>
+<script>
+  var gitalk = new Gitalk({
+  clientID: '49c0a21d9340c4049e72',
+  clientSecret: '6a22a79ca072e86728e6b1385927d1ec92f3d4a8',
+  repo: 'blogtalk',
+  owner: 'gongluck',
+  admin: ['gongluck'],
+  id: md5(location.pathname),
+  distractionFreeMode: 'false'
+  });
+  window.onload = function () {
+        gitalk.render('gitalk-container')
+  }
+</script>
+
+
+
+
+
+
+</head><body>
+    	<div id="app"><div ref="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="https://gongluck.github.io">
+    
+        <div class="nav-title">
+            gongluck&#39;s blog
+        </div>
+        
+        <div class="nav-subtitle">
+            C/C&#43;&#43; Win32/MFC Qt Golang
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                Categories
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                Tags
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="https://www.cnblogs.com/gongluck/">
+                CNBLOG
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="https://blog.csdn.net/gongluck93">
+                CSDN
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="https://github.com/gongluck">
+                Github
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/index.xml">
+                RSS Feed
+            </a>
+            
+        
+    </div>
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> 
+    <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	2020 gongluck&#39;s blog
+	
+    </div>
+    
+</div><div ref="extraContainer" class="extra-container">
+    
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e4%ba%94%e7%bd%91%e7%bb%9c%e6%9c%8d%e5%8a%a1%e4%b8%93%e9%a2%98" v-on:click="closeDrawer" id="五网络服务专题-nav">
+										 五、网络服务专题
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#0%e9%a1%b9%e7%9b%ae%e4%bb%93%e5%ba%93" v-on:click="closeDrawer" id="0项目仓库-nav">
+										 0.项目仓库
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#1reactor%e5%8f%8d%e5%ba%94%e5%a0%86" v-on:click="closeDrawer" id="1reactor反应堆-nav">
+										 1.Reactor反应堆
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#11-reactor%e6%a8%a1%e5%9e%8b" v-on:click="closeDrawer" id="11-reactor模型-nav">
+										 1.1 Reactor模型
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#12-reactor%e5%ae%9e%e7%8e%b0httpsgithubcomgongluckcvipblobmastercodeioreactorc" v-on:click="closeDrawer" id="12-reactor实现httpsgithubcomgongluckcvipblobmastercodeioreactorc-nav">
+										 1.2 Reactor实现
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#2%e6%97%a5%e5%bf%97%e6%a8%a1%e5%9d%97" v-on:click="closeDrawer" id="2日志模块-nav">
+										 2.日志模块
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#21-log4cpp%e6%a8%a1%e5%9d%97" v-on:click="closeDrawer" id="21-log4cpp模块-nav">
+										 2.1 log4cpp模块
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#22-log4cpp%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85" v-on:click="closeDrawer" id="22-log4cpp编译安装-nav">
+										 2.2 log4cpp编译安装
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#23-log4cpp%e4%be%8b%e5%ad%90httpsgithubcomgongluckcvipblobmastercodeloglog4cpp" v-on:click="closeDrawer" id="23-log4cpp例子httpsgithubcomgongluckcvipblobmastercodeloglog4cpp-nav">
+										 2.3 log4cpp例子
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#3%e7%99%be%e4%b8%87%e5%b9%b6%e5%8f%91" v-on:click="closeDrawer" id="3百万并发-nav">
+										 3.百万并发
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#31-c10k" v-on:click="closeDrawer" id="31-c10k-nav">
+										 3.1 C10K
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#32-c1000k" v-on:click="closeDrawer" id="32-c1000k-nav">
+										 3.2 C1000K
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#33-c10m" v-on:click="closeDrawer" id="33-c10m-nav">
+										 3.3 C10M
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a class="pagination-action" v-on:click="toggleDarkMode">
+            <i class="material-icons pagination-action-icon" v-if="isDarkMode">
+                brightness_4
+            </i>
+            <i class="material-icons pagination-action-icon" v-else="isDarkMode">
+                brightness_7
+            </i>
+        </a>
+        
+        
+    </div>
+</div><div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    Categories
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    Tags
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="https://www.cnblogs.com/gongluck/">
+                    CNBLOG
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="https://blog.csdn.net/gongluck93">
+                    CSDN
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="https://github.com/gongluck">
+                    Github
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/index.xml">
+                    RSS Feed
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e4%ba%94%e7%bd%91%e7%bb%9c%e6%9c%8d%e5%8a%a1%e4%b8%93%e9%a2%98" v-on:click="closeDrawer" id="五网络服务专题-nav">
+										 五、网络服务专题
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#0%e9%a1%b9%e7%9b%ae%e4%bb%93%e5%ba%93" v-on:click="closeDrawer" id="0项目仓库-nav">
+										 0.项目仓库
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#1reactor%e5%8f%8d%e5%ba%94%e5%a0%86" v-on:click="closeDrawer" id="1reactor反应堆-nav">
+										 1.Reactor反应堆
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#11-reactor%e6%a8%a1%e5%9e%8b" v-on:click="closeDrawer" id="11-reactor模型-nav">
+										 1.1 Reactor模型
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#12-reactor%e5%ae%9e%e7%8e%b0httpsgithubcomgongluckcvipblobmastercodeioreactorc" v-on:click="closeDrawer" id="12-reactor实现httpsgithubcomgongluckcvipblobmastercodeioreactorc-nav">
+										 1.2 Reactor实现
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#2%e6%97%a5%e5%bf%97%e6%a8%a1%e5%9d%97" v-on:click="closeDrawer" id="2日志模块-nav">
+										 2.日志模块
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#21-log4cpp%e6%a8%a1%e5%9d%97" v-on:click="closeDrawer" id="21-log4cpp模块-nav">
+										 2.1 log4cpp模块
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#22-log4cpp%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85" v-on:click="closeDrawer" id="22-log4cpp编译安装-nav">
+										 2.2 log4cpp编译安装
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#23-log4cpp%e4%be%8b%e5%ad%90httpsgithubcomgongluckcvipblobmastercodeloglog4cpp" v-on:click="closeDrawer" id="23-log4cpp例子httpsgithubcomgongluckcvipblobmastercodeloglog4cpp-nav">
+										 2.3 log4cpp例子
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#3%e7%99%be%e4%b8%87%e5%b9%b6%e5%8f%91" v-on:click="closeDrawer" id="3百万并发-nav">
+										 3.百万并发
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#31-c10k" v-on:click="closeDrawer" id="31-c10k-nav">
+										 3.1 C10K
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#32-c1000k" v-on:click="closeDrawer" id="32-c1000k-nav">
+										 3.2 C1000K
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#33-c10m" v-on:click="closeDrawer" id="33-c10m-nav">
+										 3.3 C10M
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="https://gongluck.github.io">
+            gongluck&#39;s blog
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" v-on:click="toggleDarkMode">
+            <i class="material-icons" v-if="isDarkMode">
+                brightness_4
+            </i>
+            <i class="material-icons" v-else="isDarkMode">
+                brightness_7
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="https://gongluck.github.io">
+        <div class="single-column-header-title">gongluck&#39;s blog</div>
+        
+        <div class="single-column-header-subtitle">C/C&#43;&#43; Win32/MFC Qt Golang</div>
+        
+
+    </a>
+</div>
+            <div id="content">
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+                
+            
+
+            <div class="post-head-wrapper"
+                
+                    
+                    
+                    style="background-image: url('https://gongluck.github.io/img/linux_wh.jpg')"
+                    
+                
+            >
+                <div class="post-title">
+                    网络服务专题
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2020-11-30 21:05
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/linux">linux</a>
+                                &nbsp;
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/linux">linux</a>
+                                &nbsp;
+                            
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h2 id="五网络服务专题">五、网络服务专题</h2>
+<h3 id="0项目仓库">0.项目仓库</h3>
+<ul>
+<li><a href="https://github.com/gongluck/CVIP.git">https://github.com/gongluck/CVIP.git</a></li>
+</ul>
+<h3 id="1reactor反应堆">1.Reactor反应堆</h3>
+<h4 id="11-reactor模型">1.1 Reactor模型</h4>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/Reactor%E6%A8%A1%E5%9E%8B.png?raw=true" alt="Reactor模型"></p>
+<ul>
+<li>
+<p>Reactor释义“反应堆”，是一种事件驱动机制。和普通函数调用的不同之处在于：应用程序不是主动的调用某个API完成处理，而是恰恰 相反，Reactor逆置了事件处理流程，应用程序需要提供相应的接口并注册到Reactor上，如果相应的时间发生，Reactor将主动调用应用程序注册的接口，这些接口又称为“回调函数”。</p>
+</li>
+<li>
+<p>Reactor模式是处理并发I/O比较常见的一种模式，用于同步I/O，中心思想是将所有要处理的I/O事件注册到一个中心I/O多路复用器上，同时主线程/进程阻塞在多路复用器上；一旦有I/O事件到来或是准备就绪（文件描述符或socket可读、写），多路复用器返回并将事先注册的相应I/O事件分发到对应的处理器中。</p>
+</li>
+<li>
+<p>Reactor模型有三个重要的组件：</p>
+<p>​	<img src="https://github.com/gongluck/CVIP/blob/master/images/Reactor%E7%BB%84%E4%BB%B6.png?raw=true" alt="Reactor组件"></p>
+<ul>
+<li>多路复用器：由操作系统提供，在linux上一般是select、poll、epoll等系统调用。</li>
+<li>事件分发器：将多路复用器中返回的就绪事件分到对应的处理函数中。</li>
+<li>事件处理器：负责处理特定事件的处理函数。</li>
+</ul>
+</li>
+</ul>
+<h4 id="12-reactor实现httpsgithubcomgongluckcvipblobmastercodeioreactorc">1.2 <a href="https://github.com/gongluck/CVIP/blob/master/code/io/reactor.c">Reactor实现</a></h4>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#228b22">/*
+</span><span style="color:#228b22"> * @Author: gongluck 
+</span><span style="color:#228b22"> * @Date: 2020-11-26 09:41:40 
+</span><span style="color:#228b22"> * @Last Modified by: gongluck
+</span><span style="color:#228b22"> * @Last Modified time: 2020-11-26 16:58:43
+</span><span style="color:#228b22"> */</span>
+
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdlib.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;string.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;sys/socket.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;sys/epoll.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;arpa/inet.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;fcntl.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;unistd.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;errno.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>
+<span style="color:#1e889b">#define BUFFER_LENGTH 4096
+</span><span style="color:#1e889b">#define MAX_EPOLL_EVENTS 1024
+</span><span style="color:#1e889b">#define SERVER_PORT 8888
+</span><span style="color:#1e889b"></span>
+<span style="color:#8b008b;font-weight:bold">typedef</span> <span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">NCALLBACK</span>(<span style="color:#00688b;font-weight:bold">int</span>, <span style="color:#00688b;font-weight:bold">int</span>, <span style="color:#00688b;font-weight:bold">void</span> *);
+
+<span style="color:#8b008b;font-weight:bold">struct</span> ntyevent
+{
+    <span style="color:#00688b;font-weight:bold">int</span> fd;
+    <span style="color:#00688b;font-weight:bold">int</span> events;
+    <span style="color:#00688b;font-weight:bold">void</span> *arg;
+    <span style="color:#00688b;font-weight:bold">int</span> (*callback)(<span style="color:#00688b;font-weight:bold">int</span> fd, <span style="color:#00688b;font-weight:bold">int</span> events, <span style="color:#00688b;font-weight:bold">void</span> *arg);
+
+    <span style="color:#00688b;font-weight:bold">int</span> status;<span style="color:#228b22">//是否已经添加到epoll中
+</span><span style="color:#228b22"></span>    <span style="color:#00688b;font-weight:bold">char</span> buffer[BUFFER_LENGTH];
+    <span style="color:#00688b;font-weight:bold">int</span> length;
+    <span style="color:#00688b;font-weight:bold">long</span> last_active;
+};
+
+<span style="color:#8b008b;font-weight:bold">struct</span> ntyreactor
+{
+    <span style="color:#00688b;font-weight:bold">int</span> epfd;
+    <span style="color:#8b008b;font-weight:bold">struct</span> ntyevent events[MAX_EPOLL_EVENTS];
+};
+
+<span style="color:#00688b;font-weight:bold">void</span> <span style="color:#008b45">nty_event_set</span>(<span style="color:#8b008b;font-weight:bold">struct</span> ntyevent *ev, <span style="color:#00688b;font-weight:bold">int</span> fd, NCALLBACK callback, <span style="color:#00688b;font-weight:bold">void</span> *arg)
+{
+    ev-&gt;fd = fd;
+    ev-&gt;callback = callback;
+    ev-&gt;events = <span style="color:#b452cd">0</span>;
+    ev-&gt;arg = arg;
+    ev-&gt;last_active = time(<span style="color:#658b00">NULL</span>);
+
+    <span style="color:#8b008b;font-weight:bold">return</span>;
+}
+
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">nty_event_add</span>(<span style="color:#00688b;font-weight:bold">int</span> epfd, <span style="color:#00688b;font-weight:bold">int</span> events, <span style="color:#8b008b;font-weight:bold">struct</span> ntyevent *ev)
+{
+    <span style="color:#8b008b;font-weight:bold">struct</span> epoll_event ep_ev = {<span style="color:#b452cd">0</span>, {<span style="color:#b452cd">0</span>}};
+    ep_ev.data.ptr = ev;
+    ep_ev.events = ev-&gt;events = events;
+
+    <span style="color:#00688b;font-weight:bold">int</span> op;
+    <span style="color:#8b008b;font-weight:bold">if</span> (ev-&gt;status == <span style="color:#b452cd">1</span>)
+    {
+        op = EPOLL_CTL_MOD;
+    }
+    <span style="color:#8b008b;font-weight:bold">else</span>
+    {
+        op = EPOLL_CTL_ADD;
+        ev-&gt;status = <span style="color:#b452cd">1</span>;
+    }
+
+    <span style="color:#8b008b;font-weight:bold">if</span> (epoll_ctl(epfd, op, ev-&gt;fd, &amp;ep_ev) &lt; <span style="color:#b452cd">0</span>)
+    {
+        printf(<span style="color:#cd5555">&#34;event add failed [fd=%d], events[%d]</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, ev-&gt;fd, events);
+        <span style="color:#8b008b;font-weight:bold">return</span> -<span style="color:#b452cd">1</span>;
+    }
+
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">nty_event_del</span>(<span style="color:#00688b;font-weight:bold">int</span> epfd, <span style="color:#8b008b;font-weight:bold">struct</span> ntyevent *ev)
+{
+    <span style="color:#8b008b;font-weight:bold">struct</span> epoll_event ep_ev = {<span style="color:#b452cd">0</span>, {<span style="color:#b452cd">0</span>}};
+
+    <span style="color:#8b008b;font-weight:bold">if</span> (ev-&gt;status != <span style="color:#b452cd">1</span>)
+    {
+        <span style="color:#8b008b;font-weight:bold">return</span> -<span style="color:#b452cd">1</span>;
+    }
+
+    ep_ev.data.ptr = ev;
+    ev-&gt;status = <span style="color:#b452cd">0</span>;
+    epoll_ctl(epfd, EPOLL_CTL_DEL, ev-&gt;fd, &amp;ep_ev);
+
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">recv_cb</span>(<span style="color:#00688b;font-weight:bold">int</span> fd, <span style="color:#00688b;font-weight:bold">int</span> events, <span style="color:#00688b;font-weight:bold">void</span> *arg);
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">send_cb</span>(<span style="color:#00688b;font-weight:bold">int</span> fd, <span style="color:#00688b;font-weight:bold">int</span> events, <span style="color:#00688b;font-weight:bold">void</span> *arg)
+{
+    <span style="color:#8b008b;font-weight:bold">struct</span> ntyreactor *reactor = (<span style="color:#8b008b;font-weight:bold">struct</span> ntyreactor *)arg;
+    <span style="color:#8b008b;font-weight:bold">struct</span> ntyevent *ev = reactor-&gt;events + fd;
+
+    <span style="color:#00688b;font-weight:bold">int</span> len = send(fd, ev-&gt;buffer, ev-&gt;length, <span style="color:#b452cd">0</span>);
+    <span style="color:#8b008b;font-weight:bold">if</span> (len &gt; <span style="color:#b452cd">0</span>)
+    {
+        printf(<span style="color:#cd5555">&#34;send[fd=%d], [%d]%s</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, fd, len, ev-&gt;buffer);
+
+        nty_event_del(reactor-&gt;epfd, ev);
+        nty_event_set(ev, fd, recv_cb, reactor);
+        nty_event_add(reactor-&gt;epfd, EPOLLIN, ev);
+    }
+    <span style="color:#8b008b;font-weight:bold">else</span>
+    {
+        close(ev-&gt;fd);
+
+        nty_event_del(reactor-&gt;epfd, ev);
+        printf(<span style="color:#cd5555">&#34;send[fd=%d] error %s</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, fd, strerror(errno));
+    }
+
+    <span style="color:#8b008b;font-weight:bold">return</span> len;
+}
+
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">recv_cb</span>(<span style="color:#00688b;font-weight:bold">int</span> fd, <span style="color:#00688b;font-weight:bold">int</span> events, <span style="color:#00688b;font-weight:bold">void</span> *arg)
+{
+    <span style="color:#8b008b;font-weight:bold">struct</span> ntyreactor *reactor = (<span style="color:#8b008b;font-weight:bold">struct</span> ntyreactor *)arg;
+    <span style="color:#8b008b;font-weight:bold">struct</span> ntyevent *ev = reactor-&gt;events + fd;
+
+    <span style="color:#00688b;font-weight:bold">int</span> len = recv(fd, ev-&gt;buffer, BUFFER_LENGTH, <span style="color:#b452cd">0</span>);
+    nty_event_del(reactor-&gt;epfd, ev);
+    <span style="color:#8b008b;font-weight:bold">if</span> (len &gt; <span style="color:#b452cd">0</span>)
+    {
+        ev-&gt;length = len;
+        ev-&gt;buffer[len] = <span style="color:#cd5555">&#39;\0&#39;</span>;
+
+        printf(<span style="color:#cd5555">&#34;C[%d]:%s</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, fd, ev-&gt;buffer);
+
+        nty_event_set(ev, fd, send_cb, reactor);
+        nty_event_add(reactor-&gt;epfd, EPOLLOUT, ev);
+    }
+    <span style="color:#8b008b;font-weight:bold">else</span> <span style="color:#8b008b;font-weight:bold">if</span> (len == <span style="color:#b452cd">0</span>)
+    {
+        close(ev-&gt;fd);
+        printf(<span style="color:#cd5555">&#34;[fd=%d] pos[%ld], closed</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, fd, ev - reactor-&gt;events);
+    }
+    <span style="color:#8b008b;font-weight:bold">else</span>
+    {
+        close(ev-&gt;fd);
+        printf(<span style="color:#cd5555">&#34;recv[fd=%d] error[%d]:%s</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, fd, errno, strerror(errno));
+    }
+
+    <span style="color:#8b008b;font-weight:bold">return</span> len;
+}
+
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">accept_cb</span>(<span style="color:#00688b;font-weight:bold">int</span> fd, <span style="color:#00688b;font-weight:bold">int</span> events, <span style="color:#00688b;font-weight:bold">void</span> *arg)
+{
+    <span style="color:#8b008b;font-weight:bold">struct</span> ntyreactor *reactor = (<span style="color:#8b008b;font-weight:bold">struct</span> ntyreactor *)arg;
+    <span style="color:#8b008b;font-weight:bold">if</span> (reactor == <span style="color:#658b00">NULL</span>)
+        <span style="color:#8b008b;font-weight:bold">return</span> -<span style="color:#b452cd">1</span>;
+
+    <span style="color:#8b008b;font-weight:bold">struct</span> sockaddr_in client_addr = {<span style="color:#b452cd">0</span>};
+    socklen_t len = <span style="color:#8b008b;font-weight:bold">sizeof</span>(client_addr);
+
+    <span style="color:#00688b;font-weight:bold">int</span> clientfd;
+    <span style="color:#8b008b;font-weight:bold">if</span> ((clientfd = accept(fd, (<span style="color:#8b008b;font-weight:bold">struct</span> sockaddr *)&amp;client_addr, &amp;len)) == -<span style="color:#b452cd">1</span>)
+    {
+        <span style="color:#8b008b;font-weight:bold">if</span> (errno != EAGAIN &amp;&amp; errno != EINTR)
+        {
+        }
+        printf(<span style="color:#cd5555">&#34;accept: %s</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, strerror(errno));
+        <span style="color:#8b008b;font-weight:bold">return</span> -<span style="color:#b452cd">1</span>;
+    }
+
+    <span style="color:#00688b;font-weight:bold">int</span> i = <span style="color:#b452cd">0</span>;
+    <span style="color:#8b008b;font-weight:bold">do</span>
+    {
+        <span style="color:#8b008b;font-weight:bold">for</span> (i = <span style="color:#b452cd">0</span>; i &lt; MAX_EPOLL_EVENTS; i++)
+        {
+            <span style="color:#8b008b;font-weight:bold">if</span> (reactor-&gt;events[i].status == <span style="color:#b452cd">0</span>)
+            {
+                <span style="color:#8b008b;font-weight:bold">break</span>;
+            }
+        }
+        <span style="color:#8b008b;font-weight:bold">if</span> (i == MAX_EPOLL_EVENTS)
+        {
+            printf(<span style="color:#cd5555">&#34;%s: max connect limit[%d]</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, __func__, MAX_EPOLL_EVENTS);
+            <span style="color:#8b008b;font-weight:bold">break</span>;
+        }
+
+        <span style="color:#8b008b;font-weight:bold">if</span> (fcntl(clientfd, F_SETFL, O_NONBLOCK) &lt; <span style="color:#b452cd">0</span>)
+        {
+            printf(<span style="color:#cd5555">&#34;%s: fcntl nonblocking failed, %d</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, __func__, MAX_EPOLL_EVENTS);
+            <span style="color:#8b008b;font-weight:bold">break</span>;
+        }
+
+        nty_event_set(&amp;reactor-&gt;events[clientfd], clientfd, recv_cb, reactor);
+        nty_event_add(reactor-&gt;epfd, EPOLLIN, &amp;reactor-&gt;events[clientfd]);
+    } <span style="color:#8b008b;font-weight:bold">while</span> (<span style="color:#b452cd">0</span>);
+
+    printf(<span style="color:#cd5555">&#34;new connect [%s:%d][time:%ld], pos[%d]</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>,
+           inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port), reactor-&gt;events[i].last_active, i);
+
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">init_sock</span>(<span style="color:#00688b;font-weight:bold">short</span> port)
+{
+    <span style="color:#00688b;font-weight:bold">int</span> fd = socket(AF_INET, SOCK_STREAM, <span style="color:#b452cd">0</span>);
+    fcntl(fd, F_SETFL, O_NONBLOCK);
+
+    <span style="color:#8b008b;font-weight:bold">struct</span> sockaddr_in server_addr = {<span style="color:#b452cd">0</span>};
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+    server_addr.sin_port = htons(port);
+
+    bind(fd, (<span style="color:#8b008b;font-weight:bold">struct</span> sockaddr *)&amp;server_addr, <span style="color:#8b008b;font-weight:bold">sizeof</span>(server_addr));
+    <span style="color:#8b008b;font-weight:bold">if</span> (listen(fd, <span style="color:#b452cd">20</span>) &lt; <span style="color:#b452cd">0</span>)
+    {
+        printf(<span style="color:#cd5555">&#34;listen failed : %s</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, strerror(errno));
+    }
+
+    <span style="color:#8b008b;font-weight:bold">return</span> fd;
+}
+
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">ntyreactor_init</span>(<span style="color:#8b008b;font-weight:bold">struct</span> ntyreactor *reactor)
+{
+    <span style="color:#8b008b;font-weight:bold">if</span> (reactor == <span style="color:#658b00">NULL</span>)
+        <span style="color:#8b008b;font-weight:bold">return</span> -<span style="color:#b452cd">1</span>;
+    memset(reactor, <span style="color:#b452cd">0</span>, <span style="color:#8b008b;font-weight:bold">sizeof</span>(<span style="color:#8b008b;font-weight:bold">struct</span> ntyreactor));
+
+    reactor-&gt;epfd = epoll_create(<span style="color:#b452cd">1</span>);
+    <span style="color:#8b008b;font-weight:bold">if</span> (reactor-&gt;epfd &lt;= <span style="color:#b452cd">0</span>)
+    {
+        printf(<span style="color:#cd5555">&#34;create epfd in %s err %s</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, __func__, strerror(errno));
+        <span style="color:#8b008b;font-weight:bold">return</span> -<span style="color:#b452cd">2</span>;
+    }
+}
+
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">ntyreactor_destory</span>(<span style="color:#8b008b;font-weight:bold">struct</span> ntyreactor *reactor)
+{
+    close(reactor-&gt;epfd);
+    
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">ntyreactor_addlistener</span>(<span style="color:#8b008b;font-weight:bold">struct</span> ntyreactor *reactor, <span style="color:#00688b;font-weight:bold">int</span> sockfd, NCALLBACK *acceptor)
+{
+    <span style="color:#8b008b;font-weight:bold">if</span> (reactor == <span style="color:#658b00">NULL</span>)
+        <span style="color:#8b008b;font-weight:bold">return</span> -<span style="color:#b452cd">1</span>;
+
+    nty_event_set(&amp;reactor-&gt;events[sockfd], sockfd, acceptor, reactor);
+    nty_event_add(reactor-&gt;epfd, EPOLLIN, &amp;reactor-&gt;events[sockfd]);
+
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">ntyreactor_run</span>(<span style="color:#8b008b;font-weight:bold">struct</span> ntyreactor *reactor)
+{
+    <span style="color:#8b008b;font-weight:bold">if</span> (reactor == <span style="color:#658b00">NULL</span>)
+        <span style="color:#8b008b;font-weight:bold">return</span> -<span style="color:#b452cd">1</span>;
+    <span style="color:#8b008b;font-weight:bold">if</span> (reactor-&gt;epfd &lt; <span style="color:#b452cd">0</span>)
+        <span style="color:#8b008b;font-weight:bold">return</span> -<span style="color:#b452cd">1</span>;
+
+    <span style="color:#8b008b;font-weight:bold">struct</span> epoll_event events[MAX_EPOLL_EVENTS + <span style="color:#b452cd">1</span>];
+    <span style="color:#00688b;font-weight:bold">int</span> checkpos = <span style="color:#b452cd">0</span>, i;
+    <span style="color:#8b008b;font-weight:bold">while</span> (<span style="color:#b452cd">1</span>)
+    {
+        <span style="color:#00688b;font-weight:bold">long</span> now = time(<span style="color:#658b00">NULL</span>);
+        <span style="color:#8b008b;font-weight:bold">for</span> (i = <span style="color:#b452cd">0</span>; i &lt; MAX_EPOLL_EVENTS/<span style="color:#b452cd">10</span>; i++, checkpos++)
+        {
+            <span style="color:#8b008b;font-weight:bold">if</span> (checkpos == MAX_EPOLL_EVENTS)
+            {
+                checkpos = <span style="color:#b452cd">0</span>;
+            }
+
+            <span style="color:#8b008b;font-weight:bold">if</span> (reactor-&gt;events[checkpos].status != <span style="color:#b452cd">1</span>)
+            {
+                <span style="color:#8b008b;font-weight:bold">continue</span>;
+            }
+
+            <span style="color:#00688b;font-weight:bold">long</span> duration = now - reactor-&gt;events[checkpos].last_active;
+            <span style="color:#8b008b;font-weight:bold">if</span> (duration &gt;= <span style="color:#b452cd">60</span>)
+            {
+                close(reactor-&gt;events[checkpos].fd);
+                printf(<span style="color:#cd5555">&#34;[fd=%d] timeout</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, reactor-&gt;events[checkpos].fd);
+                nty_event_del(reactor-&gt;epfd, &amp;reactor-&gt;events[checkpos]);
+            }
+        }
+
+        <span style="color:#00688b;font-weight:bold">int</span> nready = epoll_wait(reactor-&gt;epfd, events, MAX_EPOLL_EVENTS, <span style="color:#b452cd">1000</span>);
+        <span style="color:#8b008b;font-weight:bold">if</span> (nready &lt; <span style="color:#b452cd">0</span>)
+        {
+            printf(<span style="color:#cd5555">&#34;epoll_wait error, exit</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>);
+            <span style="color:#8b008b;font-weight:bold">continue</span>;
+        }
+
+        <span style="color:#8b008b;font-weight:bold">for</span> (i = <span style="color:#b452cd">0</span>; i &lt; nready; i++)
+        {
+            <span style="color:#8b008b;font-weight:bold">struct</span> ntyevent *ev = (<span style="color:#8b008b;font-weight:bold">struct</span> ntyevent *)events[i].data.ptr;
+            <span style="color:#8b008b;font-weight:bold">if</span> ((events[i].events &amp; EPOLLIN) &amp;&amp; (ev-&gt;events &amp; EPOLLIN))
+            {
+                ev-&gt;callback(ev-&gt;fd, events[i].events, ev-&gt;arg);
+            }
+            <span style="color:#8b008b;font-weight:bold">if</span> ((events[i].events &amp; EPOLLOUT) &amp;&amp; (ev-&gt;events &amp; EPOLLOUT))
+            {
+                ev-&gt;callback(ev-&gt;fd, events[i].events, ev-&gt;arg);
+            }
+        }
+    }
+}
+
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>()
+{
+    <span style="color:#00688b;font-weight:bold">unsigned</span> <span style="color:#00688b;font-weight:bold">short</span> port = SERVER_PORT;
+    <span style="color:#00688b;font-weight:bold">int</span> sockfd = init_sock(port);
+
+    <span style="color:#8b008b;font-weight:bold">struct</span> ntyreactor reactor;
+    ntyreactor_init(&amp;reactor);
+
+    ntyreactor_addlistener(&amp;reactor, sockfd, accept_cb);
+    ntyreactor_run(&amp;reactor);
+
+    ntyreactor_destory(&amp;reactor);
+    close(sockfd);
+
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+</code></pre></div><!-- raw HTML omitted -->
+<h3 id="2日志模块">2.日志模块</h3>
+<h4 id="21-log4cpp模块">2.1 log4cpp模块</h4>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/log4cpp%E6%A8%A1%E5%9D%97%E5%9B%BE.png?raw=true" alt="log4cpp模块图"></p>
+<ul>
+<li>
+<p>log4cpp有且只⼀个根Category，可以有多个⼦Category组成树型结构。</p>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/log4cpp%E7%9A%84appender%E7%A7%8D%E7%B1%BB.png?raw=true" alt="log4cpp的appender种类"></p>
+</li>
+<li>
+<p>Appender负责将⽇志写⼊相应的设备，⽐如控制台、⽂件、调试器、Windows⽇志、syslog等。</p>
+</li>
+<li>
+<p>Layout控制输出⽇志的显示样式。Log4cpp内置了4种Layout：</p>
+<ul>
+<li>PassThroughLayout：直通布局。</li>
+<li>SimpleLayout：简单布局。它只会为你添加“优先级”的输出。</li>
+<li>BasicLayout：基本布局。它会为你添加“时间”、“优先级”、“种类”、“NDC”。</li>
+<li>PatternLayout：格式化布局。它的使⽤⽅式类似C语⾔中的printf，使⽤格式化它符串来描述输出格式。</li>
+</ul>
+</li>
+</ul>
+<h4 id="22-log4cpp编译安装">2.2 log4cpp编译安装</h4>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">wget https://sourceforge.net/projects/log4cpp/files/log4cpp-1.1.x%20%28new%29/log4cpp-1.1/log4cpp-1.1.3.tar.gz
+tar zxf log4cpp-1.1.3.tar.gz
+<span style="color:#658b00">cd</span> log4cpp
+./configure
+make -j <span style="color:#b452cd">8</span>
+sudo make install
+sudo ldconfig
+</code></pre></div><h4 id="23-log4cpp例子httpsgithubcomgongluckcvipblobmastercodeloglog4cpp">2.3 <a href="https://github.com/gongluck/CVIP/blob/master/code/log/log4cpp">log4cpp例子</a></h4>
+<ul>
+<li>
+<p><a href="https://github.com/gongluck/CVIP/blob/master/code/log/log4cpp/log1.cpp">例子1</a></p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#228b22">/*
+</span><span style="color:#228b22"> * @Author: gongluck 
+</span><span style="color:#228b22"> * @Date: 2020-11-27 21:12:58 
+</span><span style="color:#228b22"> * @Last Modified by: gongluck
+</span><span style="color:#228b22"> * @Last Modified time: 2020-11-27 21:30:54
+</span><span style="color:#228b22"> */</span>
+
+<span style="color:#228b22">// g++ log1.cpp -llog4cpp -lpthread
+</span><span style="color:#228b22"></span>
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;log4cpp/Category.hh&#34;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;log4cpp/FileAppender.hh&#34;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;log4cpp/OstreamAppender.hh&#34;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;log4cpp/BasicLayout.hh&#34;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>()
+{
+    <span style="color:#228b22">// 实例化一个layout对象
+</span><span style="color:#228b22"></span>    log4cpp::Layout *layout = <span style="color:#8b008b;font-weight:bold">new</span> log4cpp::BasicLayout();
+    <span style="color:#228b22">// 初始化一个appender对象
+</span><span style="color:#228b22"></span>    log4cpp::Appender *appender = <span style="color:#8b008b;font-weight:bold">new</span> log4cpp::FileAppender(<span style="color:#cd5555">&#34;FileAppender&#34;</span>,<span style="color:#cd5555">&#34;./log1.log&#34;</span>);
+    log4cpp::Appender *osappender = <span style="color:#8b008b;font-weight:bold">new</span> log4cpp::OstreamAppender(<span style="color:#cd5555">&#34;OstreamAppender&#34;</span>,&amp;std::cout);
+    <span style="color:#228b22">// 把layout对象附着在appender对象上，一个layout格式样式对应一个appender
+</span><span style="color:#228b22"></span>    appender-&gt;setLayout(layout);
+    <span style="color:#228b22">// 实例化一个category对象
+</span><span style="color:#228b22"></span>    log4cpp::Category &amp;warn_log = log4cpp::Category::getInstance(<span style="color:#cd5555">&#34;gongluck&#34;</span>); <span style="color:#228b22">// 单例工厂
+</span><span style="color:#228b22"></span>    <span style="color:#228b22">// 设置additivity为false，替换已有的appender，不继承父类appender
+</span><span style="color:#228b22"></span>    warn_log.setAdditivity(<span style="color:#658b00">false</span>);
+    <span style="color:#228b22">// 把appender对象附到category上
+</span><span style="color:#228b22"></span>    warn_log.setAppender(appender);
+    warn_log.addAppender(osappender);
+    <span style="color:#228b22">// 设置category的优先级，低于此优先级的日志不被记录
+</span><span style="color:#228b22"></span>    warn_log.setPriority(log4cpp::Priority::INFO);
+    <span style="color:#228b22">// 记录一些日志
+</span><span style="color:#228b22"></span>    warn_log.info(<span style="color:#cd5555">&#34;Program info which cannot be wirten&#34;</span>);
+    warn_log.debug(<span style="color:#cd5555">&#34;This debug message will fail to write&#34;</span>);
+    warn_log.alert(<span style="color:#cd5555">&#34;Alert info&#34;</span>);
+    <span style="color:#228b22">// 其他记录日志方式
+</span><span style="color:#228b22"></span>    warn_log.log(log4cpp::Priority::WARN, <span style="color:#cd5555">&#34;This will be a logged warning&#34;</span>);
+
+    log4cpp::Priority::PriorityLevel priority = log4cpp::Priority::DEBUG;
+    warn_log.log(priority, <span style="color:#cd5555">&#34;Importance depends on context&#34;</span>);
+    warn_log.critStream() &lt;&lt; <span style="color:#cd5555">&#34;This will show up &lt;&lt; as &#34;</span> &lt;&lt; <span style="color:#b452cd">1</span> &lt;&lt; <span style="color:#cd5555">&#34; critical message&#34;</span>;
+    <span style="color:#228b22">// clean up and flush all appenders
+</span><span style="color:#228b22"></span>    log4cpp::Category::shutdown();
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+</code></pre></div><!-- raw HTML omitted -->
+</li>
+<li>
+<p><a href="https://github.com/gongluck/CVIP/blob/master/code/log/log4cpp/log2.cpp">例子2</a></p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#228b22">/*
+</span><span style="color:#228b22"> * @Author: gongluck 
+</span><span style="color:#228b22"> * @Date: 2020-11-27 21:31:03 
+</span><span style="color:#228b22"> * @Last Modified by: gongluck
+</span><span style="color:#228b22"> * @Last Modified time: 2020-11-27 21:44:29
+</span><span style="color:#228b22"> */</span>
+  
+<span style="color:#228b22">// g++ log2.cpp -llog4cpp -lpthread
+</span><span style="color:#228b22"></span>  
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;log4cpp/Category.hh&#34;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;log4cpp/PropertyConfigurator.hh&#34;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>  
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>()
+{
+    <span style="color:#8b008b;font-weight:bold">try</span>
+    {
+        log4cpp::PropertyConfigurator::configure(<span style="color:#cd5555">&#34;./log2.conf&#34;</span>);
+    }
+    <span style="color:#8b008b;font-weight:bold">catch</span> (log4cpp::ConfigureFailure &amp;f)
+    {
+        std::cout &lt;&lt; <span style="color:#cd5555">&#34;Configure Problem &#34;</span> &lt;&lt; f.what() &lt;&lt; std::endl;
+        <span style="color:#8b008b;font-weight:bold">return</span> -<span style="color:#b452cd">1</span>;
+    }
+  
+    <span style="color:#228b22">// 实例化category对象
+</span><span style="color:#228b22"></span>    log4cpp::Category &amp;root = log4cpp::Category::getRoot();
+  
+    log4cpp::Category &amp;category1 = log4cpp::Category::getInstance(std::string(<span style="color:#cd5555">&#34;category1&#34;</span>));
+    log4cpp::Category &amp;category3 = log4cpp::Category::getInstance(std::string(<span style="color:#cd5555">&#34;category1.category2&#34;</span>));
+     
+    category1.info(<span style="color:#cd5555">&#34;This is some info&#34;</span>);
+    category1.alert(<span style="color:#cd5555">&#34;A warning&#34;</span>);
+  
+    category3.debug(<span style="color:#cd5555">&#34;This debug message will fail to write&#34;</span>);
+    category3.alert(<span style="color:#cd5555">&#34;All hands abandon ship&#34;</span>);
+    category3.critStream() &lt;&lt; <span style="color:#cd5555">&#34;This will show up &lt;&lt; as &#34;</span> &lt;&lt; <span style="color:#b452cd">1</span> &lt;&lt; <span style="color:#cd5555">&#34; critical message&#34;</span>;
+    category3 &lt;&lt; log4cpp::Priority::ERROR&lt;&lt; <span style="color:#cd5555">&#34;And this will be an error&#34;</span>;
+    category3.log(log4cpp::Priority::WARN, <span style="color:#cd5555">&#34;This will be a logged warning&#34;</span>);
+      
+    log4cpp::Category::shutdown();
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+</code></pre></div><!-- raw HTML omitted -->
+</li>
+</ul>
+<h3 id="3百万并发">3.百万并发</h3>
+<h4 id="31-c10k">3.1 C10K</h4>
+<ul>
+<li>
+<p>从资源上来说，对2GB内存和千兆网卡的服务器来说，同时处理10000个请求，只要每个请求处理占用不到200KB（2GB/10000）的内存和100Kbit（1000Mbit/10000）的网络带宽就可以。所以，物理资源是足够的，接下来自然是软件的问题，特别是网络的 I/O 模型问题。</p>
+</li>
+<li>
+<p>在C10K以前，Linux中网络处理都用同步阻塞的方式，也就是每个请求都分配一个进程或者线程。请求数只有100个时，这种方式自然没问题，但增加到10000个请求时，10000个进程或线程的调度、上下文切换乃至它们占用的内存，都会成为瓶颈。</p>
+</li>
+<li>
+<p><strong>使用非阻塞I/O和水平触发通知，比如使用 select 或者 poll</strong></p>
+<ul>
+<li>应用软件使用select和poll时，需要对这些文件描述符列表进行轮询，这样，请求数多的时候就会比较耗时。并且，select和poll还有一些其他的限制。</li>
+<li>select使用固定长度的位相量，表示文件描述符的集合，因此会有最大描述符数量的限制。比如，在32位系统中，默认限制是1024。并且，在select内部，检查套接字状态是用轮询的方法，再加上应用软件使用时的轮询，就变成了一个O(n^2)的关系。</li>
+<li>poll改进了select的表示方法，换成了一个没有固定长度的数组，这样就没有了最大描述符数量的限制（当然还会受到系统文件描述符限制）。但应用程序在使用poll时，同样需要对文件描述符列表进行轮询，这样，处理耗时跟描述符数量就是O(N)的关系。</li>
+<li>应用程序每次调用select和poll时，还需要把文件描述符的集合，从用户空间传入内核空间，由内核修改后，再传出到用户空间中。这一来一回的内核空间与用户空间切换，也增加了处理成本。</li>
+</ul>
+</li>
+<li>
+<p><strong>使用非阻塞I/O和边缘触发通知，比如epoll</strong></p>
+<ul>
+<li>epoll使用红黑树，在内核中管理文件描述符的集合，这样，就不需要应用程序在每次操作时都传入、传出这个集合。</li>
+<li>epoll使用事件驱动的机制，只关注有I/O事件发生的文件描述符，不需要轮询扫描整个集合。</li>
+<li>由于边缘触发只在文件描述符可读或可写事件发生时才通知，那么应用程序就需要尽可能多地执行I/O，并要处理更多的异常事件。</li>
+</ul>
+</li>
+<li>
+<p><strong>使用异步I/O（Asynchronous I/O，简称为 AIO）</strong></p>
+<ul>
+<li>异步I/O允许应用程序同时发起很多I/O操作，而不用等待这些操作完成。而在I/O完成后，系统会用事件通知（比如信号或者回调函数）的方式，告诉应用程序。这时，应用程序才会去查询I/O操作的结果。</li>
+</ul>
+</li>
+</ul>
+<h4 id="32-c1000k">3.2 C1000K</h4>
+<ul>
+<li>基于C10K的这些理论，epoll配合线程池，再加上CPU、内存和网络接口的性能和容量提升。大部分情况下，C100K很自然就可以达到。</li>
+<li>从软件资源上来说，大量的连接也会占用大量的软件资源，比如文件描述符的数量、连接状态的跟踪（CONNTRACK）、网络协议栈的缓存大小（比如套接字读写缓存、TCP 读写缓存）等等。最后，大量请求带来的中断处理，也会带来非常高的处理成本。这样，就需要多队列网卡、中断负载均衡、CPU 绑定、RPS/RFS（软中断负载均衡到多个 CPU 核上），以及将网络包的处理卸载（Offload）到网络设备（如 TSO/GSO、LRO/GRO、VXLAN OFFLOAD）等各种硬件和软件的优化。</li>
+<li>C1000K 的解决方法，本质上还是构建在epoll的非阻塞I/O模型上。只不过，除了I/O模型之外，还需要从应用程序到Linux内核、再到CPU、内存和网络等各个层次的深度优化，特别是需要借助硬件，来卸载那些原来通过软件处理的大量功能。</li>
+</ul>
+<h4 id="33-c10m">3.3 C10M</h4>
+<ul>
+<li>Linux内核协议栈做了太多太繁重的工作。从网卡中断带来的硬中断处理程序开始，到软中断中的各层网络协议处理，最后再到应用程序，这个路径实在是太长了，就会导致网络包的处理优化，到了一定程度后，就无法更进一步了。</li>
+<li>要解决这个问题，最重要就是跳过内核协议栈的冗长路径，把网络包直接送到要处理的应用程序那里去。这里有两种常见的机制，DPDK和XDP。</li>
+</ul>
+
+                    
+                    <HR width="100%" id="EOF">
+                    <p style="color:#777;">Last modified on 2020-11-30</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="https://gongluck.github.io/linux/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E4%B8%93%E9%A2%98/">
+                    Next<br>性能测试专题
+                </a>
+                
+                
+                
+                <a class="older-posts" href="https://gongluck.github.io/linux/%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E4%B8%93%E9%A2%98/">
+                    Previous<br>开源框架专题
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+<div id="gitalk-container"></div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+            </div><div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	2020 gongluck&#39;s blog
+	</div>
+            </div>
+    <script>
+let app;
+
+app = new Vue({
+    el: '#app',
+    data: {
+        scrollY: 0,
+        navOpacity: 0,
+        isDrawerOpen: false,
+        mounted: false,
+        isDarkMode: false
+    },
+    methods: {
+            sgn(t, x) {
+                let k = 1. / (1. - 2 * t);
+                if (x <= t) return 0;
+                else if (x >= 1 - t) return 1;
+                else {
+                    return k * (x - t);
+                }
+            },
+            handleScroll() {
+                this.scrollY = window.scrollY;
+                this.navOpacity = this.sgn(.0, Math.min(1, Math.max(0, window.scrollY / (this.pageHeadHeight() - this.navBarHeight() * 0.8))));
+                const {navBar, navBackground, navTitle, extraContainer, streamContainer} = this.$refs;
+
+                if (this.navOpacity >= 1) {
+                    navBackground.style.opacity = 1;
+                    navTitle.style.opacity = 1;
+                } else {
+                    navBackground.style.opacity = 0;
+                    navTitle.style.opacity = 0;
+                }
+            },
+            handleResize() {
+                const {navBar, navBackground, navTitle, extraContainer, streamContainer} = this.$refs;
+                extraContainer.style.left = (streamContainer.offsetWidth - extraContainer.offsetWidth) + 'px';
+            },
+            navBarHeight() {
+                return this.$refs.navBar.offsetHeight;
+            },
+            pageHeadHeight() {
+                return this.$refs.pageHead.offsetHeight;
+            },
+            toggleDrawer() {
+                this.isDrawerOpen = !this.isDrawerOpen;
+                document.getElementsByTagName('html')[0].style.overflow = this.isDrawerOpen ? 'hidden' : 'unset';
+            },
+            closeDrawer() {
+                this.isDrawerOpen = false;
+                document.getElementsByTagName('html')[0].style.overflow = this.isDrawerOpen ? 'hidden' : 'unset';
+            },
+            toggleDarkMode() {
+                this.isDarkMode = !this.isDarkMode;
+                if (this.isDarkMode==true){
+                    document.cookie = "night=1;path=/";
+                    document.body.classList.add("night");
+                } else {
+                    document.cookie = "night=0;path=/";
+                    document.body.classList.remove("night");
+                }
+            }
+    },
+    created() {
+        window.addEventListener('scroll', this.handleScroll);
+        window.addEventListener('resize', this.handleResize);
+        window._nonDesktop = function () {
+            let check = false;
+            (function (a) {
+                if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) check = true;
+            })(navigator.userAgent || navigator.vendor || window.opera);
+            return check;
+        };
+        
+        var night = document.cookie.replace(/(?:(?:^|.*;\s*)night\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+        if (night==""){
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                
+            }
+        }else{
+            
+            if (night=="1") {
+                this.toggleDarkMode();
+            }
+        }
+    },
+    mounted() {
+        this.handleScroll();
+        this.handleResize();
+        this.mounted = true;
+        
+    },
+    destroyed() {
+        window.removeEventListener('scroll', this.handleScroll);
+        window.removeEventListener('resize', this.handleResize);
+    }
+});
+</script>
+
+<script src="https://gongluck.github.io/js/journal.js"></script>
+    </body>
+</html>

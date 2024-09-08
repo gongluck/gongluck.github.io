@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html><head>
+<title>CGO类型转换</title>
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-163347799-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+<script src="/vendor/js/jquery.min.js" ></script>
+<script src="/vendor/js/popper.min.js" ></script>
+<script src="/vendor/js/bootstrap.min.js" ></script>
+<script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+<script src="/vendor/js/vue.min.js" ></script>
+
+
+
+
+<link rel="stylesheet" href="https://gongluck.github.io/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
+
+
+
+<link rel="stylesheet" href="https://gongluck.github.io/scss/dark-mode.min.b8ced257adf01d727091488aba5d273c60910773635166b513b27c1c28b9c866.css" integrity="sha256-uM7SV63wHXJwkUiKul0nPGCRB3NjUWa1E7J8HCi5yGY=" media="screen">
+
+
+<script src="https://gongluck.github.io/js/loadCSS.js"></script>
+<script>
+  loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
+</script>
+
+<script src="https://gongluck.github.io/js/table.js"></script>
+
+
+
+
+<script src="https://gongluck.github.io/js/toc.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/vendor/js/md5.min.js"></script>
+<script>
+  var gitalk = new Gitalk({
+  clientID: '49c0a21d9340c4049e72',
+  clientSecret: '6a22a79ca072e86728e6b1385927d1ec92f3d4a8',
+  repo: 'blogtalk',
+  owner: 'gongluck',
+  admin: ['gongluck'],
+  id: md5(location.pathname),
+  distractionFreeMode: 'false'
+  });
+  window.onload = function () {
+        gitalk.render('gitalk-container')
+  }
+</script>
+
+
+
+
+
+
+</head><body>
+    	<div id="app"><div ref="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="https://gongluck.github.io">
+    
+        <div class="nav-title">
+            gongluck&#39;s blog
+        </div>
+        
+        <div class="nav-subtitle">
+            C/C&#43;&#43; Win32/MFC Qt Golang
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                Categories
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                Tags
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="https://www.cnblogs.com/gongluck/">
+                CNBLOG
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="https://blog.csdn.net/gongluck93">
+                CSDN
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="https://github.com/gongluck">
+                Github
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/index.xml">
+                RSS Feed
+            </a>
+            
+        
+    </div>
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> 
+    <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	2020 gongluck&#39;s blog
+	
+    </div>
+    
+</div><div ref="extraContainer" class="extra-container">
+    
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e4%bb%a3%e7%a0%81%e4%bb%93%e5%ba%93" v-on:click="closeDrawer" id="代码仓库-nav">
+										 代码仓库
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#_cgo_exporth" v-on:click="closeDrawer" id="_cgo_exporth-nav">
+										 _cgo_export.h
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#c-cgo-go%e7%b1%bb%e5%9e%8b%e6%98%a0%e5%b0%84" v-on:click="closeDrawer" id="c-cgo-go类型映射-nav">
+										 C-CGO-GO类型映射
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#go%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%92%8c%e5%88%87%e7%89%87" v-on:click="closeDrawer" id="go字符串和切片-nav">
+										 GO字符串和切片
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#go%e8%ae%bf%e9%97%aec%e7%9a%84%e7%bb%93%e6%9e%84%e4%bd%93%e8%81%94%e5%90%88%e6%9e%9a%e4%b8%be%e7%b1%bb%e5%9e%8b" v-on:click="closeDrawer" id="go访问c的结构体联合枚举类型-nav">
+										 GO访问C的结构体、联合、枚举类型
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#go%e8%ae%bf%e9%97%aec%e7%9a%84%e5%ad%97%e7%ac%a6%e4%b8%b2%e6%95%b0%e7%bb%84" v-on:click="closeDrawer" id="go访问c的字符串数组-nav">
+										 GO访问C的字符串、数组
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#go%e6%8c%87%e9%92%88%e5%92%8c%e6%95%b0%e5%80%bc%e8%bd%ac%e6%8d%a2" v-on:click="closeDrawer" id="go指针和数值转换-nav">
+										 GO指针和数值转换
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a class="pagination-action" v-on:click="toggleDarkMode">
+            <i class="material-icons pagination-action-icon" v-if="isDarkMode">
+                brightness_4
+            </i>
+            <i class="material-icons pagination-action-icon" v-else="isDarkMode">
+                brightness_7
+            </i>
+        </a>
+        
+        
+    </div>
+</div><div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    Categories
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    Tags
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="https://www.cnblogs.com/gongluck/">
+                    CNBLOG
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="https://blog.csdn.net/gongluck93">
+                    CSDN
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="https://github.com/gongluck">
+                    Github
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/index.xml">
+                    RSS Feed
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e4%bb%a3%e7%a0%81%e4%bb%93%e5%ba%93" v-on:click="closeDrawer" id="代码仓库-nav">
+										 代码仓库
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#_cgo_exporth" v-on:click="closeDrawer" id="_cgo_exporth-nav">
+										 _cgo_export.h
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#c-cgo-go%e7%b1%bb%e5%9e%8b%e6%98%a0%e5%b0%84" v-on:click="closeDrawer" id="c-cgo-go类型映射-nav">
+										 C-CGO-GO类型映射
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#go%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%92%8c%e5%88%87%e7%89%87" v-on:click="closeDrawer" id="go字符串和切片-nav">
+										 GO字符串和切片
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#go%e8%ae%bf%e9%97%aec%e7%9a%84%e7%bb%93%e6%9e%84%e4%bd%93%e8%81%94%e5%90%88%e6%9e%9a%e4%b8%be%e7%b1%bb%e5%9e%8b" v-on:click="closeDrawer" id="go访问c的结构体联合枚举类型-nav">
+										 GO访问C的结构体、联合、枚举类型
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#go%e8%ae%bf%e9%97%aec%e7%9a%84%e5%ad%97%e7%ac%a6%e4%b8%b2%e6%95%b0%e7%bb%84" v-on:click="closeDrawer" id="go访问c的字符串数组-nav">
+										 GO访问C的字符串、数组
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#go%e6%8c%87%e9%92%88%e5%92%8c%e6%95%b0%e5%80%bc%e8%bd%ac%e6%8d%a2" v-on:click="closeDrawer" id="go指针和数值转换-nav">
+										 GO指针和数值转换
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="https://gongluck.github.io">
+            gongluck&#39;s blog
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" v-on:click="toggleDarkMode">
+            <i class="material-icons" v-if="isDarkMode">
+                brightness_4
+            </i>
+            <i class="material-icons" v-else="isDarkMode">
+                brightness_7
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="https://gongluck.github.io">
+        <div class="single-column-header-title">gongluck&#39;s blog</div>
+        
+        <div class="single-column-header-subtitle">C/C&#43;&#43; Win32/MFC Qt Golang</div>
+        
+
+    </a>
+</div>
+            <div id="content">
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+                
+            
+
+            <div class="post-head-wrapper"
+                
+                    
+                    
+                    style="background-image: url('https://gongluck.github.io/img/cgo.jpg')"
+                    
+                
+            >
+                <div class="post-title">
+                    CGO类型转换
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2020-04-11 12:09
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/go">go</a>
+                                &nbsp;
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/go">go</a>
+                                &nbsp;
+                            
+                                <a href="/tags/cgo">cgo</a>
+                                &nbsp;
+                            
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <p>由于CGO和C的数据类型不是完全等价匹配, 所有在使用CGO的过程中需要做类型转换。</p>
+<h3 id="代码仓库">代码仓库</h3>
+<p><a href="https://github.com/gongluck/CGO-DEMO.git">https://github.com/gongluck/CGO-DEMO.git</a></p>
+<h3 id="_cgo_exporth">_cgo_export.h</h3>
+<p>使用 <em><strong>go tool cgo .\hello.go</strong></em> 命令可以生成 <em><strong>cgo</strong></em> 的中间文件,其中 <em><strong>_cgo_export.h</strong></em> 声明了导出函数和C与GO直接类型的关系。</p>
+<h3 id="c-cgo-go类型映射">C-CGO-GO类型映射</h3>
+<table>
+<thead>
+<tr>
+<th>C语言类型</th>
+<th>CGO类型</th>
+<th>Go语言类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>char</td>
+<td>C.char</td>
+<td>byte</td>
+</tr>
+<tr>
+<td>singed char</td>
+<td>C.schar</td>
+<td>int8</td>
+</tr>
+<tr>
+<td>unsigned char</td>
+<td>C.uchar</td>
+<td>uint8</td>
+</tr>
+<tr>
+<td>short</td>
+<td>C.short</td>
+<td>int16</td>
+</tr>
+<tr>
+<td>unsigned short</td>
+<td>C.ushort</td>
+<td>uint16</td>
+</tr>
+<tr>
+<td>int</td>
+<td>C.int</td>
+<td>int32</td>
+</tr>
+<tr>
+<td>unsigned int</td>
+<td>C.uint</td>
+<td>uint32</td>
+</tr>
+<tr>
+<td>long</td>
+<td>C.long</td>
+<td>int32</td>
+</tr>
+<tr>
+<td>unsigned long</td>
+<td>C.ulong</td>
+<td>uint32</td>
+</tr>
+<tr>
+<td>long long int</td>
+<td>C.longlong</td>
+<td>int64</td>
+</tr>
+<tr>
+<td>unsigned long long int</td>
+<td>C.ulonglong</td>
+<td>uint64</td>
+</tr>
+<tr>
+<td>float</td>
+<td>C.float</td>
+<td>float32</td>
+</tr>
+<tr>
+<td>double</td>
+<td>C.double</td>
+<td>float64</td>
+</tr>
+<tr>
+<td>size_t</td>
+<td>C.size_t</td>
+<td>uint</td>
+</tr>
+<tr>
+<td>int8_t</td>
+<td>C.int8_t</td>
+<td>int8</td>
+</tr>
+<tr>
+<td>uint8_t</td>
+<td>C.uint8_t</td>
+<td>uint8</td>
+</tr>
+<tr>
+<td>int16_t</td>
+<td>C.int16_t</td>
+<td>int16</td>
+</tr>
+<tr>
+<td>uint16_t</td>
+<td>C.uint16_t</td>
+<td>uint16</td>
+</tr>
+<tr>
+<td>int32_t</td>
+<td>C.int32_t</td>
+<td>int32</td>
+</tr>
+<tr>
+<td>uint32_t</td>
+<td>C.uint32_t</td>
+<td>uint32</td>
+</tr>
+<tr>
+<td>int64_t</td>
+<td>C.int64_t</td>
+<td>int64</td>
+</tr>
+<tr>
+<td>uint64_t</td>
+<td>C.uint64_t</td>
+<td>uint64</td>
+</tr>
+</tbody>
+</table>
+<h3 id="go字符串和切片">GO字符串和切片</h3>
+<p>Go语言的字符串、切片、字典、接口和管道等特有的数据类型生成对应的C语言类型：</p>
+<pre><code>typedef struct { const char *p; ptrdiff_t n; } GoString;
+typedef struct { void *data; GoInt len; GoInt cap; } GoSlice;
+</code></pre>
+<p><em><strong>GoString</strong></em> 类型会对 <em><strong>_cgo_export.h</strong></em> 头文件产生依赖,可以用 <em><strong><em>GoString</em></strong></em> 代替。以下两个函数用于获取字符串结构中的长度和指针信息:</p>
+<pre><code>size_t _GoStringLen(_GoString_ s);
+const char *_GoStringPtr(_GoString_ s);
+</code></pre>
+<h3 id="go访问c的结构体联合枚举类型">GO访问C的结构体、联合、枚举类型</h3>
+<pre><code>package main
+
+/*
+#include &lt;stdint.h&gt;
+
+struct A{
+    int i;
+    float f;
+    int type;
+    int   size:10;	// The bit field cannot be accessed
+    float arr[];	// Zero-length arrays are also inaccessible
+};
+
+union B1 {
+    int i;
+    float f;
+};
+union B2 {
+    int8_t i8;
+    int64_t i64;
+};
+
+enum C {
+    ONE,
+    TWO,
+};
+*/
+import &quot;C&quot;
+
+import (
+    &quot;fmt&quot;
+    &quot;unsafe&quot;
+)
+
+func main() {
+    var a C.struct_A
+    fmt.Println(a.i)
+    fmt.Println(a.f)
+    fmt.Println(a._type)
+
+    var b1 C.union_B1
+    fmt.Printf(&quot;%T\n&quot;, b1) // [4]uint8
+    var b2 C.union_B2
+    fmt.Printf(&quot;%T\n&quot;, b2) // [8]uint8
+    fmt.Println(&quot;b1.i:&quot;, *(*C.int)(unsafe.Pointer(&amp;b1)))
+    fmt.Println(&quot;b1.f:&quot;, *(*C.float)(unsafe.Pointer(&amp;b1)))
+
+    var c C.enum_C = C.TWO
+    fmt.Println(c)
+    fmt.Println(C.ONE)
+    fmt.Println(C.TWO)
+}
+</code></pre>
+<p>通过 <em><strong>C.struct_xxx</strong></em> 来访问C语言中定义的 <em><strong>struct xxx</strong></em> 结构体类型。结构体的内存布局按照C语言的通用对齐规则,在32位Go语言环境C语言结构体也按照32位对齐规则,在64位Go语言环境按照64位的对齐规则。对于指定了特殊对齐规则的结构体,无法在CGO中访问。如果结构体的成员名字中碰巧是Go语言的关键字,可以通过在成员名开头添加下划线来访问。</p>
+<p>C语言结构体中位字段对应的成员无法在Go语言中访问,如果需要操作位字段成员,需要通过在C语言中定义辅助函数来完成。对应零长数组的成员,无法在Go语言中直接访问数组的元素,但其中零长的数组成员所在位置的偏移量依然可以通过 <em><strong>unsafe.Offsetof(a.arr)</strong></em> 来访问。</p>
+<p>在C语言中,我们无法直接访问Go语言定义的结构体类型。</p>
+<p>通过 <em><strong>C.union_xxx</strong></em> 来访问C语言中定义的 <em><strong>union xxx</strong></em> 类型。但是Go语言中并不支持C语言联合类型,它们会被转为对应大小的字节数组。可以使用unsafe包强制转型为对应类型(这是性能最好的方式)访问联合类型成员;对于复杂的联合类型,推荐通过在C语言中定义辅助函数的方式处理。</p>
+<p>可以通过 <em><strong>C.enum_xxx</strong></em> 来访问C语言中定义的 <em><strong>enum xxx</strong></em> 结构体类型。在C语言中,枚举类型底层对应int类型,支持负数类型的值。我们可以通过 <em><strong>C.ONE</strong></em> 、<em><strong>C.TWO</strong></em> 等直接访问定义的枚举值。</p>
+<h3 id="go访问c的字符串数组">GO访问C的字符串、数组</h3>
+<p>根据在reflect包中有字符串和切片的定义:</p>
+<pre><code>type StringHeader struct {
+ Data uintptr
+ Len  int
+}
+
+type SliceHeader struct {
+    Data uintptr
+    Len  int
+    Cap  int
+}
+</code></pre>
+<p>不单独分配内存,可以在Go语言中直接访问C语言的内存空间。因为Go语言的字符串是只读的,用户需要自己保证Go字符串在使用期间,底层对应的C字符串内容不会发生变化、内存不会被提前释放掉。</p>
+<pre><code>package main
+
+/*
+#include &lt;string.h&gt;
+char arr[10];
+char *s = &quot;Hello&quot;;
+*/
+import &quot;C&quot;
+import (
+    &quot;fmt&quot;
+    &quot;reflect&quot;
+    &quot;unsafe&quot;
+)
+
+func main() {
+    // C array -&gt; Go slice
+    var arr0 []byte
+    var arr0Hdr = (*reflect.SliceHeader)(unsafe.Pointer(&amp;arr0))
+    arr0Hdr.Data = uintptr(unsafe.Pointer(&amp;C.arr[0]))
+    arr0Hdr.Len = 10
+    arr0Hdr.Cap = 10
+
+    arr1 := (*[31]byte)(unsafe.Pointer(&amp;C.arr[0]))[:10:10]
+    fmt.Println(arr1)
+
+    // C string -&gt; Go string
+    var s0 string
+    var s0Hdr = (*reflect.StringHeader)(unsafe.Pointer(&amp;s0))
+    s0Hdr.Data = uintptr(unsafe.Pointer(C.s))
+    s0Hdr.Len = int(C.strlen(C.s))
+
+    sLen := int(C.strlen(C.s))
+    s1 := string((*[31]byte)(unsafe.Pointer(C.s))[:sLen:sLen])
+    fmt.Println(s1)
+}
+</code></pre>
+<p>在C语言中可以通过 <em><strong>GoString</strong></em> 和 <em><strong>GoSlice</strong></em> 来访问Go语言的字符串和切片。但由于GC的存在,可能会潜藏着危险。</p>
+<h3 id="go指针和数值转换">GO指针和数值转换</h3>
+<p>为了实现X类型指针到Y类型指针的转换,需要借助 <em><strong>unsafe.Pointer</strong></em> 作为中间桥接类型实现不同类型指针之间的转换。<em><strong>unsafe.Pointer</strong></em> 指针类型类似C语言中的 <em><strong>void*</strong></em> 类型的指针。
+任何类型的指针都可以通过强制转换为 <em><strong>unsafe.Pointer</strong></em> 指针类型去掉原有的类型信息,然后再重新赋予新的指针类型而达到指针间的转换的目的。</p>
+<p>Go语言针对 <em><strong>unsafe.Pointr</strong></em> 指针类型特别定义了一个 <em><strong>uintptr</strong></em> 类型。可以 <em><strong>uintptr</strong></em> 为中介,实现数值类型到unsafe.Pointr指针类型到转换。</p>
+                    
+                    <HR width="100%" id="EOF">
+                    <p style="color:#777;">Last modified on 2020-04-11</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="https://gongluck.github.io/go/cgo_static_and_shared_library/">
+                    Next<br>CGO导入导出C静态库/动态库
+                </a>
+                
+                
+                
+                <a class="older-posts" href="https://gongluck.github.io/go/cgo_quick_start/">
+                    Previous<br>CGO入门
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+<div id="gitalk-container"></div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+            </div><div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	2020 gongluck&#39;s blog
+	</div>
+            </div>
+    <script>
+let app;
+
+app = new Vue({
+    el: '#app',
+    data: {
+        scrollY: 0,
+        navOpacity: 0,
+        isDrawerOpen: false,
+        mounted: false,
+        isDarkMode: false
+    },
+    methods: {
+            sgn(t, x) {
+                let k = 1. / (1. - 2 * t);
+                if (x <= t) return 0;
+                else if (x >= 1 - t) return 1;
+                else {
+                    return k * (x - t);
+                }
+            },
+            handleScroll() {
+                this.scrollY = window.scrollY;
+                this.navOpacity = this.sgn(.0, Math.min(1, Math.max(0, window.scrollY / (this.pageHeadHeight() - this.navBarHeight() * 0.8))));
+                const {navBar, navBackground, navTitle, extraContainer, streamContainer} = this.$refs;
+
+                if (this.navOpacity >= 1) {
+                    navBackground.style.opacity = 1;
+                    navTitle.style.opacity = 1;
+                } else {
+                    navBackground.style.opacity = 0;
+                    navTitle.style.opacity = 0;
+                }
+            },
+            handleResize() {
+                const {navBar, navBackground, navTitle, extraContainer, streamContainer} = this.$refs;
+                extraContainer.style.left = (streamContainer.offsetWidth - extraContainer.offsetWidth) + 'px';
+            },
+            navBarHeight() {
+                return this.$refs.navBar.offsetHeight;
+            },
+            pageHeadHeight() {
+                return this.$refs.pageHead.offsetHeight;
+            },
+            toggleDrawer() {
+                this.isDrawerOpen = !this.isDrawerOpen;
+                document.getElementsByTagName('html')[0].style.overflow = this.isDrawerOpen ? 'hidden' : 'unset';
+            },
+            closeDrawer() {
+                this.isDrawerOpen = false;
+                document.getElementsByTagName('html')[0].style.overflow = this.isDrawerOpen ? 'hidden' : 'unset';
+            },
+            toggleDarkMode() {
+                this.isDarkMode = !this.isDarkMode;
+                if (this.isDarkMode==true){
+                    document.cookie = "night=1;path=/";
+                    document.body.classList.add("night");
+                } else {
+                    document.cookie = "night=0;path=/";
+                    document.body.classList.remove("night");
+                }
+            }
+    },
+    created() {
+        window.addEventListener('scroll', this.handleScroll);
+        window.addEventListener('resize', this.handleResize);
+        window._nonDesktop = function () {
+            let check = false;
+            (function (a) {
+                if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) check = true;
+            })(navigator.userAgent || navigator.vendor || window.opera);
+            return check;
+        };
+        
+        var night = document.cookie.replace(/(?:(?:^|.*;\s*)night\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+        if (night==""){
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                
+            }
+        }else{
+            
+            if (night=="1") {
+                this.toggleDarkMode();
+            }
+        }
+    },
+    mounted() {
+        this.handleScroll();
+        this.handleResize();
+        this.mounted = true;
+        
+    },
+    destroyed() {
+        window.removeEventListener('scroll', this.handleScroll);
+        window.removeEventListener('resize', this.handleResize);
+    }
+});
+</script>
+
+<script src="https://gongluck.github.io/js/journal.js"></script>
+    </body>
+</html>

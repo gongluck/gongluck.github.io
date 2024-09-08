@@ -1,0 +1,2083 @@
+<!DOCTYPE html>
+<html><head>
+<title>分布式存储专题</title>
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-163347799-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+<script src="/vendor/js/jquery.min.js" ></script>
+<script src="/vendor/js/popper.min.js" ></script>
+<script src="/vendor/js/bootstrap.min.js" ></script>
+<script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+<script src="/vendor/js/vue.min.js" ></script>
+
+
+
+
+<link rel="stylesheet" href="https://gongluck.github.io/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
+
+
+
+<link rel="stylesheet" href="https://gongluck.github.io/scss/dark-mode.min.b8ced257adf01d727091488aba5d273c60910773635166b513b27c1c28b9c866.css" integrity="sha256-uM7SV63wHXJwkUiKul0nPGCRB3NjUWa1E7J8HCi5yGY=" media="screen">
+
+
+<script src="https://gongluck.github.io/js/loadCSS.js"></script>
+<script>
+  loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
+</script>
+
+<script src="https://gongluck.github.io/js/table.js"></script>
+
+
+
+
+<script src="https://gongluck.github.io/js/toc.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/vendor/js/md5.min.js"></script>
+<script>
+  var gitalk = new Gitalk({
+  clientID: '49c0a21d9340c4049e72',
+  clientSecret: '6a22a79ca072e86728e6b1385927d1ec92f3d4a8',
+  repo: 'blogtalk',
+  owner: 'gongluck',
+  admin: ['gongluck'],
+  id: md5(location.pathname),
+  distractionFreeMode: 'false'
+  });
+  window.onload = function () {
+        gitalk.render('gitalk-container')
+  }
+</script>
+
+
+
+
+
+
+</head><body>
+    	<div id="app"><div ref="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="https://gongluck.github.io">
+    
+        <div class="nav-title">
+            gongluck&#39;s blog
+        </div>
+        
+        <div class="nav-subtitle">
+            C/C&#43;&#43; Win32/MFC Qt Golang
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                Categories
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                Tags
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="https://www.cnblogs.com/gongluck/">
+                CNBLOG
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="https://blog.csdn.net/gongluck93">
+                CSDN
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="https://github.com/gongluck">
+                Github
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/index.xml">
+                RSS Feed
+            </a>
+            
+        
+    </div>
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> 
+    <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	2020 gongluck&#39;s blog
+	
+    </div>
+    
+</div><div ref="extraContainer" class="extra-container">
+    
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e5%85%ab%e5%88%86%e5%b8%83%e5%bc%8f%e5%ad%98%e5%82%a8%e4%b8%93%e9%a2%98" v-on:click="closeDrawer" id="八分布式存储专题-nav">
+										 八、分布式存储专题
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#0%e9%a1%b9%e7%9b%ae%e4%bb%93%e5%ba%93" v-on:click="closeDrawer" id="0项目仓库-nav">
+										 0.项目仓库
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#1fastdfs" v-on:click="closeDrawer" id="1fastdfs-nav">
+										 1.FastDFS
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#11-%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85" v-on:click="closeDrawer" id="11-编译安装-nav">
+										 1.1 编译安装
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#12-trackerconfhttpsgithubcomgongluckcvipblobmastercodefastfdstrackerconf" v-on:click="closeDrawer" id="12-trackerconfhttpsgithubcomgongluckcvipblobmastercodefastfdstrackerconf-nav">
+										 1.2 tracker.conf
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#13-storageconfhttpsgithubcomgongluckcvipblobmastercodefastfdsstorageconf" v-on:click="closeDrawer" id="13-storageconfhttpsgithubcomgongluckcvipblobmastercodefastfdsstorageconf-nav">
+										 1.3 storage.conf
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#14-clientconfhttpsgithubcomgongluckcvipblobmastercodefastfdsclientconf" v-on:click="closeDrawer" id="14-clientconfhttpsgithubcomgongluckcvipblobmastercodefastfdsclientconf-nav">
+										 1.4 client.conf
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#2fastcgi" v-on:click="closeDrawer" id="2fastcgi-nav">
+										 2.FastCGI
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#21-cgi%e5%b7%a5%e4%bd%9c%e6%96%b9%e5%bc%8f" v-on:click="closeDrawer" id="21-cgi工作方式-nav">
+										 2.1 CGI工作方式
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#22-spawn-fcgi" v-on:click="closeDrawer" id="22-spawn-fcgi-nav">
+										 2.2 spawn-fcgi
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#23-fcgi" v-on:click="closeDrawer" id="23-fcgi-nav">
+										 2.3 fcgi
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a class="pagination-action" v-on:click="toggleDarkMode">
+            <i class="material-icons pagination-action-icon" v-if="isDarkMode">
+                brightness_4
+            </i>
+            <i class="material-icons pagination-action-icon" v-else="isDarkMode">
+                brightness_7
+            </i>
+        </a>
+        
+        
+    </div>
+</div><div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    Categories
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    Tags
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="https://www.cnblogs.com/gongluck/">
+                    CNBLOG
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="https://blog.csdn.net/gongluck93">
+                    CSDN
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="https://github.com/gongluck">
+                    Github
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/index.xml">
+                    RSS Feed
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e5%85%ab%e5%88%86%e5%b8%83%e5%bc%8f%e5%ad%98%e5%82%a8%e4%b8%93%e9%a2%98" v-on:click="closeDrawer" id="八分布式存储专题-nav">
+										 八、分布式存储专题
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#0%e9%a1%b9%e7%9b%ae%e4%bb%93%e5%ba%93" v-on:click="closeDrawer" id="0项目仓库-nav">
+										 0.项目仓库
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#1fastdfs" v-on:click="closeDrawer" id="1fastdfs-nav">
+										 1.FastDFS
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#11-%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85" v-on:click="closeDrawer" id="11-编译安装-nav">
+										 1.1 编译安装
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#12-trackerconfhttpsgithubcomgongluckcvipblobmastercodefastfdstrackerconf" v-on:click="closeDrawer" id="12-trackerconfhttpsgithubcomgongluckcvipblobmastercodefastfdstrackerconf-nav">
+										 1.2 tracker.conf
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#13-storageconfhttpsgithubcomgongluckcvipblobmastercodefastfdsstorageconf" v-on:click="closeDrawer" id="13-storageconfhttpsgithubcomgongluckcvipblobmastercodefastfdsstorageconf-nav">
+										 1.3 storage.conf
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#14-clientconfhttpsgithubcomgongluckcvipblobmastercodefastfdsclientconf" v-on:click="closeDrawer" id="14-clientconfhttpsgithubcomgongluckcvipblobmastercodefastfdsclientconf-nav">
+										 1.4 client.conf
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#2fastcgi" v-on:click="closeDrawer" id="2fastcgi-nav">
+										 2.FastCGI
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#21-cgi%e5%b7%a5%e4%bd%9c%e6%96%b9%e5%bc%8f" v-on:click="closeDrawer" id="21-cgi工作方式-nav">
+										 2.1 CGI工作方式
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#22-spawn-fcgi" v-on:click="closeDrawer" id="22-spawn-fcgi-nav">
+										 2.2 spawn-fcgi
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#23-fcgi" v-on:click="closeDrawer" id="23-fcgi-nav">
+										 2.3 fcgi
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="https://gongluck.github.io">
+            gongluck&#39;s blog
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" v-on:click="toggleDarkMode">
+            <i class="material-icons" v-if="isDarkMode">
+                brightness_4
+            </i>
+            <i class="material-icons" v-else="isDarkMode">
+                brightness_7
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="https://gongluck.github.io">
+        <div class="single-column-header-title">gongluck&#39;s blog</div>
+        
+        <div class="single-column-header-subtitle">C/C&#43;&#43; Win32/MFC Qt Golang</div>
+        
+
+    </a>
+</div>
+            <div id="content">
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+                
+            
+
+            <div class="post-head-wrapper"
+                
+                    
+                    
+                    style="background-image: url('https://gongluck.github.io/img/linux_wh.jpg')"
+                    
+                
+            >
+                <div class="post-title">
+                    分布式存储专题
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2020-12-28 22:18
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/linux">linux</a>
+                                &nbsp;
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/linux">linux</a>
+                                &nbsp;
+                            
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h2 id="八分布式存储专题">八、分布式存储专题</h2>
+<h3 id="0项目仓库">0.项目仓库</h3>
+<ul>
+<li><a href="https://github.com/gongluck/CVIP.git">https://github.com/gongluck/CVIP.git</a></li>
+</ul>
+<h3 id="1fastdfs">1.FastDFS</h3>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/FastDFS%E6%9E%B6%E6%9E%84.png?raw=true" alt="FastDFS架构"></p>
+<h4 id="11-编译安装">1.1 编译安装</h4>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#228b22"># 下载</span>
+wget https://github.com/happyfish100/libfastcommon/archive/V1.0.43.tar.gz
+<span style="color:#228b22"># 解压</span>
+sudo tar -xzvf V1.0.43.tar.gz libfastcommon-1.0.43
+<span style="color:#228b22"># 进入解压后的目录</span>
+<span style="color:#658b00">cd</span> libfastcommon-1.0.43
+<span style="color:#228b22"># 编译代码</span>
+sudo ./make.sh
+<span style="color:#228b22"># 安装</span>
+sudo ./make.sh install
+<span style="color:#228b22">#export LD_LIBRARY_PATH=/usr/lib64/:$LD_LIBRARY_PATH</span>
+sudo ln -s /usr/lib64/libfastcommon.so /usr/lib/libfastcommon.so
+
+<span style="color:#228b22"># 下载</span>
+wget https://github.com/happyfish100/fastdfs/archive/V6.06.tar.gz
+<span style="color:#228b22"># 解压</span>
+sudo tar -zxvf V6.06.tar.gz fastdfs-6.06
+<span style="color:#228b22"># 进入解压后的目录</span>
+<span style="color:#658b00">cd</span> fastdfs-6.06
+<span style="color:#228b22"># 编译代码</span>
+sudo ./make.sh
+<span style="color:#228b22"># 安装</span>
+sudo ./make.sh install
+</code></pre></div><h4 id="12-trackerconfhttpsgithubcomgongluckcvipblobmastercodefastfdstrackerconf">1.2 <a href="https://github.com/gongluck/CVIP/blob/master/code/fastfds/tracker.conf">tracker.conf</a></h4>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#228b22"># is this config file disabled</span>
+<span style="color:#228b22"># false for enabled</span>
+<span style="color:#228b22"># true for disabled</span>
+<span style="color:#00688b">disabled</span> = <span style="color:#658b00">false</span>
+
+<span style="color:#228b22"># bind an address of this host</span>
+<span style="color:#228b22"># empty for bind all addresses of this host</span>
+<span style="color:#00688b">bind_addr</span> = 172.28.123.249  <span style="color:#228b22">#tracker 所在服务器的 ip</span>
+
+<span style="color:#228b22"># the tracker server port</span>
+<span style="color:#00688b">port</span> = <span style="color:#b452cd">22122</span>    <span style="color:#228b22">#服务器端口</span>
+
+<span style="color:#228b22"># connect timeout in seconds</span>
+<span style="color:#228b22"># default value is 30</span>
+<span style="color:#228b22"># Note: in the intranet network (LAN), 2 seconds is enough.</span>
+<span style="color:#00688b">connect_timeout</span> = <span style="color:#b452cd">5</span>
+
+<span style="color:#228b22"># network timeout in seconds for send and recv</span>
+<span style="color:#228b22"># default value is 30</span>
+<span style="color:#00688b">network_timeout</span> = <span style="color:#b452cd">60</span>
+
+<span style="color:#228b22"># the base path to store data and log files</span>
+<span style="color:#00688b">base_path</span> = /mnt/e/ubuntu/tracker    <span style="color:#228b22">#表示tracker日志存放的路径，此路径必须已经存在</span>
+
+<span style="color:#228b22"># max concurrent connections this server support</span>
+<span style="color:#228b22"># you should set this parameter larger, eg. 10240</span>
+<span style="color:#228b22"># default value is 256</span>
+<span style="color:#00688b">max_connections</span> = <span style="color:#b452cd">1024</span>
+
+<span style="color:#228b22"># accept thread count</span>
+<span style="color:#228b22"># default value is 1 which is recommended</span>
+<span style="color:#228b22"># since V4.07</span>
+<span style="color:#00688b">accept_threads</span> = <span style="color:#b452cd">1</span>
+
+<span style="color:#228b22"># work thread count</span>
+<span style="color:#228b22"># work threads to deal network io</span>
+<span style="color:#228b22"># default value is 4</span>
+<span style="color:#228b22"># since V2.00</span>
+<span style="color:#00688b">work_threads</span> = <span style="color:#b452cd">4</span>
+
+<span style="color:#228b22"># the min network buff size</span>
+<span style="color:#228b22"># default value 8KB</span>
+<span style="color:#00688b">min_buff_size</span> = 8KB
+
+<span style="color:#228b22"># the max network buff size</span>
+<span style="color:#228b22"># default value 128KB</span>
+<span style="color:#00688b">max_buff_size</span> = 128KB
+
+<span style="color:#228b22"># the method for selecting group to upload files</span>
+<span style="color:#228b22"># 0: round robin</span>
+<span style="color:#228b22"># 1: specify group</span>
+<span style="color:#228b22"># 2: load balance, select the max free space group to upload file</span>
+<span style="color:#00688b">store_lookup</span> = <span style="color:#b452cd">2</span>
+
+<span style="color:#228b22"># which group to upload file</span>
+<span style="color:#228b22"># when store_lookup set to 1, must set store_group to the group name</span>
+<span style="color:#00688b">store_group</span> = group2
+
+<span style="color:#228b22"># which storage server to upload file</span>
+<span style="color:#228b22"># 0: round robin (default)</span>
+<span style="color:#228b22"># 1: the first server order by ip address</span>
+<span style="color:#228b22"># 2: the first server order by priority (the minimal)</span>
+<span style="color:#228b22"># Note: if use_trunk_file set to true, must set store_server to 1 or 2</span>
+<span style="color:#00688b">store_server</span> = <span style="color:#b452cd">0</span>
+
+<span style="color:#228b22"># which path (means disk or mount point) of the storage server to upload file</span>
+<span style="color:#228b22"># 0: round robin</span>
+<span style="color:#228b22"># 2: load balance, select the max free space path to upload file</span>
+<span style="color:#00688b">store_path</span> = <span style="color:#b452cd">0</span>
+
+<span style="color:#228b22"># which storage server to download file</span>
+<span style="color:#228b22"># 0: round robin (default)</span>
+<span style="color:#228b22"># 1: the source storage server which the current file uploaded to</span>
+<span style="color:#00688b">download_server</span> = <span style="color:#b452cd">0</span>
+
+<span style="color:#228b22"># reserved storage space for system or other applications.</span>
+<span style="color:#228b22"># if the free(available) space of any stoarge server in </span>
+<span style="color:#228b22"># a group &lt;= reserved_storage_space, no file can be uploaded to this group.</span>
+<span style="color:#228b22"># bytes unit can be one of follows:</span>
+<span style="color:#228b22">### G or g for gigabyte(GB)</span>
+<span style="color:#228b22">### M or m for megabyte(MB)</span>
+<span style="color:#228b22">### K or k for kilobyte(KB)</span>
+<span style="color:#228b22">### no unit for byte(B)</span>
+<span style="color:#228b22">### XX.XX% as ratio such as: reserved_storage_space = 10%</span>
+<span style="color:#00688b">reserved_storage_space</span> = 20%
+
+<span style="color:#228b22">#standard log level as syslog, case insensitive, value list:</span>
+<span style="color:#228b22">### emerg for emergency</span>
+<span style="color:#228b22">### alert</span>
+<span style="color:#228b22">### crit for critical</span>
+<span style="color:#228b22">### error</span>
+<span style="color:#228b22">### warn for warning</span>
+<span style="color:#228b22">### notice</span>
+<span style="color:#228b22">### info</span>
+<span style="color:#228b22">### debug</span>
+<span style="color:#00688b">log_level</span> = info
+
+<span style="color:#228b22">#unix group name to run this program, </span>
+<span style="color:#228b22">#not set (empty) means run by the group of current user</span>
+<span style="color:#00688b">run_by_group</span>=
+
+<span style="color:#228b22">#unix username to run this program,</span>
+<span style="color:#228b22">#not set (empty) means run by current user</span>
+<span style="color:#00688b">run_by_user</span> =
+
+<span style="color:#228b22"># allow_hosts can ocur more than once, host can be hostname or ip address,</span>
+<span style="color:#228b22"># &#34;*&#34; (only one asterisk) means match all ip addresses</span>
+<span style="color:#228b22"># we can use CIDR ips like 192.168.5.64/26</span>
+<span style="color:#228b22"># and also use range like these: 10.0.1.[0-254] and host[01-08,20-25].domain.com</span>
+<span style="color:#228b22"># for example:</span>
+<span style="color:#228b22"># allow_hosts=10.0.1.[1-15,20]</span>
+<span style="color:#228b22"># allow_hosts=host[01-08,20-25].domain.com</span>
+<span style="color:#228b22"># allow_hosts=192.168.5.64/26</span>
+<span style="color:#00688b">allow_hosts</span> = *
+
+<span style="color:#228b22"># sync log buff to disk every interval seconds</span>
+<span style="color:#228b22"># default value is 10 seconds</span>
+<span style="color:#00688b">sync_log_buff_interval</span> = <span style="color:#b452cd">1</span>
+
+<span style="color:#228b22"># check storage server alive interval seconds</span>
+<span style="color:#00688b">check_active_interval</span> = <span style="color:#b452cd">120</span>
+
+<span style="color:#228b22"># thread stack size, should &gt;= 64KB</span>
+<span style="color:#228b22"># default value is 256KB</span>
+<span style="color:#00688b">thread_stack_size</span> = 256KB
+
+<span style="color:#228b22"># auto adjust when the ip address of the storage server changed</span>
+<span style="color:#228b22"># default value is true</span>
+<span style="color:#00688b">storage_ip_changed_auto_adjust</span> = <span style="color:#658b00">true</span>
+
+<span style="color:#228b22"># storage sync file max delay seconds</span>
+<span style="color:#228b22"># default value is 86400 seconds (one day)</span>
+<span style="color:#228b22"># since V2.00</span>
+<span style="color:#00688b">storage_sync_file_max_delay</span> = <span style="color:#b452cd">86400</span>
+
+<span style="color:#228b22"># the max time of storage sync a file</span>
+<span style="color:#228b22"># default value is 300 seconds</span>
+<span style="color:#228b22"># since V2.00</span>
+<span style="color:#00688b">storage_sync_file_max_time</span> = <span style="color:#b452cd">300</span>
+
+<span style="color:#228b22"># if use a trunk file to store several small files</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#228b22"># since V3.00</span>
+<span style="color:#00688b">use_trunk_file</span> = <span style="color:#658b00">false</span> 
+
+<span style="color:#228b22"># the min slot size, should &lt;= 4KB</span>
+<span style="color:#228b22"># default value is 256 bytes</span>
+<span style="color:#228b22"># since V3.00</span>
+<span style="color:#00688b">slot_min_size</span> = <span style="color:#b452cd">256</span>
+
+<span style="color:#228b22"># the max slot size, should &gt; slot_min_size</span>
+<span style="color:#228b22"># store the upload file to trunk file when it&#39;s size &lt;=  this value</span>
+<span style="color:#228b22"># default value is 16MB</span>
+<span style="color:#228b22"># since V3.00</span>
+<span style="color:#00688b">slot_max_size</span> = 1MB
+
+<span style="color:#228b22"># the alignment size to allocate the trunk space</span>
+<span style="color:#228b22"># default value is 0 (never align)</span>
+<span style="color:#228b22"># since V6.05</span>
+<span style="color:#228b22"># NOTE: the larger the alignment size, the less likely of disk</span>
+<span style="color:#228b22">#       fragmentation, but the more space is wasted.</span>
+<span style="color:#00688b">trunk_alloc_alignment_size</span> = <span style="color:#b452cd">256</span>
+
+<span style="color:#228b22"># if merge contiguous free spaces of trunk file</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#228b22"># since V6.05</span>
+<span style="color:#00688b">trunk_free_space_merge</span> = <span style="color:#658b00">true</span>
+
+<span style="color:#228b22"># if delete / reclaim the unused trunk files</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#228b22"># since V6.05</span>
+<span style="color:#00688b">delete_unused_trunk_files</span> = <span style="color:#658b00">false</span>
+
+<span style="color:#228b22"># the trunk file size, should &gt;= 4MB</span>
+<span style="color:#228b22"># default value is 64MB</span>
+<span style="color:#228b22"># since V3.00</span>
+<span style="color:#00688b">trunk_file_size</span> = 64MB
+
+<span style="color:#228b22"># if create trunk file advancely</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#228b22"># since V3.06</span>
+<span style="color:#00688b">trunk_create_file_advance</span> = <span style="color:#658b00">false</span>
+
+<span style="color:#228b22"># the time base to create trunk file</span>
+<span style="color:#228b22"># the time format: HH:MM</span>
+<span style="color:#228b22"># default value is 02:00</span>
+<span style="color:#228b22"># since V3.06</span>
+<span style="color:#00688b">trunk_create_file_time_base</span> = 02:00
+
+<span style="color:#228b22"># the interval of create trunk file, unit: second</span>
+<span style="color:#228b22"># default value is 38400 (one day)</span>
+<span style="color:#228b22"># since V3.06</span>
+<span style="color:#00688b">trunk_create_file_interval</span> = <span style="color:#b452cd">86400</span>
+
+<span style="color:#228b22"># the threshold to create trunk file</span>
+<span style="color:#228b22"># when the free trunk file size less than the threshold,</span>
+<span style="color:#228b22"># will create he trunk files</span>
+<span style="color:#228b22"># default value is 0</span>
+<span style="color:#228b22"># since V3.06</span>
+<span style="color:#00688b">trunk_create_file_space_threshold</span> = 20G
+
+<span style="color:#228b22"># if check trunk space occupying when loading trunk free spaces</span>
+<span style="color:#228b22"># the occupied spaces will be ignored</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#228b22"># since V3.09</span>
+<span style="color:#228b22"># NOTICE: set this parameter to true will slow the loading of trunk spaces </span>
+<span style="color:#228b22"># when startup. you should set this parameter to true when neccessary.</span>
+<span style="color:#00688b">trunk_init_check_occupying</span> = <span style="color:#658b00">false</span>
+
+<span style="color:#228b22"># if ignore storage_trunk.dat, reload from trunk binlog</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#228b22"># since V3.10</span>
+<span style="color:#228b22"># set to true once for version upgrade when your version less than V3.10</span>
+<span style="color:#00688b">trunk_init_reload_from_binlog</span> = <span style="color:#658b00">false</span>
+
+<span style="color:#228b22"># the min interval for compressing the trunk binlog file</span>
+<span style="color:#228b22"># unit: second, 0 means never compress</span>
+<span style="color:#228b22"># FastDFS compress the trunk binlog when trunk init and trunk destroy</span>
+<span style="color:#228b22"># recommand to set this parameter to 86400 (one day)</span>
+<span style="color:#228b22"># default value is 0</span>
+<span style="color:#228b22"># since V5.01</span>
+<span style="color:#00688b">trunk_compress_binlog_min_interval</span> = <span style="color:#b452cd">86400</span>
+
+<span style="color:#228b22"># the interval for compressing the trunk binlog file</span>
+<span style="color:#228b22"># unit: second, 0 means never compress</span>
+<span style="color:#228b22"># recommand to set this parameter to 86400 (one day)</span>
+<span style="color:#228b22"># default value is 0</span>
+<span style="color:#228b22"># since V6.05</span>
+<span style="color:#00688b">trunk_compress_binlog_interval</span> = <span style="color:#b452cd">86400</span>
+
+<span style="color:#228b22"># compress the trunk binlog time base, time format: Hour:Minute</span>
+<span style="color:#228b22"># Hour from 0 to 23, Minute from 0 to 59</span>
+<span style="color:#228b22"># default value is 03:00</span>
+<span style="color:#228b22"># since V6.05</span>
+<span style="color:#00688b">trunk_compress_binlog_time_base</span> = 03:00
+
+<span style="color:#228b22"># max backups for the trunk binlog file</span>
+<span style="color:#228b22"># default value is 0 (never backup)</span>
+<span style="color:#228b22"># since V6.05</span>
+<span style="color:#00688b">trunk_binlog_max_backups</span> = <span style="color:#b452cd">7</span>
+
+<span style="color:#228b22"># if use storage server ID instead of IP address</span>
+<span style="color:#228b22"># if you want to use dual IPs for storage server, you MUST set</span>
+<span style="color:#228b22"># this parameter to true, and configure the dual IPs in the file</span>
+<span style="color:#228b22"># configured by following item &#34;storage_ids_filename&#34;, such as storage_ids.conf</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#228b22"># since V4.00</span>
+<span style="color:#00688b">use_storage_id</span> = <span style="color:#658b00">false</span>
+
+<span style="color:#228b22"># specify storage ids filename, can use relative or absolute path</span>
+<span style="color:#228b22"># this parameter is valid only when use_storage_id set to true</span>
+<span style="color:#228b22"># since V4.00</span>
+<span style="color:#00688b">storage_ids_filename</span> = storage_ids.conf
+
+<span style="color:#228b22"># id type of the storage server in the filename, values are:</span>
+<span style="color:#228b22">## ip: the ip address of the storage server</span>
+<span style="color:#228b22">## id: the server id of the storage server</span>
+<span style="color:#228b22"># this paramter is valid only when use_storage_id set to true</span>
+<span style="color:#228b22"># default value is ip</span>
+<span style="color:#228b22"># since V4.03</span>
+<span style="color:#00688b">id_type_in_filename</span> = id
+
+<span style="color:#228b22"># if store slave file use symbol link</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#228b22"># since V4.01</span>
+<span style="color:#00688b">store_slave_file_use_link</span> = <span style="color:#658b00">false</span>
+
+<span style="color:#228b22"># if rotate the error log every day</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#228b22"># since V4.02</span>
+<span style="color:#00688b">rotate_error_log</span> = <span style="color:#658b00">false</span>
+
+<span style="color:#228b22"># rotate error log time base, time format: Hour:Minute</span>
+<span style="color:#228b22"># Hour from 0 to 23, Minute from 0 to 59</span>
+<span style="color:#228b22"># default value is 00:00</span>
+<span style="color:#228b22"># since V4.02</span>
+<span style="color:#00688b">error_log_rotate_time</span> = 00:00
+
+<span style="color:#228b22"># if compress the old error log by gzip</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#228b22"># since V6.04</span>
+<span style="color:#00688b">compress_old_error_log</span> = <span style="color:#658b00">false</span>
+
+<span style="color:#228b22"># compress the error log days before</span>
+<span style="color:#228b22"># default value is 1</span>
+<span style="color:#228b22"># since V6.04</span>
+<span style="color:#00688b">compress_error_log_days_before</span> = <span style="color:#b452cd">7</span>
+
+<span style="color:#228b22"># rotate error log when the log file exceeds this size</span>
+<span style="color:#228b22"># 0 means never rotates log file by log file size</span>
+<span style="color:#228b22"># default value is 0</span>
+<span style="color:#228b22"># since V4.02</span>
+<span style="color:#00688b">rotate_error_log_size</span> = <span style="color:#b452cd">0</span>
+
+<span style="color:#228b22"># keep days of the log files</span>
+<span style="color:#228b22"># 0 means do not delete old log files</span>
+<span style="color:#228b22"># default value is 0</span>
+<span style="color:#00688b">log_file_keep_days</span> = <span style="color:#b452cd">0</span>
+
+<span style="color:#228b22"># if use connection pool</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#228b22"># since V4.05</span>
+<span style="color:#00688b">use_connection_pool</span> = <span style="color:#658b00">true</span>
+
+<span style="color:#228b22"># connections whose the idle time exceeds this time will be closed</span>
+<span style="color:#228b22"># unit: second</span>
+<span style="color:#228b22"># default value is 3600</span>
+<span style="color:#228b22"># since V4.05</span>
+<span style="color:#00688b">connection_pool_max_idle_time</span> = <span style="color:#b452cd">3600</span>
+
+<span style="color:#228b22"># HTTP port on this tracker server</span>
+http.server_port = <span style="color:#b452cd">8080</span>
+
+<span style="color:#228b22"># check storage HTTP server alive interval seconds</span>
+<span style="color:#228b22"># &lt;= 0 for never check</span>
+<span style="color:#228b22"># default value is 30</span>
+http.check_alive_interval = <span style="color:#b452cd">30</span>
+
+<span style="color:#228b22"># check storage HTTP server alive type, values are:</span>
+<span style="color:#228b22">#   tcp : connect to the storge server with HTTP port only, </span>
+<span style="color:#228b22">#        do not request and get response</span>
+<span style="color:#228b22">#   http: storage check alive url must return http status 200</span>
+<span style="color:#228b22"># default value is tcp</span>
+http.check_alive_type = tcp
+
+<span style="color:#228b22"># check storage HTTP server alive uri/url</span>
+<span style="color:#228b22"># NOTE: storage embed HTTP server support uri: /status.html</span>
+http.check_alive_uri = /status.html
+</code></pre></div><!-- raw HTML omitted -->
+<h4 id="13-storageconfhttpsgithubcomgongluckcvipblobmastercodefastfdsstorageconf">1.3 <a href="https://github.com/gongluck/CVIP/blob/master/code/fastfds/storage.conf">storage.conf</a></h4>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#228b22"># is this config file disabled</span>
+<span style="color:#228b22"># false for enabled</span>
+<span style="color:#228b22"># true for disabled</span>
+<span style="color:#00688b">disabled</span> = <span style="color:#658b00">false</span>
+
+<span style="color:#228b22"># the name of the group this storage server belongs to</span>
+<span style="color:#228b22">#</span>
+<span style="color:#228b22"># comment or remove this item for fetching from tracker server,</span>
+<span style="color:#228b22"># in this case, use_storage_id must set to true in tracker.conf,</span>
+<span style="color:#228b22"># and storage_ids.conf must be configured correctly.</span>
+<span style="color:#00688b">group_name</span> = group1 <span style="color:#228b22">#组，默认设置即可</span>
+
+<span style="color:#228b22"># bind an address of this host</span>
+<span style="color:#228b22"># empty for bind all addresses of this host</span>
+<span style="color:#00688b">bind_addr</span> = 172.28.123.249  <span style="color:#228b22">#storage 所在服务器 ip</span>
+
+<span style="color:#228b22"># if bind an address of this host when connect to other servers </span>
+<span style="color:#228b22"># (this storage server as a client)</span>
+<span style="color:#228b22"># true for binding the address configured by the above parameter: &#34;bind_addr&#34;</span>
+<span style="color:#228b22"># false for binding any address of this host</span>
+<span style="color:#00688b">client_bind</span> = <span style="color:#658b00">true</span>
+
+<span style="color:#228b22"># the storage server port</span>
+<span style="color:#00688b">port</span> = <span style="color:#b452cd">23000</span>    <span style="color:#228b22">#服务器端口，默认设置即可</span>
+
+<span style="color:#228b22"># connect timeout in seconds</span>
+<span style="color:#228b22"># default value is 30</span>
+<span style="color:#228b22"># Note: in the intranet network (LAN), 2 seconds is enough.</span>
+<span style="color:#00688b">connect_timeout</span> = <span style="color:#b452cd">5</span>
+
+<span style="color:#228b22"># network timeout in seconds for send and recv</span>
+<span style="color:#228b22"># default value is 30</span>
+<span style="color:#00688b">network_timeout</span> = <span style="color:#b452cd">60</span>
+
+<span style="color:#228b22"># the heart beat interval in seconds</span>
+<span style="color:#228b22"># the storage server send heartbeat to tracker server periodically</span>
+<span style="color:#228b22"># default value is 30</span>
+<span style="color:#00688b">heart_beat_interval</span> = <span style="color:#b452cd">30</span>
+
+<span style="color:#228b22"># disk usage report interval in seconds</span>
+<span style="color:#228b22"># the storage server send disk usage report to tracker server periodically</span>
+<span style="color:#228b22"># default value is 300</span>
+<span style="color:#00688b">stat_report_interval</span> = <span style="color:#b452cd">60</span>
+
+<span style="color:#228b22"># the base path to store data and log files</span>
+<span style="color:#228b22"># NOTE: the binlog files maybe are large, make sure</span>
+<span style="color:#228b22">#       the base path has enough disk space,</span>
+<span style="color:#228b22">#       eg. the disk free space should &gt; 50GB</span>
+<span style="color:#00688b">base_path</span> = /mnt/e/ubuntu/storage    <span style="color:#228b22">#用于storage存放日志，此目录必须存在</span>
+
+<span style="color:#228b22"># max concurrent connections the server supported,</span>
+<span style="color:#228b22"># you should set this parameter larger, eg. 10240</span>
+<span style="color:#228b22"># default value is 256</span>
+<span style="color:#00688b">max_connections</span> = <span style="color:#b452cd">1024</span>
+
+<span style="color:#228b22"># the buff size to recv / send data from/to network</span>
+<span style="color:#228b22"># this parameter must more than 8KB</span>
+<span style="color:#228b22"># 256KB or 512KB is recommended</span>
+<span style="color:#228b22"># default value is 64KB</span>
+<span style="color:#228b22"># since V2.00</span>
+<span style="color:#00688b">buff_size</span> = 256KB
+
+<span style="color:#228b22"># accept thread count</span>
+<span style="color:#228b22"># default value is 1 which is recommended</span>
+<span style="color:#228b22"># since V4.07</span>
+<span style="color:#00688b">accept_threads</span> = <span style="color:#b452cd">1</span>
+
+<span style="color:#228b22"># work thread count</span>
+<span style="color:#228b22"># work threads to deal network io</span>
+<span style="color:#228b22"># default value is 4</span>
+<span style="color:#228b22"># since V2.00</span>
+<span style="color:#00688b">work_threads</span> = <span style="color:#b452cd">4</span>
+
+<span style="color:#228b22"># if disk read / write separated</span>
+<span style="color:#228b22">##  false for mixed read and write</span>
+<span style="color:#228b22">##  true for separated read and write</span>
+<span style="color:#228b22"># default value is true</span>
+<span style="color:#228b22"># since V2.00</span>
+<span style="color:#00688b">disk_rw_separated</span> = <span style="color:#658b00">true</span>
+
+<span style="color:#228b22"># disk reader thread count per store path</span>
+<span style="color:#228b22"># for mixed read / write, this parameter can be 0</span>
+<span style="color:#228b22"># default value is 1</span>
+<span style="color:#228b22"># since V2.00</span>
+<span style="color:#00688b">disk_reader_threads</span> = <span style="color:#b452cd">1</span>
+
+<span style="color:#228b22"># disk writer thread count per store path</span>
+<span style="color:#228b22"># for mixed read / write, this parameter can be 0</span>
+<span style="color:#228b22"># default value is 1</span>
+<span style="color:#228b22"># since V2.00</span>
+<span style="color:#00688b">disk_writer_threads</span> = <span style="color:#b452cd">1</span>
+
+<span style="color:#228b22"># when no entry to sync, try read binlog again after X milliseconds</span>
+<span style="color:#228b22"># must &gt; 0, default value is 200ms</span>
+<span style="color:#00688b">sync_wait_msec</span> = <span style="color:#b452cd">50</span>
+
+<span style="color:#228b22"># after sync a file, usleep milliseconds</span>
+<span style="color:#228b22"># 0 for sync successively (never call usleep)</span>
+<span style="color:#00688b">sync_interval</span> = <span style="color:#b452cd">0</span>
+
+<span style="color:#228b22"># storage sync start time of a day, time format: Hour:Minute</span>
+<span style="color:#228b22"># Hour from 0 to 23, Minute from 0 to 59</span>
+<span style="color:#00688b">sync_start_time</span> = 00:00
+
+<span style="color:#228b22"># storage sync end time of a day, time format: Hour:Minute</span>
+<span style="color:#228b22"># Hour from 0 to 23, Minute from 0 to 59</span>
+<span style="color:#00688b">sync_end_time</span> = 23:59
+
+<span style="color:#228b22"># write to the mark file after sync N files</span>
+<span style="color:#228b22"># default value is 500</span>
+<span style="color:#00688b">write_mark_file_freq</span> = <span style="color:#b452cd">500</span>
+
+<span style="color:#228b22"># disk recovery thread count</span>
+<span style="color:#228b22"># default value is 1</span>
+<span style="color:#228b22"># since V6.04</span>
+<span style="color:#00688b">disk_recovery_threads</span> = <span style="color:#b452cd">3</span>
+
+<span style="color:#228b22"># store path (disk or mount point) count, default value is 1</span>
+<span style="color:#00688b">store_path_count</span> = <span style="color:#b452cd">1</span>
+
+<span style="color:#228b22"># store_path#, based on 0, to configure the store paths to store files</span>
+<span style="color:#228b22"># if store_path0 not exists, it&#39;s value is base_path (NOT recommended)</span>
+<span style="color:#228b22"># the paths must be exist.</span>
+<span style="color:#228b22">#</span>
+<span style="color:#228b22"># IMPORTANT NOTE:</span>
+<span style="color:#228b22">#       the store paths&#39; order is very important, don&#39;t mess up!!!</span>
+<span style="color:#228b22">#       the base_path should be independent (different) of the store paths</span>
+
+<span style="color:#00688b">store_path0</span> = /mnt/e/ubuntu/storage/fastdfs0  <span style="color:#228b22">#真正存储数据的路径，此路径必须存在</span>
+<span style="color:#228b22">#store_path1 = /home/yuqing/fastdfs2</span>
+
+<span style="color:#228b22"># subdir_count  * subdir_count directories will be auto created under each </span>
+<span style="color:#228b22"># store_path (disk), value can be 1 to 256, default value is 256</span>
+<span style="color:#00688b">subdir_count_per_path</span> = <span style="color:#b452cd">256</span>
+
+<span style="color:#228b22"># tracker_server can ocur more than once for multi tracker servers.</span>
+<span style="color:#228b22"># the value format of tracker_server is &#34;HOST:PORT&#34;,</span>
+<span style="color:#228b22">#   the HOST can be hostname or ip address,</span>
+<span style="color:#228b22">#   and the HOST can be dual IPs or hostnames seperated by comma,</span>
+<span style="color:#228b22">#   the dual IPS must be an inner (intranet) IP and an outer (extranet) IP,</span>
+<span style="color:#228b22">#   or two different types of inner (intranet) IPs.</span>
+<span style="color:#228b22">#   for example: 192.168.2.100,122.244.141.46:22122</span>
+<span style="color:#228b22">#   another eg.: 192.168.1.10,172.17.4.21:22122</span>
+
+<span style="color:#00688b">tracker_server</span> = 172.28.123.249:22122  <span style="color:#228b22">#指定 tracker 服务器地址和端口。不能是 127.0.0.1</span>
+<span style="color:#228b22">#tracker_server = 192.168.209.122:22122</span>
+
+<span style="color:#228b22">#standard log level as syslog, case insensitive, value list:</span>
+<span style="color:#228b22">### emerg for emergency</span>
+<span style="color:#228b22">### alert</span>
+<span style="color:#228b22">### crit for critical</span>
+<span style="color:#228b22">### error</span>
+<span style="color:#228b22">### warn for warning</span>
+<span style="color:#228b22">### notice</span>
+<span style="color:#228b22">### info</span>
+<span style="color:#228b22">### debug</span>
+<span style="color:#00688b">log_level</span> = info
+
+<span style="color:#228b22">#unix group name to run this program, </span>
+<span style="color:#228b22">#not set (empty) means run by the group of current user</span>
+<span style="color:#00688b">run_by_group</span> =
+
+<span style="color:#228b22">#unix username to run this program,</span>
+<span style="color:#228b22">#not set (empty) means run by current user</span>
+<span style="color:#00688b">run_by_user</span> =
+
+<span style="color:#228b22"># allow_hosts can ocur more than once, host can be hostname or ip address,</span>
+<span style="color:#228b22"># &#34;*&#34; (only one asterisk) means match all ip addresses</span>
+<span style="color:#228b22"># we can use CIDR ips like 192.168.5.64/26</span>
+<span style="color:#228b22"># and also use range like these: 10.0.1.[0-254] and host[01-08,20-25].domain.com</span>
+<span style="color:#228b22"># for example:</span>
+<span style="color:#228b22"># allow_hosts=10.0.1.[1-15,20]</span>
+<span style="color:#228b22"># allow_hosts=host[01-08,20-25].domain.com</span>
+<span style="color:#228b22"># allow_hosts=192.168.5.64/26</span>
+<span style="color:#00688b">allow_hosts</span> = *
+
+<span style="color:#228b22"># the mode of the files distributed to the data path</span>
+<span style="color:#228b22"># 0: round robin(default)</span>
+<span style="color:#228b22"># 1: random, distributted by hash code</span>
+<span style="color:#00688b">file_distribute_path_mode</span> = <span style="color:#b452cd">0</span>
+
+<span style="color:#228b22"># valid when file_distribute_to_path is set to 0 (round robin).</span>
+<span style="color:#228b22"># when the written file count reaches this number, then rotate to next path.</span>
+<span style="color:#228b22"># rotate to the first path (00/00) after the last path (such as FF/FF).</span>
+<span style="color:#228b22"># default value is 100</span>
+<span style="color:#00688b">file_distribute_rotate_count</span> = <span style="color:#b452cd">100</span>
+
+<span style="color:#228b22"># call fsync to disk when write big file</span>
+<span style="color:#228b22"># 0: never call fsync</span>
+<span style="color:#228b22"># other: call fsync when written bytes &gt;= this bytes</span>
+<span style="color:#228b22"># default value is 0 (never call fsync)</span>
+<span style="color:#00688b">fsync_after_written_bytes</span> = <span style="color:#b452cd">0</span>
+
+<span style="color:#228b22"># sync log buff to disk every interval seconds</span>
+<span style="color:#228b22"># must &gt; 0, default value is 10 seconds</span>
+<span style="color:#00688b">sync_log_buff_interval</span> = <span style="color:#b452cd">1</span>
+
+<span style="color:#228b22"># sync binlog buff / cache to disk every interval seconds</span>
+<span style="color:#228b22"># default value is 60 seconds</span>
+<span style="color:#00688b">sync_binlog_buff_interval</span> = <span style="color:#b452cd">1</span>
+
+<span style="color:#228b22"># sync storage stat info to disk every interval seconds</span>
+<span style="color:#228b22"># default value is 300 seconds</span>
+<span style="color:#00688b">sync_stat_file_interval</span> = <span style="color:#b452cd">300</span>
+
+<span style="color:#228b22"># thread stack size, should &gt;= 512KB</span>
+<span style="color:#228b22"># default value is 512KB</span>
+<span style="color:#00688b">thread_stack_size</span> = 512KB
+
+<span style="color:#228b22"># the priority as a source server for uploading file.</span>
+<span style="color:#228b22"># the lower this value, the higher its uploading priority.</span>
+<span style="color:#228b22"># default value is 10</span>
+<span style="color:#00688b">upload_priority</span> = <span style="color:#b452cd">10</span>
+
+<span style="color:#228b22"># the NIC alias prefix, such as eth in Linux, you can see it by ifconfig -a</span>
+<span style="color:#228b22"># multi aliases split by comma. empty value means auto set by OS type</span>
+<span style="color:#228b22"># default values is empty</span>
+<span style="color:#00688b">if_alias_prefix</span> =
+
+<span style="color:#228b22"># if check file duplicate, when set to true, use FastDHT to store file indexes</span>
+<span style="color:#228b22"># 1 or yes: need check</span>
+<span style="color:#228b22"># 0 or no: do not check</span>
+<span style="color:#228b22"># default value is 0</span>
+<span style="color:#00688b">check_file_duplicate</span> = <span style="color:#b452cd">0</span>
+
+<span style="color:#228b22"># file signature method for check file duplicate</span>
+<span style="color:#228b22">## hash: four 32 bits hash code</span>
+<span style="color:#228b22">## md5: MD5 signature</span>
+<span style="color:#228b22"># default value is hash</span>
+<span style="color:#228b22"># since V4.01</span>
+<span style="color:#00688b">file_signature_method</span> = <span style="color:#658b00">hash</span>
+
+<span style="color:#228b22"># namespace for storing file indexes (key-value pairs)</span>
+<span style="color:#228b22"># this item must be set when check_file_duplicate is true / on</span>
+<span style="color:#00688b">key_namespace</span> = FastDFS
+
+<span style="color:#228b22"># set keep_alive to 1 to enable persistent connection with FastDHT servers</span>
+<span style="color:#228b22"># default value is 0 (short connection)</span>
+<span style="color:#00688b">keep_alive</span> = <span style="color:#b452cd">0</span>
+
+<span style="color:#228b22"># you can use &#34;#include filename&#34; (not include double quotes) directive to </span>
+<span style="color:#228b22"># load FastDHT server list, when the filename is a relative path such as </span>
+<span style="color:#228b22"># pure filename, the base path is the base path of current/this config file.</span>
+<span style="color:#228b22"># must set FastDHT server list when check_file_duplicate is true / on</span>
+<span style="color:#228b22"># please see INSTALL of FastDHT for detail</span>
+<span style="color:#228b22">##include /home/yuqing/fastdht/conf/fdht_servers.conf</span>
+
+<span style="color:#228b22"># if log to access log</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#228b22"># since V4.00</span>
+<span style="color:#00688b">use_access_log</span> = <span style="color:#658b00">false</span>
+
+<span style="color:#228b22"># if rotate the access log every day</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#228b22"># since V4.00</span>
+<span style="color:#00688b">rotate_access_log</span> = <span style="color:#658b00">false</span>
+
+<span style="color:#228b22"># rotate access log time base, time format: Hour:Minute</span>
+<span style="color:#228b22"># Hour from 0 to 23, Minute from 0 to 59</span>
+<span style="color:#228b22"># default value is 00:00</span>
+<span style="color:#228b22"># since V4.00</span>
+<span style="color:#00688b">access_log_rotate_time</span> = 00:00
+
+<span style="color:#228b22"># if compress the old access log by gzip</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#228b22"># since V6.04</span>
+<span style="color:#00688b">compress_old_access_log</span> = <span style="color:#658b00">false</span>
+
+<span style="color:#228b22"># compress the access log days before</span>
+<span style="color:#228b22"># default value is 1</span>
+<span style="color:#228b22"># since V6.04</span>
+<span style="color:#00688b">compress_access_log_days_before</span> = <span style="color:#b452cd">7</span>
+
+<span style="color:#228b22"># if rotate the error log every day</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#228b22"># since V4.02</span>
+<span style="color:#00688b">rotate_error_log</span> = <span style="color:#658b00">false</span>
+
+<span style="color:#228b22"># rotate error log time base, time format: Hour:Minute</span>
+<span style="color:#228b22"># Hour from 0 to 23, Minute from 0 to 59</span>
+<span style="color:#228b22"># default value is 00:00</span>
+<span style="color:#228b22"># since V4.02</span>
+<span style="color:#00688b">error_log_rotate_time</span> = 00:00
+
+<span style="color:#228b22"># if compress the old error log by gzip</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#228b22"># since V6.04</span>
+<span style="color:#00688b">compress_old_error_log</span> = <span style="color:#658b00">false</span>
+
+<span style="color:#228b22"># compress the error log days before</span>
+<span style="color:#228b22"># default value is 1</span>
+<span style="color:#228b22"># since V6.04</span>
+<span style="color:#00688b">compress_error_log_days_before</span> = <span style="color:#b452cd">7</span>
+
+<span style="color:#228b22"># rotate access log when the log file exceeds this size</span>
+<span style="color:#228b22"># 0 means never rotates log file by log file size</span>
+<span style="color:#228b22"># default value is 0</span>
+<span style="color:#228b22"># since V4.02</span>
+<span style="color:#00688b">rotate_access_log_size</span> = <span style="color:#b452cd">0</span>
+
+<span style="color:#228b22"># rotate error log when the log file exceeds this size</span>
+<span style="color:#228b22"># 0 means never rotates log file by log file size</span>
+<span style="color:#228b22"># default value is 0</span>
+<span style="color:#228b22"># since V4.02</span>
+<span style="color:#00688b">rotate_error_log_size</span> = <span style="color:#b452cd">0</span>
+
+<span style="color:#228b22"># keep days of the log files</span>
+<span style="color:#228b22"># 0 means do not delete old log files</span>
+<span style="color:#228b22"># default value is 0</span>
+<span style="color:#00688b">log_file_keep_days</span> = <span style="color:#b452cd">0</span>
+
+<span style="color:#228b22"># if skip the invalid record when sync file</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#228b22"># since V4.02</span>
+<span style="color:#00688b">file_sync_skip_invalid_record</span> = <span style="color:#658b00">false</span>
+
+<span style="color:#228b22"># if use connection pool</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#228b22"># since V4.05</span>
+<span style="color:#00688b">use_connection_pool</span> = <span style="color:#658b00">true</span>
+
+<span style="color:#228b22"># connections whose the idle time exceeds this time will be closed</span>
+<span style="color:#228b22"># unit: second</span>
+<span style="color:#228b22"># default value is 3600</span>
+<span style="color:#228b22"># since V4.05</span>
+<span style="color:#00688b">connection_pool_max_idle_time</span> = <span style="color:#b452cd">3600</span>
+
+<span style="color:#228b22"># if compress the binlog files by gzip</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#228b22"># since V6.01</span>
+<span style="color:#00688b">compress_binlog</span> = <span style="color:#658b00">true</span>
+
+<span style="color:#228b22"># try to compress binlog time, time format: Hour:Minute</span>
+<span style="color:#228b22"># Hour from 0 to 23, Minute from 0 to 59</span>
+<span style="color:#228b22"># default value is 01:30</span>
+<span style="color:#228b22"># since V6.01</span>
+<span style="color:#00688b">compress_binlog_time</span> = 01:30
+
+<span style="color:#228b22"># if check the mark of store path to prevent confusion</span>
+<span style="color:#228b22"># recommend to set this parameter to true</span>
+<span style="color:#228b22"># if two storage servers (instances) MUST use a same store path for</span>
+<span style="color:#228b22"># some specific purposes, you should set this parameter to false</span>
+<span style="color:#228b22"># default value is true</span>
+<span style="color:#228b22"># since V6.03</span>
+<span style="color:#00688b">check_store_path_mark</span> = <span style="color:#658b00">true</span>
+
+<span style="color:#228b22"># use the ip address of this storage server if domain_name is empty,</span>
+<span style="color:#228b22"># else this domain name will ocur in the url redirected by the tracker server</span>
+http.domain_name =
+
+<span style="color:#228b22"># the port of the web server on this storage server</span>
+http.server_port = <span style="color:#b452cd">8888</span>
+</code></pre></div><!-- raw HTML omitted -->
+<h4 id="14-clientconfhttpsgithubcomgongluckcvipblobmastercodefastfdsclientconf">1.4 <a href="https://github.com/gongluck/CVIP/blob/master/code/fastfds/client.conf">client.conf</a></h4>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#228b22"># connect timeout in seconds</span>
+<span style="color:#228b22"># default value is 30s</span>
+<span style="color:#228b22"># Note: in the intranet network (LAN), 2 seconds is enough.</span>
+<span style="color:#00688b">connect_timeout</span> = <span style="color:#b452cd">5</span>
+
+<span style="color:#228b22"># network timeout in seconds</span>
+<span style="color:#228b22"># default value is 30s</span>
+<span style="color:#00688b">network_timeout</span> = <span style="color:#b452cd">60</span>
+
+<span style="color:#228b22"># the base path to store log files</span>
+<span style="color:#00688b">base_path</span> = /mnt/e/ubuntu/client
+
+<span style="color:#228b22"># tracker_server can ocur more than once for multi tracker servers.</span>
+<span style="color:#228b22"># the value format of tracker_server is &#34;HOST:PORT&#34;,</span>
+<span style="color:#228b22">#   the HOST can be hostname or ip address,</span>
+<span style="color:#228b22">#   and the HOST can be dual IPs or hostnames seperated by comma,</span>
+<span style="color:#228b22">#   the dual IPS must be an inner (intranet) IP and an outer (extranet) IP,</span>
+<span style="color:#228b22">#   or two different types of inner (intranet) IPs.</span>
+<span style="color:#228b22">#   for example: 192.168.2.100,122.244.141.46:22122</span>
+<span style="color:#228b22">#   another eg.: 192.168.1.10,172.17.4.21:22122</span>
+
+<span style="color:#00688b">tracker_server</span> = 172.28.123.249:22122
+<span style="color:#228b22">#tracker_server = 192.168.0.197:22122</span>
+
+<span style="color:#228b22">#standard log level as syslog, case insensitive, value list:</span>
+<span style="color:#228b22">### emerg for emergency</span>
+<span style="color:#228b22">### alert</span>
+<span style="color:#228b22">### crit for critical</span>
+<span style="color:#228b22">### error</span>
+<span style="color:#228b22">### warn for warning</span>
+<span style="color:#228b22">### notice</span>
+<span style="color:#228b22">### info</span>
+<span style="color:#228b22">### debug</span>
+<span style="color:#00688b">log_level</span> = info
+
+<span style="color:#228b22"># if use connection pool</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#228b22"># since V4.05</span>
+<span style="color:#00688b">use_connection_pool</span> = <span style="color:#658b00">false</span>
+
+<span style="color:#228b22"># connections whose the idle time exceeds this time will be closed</span>
+<span style="color:#228b22"># unit: second</span>
+<span style="color:#228b22"># default value is 3600</span>
+<span style="color:#228b22"># since V4.05</span>
+<span style="color:#00688b">connection_pool_max_idle_time</span> = <span style="color:#b452cd">3600</span>
+
+<span style="color:#228b22"># if load FastDFS parameters from tracker server</span>
+<span style="color:#228b22"># since V4.05</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#00688b">load_fdfs_parameters_from_tracker</span> = <span style="color:#658b00">false</span>
+
+<span style="color:#228b22"># if use storage ID instead of IP address</span>
+<span style="color:#228b22"># same as tracker.conf</span>
+<span style="color:#228b22"># valid only when load_fdfs_parameters_from_tracker is false</span>
+<span style="color:#228b22"># default value is false</span>
+<span style="color:#228b22"># since V4.05</span>
+<span style="color:#00688b">use_storage_id</span> = <span style="color:#658b00">false</span>
+
+<span style="color:#228b22"># specify storage ids filename, can use relative or absolute path</span>
+<span style="color:#228b22"># same as tracker.conf</span>
+<span style="color:#228b22"># valid only when load_fdfs_parameters_from_tracker is false</span>
+<span style="color:#228b22"># since V4.05</span>
+<span style="color:#00688b">storage_ids_filename</span> = storage_ids.conf
+
+
+<span style="color:#228b22">#HTTP settings</span>
+http.tracker_server_port = <span style="color:#b452cd">80</span>
+
+<span style="color:#228b22">#use &#34;#include&#34; directive to include HTTP other settiongs</span>
+<span style="color:#228b22">##include http.conf</span>
+</code></pre></div><ul>
+<li>
+<p>启动</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo fdfs_trackerd /mnt/e/Code/CVIP/code/fastfds/tracker.conf
+sudo fdfs_storaged /mnt/e/Code/CVIP/code/fastfds/storage.conf
+</code></pre></div></li>
+<li>
+<p>测试</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#228b22"># 查看服务</span>
+fdfs_monitor /mnt/e/Code/CVIP/code/fastfds/client.conf
+<span style="color:#228b22"># 上传</span>
+fdfs_upload_file /mnt/e/Code/CVIP/code/fastfds/client.conf ./README.md
+<span style="color:#228b22"># 下载</span>
+fdfs_download_file /mnt/e/Code/CVIP/code/fastfds/client.conf group1/M00/00/00/rBx7-V_MGuWAF1sJAANQ-lXzICY3210.md
+<span style="color:#228b22"># 删除</span>
+fdfs_delete_file /mnt/e/Code/CVIP/code/fastfds/client.conf group1/M00/00/00/rBx7-V_MGuWAF1sJAANQ-lXzICY3210.md
+</code></pre></div><!-- raw HTML omitted -->
+</li>
+</ul>
+<h3 id="2fastcgi">2.FastCGI</h3>
+<h4 id="21-cgi工作方式">2.1 CGI工作方式</h4>
+<ul>
+<li>
+<p>传统<strong>CGI</strong>（Common Gateway Interface）方式是客户端有多少个请求，就开辟多少个子进程，每个子进程都需要启动自己的解释器、加载配置，连接其他服务器等初始化工作，这是<strong>CGI</strong>进程性能低下的主要原因。当用户请求非常多的时候，会占用大量的内存、cpu等资源，造成性能低下。</p>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/cgi%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F.png?raw=true" alt="cgi工作方式"></p>
+</li>
+<li>
+<p>与为每个请求创建一个新的进程不同，<strong>FastCGI</strong>使用持续的进程来处理一连串的请求。这些进程由 <strong>FastCGI</strong>进程管理器管理，而不是<strong>web</strong>服务器。</p>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/fastcgi%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F.png?raw=true" alt="fastcgi工作方式"></p>
+</li>
+<li>
+<p>由于<strong>FastCGI</strong>程序并不需要不断的产生新进程，可以大大降低服务器的压力并且产生较高的应用效率。它的速度效率最少要比<strong>CGI</strong>技术提高5倍以上。它还支持分布式的部署，即<strong>FastCGI</strong>程序可以在<strong>web</strong>服务器以外的主机上执行。</p>
+</li>
+</ul>
+<h4 id="22-spawn-fcgi">2.2 spawn-fcgi</h4>
+<ul>
+<li>
+<p><strong>spawn-fcgi</strong>是一个通用的<strong>FastCGI</strong>进程管理器，简单小巧。</p>
+</li>
+<li>
+<p><strong>spawn-fcgi</strong>使用<strong>pre-fork</strong>模型，功能主要是打开监听端口，绑定地址，然后<strong>fork-and-exec</strong>创建我们编写的<strong>FastCGI</strong>应用程序进程，退出完成工作。<strong>FastCGI</strong>应用程序初始化，然后进入死循环侦听<strong>socket</strong>的连接请求。</p>
+</li>
+<li>
+<p>编译安装<strong>spawn-fcgi</strong></p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">wget http://download.lighttpd.net/spawn-fcgi/releases-1.6.x/spawn-fcgi-1.6.4.tar.gz
+tar -zxvf spawn-fcgi-1.6.4.tar.gz
+<span style="color:#658b00">cd</span> spawn-fcgi-1.6.4/
+./configure
+make -j <span style="color:#b452cd">8</span>
+sudo make install
+<span style="color:#228b22">#sudo ln -s /usr/local/lib/libfcgi.so.0 /usr/lib/libfcgi.so.0</span>
+</code></pre></div></li>
+</ul>
+<h4 id="23-fcgi">2.3 fcgi</h4>
+<ul>
+<li>
+<p>使用<strong>C/C++<strong>编写</strong>FastCGI</strong>应用程序，可以使用<strong>FastCGI</strong>软件开发套件或者其它开发框架，如<strong>fcgi</strong>。</p>
+</li>
+<li>
+<p>编译安装<strong>fcgi</strong></p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">wget https://fossies.org/linux/www/old/fcgi-2.4.0.tar.gz
+tar -zxvf fcgi-2.4.0.tar.gz
+<span style="color:#658b00">cd</span> fcgi-2.4.0/
+./configure
+make -j <span style="color:#b452cd">8</span>
+sudo make install
+</code></pre></div></li>
+<li>
+<p><a href="https://github.com/gongluck/CVIP/blob/master/code/fcgi/test.c">fcgil例子</a></p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#228b22">/*
+</span><span style="color:#228b22"> * @Author: gongluck 
+</span><span style="color:#228b22"> * @Date: 2020-12-06 09:31:16 
+</span><span style="color:#228b22"> * @Last Modified by: gongluck
+</span><span style="color:#228b22"> * @Last Modified time: 2020-12-06 10:36:28
+</span><span style="color:#228b22"> */</span>
+  
+<span style="color:#228b22">// gcc test.c -lfcgi
+</span><span style="color:#228b22">// spawn-fcgi -a 127.0.0.1 -p 8001 -f ./a.out
+</span><span style="color:#228b22"></span><span style="color:#228b22">/* nginx conf add
+</span><span style="color:#228b22">location /test {
+</span><span style="color:#228b22">          fastcgi_pass 127.0.0.1:8001;
+</span><span style="color:#228b22">          fastcgi_index test;
+</span><span style="color:#228b22">          include /usr/local/nginx/conf/fastcgi.conf;
+</span><span style="color:#228b22">      }	
+</span><span style="color:#228b22">*/</span>
+  
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdlib.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;string.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;unistd.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;fcgi_stdio.h&#34;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>  
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>(<span style="color:#00688b;font-weight:bold">int</span> argc, <span style="color:#00688b;font-weight:bold">char</span> *argv[])
+{
+    <span style="color:#00688b;font-weight:bold">int</span> count = <span style="color:#b452cd">0</span>;
+    <span style="color:#228b22">//阻塞等待并监听某个端口，等待Nginx将数据发过来
+</span><span style="color:#228b22"></span>    <span style="color:#8b008b;font-weight:bold">while</span> (FCGI_Accept() &gt;= <span style="color:#b452cd">0</span>)
+    {
+        <span style="color:#228b22">//如果想得到数据，需要从stdin去读，实际上从Nginx上去读
+</span><span style="color:#228b22"></span>        <span style="color:#228b22">//如果想上传数据，需要往stdout写，实际上是给Nginx写数据
+</span><span style="color:#228b22"></span>        printf(<span style="color:#cd5555">&#34;Content-type: text/html</span><span style="color:#cd5555">\r\n</span><span style="color:#cd5555">&#34;</span>);
+        printf(<span style="color:#cd5555">&#34;</span><span style="color:#cd5555">\r\n</span><span style="color:#cd5555">&#34;</span>);
+        printf(<span style="color:#cd5555">&#34;&lt;title&gt;Fast CGI Hello!&lt;/title&gt;&#34;</span>);
+        printf(<span style="color:#cd5555">&#34;&lt;h1&gt;Fast CGI Hello!&lt;/h1&gt;&#34;</span>);
+        <span style="color:#228b22">//SERVER_NAME：得到server的host名称
+</span><span style="color:#228b22"></span>        printf(<span style="color:#cd5555">&#34;Request number %d running on host &lt;i&gt;%s&lt;/i&gt;</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>,
+               ++count, getenv(<span style="color:#cd5555">&#34;SERVER_NAME&#34;</span>));
+    }
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+</code></pre></div><!-- raw HTML omitted -->
+</li>
+</ul>
+
+                    
+                    <HR width="100%" id="EOF">
+                    <p style="color:#777;">Last modified on 2020-12-28</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="https://gongluck.github.io/linux/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%93%E9%A2%98/">
+                    Next<br>源码分析专题
+                </a>
+                
+                
+                
+                <a class="older-posts" href="https://gongluck.github.io/linux/%E4%BB%A3%E7%A0%81%E5%B7%A5%E7%A8%8B%E5%8C%96%E4%B8%93%E9%A2%98/">
+                    Previous<br>代码工程化专题
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+<div id="gitalk-container"></div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+            </div><div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	2020 gongluck&#39;s blog
+	</div>
+            </div>
+    <script>
+let app;
+
+app = new Vue({
+    el: '#app',
+    data: {
+        scrollY: 0,
+        navOpacity: 0,
+        isDrawerOpen: false,
+        mounted: false,
+        isDarkMode: false
+    },
+    methods: {
+            sgn(t, x) {
+                let k = 1. / (1. - 2 * t);
+                if (x <= t) return 0;
+                else if (x >= 1 - t) return 1;
+                else {
+                    return k * (x - t);
+                }
+            },
+            handleScroll() {
+                this.scrollY = window.scrollY;
+                this.navOpacity = this.sgn(.0, Math.min(1, Math.max(0, window.scrollY / (this.pageHeadHeight() - this.navBarHeight() * 0.8))));
+                const {navBar, navBackground, navTitle, extraContainer, streamContainer} = this.$refs;
+
+                if (this.navOpacity >= 1) {
+                    navBackground.style.opacity = 1;
+                    navTitle.style.opacity = 1;
+                } else {
+                    navBackground.style.opacity = 0;
+                    navTitle.style.opacity = 0;
+                }
+            },
+            handleResize() {
+                const {navBar, navBackground, navTitle, extraContainer, streamContainer} = this.$refs;
+                extraContainer.style.left = (streamContainer.offsetWidth - extraContainer.offsetWidth) + 'px';
+            },
+            navBarHeight() {
+                return this.$refs.navBar.offsetHeight;
+            },
+            pageHeadHeight() {
+                return this.$refs.pageHead.offsetHeight;
+            },
+            toggleDrawer() {
+                this.isDrawerOpen = !this.isDrawerOpen;
+                document.getElementsByTagName('html')[0].style.overflow = this.isDrawerOpen ? 'hidden' : 'unset';
+            },
+            closeDrawer() {
+                this.isDrawerOpen = false;
+                document.getElementsByTagName('html')[0].style.overflow = this.isDrawerOpen ? 'hidden' : 'unset';
+            },
+            toggleDarkMode() {
+                this.isDarkMode = !this.isDarkMode;
+                if (this.isDarkMode==true){
+                    document.cookie = "night=1;path=/";
+                    document.body.classList.add("night");
+                } else {
+                    document.cookie = "night=0;path=/";
+                    document.body.classList.remove("night");
+                }
+            }
+    },
+    created() {
+        window.addEventListener('scroll', this.handleScroll);
+        window.addEventListener('resize', this.handleResize);
+        window._nonDesktop = function () {
+            let check = false;
+            (function (a) {
+                if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) check = true;
+            })(navigator.userAgent || navigator.vendor || window.opera);
+            return check;
+        };
+        
+        var night = document.cookie.replace(/(?:(?:^|.*;\s*)night\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+        if (night==""){
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                
+            }
+        }else{
+            
+            if (night=="1") {
+                this.toggleDarkMode();
+            }
+        }
+    },
+    mounted() {
+        this.handleScroll();
+        this.handleResize();
+        this.mounted = true;
+        
+    },
+    destroyed() {
+        window.removeEventListener('scroll', this.handleScroll);
+        window.removeEventListener('resize', this.handleResize);
+    }
+});
+</script>
+
+<script src="https://gongluck.github.io/js/journal.js"></script>
+    </body>
+</html>

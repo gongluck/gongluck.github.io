@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>default on gongluck&#39;s blog</title>
+    <link>https://gongluck.github.io/categories/default/</link>
+    <description>Recent content in default on gongluck&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 06 Apr 2020 19:43:00 +0800</lastBuildDate><atom:link href="https://gongluck.github.io/categories/default/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>第一篇博客</title>
+      <link>https://gongluck.github.io/default/first/</link>
+      <pubDate>Mon, 06 Apr 2020 19:43:00 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/default/first/</guid>
+      <description>第一篇博客 本博客网站使用Hugo创建,参考了视频,十分便捷。</description>
+    </item>
+    
+  </channel>
+</rss>

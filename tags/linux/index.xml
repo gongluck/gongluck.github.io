@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linux on gongluck&#39;s blog</title>
+    <link>https://gongluck.github.io/tags/linux/</link>
+    <description>Recent content in linux on gongluck&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 28 Dec 2020 22:24:36 +0800</lastBuildDate><atom:link href="https://gongluck.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>分布式专题</title>
+      <link>https://gongluck.github.io/linux/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%93%E9%A2%98/</link>
+      <pubDate>Mon, 28 Dec 2020 22:24:36 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/linux/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%93%E9%A2%98/</guid>
+      <description>十三、分布式专题 0.项目仓库  https://github.com/gongluck/CVIP.git  1.UDP可靠传输 1.1 TCP和UDP比较 1.2 KCP   KCP是一个快速可靠协议，能以比TCP浪费10%-20%的带宽的代价，换取平均延迟降低30%-40%，且最大延迟降低三倍的传输效果。纯算法实现，并不负责底层协议（如UDP）的收发，需要使用者自己定义下层数据包的发送方式，以callback的方式提供给KCP。 连时钟都需要外部传递进来，内部不会有任何一次系统调用。
+  整个协议只有ikcp.h，ikcp.c两个源文件，可以方便的集成到用户自己的协议栈中。
+  TCP是为流量设计的（每秒内可以传输多少KB的数据），讲究的是充分利用带宽。而KCP是为流速设计的（单个数据包从一端发送到一端需要多少时间），以10%-20%带宽浪费的代价换取了比TCP快30%-40%的传输速度。TCP信道是一条流速很慢，但每秒流量很大的大运河，而KCP是水流湍急的小激流。KCP有正常模式和快速模式两种。
+  RTO翻倍vs不翻倍：
+ TCP超时计算是RTOx2，这样连续丢三次包就变成RTOx8了，十分恐怖，而KCP启动快速模式后不x2，只是x1.5（实验证明1.5这个值相对比较好），提高了传输速度。    选择性重传vs全部重传：
+ TCP丢包时会全部重传从丢的那个包开始以后的数据，KCP是选择性重传，只重传真正丢失的数据包。    快速重传：
+ 发送端发送了1,2,3,4,5几个包，然后收到远端的ACK: 1, 3, 4, 5，当收到ACK3时，KCP知道2被跳过1次，收到ACK4时，知道2被跳过了2次，此时可以认为2号丢失，不用等超时，直接重传2号包，大大改善了丢包时的传输速度。    延迟ACK vs 非延迟ACK：
+ TCP为了充分利用带宽，延迟发送ACK（NODELAY都没用），这样超时计算会算出较大RTT时间，延长了丢包时的判断过程。KCP的ACK是否延迟发送可以调节。    UNA vs ACK+UNA：
+ ARQ模型响应有两种，UNA（此编号前所有包已收到，如TCP）和ACK（该编号包已收到），光用UNA将导致全部重传，光用ACK则丢失成本太高，以往协议都是二选其一，而KCP协议中，除去单独的ACK包外，所有包都有UNA信息。    非退让流控：
+ KCP正常模式同TCP一样使用公平退让法则，即发送窗口大小由：发送缓存大小、接收端剩余接收缓存大小、丢包退让及慢启动这四要素决定。但传送及时性要求很高的小数据时，可选择通过配置跳过后两步，仅用前两项来控制发送频率。以牺牲部分公平性及带宽利用率之代价，换取了开着BT都能流畅传输的效果。    2.DPDK </description>
+    </item>
+    
+    <item>
+      <title>集群专题</title>
+      <link>https://gongluck.github.io/linux/%E9%9B%86%E7%BE%A4%E4%B8%93%E9%A2%98/</link>
+      <pubDate>Mon, 28 Dec 2020 22:23:37 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/linux/%E9%9B%86%E7%BE%A4%E4%B8%93%E9%A2%98/</guid>
+      <description>十二、集群专题 0.项目仓库  https://github.com/gongluck/CVIP.git  1.Redis集群 1.1 主从复制  主从模式的一个作用是备份数据，这样当一个节点损坏时，数据因为有备份，可以方便恢复。另一个作用是负载均衡，所有客户端都访问一个节点肯定会影响Redis工作效率，有了主 从以后，查询操作就可以通过查询从节点来完成。 默认配置下，master节点可以进行读和写，slave节点只能进行读操作，写操作被禁止。 不要修改配置让slave节点支持写操作，没有意义，原因一，写入的数据不会被同步到其他节点；原因二，当master节点修改同一条数据后，slave节点的数据会被覆盖掉。 slave节点挂了不影响其他slave节点的读和master节点的读和写，重新启动后会将数据从master节点同步过来。master节点挂了以后，不影响slave节点的读，Redis将不再提供写服务，master节点启动后Redis将重新对外提供写服务。master节点挂了以后，slave节点重新不会选一个master。  1.2 Sentinel模式   Sentinel的主要功能包括主节点存活检测、主从运行情况检测、自动故障转移、主从切换。由一个或多个Sentinel实例组成的Sentinel系统可以监视任意多个主服务器，以及所有从服务器，并在被监视的主服务器进入下线状态时，自动将下线主服务器属下的某个从服务器升 级为新的主服务器，然后由新的主服务器代替已下线的主服务器继续处理命令请求。
+  Redis的Sentinel最小配置是一主一从。Redis的Sentinel系统可以用来管理多个Redis服务器，该系统可以执行以下四个任务：
+ 监控  Sentinel会不断的检查主服务器和从服务器是否正常运行。   通知  当被监控的某个Redis服务器出现问题，Sentinel通过API脚本向管理员或者其他的应用程序发送通知。   自动故障转移  当主节点不能正常工作时，Sentinel会开始一次自动的故障转移操作，它会将与失效主节点是主从关系的其中一个从节点升级为新的主节点，并且将其他的从节点指向新的主节点。   配置提供者  在Redis Sentinel模式下，客户端应用在初始化时连接的是 Sentinel节点集合，从中获取主节点的信息。      1.3 Cluster模式   redis cluster是 Redis的分布式解决方案，在3.0版本推出后有效地解决了redis分布式方面的需求。自动将数据进行分片，每个master上放一部分数据。提供内置的高可用支持，部分master不可用时，还是可以继续工作的支撑N个redis master node，每个master node都可以挂载多个slave node高可用，因为每个master都有salve节点，那么如果mater挂掉，redis cluster这套机制，就会自动将某个slave切换成master。
+  2.去中心化技术 2.1 去中心化网络 2.2 网络地址映射   服务器发送数据与路由器公网IP时，能够将数据映射到私网中的机器；私网内的机器发送数据给服务器，路由器也能够映射为公网IP地址的过程，成为网络地址映射。</description>
+    </item>
+    
+    <item>
+      <title>Linux内核专题</title>
+      <link>https://gongluck.github.io/linux/linux%E5%86%85%E6%A0%B8%E4%B8%93%E9%A2%98/</link>
+      <pubDate>Mon, 28 Dec 2020 22:22:43 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/linux/linux%E5%86%85%E6%A0%B8%E4%B8%93%E9%A2%98/</guid>
+      <description>十一、Linux内核专题 0.项目仓库  https://github.com/gongluck/CVIP.git  1.OpenResty 1.1 简介  openresty是一个基于nginx与lua的高性能web平台，其内部集成了大量精良的lua库、第三方模块以及大多数的依赖项。用于方便搭建能够处理超高并发、扩展性极高的动态web应用、web服务和动态网关。 openresty通过汇聚各种设计精良的nginx模块，从而将nginx有效地变成一个强大的通用 Web应用平台。这样，Web开发人员和系统工程师可以使用Lua脚本语言调动Nginx支持的各种C以及Lua模块，快速构造出足以胜任10K乃至1000K以上单机并发连接的高性能Web应用系统。 openresty的目标是让Web服务直接跑在Nginx服务内部，充分利用Nginx的非阻塞I/O模型，不仅仅对HTTP客户端请求，甚至于对远程后端诸如MySQL、PostgreSQL、Memcached以及Redis等都进行一致的高性能响应。  1.2 lua-nginx-module 1.3 cosocket 1.4 环境搭建 apt-get install libpcre3-dev libssl-dev perl make build-essential curl -y wget https://openresty.org/download/openresty-1.19.3.1.tar.gz tar -xzvf openresty-1.19.3.1.tar.gz cd openresty-1.19.3.1/ ./configure make -j 8 sudo make install 2.Linux内核编程 2.1 Linux内核编译升级 wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.10.tar.xz tar -xvf linux-5.10.tar.xz cd linux-5.10 cp /boot/config-xxx ./.config make menuconfig make -j 8 sudo su make modules_install make bzImage cp arch/x86/boot/bzImage /boot/vmlinuz-4.4.16 cp .</description>
+    </item>
+    
+    <item>
+      <title>中间件开发专题</title>
+      <link>https://gongluck.github.io/linux/%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%93%E9%A2%98/</link>
+      <pubDate>Mon, 28 Dec 2020 22:21:34 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/linux/%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%93%E9%A2%98/</guid>
+      <description>十、中间件开发专题 0.项目仓库  https://github.com/gongluck/CVIP.git  1.用户态协议栈 1.1 Netmap   Netmap是一个高性能收发原始数据包的框架，由Luigi Rizzo等人开发完成，其包含了内核模块以及用户态库函数。其目标是，不修改现有操作系统软件以及不需要特殊硬件支持，实现用户态和网卡之间数据包的高性能传递。数据包不经过操作系统内核进行处理，用户空间程序收发数据包时，直接与网卡进行通信。
+  网卡通过循环队列（即NIC环）来管理数据包的传输，每个网卡至少维护一对NIC环，分别用以管理发送和接收两个方向的数据包。每一个环被划分为很多槽，每一个槽都包含存储数据包的缓冲区的信息：缓冲区长度、缓冲区的物理地址等。在通常情况下，主机网络堆栈可以访问NIC环上指定的槽，也就可以访问到存放数据包的缓冲区，实现数据包的发送和接收。
+  网卡所管理的内存空间是内核空间，运行在用户态的应用程序正常情况下无权访问内核空间，因此，需要进行从内核空间到用户空间的拷贝，零拷贝就是减少或消除这种拷贝，如直接缓存访问（direct buffer access)。DBA为了节省内核态和用户态之间的拷贝，可以将应用程序直接跑在内核态，如内核态的Click。也可以选择将内核中的数据包缓存区直接暴露给用户态程序，如PF_RING和Linux的PACKET_MMAP。
+  netmap也是一个基于零拷贝思想的高速网络I/O架构。当网卡运行在netmap模式下，NIC环会与主机协议栈进行断开，netmap会拷贝一份NIC环，被称作netmap环。同时，netmap还会维护一对环，用于与主机协议栈进行交互。这些环所指向的用于存储数据包内容的缓存位于共享空间，网卡直接将数据包存入这些缓存。应用程序可以通过调用netmap API访问netmap环中的数据包内容，也就可以访问用于存储数据包的缓存，也就是说，当应用程序需要访问数据包内容时，无需从内核空间到用户空间的拷贝，可以直接访问，从而实现了网络数据包的零拷贝。此外，netmap并不会将网卡寄存器和内核的关键内存区域暴露给应用程序，因而用户态的应用程序并不会导致操作系统崩溃，所以相对一些其他的零拷贝架构，netmap更为安全。
+  netmap还会通过以下几种手段来增加网络I/O的速度：
+ 1）预分配固定大小的数据包存储空间，以消除每个数据包存储时动态分配内存所导致的系统开销； 2）让用户态程序直接访问到网络数据包缓冲区，以减少数据拷贝的开销； 3）使用一个轻量级的元数据表示，以屏蔽硬件相关的一些特性。该元数据表示支持在一次系统调用中处理大量数据包，从而可以减少系统调用的开销。以发包速度为例，netmap可以在900MHz单核CPU上处理10G以太网的线速（14.88Mpps）。    编译安装
+git clone https://github.com/luigirizzo/netmap.git ./configure make -j 8 sudo make install sudo insmod netmap.ko   1.2 用户态协议栈   以太网帧格式
+  IP协议头格式
+  UDP头部格式
+  TCP头部格式
+  2.定时器 3.分布式锁 4.协程 4.1 知识准备  现代操作系统是分时操作系统，资源分配的基本单位是进程，CPU调度的基本单位是线程。 C++程序运行时会有一个运行时栈，一次函数调用就会在栈上生成一个record。 运行时内存空间分为全局变量区（存放函数，全局变量）,栈区，堆区。栈区内存分配从高地址往低地址分配，堆区从低地址往高地址分配。 下一条指令地址存在于指令寄存器IP，ESP寄存值指向当前栈顶地址，EBP指向当前活动栈帧的基地址。 发生函数调用时操作为：将参数从右往左一次压栈，将返回地址压栈，将当前EBP寄存器的值压栈，在栈区分配当前函数局部变量所需的空间，表现为修改ESP寄存器的值。 协程的上下文包含属于他的栈区和寄存器里面存放的值。 协程是为了使用异步的优势，异步操作是为了避免IO操作阻塞线程。那么协程挂起的时刻应该是当前协程发起异步操作的时候，而唤醒应该在其他协程退出，并且他的异步操作完成时。  4.</description>
+    </item>
+    
+    <item>
+      <title>源码分析专题</title>
+      <link>https://gongluck.github.io/linux/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%93%E9%A2%98/</link>
+      <pubDate>Mon, 28 Dec 2020 22:20:02 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/linux/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%93%E9%A2%98/</guid>
+      <description>九、源码分析专题 0.项目仓库  https://github.com/gongluck/CVIP.git  1.Nginx架构和模块 1.1 Nginx架构   nginx在启动后，在unix系统中会以daemon的方式在后台运行，后台进程包含一个master进程和多个worker进程。
+  master进程主要用来管理worker进程，包含：
+ 接收来自外界的信号， 向各worker进程发送信号， 监控worker进程的运行状态， 当worker进程退出后(异常情况下)，会自动重新启动新的worker进程。    而基本的网络事件，则是放在worker进程中来处理了。多个worker进程之间是对等的，他们同等竞争来自客户端的请求，各进程互相之间是独立的。
+  每个worker进程都是从master进程fork过来，在master进程里面，先建立好需要listen的socket（listenfd）之后，然后再fork出多个worker进程。所有worker进程的listenfd会在新连接到来时变得可读，为保证只有一个进程处理该连接，所有worker 进程在注册listenfd读事件前抢accept_mutex，抢到互斥锁的那个进程注册listenfd读事件，在读事件里调用accept接受该连接。当一个worker进程在accept这个连接之后，就开始读取请求，解析请求，处理请求，产生数据后，再返回给客户端，最后才断开连接，这样一个完整的请求就是这样的了。
+  对于每个worker进程来说，独立的进程，不需要加锁，所以省掉了锁带来的开销，同时在编程以及问题查找时，也会方便很多。其次，采用独立的进程，可以让互相之间不会影响，一个进程退出后，其它进程还在工作，服务不会中断，master进程则很快启动新的worker进程。
+  nginx采用了异步非阻塞的方式来处理请求。非阻塞就是，事件没有准备好，马上返回EAGAIN。
+  nginx里面的定时器事件是放在一颗维 护定时器的红黑树里面，每次在进入epoll_wait前，先从该红黑树里面拿到所有定时器事件的最小时间，在计算出epoll_wait的超时时间后进入epoll_wait。所以，当没有事件产生，也没有中断信号时，epoll_wait会超时，也就是说，定时器事件到了。这时，nginx会检查所有的超时事件，将他们的状态设置为超时，然后再去处理网络事件。
+  1.2 Nginx基础概念   connection
+struct ngx_connection_s { void *data; ngx_event_t *read; ngx_event_t *write; ngx_socket_t fd; ngx_recv_pt recv; ngx_send_pt send; ngx_recv_chain_pt recv_chain; ngx_send_chain_pt send_chain; ngx_listening_t *listening; off_t sent; ngx_log_t *log; ngx_pool_t *pool; int type; struct sockaddr *sockaddr; socklen_t socklen; ngx_str_t addr_text; ngx_proxy_protocol_t *proxy_protocol; #if (NGX_SSL || NGX_COMPAT)  ngx_ssl_connection_t *ssl; #endif  ngx_udp_connection_t *udp; struct sockaddr *local_sockaddr; socklen_t local_socklen; ngx_buf_t *buffer; ngx_queue_t queue; ngx_atomic_uint_t number; ngx_uint_t requests; unsigned buffered:8; unsigned log_error:3; /* ngx_connection_log_error_e */ unsigned timedout:1; unsigned error:1; unsigned destroyed:1; unsigned idle:1; unsigned reusable:1; unsigned close:1; unsigned shared:1; unsigned sendfile:1; unsigned sndlowat:1; unsigned tcp_nodelay:2; /* ngx_connection_tcp_nodelay_e */ unsigned tcp_nopush:2; /* ngx_connection_tcp_nopush_e */ unsigned need_last_buf:1; #if (NGX_HAVE_AIO_SENDFILE || NGX_COMPAT)  unsigned busy_count:2; #endif  #if (NGX_THREADS || NGX_COMPAT)  ngx_thread_task_t *sendfile_task; #endif };  nginx在实现时，是通过一个连接池来管理的，每个worker进程都有一个独立的连接池，连接池的大小是worker_connections。这里的连接池里面保存的其实不是真实的连接，它只是一个worker_connections大小的一个ngx_connection_t结构的数组。并且，nginx会通过一个链表free_connections来保存所有的空闲ngx_connection_t，每次获取一个连接时，就从空闲连接链表中获取一个，用完后，再放回空闲连接链表里面。 一个nginx能建立的最大连接数，应该是worker_connections * worker_processes。当然，这里说的是最大连接数，对于HTTP请求本地资源来说，能够支持的最大并发数量是 worker_connections * worker_processes，而如果是 HTTP 作为反向代理来说，最大并发数量应该是worker_connections * worker_processes / 2。因为作为反向代理服务器，每个并发会建立与客户端的连接和与后端服务的连接，会占用两个连接。 nginx使用一个叫ngx_accept_disabled的变量来控制是否去竞争accept_mutex锁。计算 ngx_accept_disabled的值，这个值是nginx单进程的所有连接总数的八分之一，减去剩下的空闲连接数量，得到的这个ngx_accept_disabled有一个规律，当剩余连接数小于总连接数的八分之一时，其值才大于 0，而且剩余的连接数越小，这个值越大。当ngx_accept_disabled大于0时，不会去尝试获取accept_mutex锁，并且将ngx_accept_disabled减1，于是，每次执行到此处时，都会去减1，直到小于0。    request</description>
+    </item>
+    
+    <item>
+      <title>分布式存储专题</title>
+      <link>https://gongluck.github.io/linux/%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E4%B8%93%E9%A2%98/</link>
+      <pubDate>Mon, 28 Dec 2020 22:18:35 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/linux/%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E4%B8%93%E9%A2%98/</guid>
+      <description>八、分布式存储专题 0.项目仓库  https://github.com/gongluck/CVIP.git  1.FastDFS 1.1 编译安装 # 下载 wget https://github.com/happyfish100/libfastcommon/archive/V1.0.43.tar.gz # 解压 sudo tar -xzvf V1.0.43.tar.gz libfastcommon-1.0.43 # 进入解压后的目录 cd libfastcommon-1.0.43 # 编译代码 sudo ./make.sh # 安装 sudo ./make.sh install #export LD_LIBRARY_PATH=/usr/lib64/:$LD_LIBRARY_PATH sudo ln -s /usr/lib64/libfastcommon.so /usr/lib/libfastcommon.so # 下载 wget https://github.com/happyfish100/fastdfs/archive/V6.06.tar.gz # 解压 sudo tar -zxvf V6.06.tar.gz fastdfs-6.06 # 进入解压后的目录 cd fastdfs-6.06 # 编译代码 sudo ./make.sh # 安装 sudo ./make.sh install 1.2 tracker.conf # is this config file disabled # false for enabled # true for disabled disabled = false # bind an address of this host # empty for bind all addresses of this host bind_addr = 172.</description>
+    </item>
+    
+    <item>
+      <title>代码工程化专题</title>
+      <link>https://gongluck.github.io/linux/%E4%BB%A3%E7%A0%81%E5%B7%A5%E7%A8%8B%E5%8C%96%E4%B8%93%E9%A2%98/</link>
+      <pubDate>Mon, 28 Dec 2020 22:17:27 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/linux/%E4%BB%A3%E7%A0%81%E5%B7%A5%E7%A8%8B%E5%8C%96%E4%B8%93%E9%A2%98/</guid>
+      <description>七、代码工程化专题 0.项目仓库  https://github.com/gongluck/CVIP.git  1.代码版本工具 1.1 git   常用命令
+# 查看分支 git branch # 创建develop分支 git branch develop # 创建FT-123456的一个feature分支 git checkout –b feature/FT-123456 # 切换分支 git checkout develop # 合并分支 git merge feature/FT-123456 # 删除FT-123456的feature分支 git branch –d feature/FT-123456 # 推送分支 git push –u origin hotfix/ISSUE-345678 # 整理commit git rebase -i # 子模块 git submodule add giturl loaclpath git submodule update --init --recurise   2.工程管理 2.1 CMake https://github.</description>
+    </item>
+    
+    <item>
+      <title>性能测试专题</title>
+      <link>https://gongluck.github.io/linux/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E4%B8%93%E9%A2%98/</link>
+      <pubDate>Mon, 28 Dec 2020 22:15:32 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/linux/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E4%B8%93%E9%A2%98/</guid>
+      <description>六、性能测试专题 0.项目仓库  https://github.com/gongluck/CVIP.git  1.性能分析工具 1.1 Valgrind   Valgrind是一套Linux下，开放源代码（GPL V2）的仿真调试工具的集合。Valgrind由内核（core）以及基于内核的其他调试工具组成。内核类似于一个框架（framework）， 它模拟了一个CPU环境，并提供服务给其他工具；而其他工具则类似于插件(plug-in)，利用内核提供的服务完成各种特定的内存调试任务。
+  编译安装
+wget https://sourceware.org/pub/valgrind/valgrind-3.16.1.tar.bz2 tar -jxvf valgrind-3.16.1.tar.bz2 cd valgrind-3.16.1 ./configure make -j 8 sudo make install   使用valgrind
+  为了使valgrind发现的错误更精确，如能够定位到源代码行，建议在编译时加上**-g**参数，编译优化选项请选择**-O0**，虽然这会降低程序的执行效率。
+gcc -g -O0 test.c   使用命令
+valgrind [valgrind-options] your-prog [your-progoptions] valgrind --log-file=./valgrind_report.log --leak-check=full --show-leak-kinds=all --showreachable=no --track-origins=yes your-prog [your-progoptions]     1.2 GDB   一般要调试某个程序，为了能清晰地看到调试的每一行代码、调用的堆栈信息、变量名和函数名等信息，需要调试程序含有调试符号信息。使用gcc编译程序时，如果加上**-g**选项即可在编译后的程序中保留调试符号信息。
+  除了不加**-g**选项，也可以使用Linux的**strip**命令移除掉某个程序中的调试信息。
+strip a.out   gdb直接调试目标程序</description>
+    </item>
+    
+    <item>
+      <title>网络服务专题</title>
+      <link>https://gongluck.github.io/linux/%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%93%E9%A2%98/</link>
+      <pubDate>Mon, 30 Nov 2020 21:05:04 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/linux/%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%93%E9%A2%98/</guid>
+      <description>五、网络服务专题 0.项目仓库  https://github.com/gongluck/CVIP.git  1.Reactor反应堆 1.1 Reactor模型   Reactor释义“反应堆”，是一种事件驱动机制。和普通函数调用的不同之处在于：应用程序不是主动的调用某个API完成处理，而是恰恰 相反，Reactor逆置了事件处理流程，应用程序需要提供相应的接口并注册到Reactor上，如果相应的时间发生，Reactor将主动调用应用程序注册的接口，这些接口又称为“回调函数”。
+  Reactor模式是处理并发I/O比较常见的一种模式，用于同步I/O，中心思想是将所有要处理的I/O事件注册到一个中心I/O多路复用器上，同时主线程/进程阻塞在多路复用器上；一旦有I/O事件到来或是准备就绪（文件描述符或socket可读、写），多路复用器返回并将事先注册的相应I/O事件分发到对应的处理器中。
+  Reactor模型有三个重要的组件：
+​	 多路复用器：由操作系统提供，在linux上一般是select、poll、epoll等系统调用。 事件分发器：将多路复用器中返回的就绪事件分到对应的处理函数中。 事件处理器：负责处理特定事件的处理函数。    1.2 Reactor实现 /* * @Author: gongluck * @Date: 2020-11-26 09:41:40 * @Last Modified by: gongluck * @Last Modified time: 2020-11-26 16:58:43 */ #include &amp;lt;stdio.h&amp;gt;#include &amp;lt;stdlib.h&amp;gt;#include &amp;lt;string.h&amp;gt;#include &amp;lt;sys/socket.h&amp;gt;#include &amp;lt;sys/epoll.h&amp;gt;#include &amp;lt;arpa/inet.h&amp;gt; #include &amp;lt;fcntl.h&amp;gt;#include &amp;lt;unistd.h&amp;gt;#include &amp;lt;errno.h&amp;gt; #define BUFFER_LENGTH 4096 #define MAX_EPOLL_EVENTS 1024 #define SERVER_PORT 8888  typedef int NCALLBACK(int, int, void *); struct ntyevent { int fd; int events; void *arg; int (*callback)(int fd, int events, void *arg); int status;//是否已经添加到epoll中  char buffer[BUFFER_LENGTH]; int length; long last_active; }; struct ntyreactor { int epfd; struct ntyevent events[MAX_EPOLL_EVENTS]; }; void nty_event_set(struct ntyevent *ev, int fd, NCALLBACK callback, void *arg) { ev-&amp;gt;fd = fd; ev-&amp;gt;callback = callback; ev-&amp;gt;events = 0; ev-&amp;gt;arg = arg; ev-&amp;gt;last_active = time(NULL); return; } int nty_event_add(int epfd, int events, struct ntyevent *ev) { struct epoll_event ep_ev = {0, {0}}; ep_ev.</description>
+    </item>
+    
+    <item>
+      <title>开源框架专题</title>
+      <link>https://gongluck.github.io/linux/%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E4%B8%93%E9%A2%98/</link>
+      <pubDate>Mon, 30 Nov 2020 21:02:48 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/linux/%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E4%B8%93%E9%A2%98/</guid>
+      <description>四、开源框架专题 0.项目仓库  https://github.com/gongluck/CVIP.git  1.字符编码和压缩 1.1 字符编码   ASCII（American Standard Code for Information Interchange），128个字符，用7位二进制表示（00000000-01111111即0x00-0x7F）;EASCII（Extended ASCII），256个字符，用8位二进制表示（00000000-11111111即0x00-0xFF）。当计算机传到了欧洲，国际标准化组织在ASCII的基础上进行了扩展，形成了ISO-8859标准，跟EASCII类似，兼容ASCII，在高128个码位上有所区别。但是由于欧洲的语言环境十分复杂，所以根据各地区的语言又形成了很多子标准，ISO-8859-1、ISO-8859- 2、ISO-8859-3、……、ISO-8859-16。
+  双字节编码可以是变长的，也就是说同一个编码里面有些字符是单字节表示，有些字符是双字节表示。这样做的好处是，一方面可以兼容ASCII，另一方面可以节省存储容量，代价就是会损失一部分码位。
+ GBK（Chinese Internal Code Specification汉字内码扩展规范）是GB2312的扩展（gbk编码能够用来同时表示繁体字和简体字），按理说都属于双字节编码，码位是一样的，根本谈不上扩展，但实际上是预留空间在起作用。 UNICODE字符集（国际标准字符集），它将世界各种语言的每个字符定义一个唯一的编码，以满足跨语言、跨平台的文本信息转换。有多个编码方式，分别是UTF-8，UTF-16，UTF-32编码。    UTF是Unicode Transformation Format的缩写，意思是“Unicode转换格式”，后面的数字表明至少使用多少个比特位（Bit）来存储字符。
+  UFT-8：一种变长的编码方案，使用1~6个字节来存储；
+  UFT-32：一种固定长度的编码方案，不管字符编号大小，直接存储Unicode编号，始终使用4个字节来存储；
+  UTF-16：介于UTF-8和UTF-32之间，使用2个或者4个字节来存储，长度既固定又可变。
+  UTF格式在文件中的固定文件头
+    1.2 libiconv字符编码转换库   libiconv例子
+/* * @Author: gongluck * @Date: 2020-11-18 07:52:34 * @Last Modified by: gongluck * @Last Modified time: 2020-11-18 09:14:11 */ #include &amp;lt;stdio.</description>
+    </item>
+    
+    <item>
+      <title>基础组件开发专栏</title>
+      <link>https://gongluck.github.io/linux/%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%93%E6%A0%8F/</link>
+      <pubDate>Mon, 30 Nov 2020 20:58:32 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/linux/%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%93%E6%A0%8F/</guid>
+      <description>三、基础组件开发专栏 0.项目仓库  https://github.com/gongluck/CVIP.git  1.线程池原理与实现 1.1 线程池工作流程 1.2 线程池实现   线程池实现代码
+#include &amp;lt;pthread.h&amp;gt; // 添加队列节点 #define LL_ADD(item, list) \ do \ { \ item-&amp;gt;prev = NULL; \ item-&amp;gt;next = list; \ list = item; \ } while (0)  // 移除队列节点 #define LL_REMOVE(item, list) \ do \ { \ if (item-&amp;gt;prev != NULL) \ item-&amp;gt;prev-&amp;gt;next = item-&amp;gt;next; \ if (item-&amp;gt;next != NULL) \ item-&amp;gt;next-&amp;gt;prev = item-&amp;gt;prev; \ if (list == item) \ list = item-&amp;gt;next; \ item-&amp;gt;prev = item-&amp;gt;next = NULL; \ } while (0)  // 工作线程 typedef struct WORKER { pthread_t thread; int terminate; struct WORKQUEUE *workqueue; struct WORKER *prev; struct WORKER *next; } Worker; // 工作任务 typedef struct JOB { void (*job_function)(struct JOB *job); void *user_data; struct JOB *prev; struct JOB *next; } Job; // 工作调度 typedef struct WORKQUEUE { struct WORKER *workers; struct JOB *waiting_jobs; pthread_mutex_t jobs_mtx; pthread_cond_t jobs_cond; } WorkQueue; typedef WorkQueue ThreadPool; // 工作线程回调函数 static void *WorkerThread(void *ptr) { Worker *worker = (Worker *)ptr; while (1) { pthread_mutex_lock(&amp;amp;worker-&amp;gt;workqueue-&amp;gt;jobs_mtx); while (worker-&amp;gt;workqueue-&amp;gt;waiting_jobs == NULL) { if (worker-&amp;gt;terminate) break; pthread_cond_wait(&amp;amp;worker-&amp;gt;workqueue-&amp;gt;jobs_cond, &amp;amp;worker-&amp;gt;workqueue-&amp;gt;jobs_mtx); } if (worker-&amp;gt;terminate) { pthread_mutex_unlock(&amp;amp;worker-&amp;gt;workqueue-&amp;gt;jobs_mtx); break; } Job *job = worker-&amp;gt;workqueue-&amp;gt;waiting_jobs; if (job !</description>
+    </item>
+    
+    <item>
+      <title>后台组件编程专栏</title>
+      <link>https://gongluck.github.io/linux/%E5%90%8E%E5%8F%B0%E7%BB%84%E4%BB%B6%E7%BC%96%E7%A8%8B%E4%B8%93%E6%A0%8F/</link>
+      <pubDate>Mon, 30 Nov 2020 20:52:27 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/linux/%E5%90%8E%E5%8F%B0%E7%BB%84%E4%BB%B6%E7%BC%96%E7%A8%8B%E4%B8%93%E6%A0%8F/</guid>
+      <description>二、后台组件编程专栏 0.项目仓库  https://github.com/gongluck/CVIP.git  1.MySQL基本操作与编程 1.1 MySQL基础逻辑框架 1.2 基本操作   安装
+sudo apt-get install mysql-server mysql-client -y   启动、重启、关闭
+sudo /etc/init.d/mysql start|stop|restart   连接
+mysql -h127.0.0.1 -uroot -p #root用户默认密码为空   ERROR 1698 (28000): Access denied for user &amp;lsquo;root&amp;rsquo;@&amp;lsquo;localhost&amp;rsquo;问题解决
+# 查看/etc/mysql/debian.cnf sudo vim /etc/mysql/debian.cnf ########################################################### # Automatically generated for Debian scripts. DO NOT TOUCH! [client] host = localhost user = debian-sys-maint # 记住这两项 password = 5VRSokq1P0uQ2S39 # 记住这两项 socket = /var/run/mysqld/mysqld.</description>
+    </item>
+    
+    <item>
+      <title>算法与设计模式专栏</title>
+      <link>https://gongluck.github.io/linux/%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%93%E6%A0%8F/</link>
+      <pubDate>Mon, 30 Nov 2020 20:35:46 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/linux/%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%93%E6%A0%8F/</guid>
+      <description>一、算法与设计模式专栏 0.项目仓库  https://github.com/gongluck/CVIP.git  1.查找与排序/KMP算法，栈/队列 1.1 希尔排序   希尔排序，也称递减增量排序算法，是插入排序的一种更高效的改进版本。但希尔排序是非稳定排序算法。
+希尔排序是基于插入排序的以下两点性质而提出改进方法的：
+ 插入排序在对几乎已经排好序的数据操作时，效率高，即可以达到线性排序的效率； 但插入排序一般来说是低效的，因为插入排序每次只能将数据移动一位；  希尔排序的基本思想是：先将整个待排序的记录序列分割成为若干子序列分别进行直接插入排序，待整个序列中的记录&amp;quot;基本有序&amp;quot;时，再对全体记录进行依次直接插入排序。
+  算法步骤
+ 选择一个增量序列 t1，t2，……，tk，其中 ti &amp;gt; tj, tk = 1； 按增量序列个数 k，对序列进行 k 趟排序； 每趟排序，根据对应的增量 ti，将待排序列分割成若干长度为 m 的子序列，分别对各子表进行直接插入排序。仅增量因子为 1 时，整个序列作为一个表来处理，表长度即为整个序列的长度。    代码
+int shell_sort(int *data, int length) { int gap = 0; int i = 0, j = 0; int temp = 0; // 外层分组  for (gap = length / 2; gap &amp;gt;= 1; gap /= 2) { // 插入排序  for (i = gap; i &amp;lt; length; ++i) { temp = data[i]; for (j = i - gap; j &amp;gt;= 0 &amp;amp;&amp;amp; temp &amp;lt; data[j]; j -= gap) { // 将data[j]右移  data[j + gap] = data[j]; } // 将temp(开始的data[i])放到循环跳出的地方  data[j + gap] = temp; } } return 0; }   1.</description>
+    </item>
+    
+    <item>
+      <title>Shell基础</title>
+      <link>https://gongluck.github.io/linux/shell/</link>
+      <pubDate>Sat, 17 Oct 2020 16:33:15 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/linux/shell/</guid>
+      <description>使用Shell test.sh需要执行权限
+/bin/bash ./test.sh #或者 ./test.sh 简单Shell文件 #!/bin/bash #第一句指明使用哪一个解析程序 #输出字符串 echo &amp;#34;hello, shell!&amp;#34; #定义变量，=号之间不能有空格 tmp=&amp;#34;test&amp;#34; #输出变量，$紧跟变量名取变量值 echo $tmp #循环输出文件名 for file in $(ls $pwd); do echo $file done #循环加法 sum=0 for i in {1..100}; do let sum+=i #let 指明后面的是数字运算 done echo $sum #网络探寻 for i in {1..254}; do ping -c 2 -i 0.1 192.168.3.$i &amp;amp;&amp;gt; /dev/null if [ $? -eq 0 ]; then # $?可以获取上一个指令的执行结果 echo 192.168.3.$i is up else echo 192.</description>
+    </item>
+    
+    <item>
+      <title>搭建WSL的ssh服务</title>
+      <link>https://gongluck.github.io/linux/wslssh/</link>
+      <pubDate>Sat, 17 Oct 2020 16:33:15 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/linux/wslssh/</guid>
+      <description>sudo apt-get remove --purge openssh-server sudo apt-get install openssh-server sudo rm /etc/ssh/ssh_config sudo service ssh --full-restart </description>
+    </item>
+    
+  </channel>
+</rss>

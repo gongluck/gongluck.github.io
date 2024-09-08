@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>go on gongluck&#39;s blog</title>
+    <link>https://gongluck.github.io/tags/go/</link>
+    <description>Recent content in go on gongluck&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 12 Apr 2020 13:50:36 +0800</lastBuildDate><atom:link href="https://gongluck.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CGO导入导出C静态库/动态库</title>
+      <link>https://gongluck.github.io/go/cgo_static_and_shared_library/</link>
+      <pubDate>Sun, 12 Apr 2020 13:50:36 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/go/cgo_static_and_shared_library/</guid>
+      <description>&lt;p&gt;可以直接使用C源码到GO中当然是最好不过了,但如果只有三方库的静态库或者动态库,就要学会如何在GO中使用C的静态库或者动态库了。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>CGO类型转换</title>
+      <link>https://gongluck.github.io/go/cgo_types/</link>
+      <pubDate>Sat, 11 Apr 2020 12:09:14 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/go/cgo_types/</guid>
+      <description>&lt;p&gt;由于CGO和C的数据类型不是完全等价匹配, 所有在使用CGO的过程中需要做类型转换。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>CGO入门</title>
+      <link>https://gongluck.github.io/go/cgo_quick_start/</link>
+      <pubDate>Thu, 09 Apr 2020 19:31:36 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/go/cgo_quick_start/</guid>
+      <description>&lt;p&gt;C/C++加上GO代表什么？&lt;/p&gt;
+&lt;p&gt;代表着既可以使用GO快速的开发项目,同时可以接纳C/C++的庞大历史遗产和极高性能！而且在GO中使用C/C++十分简单！&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

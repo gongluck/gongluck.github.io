@@ -1,0 +1,3444 @@
+<!DOCTYPE html>
+<html><head>
+<title>开源框架专题</title>
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-163347799-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+<script src="/vendor/js/jquery.min.js" ></script>
+<script src="/vendor/js/popper.min.js" ></script>
+<script src="/vendor/js/bootstrap.min.js" ></script>
+<script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+<script src="/vendor/js/vue.min.js" ></script>
+
+
+
+
+<link rel="stylesheet" href="https://gongluck.github.io/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
+
+
+
+<link rel="stylesheet" href="https://gongluck.github.io/scss/dark-mode.min.b8ced257adf01d727091488aba5d273c60910773635166b513b27c1c28b9c866.css" integrity="sha256-uM7SV63wHXJwkUiKul0nPGCRB3NjUWa1E7J8HCi5yGY=" media="screen">
+
+
+<script src="https://gongluck.github.io/js/loadCSS.js"></script>
+<script>
+  loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
+</script>
+
+<script src="https://gongluck.github.io/js/table.js"></script>
+
+
+
+
+<script src="https://gongluck.github.io/js/toc.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/vendor/js/md5.min.js"></script>
+<script>
+  var gitalk = new Gitalk({
+  clientID: '49c0a21d9340c4049e72',
+  clientSecret: '6a22a79ca072e86728e6b1385927d1ec92f3d4a8',
+  repo: 'blogtalk',
+  owner: 'gongluck',
+  admin: ['gongluck'],
+  id: md5(location.pathname),
+  distractionFreeMode: 'false'
+  });
+  window.onload = function () {
+        gitalk.render('gitalk-container')
+  }
+</script>
+
+
+
+
+
+
+</head><body>
+    	<div id="app"><div ref="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="https://gongluck.github.io">
+    
+        <div class="nav-title">
+            gongluck&#39;s blog
+        </div>
+        
+        <div class="nav-subtitle">
+            C/C&#43;&#43; Win32/MFC Qt Golang
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                Categories
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                Tags
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="https://www.cnblogs.com/gongluck/">
+                CNBLOG
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="https://blog.csdn.net/gongluck93">
+                CSDN
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="https://github.com/gongluck">
+                Github
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/index.xml">
+                RSS Feed
+            </a>
+            
+        
+    </div>
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> 
+    <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	2020 gongluck&#39;s blog
+	
+    </div>
+    
+</div><div ref="extraContainer" class="extra-container">
+    
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e5%9b%9b%e5%bc%80%e6%ba%90%e6%a1%86%e6%9e%b6%e4%b8%93%e9%a2%98" v-on:click="closeDrawer" id="四开源框架专题-nav">
+										 四、开源框架专题
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#0%e9%a1%b9%e7%9b%ae%e4%bb%93%e5%ba%93" v-on:click="closeDrawer" id="0项目仓库-nav">
+										 0.项目仓库
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#1%e5%ad%97%e7%ac%a6%e7%bc%96%e7%a0%81%e5%92%8c%e5%8e%8b%e7%bc%a9" v-on:click="closeDrawer" id="1字符编码和压缩-nav">
+										 1.字符编码和压缩
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#11-%e5%ad%97%e7%ac%a6%e7%bc%96%e7%a0%81" v-on:click="closeDrawer" id="11-字符编码-nav">
+										 1.1 字符编码
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#12-libiconv%e5%ad%97%e7%ac%a6%e7%bc%96%e7%a0%81%e8%bd%ac%e6%8d%a2%e5%ba%93" v-on:click="closeDrawer" id="12-libiconv字符编码转换库-nav">
+										 1.2 libiconv字符编码转换库
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#13-zlib" v-on:click="closeDrawer" id="13-zlib-nav">
+										 1.3 zlib
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#2json%e5%92%8cxml" v-on:click="closeDrawer" id="2json和xml-nav">
+										 2.Json和Xml
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#21-cjson" v-on:click="closeDrawer" id="21-cjson-nav">
+										 2.1 cJSON
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#22-jsoncpp" v-on:click="closeDrawer" id="22-jsoncpp-nav">
+										 2.2 jsoncpp
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#23-tinyxml2" v-on:click="closeDrawer" id="23-tinyxml2-nav">
+										 2.3 TinyXML2
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#3protobuf" v-on:click="closeDrawer" id="3protobuf-nav">
+										 3.ProtoBuf
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#31-%e5%ba%8f%e5%88%97%e5%8c%96%e5%92%8c%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96" v-on:click="closeDrawer" id="31-序列化和反序列化-nav">
+										 3.1 序列化和反序列化
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#32-%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85protobuf" v-on:click="closeDrawer" id="32-编译安装protobuf-nav">
+										 3.2 编译安装ProtoBuf
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#33-protobuf%e4%be%8b%e5%ad%90httpsgithubcomgongluckcvipblobmastercodeprotobuf" v-on:click="closeDrawer" id="33-protobuf例子httpsgithubcomgongluckcvipblobmastercodeprotobuf-nav">
+										 3.3 ProtoBuf例子
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#4%e6%b6%88%e6%81%af%e9%98%9f%e5%88%97" v-on:click="closeDrawer" id="4消息队列-nav">
+										 4.消息队列
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#41-%e6%b6%88%e6%81%af%e9%98%9f%e5%88%97%e6%af%94%e8%be%83" v-on:click="closeDrawer" id="41-消息队列比较-nav">
+										 4.1 消息队列比较
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#42-zmq%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85" v-on:click="closeDrawer" id="42-zmq编译安装-nav">
+										 4.2 zmq编译安装
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#43-zmq%e4%be%8b%e5%ad%90httpsgithubcomgongluckcvipblobmastercodemessagequeuezmq" v-on:click="closeDrawer" id="43-zmq例子httpsgithubcomgongluckcvipblobmastercodemessagequeuezmq-nav">
+										 4.3 zmq例子
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#5openssl" v-on:click="closeDrawer" id="5openssl-nav">
+										 5.OpenSSL
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#51-openssl%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85" v-on:click="closeDrawer" id="51-openssl编译安装-nav">
+										 5.1 OpenSSL编译安装
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#52-openssl%e4%be%8b%e5%ad%90httpsgithubcomgongluckcvipblobmastercodeopenssltestc" v-on:click="closeDrawer" id="52-openssl例子httpsgithubcomgongluckcvipblobmastercodeopenssltestc-nav">
+										 5.2 OpenSSL例子
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#6%e7%bd%91%e7%bb%9cio%e7%ae%a1%e7%90%86" v-on:click="closeDrawer" id="6网络io管理-nav">
+										 6.网络IO管理
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#61-%e4%bf%a1%e5%8f%b7%e9%a9%b1%e5%8a%a8iohttpsgithubcomgongluckcvipblobmastercodeiosignalioc" v-on:click="closeDrawer" id="61-信号驱动iohttpsgithubcomgongluckcvipblobmastercodeiosignalioc-nav">
+										 6.1 信号驱动IO
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#62-select-iohttpsgithubcomgongluckcvipblobmastercodeioselectc" v-on:click="closeDrawer" id="62-select-iohttpsgithubcomgongluckcvipblobmastercodeioselectc-nav">
+										 6.2 select IO
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#63-poll-iohttpsgithubcomgongluckcvipblobmastercodeiopollc" v-on:click="closeDrawer" id="63-poll-iohttpsgithubcomgongluckcvipblobmastercodeiopollc-nav">
+										 6.3 poll IO
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#64-epoll-iohttpsgithubcomgongluckcvipblobmastercodeioepollc" v-on:click="closeDrawer" id="64-epoll-iohttpsgithubcomgongluckcvipblobmastercodeioepollc-nav">
+										 6.4 epoll IO
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a class="pagination-action" v-on:click="toggleDarkMode">
+            <i class="material-icons pagination-action-icon" v-if="isDarkMode">
+                brightness_4
+            </i>
+            <i class="material-icons pagination-action-icon" v-else="isDarkMode">
+                brightness_7
+            </i>
+        </a>
+        
+        
+    </div>
+</div><div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    Categories
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    Tags
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="https://www.cnblogs.com/gongluck/">
+                    CNBLOG
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="https://blog.csdn.net/gongluck93">
+                    CSDN
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="https://github.com/gongluck">
+                    Github
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/index.xml">
+                    RSS Feed
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e5%9b%9b%e5%bc%80%e6%ba%90%e6%a1%86%e6%9e%b6%e4%b8%93%e9%a2%98" v-on:click="closeDrawer" id="四开源框架专题-nav">
+										 四、开源框架专题
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#0%e9%a1%b9%e7%9b%ae%e4%bb%93%e5%ba%93" v-on:click="closeDrawer" id="0项目仓库-nav">
+										 0.项目仓库
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#1%e5%ad%97%e7%ac%a6%e7%bc%96%e7%a0%81%e5%92%8c%e5%8e%8b%e7%bc%a9" v-on:click="closeDrawer" id="1字符编码和压缩-nav">
+										 1.字符编码和压缩
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#11-%e5%ad%97%e7%ac%a6%e7%bc%96%e7%a0%81" v-on:click="closeDrawer" id="11-字符编码-nav">
+										 1.1 字符编码
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#12-libiconv%e5%ad%97%e7%ac%a6%e7%bc%96%e7%a0%81%e8%bd%ac%e6%8d%a2%e5%ba%93" v-on:click="closeDrawer" id="12-libiconv字符编码转换库-nav">
+										 1.2 libiconv字符编码转换库
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#13-zlib" v-on:click="closeDrawer" id="13-zlib-nav">
+										 1.3 zlib
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#2json%e5%92%8cxml" v-on:click="closeDrawer" id="2json和xml-nav">
+										 2.Json和Xml
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#21-cjson" v-on:click="closeDrawer" id="21-cjson-nav">
+										 2.1 cJSON
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#22-jsoncpp" v-on:click="closeDrawer" id="22-jsoncpp-nav">
+										 2.2 jsoncpp
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#23-tinyxml2" v-on:click="closeDrawer" id="23-tinyxml2-nav">
+										 2.3 TinyXML2
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#3protobuf" v-on:click="closeDrawer" id="3protobuf-nav">
+										 3.ProtoBuf
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#31-%e5%ba%8f%e5%88%97%e5%8c%96%e5%92%8c%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96" v-on:click="closeDrawer" id="31-序列化和反序列化-nav">
+										 3.1 序列化和反序列化
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#32-%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85protobuf" v-on:click="closeDrawer" id="32-编译安装protobuf-nav">
+										 3.2 编译安装ProtoBuf
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#33-protobuf%e4%be%8b%e5%ad%90httpsgithubcomgongluckcvipblobmastercodeprotobuf" v-on:click="closeDrawer" id="33-protobuf例子httpsgithubcomgongluckcvipblobmastercodeprotobuf-nav">
+										 3.3 ProtoBuf例子
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#4%e6%b6%88%e6%81%af%e9%98%9f%e5%88%97" v-on:click="closeDrawer" id="4消息队列-nav">
+										 4.消息队列
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#41-%e6%b6%88%e6%81%af%e9%98%9f%e5%88%97%e6%af%94%e8%be%83" v-on:click="closeDrawer" id="41-消息队列比较-nav">
+										 4.1 消息队列比较
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#42-zmq%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85" v-on:click="closeDrawer" id="42-zmq编译安装-nav">
+										 4.2 zmq编译安装
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#43-zmq%e4%be%8b%e5%ad%90httpsgithubcomgongluckcvipblobmastercodemessagequeuezmq" v-on:click="closeDrawer" id="43-zmq例子httpsgithubcomgongluckcvipblobmastercodemessagequeuezmq-nav">
+										 4.3 zmq例子
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#5openssl" v-on:click="closeDrawer" id="5openssl-nav">
+										 5.OpenSSL
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#51-openssl%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85" v-on:click="closeDrawer" id="51-openssl编译安装-nav">
+										 5.1 OpenSSL编译安装
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#52-openssl%e4%be%8b%e5%ad%90httpsgithubcomgongluckcvipblobmastercodeopenssltestc" v-on:click="closeDrawer" id="52-openssl例子httpsgithubcomgongluckcvipblobmastercodeopenssltestc-nav">
+										 5.2 OpenSSL例子
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#6%e7%bd%91%e7%bb%9cio%e7%ae%a1%e7%90%86" v-on:click="closeDrawer" id="6网络io管理-nav">
+										 6.网络IO管理
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#61-%e4%bf%a1%e5%8f%b7%e9%a9%b1%e5%8a%a8iohttpsgithubcomgongluckcvipblobmastercodeiosignalioc" v-on:click="closeDrawer" id="61-信号驱动iohttpsgithubcomgongluckcvipblobmastercodeiosignalioc-nav">
+										 6.1 信号驱动IO
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#62-select-iohttpsgithubcomgongluckcvipblobmastercodeioselectc" v-on:click="closeDrawer" id="62-select-iohttpsgithubcomgongluckcvipblobmastercodeioselectc-nav">
+										 6.2 select IO
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#63-poll-iohttpsgithubcomgongluckcvipblobmastercodeiopollc" v-on:click="closeDrawer" id="63-poll-iohttpsgithubcomgongluckcvipblobmastercodeiopollc-nav">
+										 6.3 poll IO
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#64-epoll-iohttpsgithubcomgongluckcvipblobmastercodeioepollc" v-on:click="closeDrawer" id="64-epoll-iohttpsgithubcomgongluckcvipblobmastercodeioepollc-nav">
+										 6.4 epoll IO
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="https://gongluck.github.io">
+            gongluck&#39;s blog
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" v-on:click="toggleDarkMode">
+            <i class="material-icons" v-if="isDarkMode">
+                brightness_4
+            </i>
+            <i class="material-icons" v-else="isDarkMode">
+                brightness_7
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="https://gongluck.github.io">
+        <div class="single-column-header-title">gongluck&#39;s blog</div>
+        
+        <div class="single-column-header-subtitle">C/C&#43;&#43; Win32/MFC Qt Golang</div>
+        
+
+    </a>
+</div>
+            <div id="content">
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+                
+            
+
+            <div class="post-head-wrapper"
+                
+                    
+                    
+                    style="background-image: url('https://gongluck.github.io/img/linux_wh.jpg')"
+                    
+                
+            >
+                <div class="post-title">
+                    开源框架专题
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2020-11-30 21:02
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/linux">linux</a>
+                                &nbsp;
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/linux">linux</a>
+                                &nbsp;
+                            
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h2 id="四开源框架专题">四、开源框架专题</h2>
+<h3 id="0项目仓库">0.项目仓库</h3>
+<ul>
+<li><a href="https://github.com/gongluck/CVIP.git">https://github.com/gongluck/CVIP.git</a></li>
+</ul>
+<h3 id="1字符编码和压缩">1.字符编码和压缩</h3>
+<h4 id="11-字符编码">1.1 字符编码</h4>
+<ul>
+<li>
+<p>ASCII（American Standard Code for Information Interchange），128个字符，用7位二进制表示（00000000-01111111即0x00-0x7F）;EASCII（Extended ASCII），256个字符，用8位二进制表示（00000000-11111111即0x00-0xFF）。当计算机传到了欧洲，国际标准化组织在ASCII的基础上进行了扩展，形成了ISO-8859标准，跟EASCII类似，兼容ASCII，在高128个码位上有所区别。但是由于欧洲的语言环境十分复杂，所以根据各地区的语言又形成了很多子标准，ISO-8859-1、ISO-8859- 2、ISO-8859-3、……、ISO-8859-16。</p>
+</li>
+<li>
+<p>双字节编码可以是变长的，也就是说同一个编码里面有些字符是单字节表示，有些字符是双字节表示。这样做的好处是，一方面可以兼容ASCII，另一方面可以节省存储容量，代价就是会损失一部分码位。</p>
+<ul>
+<li>GBK（Chinese Internal Code Specification汉字内码扩展规范）是GB2312的扩展（gbk编码能够用来同时表示繁体字和简体字），按理说都属于双字节编码，码位是一样的，根本谈不上扩展，但实际上是预留空间在起作用。</li>
+<li>UNICODE字符集（国际标准字符集），它将世界各种语言的每个字符定义一个唯一的编码，以满足跨语言、跨平台的文本信息转换。有多个编码方式，分别是UTF-8，UTF-16，UTF-32编码。</li>
+</ul>
+</li>
+<li>
+<p>UTF是Unicode Transformation Format的缩写，意思是“Unicode转换格式”，后面的数字表明<strong>至少</strong>使用多少个比特位（Bit）来存储字符。</p>
+<ul>
+<li>
+<p>UFT-8：一种变长的编码方案，使用1~6个字节来存储；</p>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/Unicode%E7%A0%81%E8%A1%A8%E5%AF%B9%E5%BA%94utf8%E7%BC%96%E7%A0%81.png?raw=true" alt="Unicode码表对应utf8编码"></p>
+</li>
+<li>
+<p>UFT-32：一种固定长度的编码方案，不管字符编号大小，直接存储Unicode编号，始终使用4个字节来存储；</p>
+</li>
+<li>
+<p>UTF-16：介于UTF-8和UTF-32之间，使用2个或者4个字节来存储，长度既固定又可变。</p>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/Unicode%E7%A0%81%E8%A1%A8%E5%AF%B9%E5%BA%94utf16%E7%BC%96%E7%A0%81.png?raw=true" alt="Unicode码表对应utf16编码"></p>
+</li>
+<li>
+<p>UTF格式在文件中的<strong>固定文件头</strong></p>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/utf%E5%9B%BA%E5%AE%9A%E6%96%87%E4%BB%B6%E5%A4%B4.png?raw=true" alt="utf固定文件头"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="12-libiconv字符编码转换库">1.2 libiconv字符编码转换库</h4>
+<ul>
+<li>
+<p><a href="https://github.com/gongluck/CVIP/blob/master/code/convert/iconv.c">libiconv例子</a></p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#228b22">/*
+</span><span style="color:#228b22"> * @Author: gongluck 
+</span><span style="color:#228b22"> * @Date: 2020-11-18 07:52:34 
+</span><span style="color:#228b22"> * @Last Modified by: gongluck
+</span><span style="color:#228b22"> * @Last Modified time: 2020-11-18 09:14:11
+</span><span style="color:#228b22"> */</span>
+  
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdlib.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;iconv.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>  
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>()
+{
+    iconv_t cd = iconv_open(<span style="color:#cd5555">&#34;GBK&#34;</span>, <span style="color:#cd5555">&#34;UTF-8&#34;</span>); <span style="color:#228b22">//UTF8 -&gt; GBK
+</span><span style="color:#228b22"></span>    <span style="color:#8b008b;font-weight:bold">if</span> (cd == (iconv_t)-<span style="color:#b452cd">1</span>)
+    {
+        printf(<span style="color:#cd5555">&#34;iconv_open failed.</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>);
+        exit(-<span style="color:#b452cd">1</span>);
+    }
+  
+    <span style="color:#00688b;font-weight:bold">char</span> str[] = <span style="color:#cd5555">&#34;iconv例子&#34;</span>;
+    <span style="color:#00688b;font-weight:bold">char</span> *pstr = str;
+    size_t len = <span style="color:#8b008b;font-weight:bold">sizeof</span>(str);
+    <span style="color:#00688b;font-weight:bold">char</span> out[<span style="color:#b452cd">100</span>] = {<span style="color:#b452cd">0</span>};
+    <span style="color:#00688b;font-weight:bold">char</span> *pout = out;
+    size_t leftlen = <span style="color:#8b008b;font-weight:bold">sizeof</span>(out);
+    <span style="color:#8b008b;font-weight:bold">while</span> (pstr-str &lt; <span style="color:#8b008b;font-weight:bold">sizeof</span>(str))
+    {
+        pout = out;
+        leftlen = <span style="color:#8b008b;font-weight:bold">sizeof</span>(out);
+        <span style="color:#00688b;font-weight:bold">int</span> n = iconv(cd, &amp;pstr, &amp;len, &amp;pout, &amp;leftlen);
+        <span style="color:#228b22">//printf(&#34;iconv return %d\n&#34;, n);
+</span><span style="color:#228b22"></span>        <span style="color:#8b008b;font-weight:bold">if</span> (pout != out)<span style="color:#228b22">//有转换成功字符
+</span><span style="color:#228b22"></span>        {
+            printf(<span style="color:#cd5555">&#34;%.*s&#34;</span>, (<span style="color:#00688b;font-weight:bold">int</span>)(<span style="color:#8b008b;font-weight:bold">sizeof</span>(out)-leftlen), out);
+        }
+        <span style="color:#8b008b;font-weight:bold">else</span>
+        {
+            <span style="color:#8b008b;font-weight:bold">break</span>;
+        }
+          
+        <span style="color:#8b008b;font-weight:bold">if</span>(n != -<span style="color:#b452cd">1</span>)
+        {
+            pout = out;
+          leftlen = <span style="color:#8b008b;font-weight:bold">sizeof</span>(out);
+          n = iconv(cd, <span style="color:#658b00">NULL</span>, <span style="color:#658b00">NULL</span>, &amp;pout, &amp;leftlen);
+          <span style="color:#8b008b;font-weight:bold">if</span> (pout != out) <span style="color:#228b22">// 检测iconv内部是否还有缓存
+</span><span style="color:#228b22"></span>          {
+              printf(<span style="color:#cd5555">&#34;%.*s&#34;</span>, (<span style="color:#00688b;font-weight:bold">int</span>)(<span style="color:#8b008b;font-weight:bold">sizeof</span>(out)-leftlen), out);
+          }
+          <span style="color:#8b008b;font-weight:bold">break</span>;
+        }
+    }
+    printf(<span style="color:#cd5555">&#34;</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>);
+    iconv_close(cd);
+  
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+</code></pre></div><!-- raw HTML omitted -->
+</li>
+</ul>
+<h4 id="13-zlib">1.3 zlib</h4>
+<ul>
+<li>
+<p>编译安装zlib</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#228b22">#下载</span>
+wget http://www.zlib.net/zlib-1.2.11.tar.gz
+<span style="color:#228b22">#解压</span>
+tar -zxvf zlib-1.2.11.tar.gz
+<span style="color:#228b22">#进入目录</span>
+<span style="color:#658b00">cd</span> zlib-1.2.11
+<span style="color:#228b22">#配置</span>
+./configure
+<span style="color:#228b22">#编译</span>
+make -j <span style="color:#b452cd">8</span>
+<span style="color:#228b22">#检查</span>
+make check
+<span style="color:#228b22">#安装</span>
+sudo make install
+</code></pre></div></li>
+<li>
+<p><a href="https://github.com/gongluck/CVIP/blob/master/code/zlib/zlib.c">zlib例子</a></p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#228b22">/*
+</span><span style="color:#228b22"> * @Author: gongluck 
+</span><span style="color:#228b22"> * @Date: 2020-11-18 17:02:24 
+</span><span style="color:#228b22"> * @Last Modified by: gongluck
+</span><span style="color:#228b22"> * @Last Modified time: 2020-11-18 17:05:37
+</span><span style="color:#228b22"> */</span>
+  
+<span style="color:#228b22">// gcc zlib.c -lz
+</span><span style="color:#228b22">// ./a.out &lt; zlib.c &gt; out
+</span><span style="color:#228b22">// ./a.out -d &lt; out &gt; zlib.c
+</span><span style="color:#228b22"></span>  
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;string.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;assert.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;zlib.h&#34;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>  
+<span style="color:#1e889b">#if defined(MSDOS) || defined(OS2) || defined(WIN32) || defined(__CYGWIN__)
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;fcntl.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;io.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#define SET_BINARY_MODE(file) setmode(fileno(file), O_BINARY)
+</span><span style="color:#1e889b">#else
+</span><span style="color:#1e889b">#define SET_BINARY_MODE(file)
+</span><span style="color:#1e889b">#endif
+</span><span style="color:#1e889b"></span>  
+<span style="color:#1e889b">#define CHUNK 1024
+</span><span style="color:#1e889b"></span>  
+<span style="color:#228b22">/* Compress from file source to file dest until EOF on source.
+</span><span style="color:#228b22">   def() returns Z_OK on success, Z_MEM_ERROR if memory could not be
+</span><span style="color:#228b22">   allocated for processing, Z_STREAM_ERROR if an invalid compression
+</span><span style="color:#228b22">   level is supplied, Z_VERSION_ERROR if the version of zlib.h and the
+</span><span style="color:#228b22">   version of the library linked do not match, or Z_ERRNO if there is
+</span><span style="color:#228b22">   an error reading or writing the files. */</span>
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">def</span>(FILE *source, FILE *dest, <span style="color:#00688b;font-weight:bold">int</span> level)
+{
+    <span style="color:#00688b;font-weight:bold">int</span> ret, flush;
+    <span style="color:#00688b;font-weight:bold">unsigned</span> have;
+    z_stream strm;
+    <span style="color:#00688b;font-weight:bold">unsigned</span> <span style="color:#00688b;font-weight:bold">char</span> in[CHUNK];
+    <span style="color:#00688b;font-weight:bold">unsigned</span> <span style="color:#00688b;font-weight:bold">char</span> out[CHUNK];
+  
+    <span style="color:#228b22">/* allocate deflate state */</span>
+    strm.zalloc = Z_NULL;
+    strm.zfree = Z_NULL;
+    strm.opaque = Z_NULL;
+    ret = deflateInit(&amp;strm, level);
+    <span style="color:#8b008b;font-weight:bold">if</span> (ret != Z_OK)
+        <span style="color:#8b008b;font-weight:bold">return</span> ret;
+  
+    <span style="color:#228b22">/* compress until end of file */</span>
+    <span style="color:#8b008b;font-weight:bold">do</span>
+    {
+        strm.avail_in = fread(in, <span style="color:#b452cd">1</span>, CHUNK, source);
+        <span style="color:#8b008b;font-weight:bold">if</span> (ferror(source))
+        {
+            (<span style="color:#00688b;font-weight:bold">void</span>)deflateEnd(&amp;strm);
+            <span style="color:#8b008b;font-weight:bold">return</span> Z_ERRNO;
+        }
+        flush = feof(source) ? Z_FINISH : Z_NO_FLUSH;
+        strm.next_in = in;
+  
+        <span style="color:#228b22">/* run deflate() on input until output buffer not full, finish
+</span><span style="color:#228b22">           compression if all of source has been read in */</span>
+        <span style="color:#8b008b;font-weight:bold">do</span>
+        {
+            strm.avail_out = CHUNK;
+            strm.next_out = out;
+            ret = deflate(&amp;strm, flush);   <span style="color:#228b22">/* no bad return value */</span>
+            assert(ret != Z_STREAM_ERROR); <span style="color:#228b22">/* state not clobbered */</span>
+            have = CHUNK - strm.avail_out;
+            <span style="color:#8b008b;font-weight:bold">if</span> (fwrite(out, <span style="color:#b452cd">1</span>, have, dest) != have || ferror(dest))
+            {
+                (<span style="color:#00688b;font-weight:bold">void</span>)deflateEnd(&amp;strm);
+                <span style="color:#8b008b;font-weight:bold">return</span> Z_ERRNO;
+            }
+        } <span style="color:#8b008b;font-weight:bold">while</span> (strm.avail_out == <span style="color:#b452cd">0</span>);
+        assert(strm.avail_in == <span style="color:#b452cd">0</span>); <span style="color:#228b22">/* all input will be used */</span>
+  
+        <span style="color:#228b22">/* done when last data in file processed */</span>
+    } <span style="color:#8b008b;font-weight:bold">while</span> (flush != Z_FINISH);
+    assert(ret == Z_STREAM_END); <span style="color:#228b22">/* stream will be complete */</span>
+  
+    <span style="color:#228b22">/* clean up and return */</span>
+    (<span style="color:#00688b;font-weight:bold">void</span>)deflateEnd(&amp;strm);
+    <span style="color:#8b008b;font-weight:bold">return</span> Z_OK;
+}
+  
+<span style="color:#228b22">/* Decompress from file source to file dest until stream ends or EOF.
+</span><span style="color:#228b22">   inf() returns Z_OK on success, Z_MEM_ERROR if memory could not be
+</span><span style="color:#228b22">   allocated for processing, Z_DATA_ERROR if the deflate data is
+</span><span style="color:#228b22">   invalid or incomplete, Z_VERSION_ERROR if the version of zlib.h and
+</span><span style="color:#228b22">   the version of the library linked do not match, or Z_ERRNO if there
+</span><span style="color:#228b22">   is an error reading or writing the files. */</span>
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">inf</span>(FILE *source, FILE *dest)
+{
+    <span style="color:#00688b;font-weight:bold">int</span> ret;
+    <span style="color:#00688b;font-weight:bold">unsigned</span> have;
+    z_stream strm;
+    <span style="color:#00688b;font-weight:bold">unsigned</span> <span style="color:#00688b;font-weight:bold">char</span> in[CHUNK];
+    <span style="color:#00688b;font-weight:bold">unsigned</span> <span style="color:#00688b;font-weight:bold">char</span> out[CHUNK];
+  
+    <span style="color:#228b22">/* allocate inflate state */</span>
+    strm.zalloc = Z_NULL;
+    strm.zfree = Z_NULL;
+    strm.opaque = Z_NULL;
+    strm.avail_in = <span style="color:#b452cd">0</span>;
+    strm.next_in = Z_NULL;
+    ret = inflateInit(&amp;strm);
+    <span style="color:#8b008b;font-weight:bold">if</span> (ret != Z_OK)
+        <span style="color:#8b008b;font-weight:bold">return</span> ret;
+  
+    <span style="color:#228b22">/* decompress until deflate stream ends or end of file */</span>
+    <span style="color:#8b008b;font-weight:bold">do</span>
+    {
+        strm.avail_in = fread(in, <span style="color:#b452cd">1</span>, CHUNK, source);
+        <span style="color:#8b008b;font-weight:bold">if</span> (ferror(source))
+        {
+            (<span style="color:#00688b;font-weight:bold">void</span>)inflateEnd(&amp;strm);
+            <span style="color:#8b008b;font-weight:bold">return</span> Z_ERRNO;
+        }
+        <span style="color:#8b008b;font-weight:bold">if</span> (strm.avail_in == <span style="color:#b452cd">0</span>)
+            <span style="color:#8b008b;font-weight:bold">break</span>;
+        strm.next_in = in;
+  
+        <span style="color:#228b22">/* run inflate() on input until output buffer not full */</span>
+        <span style="color:#8b008b;font-weight:bold">do</span>
+        {
+            strm.avail_out = CHUNK;
+            strm.next_out = out;
+            ret = inflate(&amp;strm, Z_NO_FLUSH);
+            assert(ret != Z_STREAM_ERROR); <span style="color:#228b22">/* state not clobbered */</span>
+            <span style="color:#8b008b;font-weight:bold">switch</span> (ret)
+            {
+            <span style="color:#8b008b;font-weight:bold">case</span> Z_NEED_DICT:
+                ret = Z_DATA_ERROR; <span style="color:#228b22">/* and fall through */</span>
+            <span style="color:#8b008b;font-weight:bold">case</span> Z_DATA_ERROR:
+            <span style="color:#8b008b;font-weight:bold">case</span> Z_MEM_ERROR:
+                (<span style="color:#00688b;font-weight:bold">void</span>)inflateEnd(&amp;strm);
+                <span style="color:#8b008b;font-weight:bold">return</span> ret;
+            }
+            have = CHUNK - strm.avail_out;
+            <span style="color:#8b008b;font-weight:bold">if</span> (fwrite(out, <span style="color:#b452cd">1</span>, have, dest) != have || ferror(dest))
+            {
+                (<span style="color:#00688b;font-weight:bold">void</span>)inflateEnd(&amp;strm);
+                <span style="color:#8b008b;font-weight:bold">return</span> Z_ERRNO;
+            }
+        } <span style="color:#8b008b;font-weight:bold">while</span> (strm.avail_out == <span style="color:#b452cd">0</span>);
+  
+        <span style="color:#228b22">/* done when inflate() says it&#39;s done */</span>
+    } <span style="color:#8b008b;font-weight:bold">while</span> (ret != Z_STREAM_END);
+  
+    <span style="color:#228b22">/* clean up and return */</span>
+    (<span style="color:#00688b;font-weight:bold">void</span>)inflateEnd(&amp;strm);
+    <span style="color:#8b008b;font-weight:bold">return</span> ret == Z_STREAM_END ? Z_OK : Z_DATA_ERROR;
+}
+  
+<span style="color:#228b22">/* report a zlib or i/o error */</span>
+<span style="color:#00688b;font-weight:bold">void</span> <span style="color:#008b45">zerr</span>(<span style="color:#00688b;font-weight:bold">int</span> ret)
+{
+    fputs(<span style="color:#cd5555">&#34;zpipe: &#34;</span>, stderr);
+    <span style="color:#8b008b;font-weight:bold">switch</span> (ret)
+    {
+    <span style="color:#8b008b;font-weight:bold">case</span> Z_ERRNO:
+        <span style="color:#8b008b;font-weight:bold">if</span> (ferror(stdin))
+            fputs(<span style="color:#cd5555">&#34;error reading stdin</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, stderr);
+        <span style="color:#8b008b;font-weight:bold">if</span> (ferror(stdout))
+            fputs(<span style="color:#cd5555">&#34;error writing stdout</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, stderr);
+        <span style="color:#8b008b;font-weight:bold">break</span>;
+    <span style="color:#8b008b;font-weight:bold">case</span> Z_STREAM_ERROR:
+        fputs(<span style="color:#cd5555">&#34;invalid compression level</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, stderr);
+        <span style="color:#8b008b;font-weight:bold">break</span>;
+    <span style="color:#8b008b;font-weight:bold">case</span> Z_DATA_ERROR:
+        fputs(<span style="color:#cd5555">&#34;invalid or incomplete deflate data</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, stderr);
+        <span style="color:#8b008b;font-weight:bold">break</span>;
+    <span style="color:#8b008b;font-weight:bold">case</span> Z_MEM_ERROR:
+        fputs(<span style="color:#cd5555">&#34;out of memory</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, stderr);
+        <span style="color:#8b008b;font-weight:bold">break</span>;
+    <span style="color:#8b008b;font-weight:bold">case</span> Z_VERSION_ERROR:
+        fputs(<span style="color:#cd5555">&#34;zlib version mismatch!</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, stderr);
+    }
+}
+  
+<span style="color:#228b22">/* compress or decompress from stdin to stdout */</span>
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>(<span style="color:#00688b;font-weight:bold">int</span> argc, <span style="color:#00688b;font-weight:bold">char</span> **argv)
+{
+    <span style="color:#00688b;font-weight:bold">int</span> ret;
+  
+    <span style="color:#228b22">/* avoid end-of-line conversions */</span>
+    SET_BINARY_MODE(stdin);
+    SET_BINARY_MODE(stdout);
+  
+    <span style="color:#228b22">/* do compression if no arguments */</span>
+    <span style="color:#8b008b;font-weight:bold">if</span> (argc == <span style="color:#b452cd">1</span>)
+    {
+        ret = def(stdin, stdout, Z_DEFAULT_COMPRESSION);
+        <span style="color:#8b008b;font-weight:bold">if</span> (ret != Z_OK)
+            zerr(ret);
+        <span style="color:#8b008b;font-weight:bold">return</span> ret;
+    }
+  
+    <span style="color:#228b22">/* do decompression if -d specified */</span>
+    <span style="color:#8b008b;font-weight:bold">else</span> <span style="color:#8b008b;font-weight:bold">if</span> (argc == <span style="color:#b452cd">2</span> &amp;&amp; strcmp(argv[<span style="color:#b452cd">1</span>], <span style="color:#cd5555">&#34;-d&#34;</span>) == <span style="color:#b452cd">0</span>)
+    {
+        ret = inf(stdin, stdout);
+        <span style="color:#8b008b;font-weight:bold">if</span> (ret != Z_OK)
+            zerr(ret);
+        <span style="color:#8b008b;font-weight:bold">return</span> ret;
+    }
+  
+    <span style="color:#228b22">/* otherwise, report usage */</span>
+    <span style="color:#8b008b;font-weight:bold">else</span>
+    {
+        fputs(<span style="color:#cd5555">&#34;zpipe usage: zpipe [-d] &lt; source &gt; dest</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, stderr);
+        <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">1</span>;
+    }
+}
+</code></pre></div><!-- raw HTML omitted -->
+</li>
+</ul>
+<h3 id="2json和xml">2.Json和Xml</h3>
+<h4 id="21-cjson">2.1 cJSON</h4>
+<ul>
+<li>
+<p><a href="https://github.com/gongluck/CVIP/blob/master/code/json/cjson/test.c">cJSON例子</a></p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#228b22">/*
+</span><span style="color:#228b22"> * @Author: gongluck 
+</span><span style="color:#228b22"> * @Date: 2020-11-18 21:27:47 
+</span><span style="color:#228b22"> * @Last Modified by: gongluck
+</span><span style="color:#228b22"> * @Last Modified time: 2020-11-18 21:41:36
+</span><span style="color:#228b22"> */</span>
+
+<span style="color:#228b22">// gcc *.c -lm
+</span><span style="color:#228b22"></span>
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;cJSON.h&#34;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>()
+{
+    cJSON* root = cJSON_CreateObject();
+    cJSON_AddBoolToObject(root, <span style="color:#cd5555">&#34;bool&#34;</span>, cJSON_False);
+    cJSON_AddStringToObject(root, <span style="color:#cd5555">&#34;str&#34;</span>, <span style="color:#cd5555">&#34;cJSON&#34;</span>);
+  
+    <span style="color:#00688b;font-weight:bold">char</span>* str = cJSON_Print(root);
+    printf(<span style="color:#cd5555">&#34;%s</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, str);
+    cJSON_Delete(root);
+    root = <span style="color:#658b00">NULL</span>;
+
+    root = cJSON_Parse(str);
+    cJSON* b = cJSON_GetObjectItem(root, <span style="color:#cd5555">&#34;bool&#34;</span>);
+    <span style="color:#8b008b;font-weight:bold">if</span>(b-&gt;type == cJSON_True || b-&gt;type == cJSON_False)
+        printf(<span style="color:#cd5555">&#34;bool value : %d</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, b-&gt;type);
+    cJSON* s = cJSON_GetObjectItem(root, <span style="color:#cd5555">&#34;str&#34;</span>);
+    <span style="color:#8b008b;font-weight:bold">if</span>(s-&gt;type == cJSON_String)
+        printf(<span style="color:#cd5555">&#34;str value : %s</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, s-&gt;valuestring);
+    cJSON_Delete(root);
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+</code></pre></div><!-- raw HTML omitted -->
+</li>
+</ul>
+<h4 id="22-jsoncpp">2.2 jsoncpp</h4>
+<ul>
+<li>
+<p>编译安装</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#228b22"># 下载</span>
+git clone https://github.com/open-source-parsers/jsoncpp.git
+<span style="color:#658b00">cd</span> jsoncpp
+mkdir -p build/release
+<span style="color:#658b00">cd</span> build/release
+<span style="color:#228b22"># 编译</span>
+cmake -DCMAKE_BUILD_TYPE=release -DBUILD_STATIC_LIBS=ON -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_INCLUDEDIR=include/jsoncpp -DARCHIVE_INSTALL_DIR=. -G <span style="color:#cd5555">&#34;Unix Makefiles&#34;</span> ../..
+make
+<span style="color:#228b22"># 安装</span>
+sudo make install
+</code></pre></div></li>
+<li>
+<p><a href="https://github.com/gongluck/CVIP/blob/master/code/json/jsoncpp/test.cpp">jsoncpp例子</a></p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#228b22">/*
+</span><span style="color:#228b22"> * @Author: gongluck 
+</span><span style="color:#228b22"> * @Date: 2020-11-19 09:40:21 
+</span><span style="color:#228b22"> * @Last Modified by: gongluck
+</span><span style="color:#228b22"> * @Last Modified time: 2020-11-19 09:46:42
+</span><span style="color:#228b22"> */</span>
+  
+<span style="color:#228b22">// g++ test.cpp -ljsoncpp
+</span><span style="color:#228b22"></span>  
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;iostream&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;string&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;jsoncpp/json/json.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>  
+<span style="color:#00688b;font-weight:bold">void</span> <span style="color:#008b45">readJson</span>()
+{
+    std::string strValue = <span style="color:#cd5555">&#34;{</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">name</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">:</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">json</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">,</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">array</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">:[{</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">cpp</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">:</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">jsoncpp</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">},{</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">java</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">:</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">jsoninjava</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">},{</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">php</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">:</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">support</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">}]}&#34;</span>;
+  
+    Json::Reader reader;
+    Json::Value value;
+  
+    <span style="color:#8b008b;font-weight:bold">if</span> (reader.parse(strValue, value))
+    {
+        std::string out = value[<span style="color:#cd5555">&#34;name&#34;</span>].asString();
+        std::cout &lt;&lt; out &lt;&lt; std::endl;
+        <span style="color:#8b008b;font-weight:bold">const</span> Json::Value arrayObj = value[<span style="color:#cd5555">&#34;array&#34;</span>];
+        <span style="color:#8b008b;font-weight:bold">for</span> (<span style="color:#00688b;font-weight:bold">unsigned</span> <span style="color:#00688b;font-weight:bold">int</span> i = <span style="color:#b452cd">0</span>; i &lt; arrayObj.size(); i++)
+        {
+            <span style="color:#8b008b;font-weight:bold">if</span> (!arrayObj[i].isMember(<span style="color:#cd5555">&#34;cpp&#34;</span>))
+                <span style="color:#8b008b;font-weight:bold">continue</span>;
+            out = arrayObj[i][<span style="color:#cd5555">&#34;cpp&#34;</span>].asString();
+            std::cout &lt;&lt; out;
+            <span style="color:#8b008b;font-weight:bold">if</span> (i != (arrayObj.size() - <span style="color:#b452cd">1</span>))
+                std::cout &lt;&lt; std::endl;
+        }
+    }
+}
+  
+<span style="color:#00688b;font-weight:bold">void</span> <span style="color:#008b45">writeJson</span>()
+{
+    Json::Value root;
+    Json::Value arrayObj;
+    Json::Value item;
+  
+    item[<span style="color:#cd5555">&#34;cpp&#34;</span>] = <span style="color:#cd5555">&#34;jsoncpp&#34;</span>;
+    item[<span style="color:#cd5555">&#34;java&#34;</span>] = <span style="color:#cd5555">&#34;jsoninjava&#34;</span>;
+    item[<span style="color:#cd5555">&#34;php&#34;</span>] = <span style="color:#cd5555">&#34;support&#34;</span>;
+    arrayObj.append(item);
+  
+    root[<span style="color:#cd5555">&#34;name&#34;</span>] = <span style="color:#cd5555">&#34;json&#34;</span>;
+    root[<span style="color:#cd5555">&#34;array&#34;</span>] = arrayObj;
+  
+    root.toStyledString();
+    std::string out = root.toStyledString();
+    std::cout &lt;&lt; out &lt;&lt; std::endl;
+}
+  
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>(<span style="color:#00688b;font-weight:bold">int</span> argc, <span style="color:#00688b;font-weight:bold">char</span> **argv)
+{
+    readJson();
+    writeJson();
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+</code></pre></div><!-- raw HTML omitted -->
+</li>
+</ul>
+<h4 id="23-tinyxml2">2.3 TinyXML2</h4>
+<ul>
+<li>
+<p>安装编译</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#228b22">#下载 tinyxml2</span>
+git clone https://github.com/leethomason/tinyxml2.git
+<span style="color:#228b22">#进入相应目录并编译</span>
+<span style="color:#658b00">cd</span> tinyxml2/
+cmake . 
+make -j <span style="color:#b452cd">8</span>
+<span style="color:#228b22">#测试该版本的准确性</span>
+./xmltest
+<span style="color:#228b22">#安装</span>
+sudo make install
+</code></pre></div></li>
+<li>
+<p><a href="https://github.com/gongluck/CVIP/blob/master/code/xml/tinyxml2/test.cpp">tinyxml2例子</a></p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#228b22">/*
+</span><span style="color:#228b22"> * @Author: gongluck 
+</span><span style="color:#228b22"> * @Date: 2020-11-19 17:11:24 
+</span><span style="color:#228b22"> * @Last Modified by: gongluck
+</span><span style="color:#228b22"> * @Last Modified time: 2020-11-19 17:27:23
+</span><span style="color:#228b22"> */</span>
+  
+<span style="color:#228b22">// g++ test.cpp -ltinyxml2
+</span><span style="color:#228b22"></span>  
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;iostream&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;tinyxml2.h&#34;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>  
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>(<span style="color:#00688b;font-weight:bold">void</span>)
+{
+    <span style="color:#8b008b;font-weight:bold">const</span> <span style="color:#00688b;font-weight:bold">char</span> *xml = <span style="color:#cd5555">&#34;&lt;?xml version=</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">1.0</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555"> encoding=</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">UTF-8</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">?&gt;   \
+</span><span style="color:#cd5555">                        &lt;note&gt;                      \
+</span><span style="color:#cd5555">                            &lt;to&gt;beijing&lt;/to&gt;             \
+</span><span style="color:#cd5555">                            &lt;from&gt;shenzhen&lt;/from&gt;           \
+</span><span style="color:#cd5555">                            &lt;heading&gt;Reminder&lt;/heading&gt; \
+</span><span style="color:#cd5555">                            &lt;body&gt;Don&#39;t forget the meeting!&lt;/body&gt; \
+</span><span style="color:#cd5555">                        &lt;/note&gt;&#34;</span>;
+    tinyxml2::XMLDocument doc;
+    doc.Parse(xml);
+    std::cout &lt;&lt; doc.ErrorID() &lt;&lt; std::endl;
+  
+    <span style="color:#228b22">// 1. 第一种刷新到本地
+</span><span style="color:#228b22"></span>    FILE *fp = fopen(<span style="color:#cd5555">&#34;memory_1.xml&#34;</span>, <span style="color:#cd5555">&#34;wb&#34;</span>);
+    tinyxml2::XMLPrinter printer(fp);
+    doc.Print(&amp;printer); <span style="color:#228b22">// 打印到文件
+</span><span style="color:#228b22"></span>    fclose(fp);
+  
+    <span style="color:#228b22">// 2. 第二种刷新到本地
+</span><span style="color:#228b22"></span>    doc.SaveFile(<span style="color:#cd5555">&#34;memory_2.xml&#34;</span>);
+  
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+</code></pre></div><!-- raw HTML omitted -->
+</li>
+</ul>
+<h3 id="3protobuf">3.ProtoBuf</h3>
+<h4 id="31-序列化和反序列化">3.1 序列化和反序列化</h4>
+<ul>
+<li>
+<p>序列化：把对象转换为字节序列的过程称为对象。</p>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/%E5%B8%B8%E7%94%A8%E5%BA%8F%E5%88%97%E5%8C%96%E5%8D%8F%E8%AE%AE%E6%AF%94%E8%BE%83.png?raw=true" alt="常用序列化协议比较"></p>
+<ul>
+<li>TLV编码及其变体（tag, length和value的缩写）：比如Protobuf。</li>
+<li>文本流编码：比如XML/JSON。</li>
+<li>固定结构编码：基本原理是，协议约定了传输字段类型和字段含义，和TLV的方式类似，但是没有了tag和len，只有value，比如TCP/IP。</li>
+<li>内存dump：把内存中的数据直接输出，不做任何序列化操作。反序列化的时候，直接还原内存。</li>
+</ul>
+</li>
+<li>
+<p>反序列化：把字节序列恢复为对象的过程称为对象的反序列化。</p>
+</li>
+</ul>
+<h4 id="32-编译安装protobuf">3.2 编译安装ProtoBuf</h4>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#228b22">#下载源码</span>
+wget https://github.com/protocolbuffers/protobuf/archive/v3.1.0.tar.gz
+tar -zxvf v3.1.0.tar.gz
+<span style="color:#658b00">cd</span> protobuf-3.1.0/
+<span style="color:#228b22">#编译</span>
+./autogen.sh
+./configure
+make -j <span style="color:#b452cd">8</span>
+make check
+sudo make install
+<span style="color:#228b22"># refresh shared library cache.</span>
+sudo ldconfig
+</code></pre></div><h4 id="33-protobuf例子httpsgithubcomgongluckcvipblobmastercodeprotobuf">3.3 <a href="https://github.com/gongluck/CVIP/blob/master/code/protobuf">ProtoBuf例子</a></h4>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-protobuf" data-lang="protobuf"><span style="color:#228b22">/*
+</span><span style="color:#228b22"> * @Author: gongluck 
+</span><span style="color:#228b22"> * @Date: 2020-11-20 18:16:05 
+</span><span style="color:#228b22"> * @Last Modified by:   gongluck 
+</span><span style="color:#228b22"> * @Last Modified time: 2020-11-20 18:16:05 
+</span><span style="color:#228b22"> */</span><span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span> <span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span><span style="color:#228b22">// protoc --cpp_out=./ addressbook.proto
+</span><span style="color:#228b22"></span><span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span>syntax = <span style="color:#cd5555">&#34;proto3&#34;</span>;<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span><span style="color:#8b008b;font-weight:bold">package</span> <span style="color:#008b45;text-decoration:underline">Test</span>;<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span><span style="color:#8b008b;font-weight:bold">message</span> <span style="color:#008b45;font-weight:bold">Person</span><span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span>{<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span>    <span style="color:#00688b;font-weight:bold">string</span> name = <span style="color:#b452cd">1</span>;<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span>    <span style="color:#00688b;font-weight:bold">int32</span> id = <span style="color:#b452cd">2</span>;<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span>    <span style="color:#00688b;font-weight:bold">string</span> email = <span style="color:#b452cd">3</span>;<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span>    <span style="color:#8b008b;font-weight:bold">enum</span> PhoneType<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span>    {<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span>        MOBLIE = <span style="color:#b452cd">0</span>;<span style="color:#228b22">//首成员必须为0
+</span><span style="color:#228b22"></span>        HOME = <span style="color:#b452cd">1</span>;<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span>        WORK = <span style="color:#b452cd">2</span>;<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span>    }<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span>    <span style="color:#8b008b;font-weight:bold">message</span> <span style="color:#008b45;font-weight:bold">PhoneNumber</span><span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span>    {<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span>        <span style="color:#00688b;font-weight:bold">string</span> number = <span style="color:#b452cd">1</span>;<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span>        PhoneType type = <span style="color:#b452cd">2</span>;<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span>    }<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span>    <span style="color:#8b008b;font-weight:bold">repeated</span> PhoneNumber phones = <span style="color:#b452cd">4</span>;<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span>}<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span><span style="color:#8b008b;font-weight:bold">message</span> <span style="color:#008b45;font-weight:bold">AddressBook</span><span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span>{<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span>    <span style="color:#8b008b;font-weight:bold">repeated</span> Person people = <span style="color:#b452cd">1</span>;<span style="color:#a61717;background-color:#e3d2d2">
+</span><span style="color:#a61717;background-color:#e3d2d2"></span>}<span style="color:#a61717;background-color:#e3d2d2">
+</span></code></pre></div><!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#228b22">/*
+</span><span style="color:#228b22"> * @Author: gongluck 
+</span><span style="color:#228b22"> * @Date: 2020-11-20 17:23:22 
+</span><span style="color:#228b22"> * @Last Modified by: gongluck
+</span><span style="color:#228b22"> * @Last Modified time: 2020-11-20 18:14:44
+</span><span style="color:#228b22"> */</span>
+
+<span style="color:#228b22">// g++ *.cc *.cpp `pkg-config --cflags --libs protobuf`
+</span><span style="color:#228b22"></span>
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;iostream&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&#34;addressbook.pb.h&#34;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>
+<span style="color:#8b008b;font-weight:bold">using</span> <span style="color:#8b008b;font-weight:bold">namespace</span> std;
+
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>()
+{
+    <span style="color:#00688b;font-weight:bold">char</span> buf[<span style="color:#b452cd">1024</span>];
+    <span style="color:#00688b;font-weight:bold">int</span> len;
+
+    GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+    Test::Person obj;
+    obj.set_name(<span style="color:#cd5555">&#34;gongluck&#34;</span>);
+    obj.set_id(<span style="color:#b452cd">1</span>);
+    *obj.mutable_email() = <span style="color:#cd5555">&#34;https://github.com.cnpmjs.org/gongluck/CVIP&#34;</span>;
+    len = obj.ByteSize();
+    cout &lt;&lt; <span style="color:#cd5555">&#34;len = &#34;</span> &lt;&lt; len &lt;&lt; endl;
+    obj.SerializeToArray(buf, len);
+
+    Test::Person obj2;
+    obj2.ParseFromArray(buf, len);
+    cout &lt;&lt; <span style="color:#cd5555">&#34;name = &#34;</span> &lt;&lt; obj2.name() &lt;&lt; endl;
+    cout &lt;&lt; <span style="color:#cd5555">&#34;id = &#34;</span> &lt;&lt; obj2.id() &lt;&lt; endl;
+    cout &lt;&lt; <span style="color:#cd5555">&#34;email = &#34;</span> &lt;&lt; obj2.email() &lt;&lt; endl;
+
+    google::protobuf::ShutdownProtobufLibrary();
+
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+</code></pre></div><!-- raw HTML omitted -->
+<h3 id="4消息队列">4.消息队列</h3>
+<h4 id="41-消息队列比较">4.1 消息队列比较</h4>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E6%AF%94%E8%BE%83.png?raw=true" alt="消息队列比较"></p>
+<h4 id="42-zmq编译安装">4.2 zmq编译安装</h4>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#228b22">#安装编译依赖</span>
+sudo apt-get install libtool pkg-config build-essential autoconf automake
+<span style="color:#228b22">#安装加密库</span>
+git clone git://github.com/jedisct1/libsodium.git
+<span style="color:#658b00">cd</span> libsodium
+./autogen.sh -s
+./configure &amp;&amp; make -j <span style="color:#b452cd">8</span> &amp;&amp; make check
+sudo make install
+sudo ldconfig
+<span style="color:#658b00">cd</span> ..
+<span style="color:#228b22">#下载</span>
+git clone https://github.com/zeromq/libzmq.git
+<span style="color:#658b00">cd</span> libzmq
+<span style="color:#228b22">#查看tag</span>
+<span style="color:#228b22">#git tag</span>
+<span style="color:#228b22">#版本 获取指定的版本</span>
+git checkout v4.3.2
+./autogen.sh
+./configure &amp;&amp; make -j <span style="color:#b452cd">8</span> &amp;&amp; make check
+sudo make install
+sudo ldconfig
+<span style="color:#658b00">cd</span> ..
+</code></pre></div><h4 id="43-zmq例子httpsgithubcomgongluckcvipblobmastercodemessagequeuezmq">4.3 <a href="https://github.com/gongluck/CVIP/blob/master/code/messagequeue/zmq">zmq例子</a></h4>
+<ul>
+<li>
+<p><a href="https://github.com/gongluck/CVIP/blob/master/code/messagequeue/zmq/zmqserver.c">服务端</a></p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#228b22">/*
+</span><span style="color:#228b22"> * @Author: gongluck 
+</span><span style="color:#228b22"> * @Date: 2020-11-24 09:49:11 
+</span><span style="color:#228b22"> * @Last Modified by: gongluck
+</span><span style="color:#228b22"> * @Last Modified time: 2020-11-24 09:51:26
+</span><span style="color:#228b22"> */</span>
+  
+<span style="color:#228b22">// gcc zmqserver.c -lzmq
+</span><span style="color:#228b22"></span>  
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;zmq.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;unistd.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;string.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;assert.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>  
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>(<span style="color:#00688b;font-weight:bold">void</span>)
+{
+    <span style="color:#228b22">// Socket to talk to clients
+</span><span style="color:#228b22"></span>    <span style="color:#00688b;font-weight:bold">void</span> *context = zmq_ctx_new();
+    <span style="color:#228b22">// 与客户端通信的套接字
+</span><span style="color:#228b22"></span>    <span style="color:#00688b;font-weight:bold">void</span> *responder = zmq_socket(context, ZMQ_REP);
+    <span style="color:#00688b;font-weight:bold">int</span> rc = zmq_bind(responder, <span style="color:#cd5555">&#34;tcp://*:5555&#34;</span>);
+    assert(rc == <span style="color:#b452cd">0</span>);
+  
+    <span style="color:#8b008b;font-weight:bold">while</span> (<span style="color:#b452cd">1</span>)
+    {
+        <span style="color:#228b22">// 等待客户端请求
+</span><span style="color:#228b22"></span>        <span style="color:#00688b;font-weight:bold">char</span> buffer[<span style="color:#b452cd">10</span>];
+        zmq_recv(responder, buffer, <span style="color:#b452cd">10</span>, <span style="color:#b452cd">0</span>);
+        printf(<span style="color:#cd5555">&#34;收到 %.*s</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, <span style="color:#b452cd">10</span>, buffer);
+        <span style="color:#228b22">// 返回应答
+</span><span style="color:#228b22"></span>        zmq_send(responder, <span style="color:#cd5555">&#34;RECVED&#34;</span>, <span style="color:#b452cd">6</span>, <span style="color:#b452cd">0</span>);
+    }
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+</code></pre></div><!-- raw HTML omitted -->
+</li>
+<li>
+<p><a href="https://github.com/gongluck/CVIP/blob/master/code/messagequeue/zmq/zmqclient.c">客户端</a></p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#228b22">/*
+</span><span style="color:#228b22"> * @Author: gongluck 
+</span><span style="color:#228b22"> * @Date: 2020-11-24 09:52:58 
+</span><span style="color:#228b22"> * @Last Modified by: gongluck
+</span><span style="color:#228b22"> * @Last Modified time: 2020-11-24 09:56:14
+</span><span style="color:#228b22"> */</span>
+  
+<span style="color:#228b22">//gcc zmqclient.c -lzmq
+</span><span style="color:#228b22"></span>  
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;zmq.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;string.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;unistd.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>  
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>(<span style="color:#00688b;font-weight:bold">void</span>)
+{
+    printf(<span style="color:#cd5555">&#34;Connecting to zmq server...</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>);
+    <span style="color:#00688b;font-weight:bold">void</span> *context = zmq_ctx_new();
+    <span style="color:#228b22">// 连接⾄服务端的套接字
+</span><span style="color:#228b22"></span>    <span style="color:#00688b;font-weight:bold">void</span> *requester = zmq_socket(context, ZMQ_REQ);
+    zmq_connect(requester, <span style="color:#cd5555">&#34;tcp://localhost:5555&#34;</span>);
+  
+    <span style="color:#00688b;font-weight:bold">char</span> buffer[<span style="color:#b452cd">10</span>];
+    <span style="color:#8b008b;font-weight:bold">for</span> (<span style="color:#00688b;font-weight:bold">int</span> request_nbr = <span style="color:#b452cd">0</span>; request_nbr != <span style="color:#b452cd">10</span>; request_nbr++)
+    {  
+        printf(<span style="color:#cd5555">&#34;正在发送 %d...</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, request_nbr);
+        zmq_send(requester, <span style="color:#cd5555">&#34;Hello&#34;</span>, <span style="color:#b452cd">5</span>, <span style="color:#b452cd">0</span>);
+        zmq_recv(requester, buffer, <span style="color:#b452cd">10</span>, <span style="color:#b452cd">0</span>);
+        printf(<span style="color:#cd5555">&#34;接收到 %.*s</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, <span style="color:#b452cd">10</span>, buffer);
+    }
+    zmq_close(requester);
+    zmq_ctx_destroy(context);
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+</code></pre></div><!-- raw HTML omitted -->
+</li>
+</ul>
+<h3 id="5openssl">5.OpenSSL</h3>
+<h4 id="51-openssl编译安装">5.1 OpenSSL编译安装</h4>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">wget https://www.openssl.org/source/old/1.1.0/openssl-1.1.0l.tar.gz
+tar xzvf OpenSSL-1.1.0l.tar.gz
+<span style="color:#658b00">cd</span> OpenSSL-1.1.0l
+./config --prefix=/usr/local/OpenSSL
+make -j <span style="color:#b452cd">8</span>
+sudo make install
+</code></pre></div><h4 id="52-openssl例子httpsgithubcomgongluckcvipblobmastercodeopenssltestc">5.2 <a href="https://github.com/gongluck/CVIP/blob/master/code/openssl/test.c">OpenSSL例子</a></h4>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#228b22">/*
+</span><span style="color:#228b22"> * @Author: gongluck 
+</span><span style="color:#228b22"> * @Date: 2020-11-24 18:44:16 
+</span><span style="color:#228b22"> * @Last Modified by: gongluck
+</span><span style="color:#228b22"> * @Last Modified time: 2020-11-24 18:53:20
+</span><span style="color:#228b22"> */</span>
+
+<span style="color:#228b22">// gcc test.c -lssl -lcrypto
+</span><span style="color:#228b22"></span>
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;string.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;openssl/lhash.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;openssl/bio.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;openssl/evp.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;openssl/sha.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;openssl/rsa.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>
+<span style="color:#1e889b">#define NAME_LENGTH 32
+</span><span style="color:#1e889b"></span>
+<span style="color:#8b008b;font-weight:bold">typedef</span> <span style="color:#8b008b;font-weight:bold">struct</span> _Person
+{
+    <span style="color:#00688b;font-weight:bold">char</span> name[NAME_LENGTH];
+    <span style="color:#00688b;font-weight:bold">int</span> high;
+    <span style="color:#00688b;font-weight:bold">char</span> otherInfo[NAME_LENGTH];
+} Person;
+
+<span style="color:#228b22">// 自定义比较函数
+</span><span style="color:#228b22"></span><span style="color:#8b008b;font-weight:bold">static</span> <span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">person_cmp</span>(<span style="color:#8b008b;font-weight:bold">const</span> <span style="color:#00688b;font-weight:bold">void</span> *a, <span style="color:#8b008b;font-weight:bold">const</span> <span style="color:#00688b;font-weight:bold">void</span> *b)
+{
+    <span style="color:#00688b;font-weight:bold">char</span> *namea = ((Person *)a)-&gt;name;
+    <span style="color:#00688b;font-weight:bold">char</span> *nameb = ((Person *)b)-&gt;name;
+    <span style="color:#8b008b;font-weight:bold">return</span> strcmp(namea, nameb);
+}
+
+<span style="color:#00688b;font-weight:bold">void</span> <span style="color:#008b45">print_value</span>(<span style="color:#00688b;font-weight:bold">void</span> *a)
+{
+    Person *p = (Person *)a;
+    printf(<span style="color:#cd5555">&#34;name: %s</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, p-&gt;name);
+    printf(<span style="color:#cd5555">&#34;high: %d</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, p-&gt;high);
+    printf(<span style="color:#cd5555">&#34;other info : %s</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, p-&gt;otherInfo);
+}
+
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>()
+{
+    <span style="color:#228b22">// hash
+</span><span style="color:#228b22"></span>    OPENSSL_LHASH *h = lh_new(<span style="color:#658b00">NULL</span>, person_cmp);
+    <span style="color:#8b008b;font-weight:bold">if</span> (h == <span style="color:#658b00">NULL</span>)
+    {
+        printf(<span style="color:#cd5555">&#34;err.</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>);
+        <span style="color:#8b008b;font-weight:bold">return</span> -<span style="color:#b452cd">1</span>;
+    }
+
+    Person p1 = {<span style="color:#cd5555">&#34;gongluck&#34;</span>, <span style="color:#b452cd">170</span>, <span style="color:#cd5555">&#34;xxxx&#34;</span>};
+    Person p2 = {<span style="color:#cd5555">&#34;ben&#34;</span>, <span style="color:#b452cd">175</span>, <span style="color:#cd5555">&#34;xxxx&#34;</span>};
+    Person p3 = {<span style="color:#cd5555">&#34;ken&#34;</span>, <span style="color:#b452cd">170</span>, <span style="color:#cd5555">&#34;xxxx&#34;</span>};
+    Person p4 = {<span style="color:#cd5555">&#34;dio&#34;</span>, <span style="color:#b452cd">170</span>, <span style="color:#cd5555">&#34;xxxx&#34;</span>};
+
+    lh_insert(h, &amp;p1);
+    lh_insert(h, &amp;p2);
+    lh_insert(h, &amp;p3);
+    lh_insert(h, &amp;p4);
+
+    lh_doall(h, print_value);
+
+    <span style="color:#00688b;font-weight:bold">void</span> *data = lh_retrieve(h, (<span style="color:#8b008b;font-weight:bold">const</span> <span style="color:#00688b;font-weight:bold">char</span> *)<span style="color:#cd5555">&#34;dio&#34;</span>); <span style="color:#228b22">//person_cmp return 0
+</span><span style="color:#228b22"></span>    <span style="color:#8b008b;font-weight:bold">if</span> (data == <span style="color:#658b00">NULL</span>)
+    {
+        <span style="color:#8b008b;font-weight:bold">return</span> -<span style="color:#b452cd">1</span>;
+    }
+
+    print_value(data);
+    lh_free(h);
+
+    printf(<span style="color:#cd5555">&#34;</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">------------------------------</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>);
+
+    <span style="color:#228b22">//bio
+</span><span style="color:#228b22"></span>    BIO *b = BIO_new(BIO_s_mem());
+    <span style="color:#00688b;font-weight:bold">int</span> len = BIO_write(b, <span style="color:#cd5555">&#34;OpenSSL&#34;</span>, <span style="color:#b452cd">4</span>);
+    len = BIO_printf(b, <span style="color:#cd5555">&#34;%s&#34;</span>, <span style="color:#cd5555">&#34;gongluck&#34;</span>);
+    printf(<span style="color:#cd5555">&#34;len: %d</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, len);
+    <span style="color:#00688b;font-weight:bold">char</span> *out = OPENSSL_malloc(len);
+    len = BIO_read(b, out, len);
+    printf(<span style="color:#cd5555">&#34;%s, len: %d</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, out, len);
+    OPENSSL_free(out);
+    BIO_free(b);
+
+    printf(<span style="color:#cd5555">&#34;</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">socket bio</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>);
+    <span style="color:#00688b;font-weight:bold">int</span> sock = BIO_get_accept_socket(<span style="color:#cd5555">&#34;8899&#34;</span>, <span style="color:#b452cd">0</span>);
+    BIO *bsock = BIO_new_socket(sock, BIO_NOCLOSE);
+    <span style="color:#00688b;font-weight:bold">char</span> *addr = <span style="color:#658b00">NULL</span>;
+    <span style="color:#00688b;font-weight:bold">int</span> ret = BIO_accept(sock, &amp;addr);
+    BIO_set_fd(bsock, ret, BIO_NOCLOSE);
+    <span style="color:#8b008b;font-weight:bold">while</span> (<span style="color:#b452cd">1</span>)
+    {
+        <span style="color:#00688b;font-weight:bold">char</span> out[<span style="color:#b452cd">128</span>] = {<span style="color:#b452cd">0</span>};
+        BIO_read(bsock, out, <span style="color:#b452cd">128</span>);
+        <span style="color:#8b008b;font-weight:bold">if</span> (out[<span style="color:#b452cd">0</span>] = <span style="color:#cd5555">&#39;q&#39;</span>)
+            <span style="color:#8b008b;font-weight:bold">break</span>;
+        printf(<span style="color:#cd5555">&#34;%s</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, out);
+    }
+    BIO_free(bsock);
+
+    printf(<span style="color:#cd5555">&#34;</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">------------------------------</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>);
+
+    <span style="color:#228b22">//base64
+</span><span style="color:#228b22"></span>    <span style="color:#00688b;font-weight:bold">unsigned</span> <span style="color:#00688b;font-weight:bold">char</span> in[<span style="color:#b452cd">30</span>], base64[<span style="color:#b452cd">40</span>], decode[<span style="color:#b452cd">30</span>];
+    EVP_ENCODE_CTX *ectx = EVP_ENCODE_CTX_new();
+    EVP_EncodeInit(ectx);
+    <span style="color:#8b008b;font-weight:bold">for</span> (<span style="color:#00688b;font-weight:bold">int</span> i = <span style="color:#b452cd">0</span>; i &lt; <span style="color:#b452cd">30</span>; i++)
+    {
+        in[i] = i;
+    }
+    <span style="color:#00688b;font-weight:bold">int</span> outl, inl = <span style="color:#b452cd">30</span>;
+    EVP_EncodeUpdate(ectx, base64, &amp;outl, in, inl);
+    EVP_EncodeFinal(ectx, base64 + outl, &amp;outl);
+    EVP_ENCODE_CTX_free(ectx);
+    printf(<span style="color:#cd5555">&#34;%40s</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, base64);
+
+    printf(<span style="color:#cd5555">&#34;</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">------------------------------</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>);
+
+    <span style="color:#228b22">//rsa
+</span><span style="color:#228b22"></span>    <span style="color:#00688b;font-weight:bold">unsigned</span> <span style="color:#00688b;font-weight:bold">char</span> inbuf[] = <span style="color:#cd5555">&#34;https://github.com/gongluck/CVIP&#34;</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span> <span style="color:#00688b;font-weight:bold">char</span> outbuf[<span style="color:#b452cd">128</span>] = {<span style="color:#b452cd">0</span>};
+    <span style="color:#00688b;font-weight:bold">int</span> n = strlen(in);
+    MD4(inbuf, n, outbuf);
+    printf(<span style="color:#cd5555">&#34;MD4 result: </span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>); <span style="color:#228b22">// 16 byte
+</span><span style="color:#228b22"></span>    <span style="color:#8b008b;font-weight:bold">for</span> (<span style="color:#00688b;font-weight:bold">int</span> i = <span style="color:#b452cd">0</span>; i &lt; <span style="color:#b452cd">16</span>; i++)
+    {
+        printf(<span style="color:#cd5555">&#34;%x&#34;</span>, outbuf[i]);
+    }
+    printf(<span style="color:#cd5555">&#34;</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>);
+    MD5(inbuf, n, outbuf);
+    printf(<span style="color:#cd5555">&#34;MD5 result: </span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>); <span style="color:#228b22">// 16 byte
+</span><span style="color:#228b22"></span>    <span style="color:#8b008b;font-weight:bold">for</span> (<span style="color:#00688b;font-weight:bold">int</span> i = <span style="color:#b452cd">0</span>; i &lt; <span style="color:#b452cd">16</span>; i++)
+    {
+        printf(<span style="color:#cd5555">&#34;%x&#34;</span>, outbuf[i]);
+    }
+    printf(<span style="color:#cd5555">&#34;</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>);
+    <span style="color:#228b22">// SHA(inbuf, n, outbuf);
+</span><span style="color:#228b22"></span>    <span style="color:#228b22">// printf(&#34;SHA result: \n&#34;); // 20 byte
+</span><span style="color:#228b22"></span>    <span style="color:#228b22">// for (int i = 0; i &lt; 20; i++)
+</span><span style="color:#228b22"></span>    <span style="color:#228b22">// {
+</span><span style="color:#228b22"></span>    <span style="color:#228b22">//     printf(&#34;%x&#34;, outbuf[i]);
+</span><span style="color:#228b22"></span>    <span style="color:#228b22">// }
+</span><span style="color:#228b22"></span>    <span style="color:#228b22">// printf(&#34;\n&#34;);
+</span><span style="color:#228b22"></span>    SHA1(inbuf, n, outbuf);
+    printf(<span style="color:#cd5555">&#34;SHA1 result: </span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>); <span style="color:#228b22">// 20 byte
+</span><span style="color:#228b22"></span>    <span style="color:#8b008b;font-weight:bold">for</span> (<span style="color:#00688b;font-weight:bold">int</span> i = <span style="color:#b452cd">0</span>; i &lt; <span style="color:#b452cd">20</span>; i++)
+    {
+        printf(<span style="color:#cd5555">&#34;%x&#34;</span>, outbuf[i]);
+    }
+    printf(<span style="color:#cd5555">&#34;</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>);
+    SHA256(inbuf, n, outbuf);
+    printf(<span style="color:#cd5555">&#34;SHA256 result: </span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>); <span style="color:#228b22">// 32 byte
+</span><span style="color:#228b22"></span>    <span style="color:#8b008b;font-weight:bold">for</span> (<span style="color:#00688b;font-weight:bold">int</span> i = <span style="color:#b452cd">0</span>; i &lt; <span style="color:#b452cd">32</span>; i++)
+    {
+        printf(<span style="color:#cd5555">&#34;%x&#34;</span>, outbuf[i]);
+    }
+    printf(<span style="color:#cd5555">&#34;</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>);
+    SHA512(inbuf, n, outbuf);
+    printf(<span style="color:#cd5555">&#34;SHA512 result: </span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>); <span style="color:#228b22">// 64 byte
+</span><span style="color:#228b22"></span>    <span style="color:#8b008b;font-weight:bold">for</span> (<span style="color:#00688b;font-weight:bold">int</span> i = <span style="color:#b452cd">0</span>; i &lt; <span style="color:#b452cd">64</span>; i++)
+    {
+        printf(<span style="color:#cd5555">&#34;%x&#34;</span>, outbuf[i]);
+    }
+    printf(<span style="color:#cd5555">&#34;</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>);
+
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+</code></pre></div><!-- raw HTML omitted -->
+<h3 id="6网络io管理">6.网络IO管理</h3>
+<h4 id="61-信号驱动iohttpsgithubcomgongluckcvipblobmastercodeiosignalioc">6.1 <a href="https://github.com/gongluck/CVIP/blob/master/code/io/signalio.c">信号驱动IO</a></h4>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#228b22">/*
+</span><span style="color:#228b22"> * @Author: gongluck 
+</span><span style="color:#228b22"> * @Date: 2020-11-26 08:05:17 
+</span><span style="color:#228b22"> * @Last Modified by: gongluck
+</span><span style="color:#228b22"> * @Last Modified time: 2020-11-26 08:19:07
+</span><span style="color:#228b22"> */</span>
+
+<span style="color:#228b22">// test : nc -uv 127.0.0.1 9096
+</span><span style="color:#228b22"></span>
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;sys/types.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;sys/socket.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;netinet/in.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;string.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;unistd.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;signal.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;fcntl.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>
+<span style="color:#00688b;font-weight:bold">int</span> sockfd = <span style="color:#b452cd">0</span>;
+
+<span style="color:#00688b;font-weight:bold">void</span> <span style="color:#008b45">do_sigio</span>(<span style="color:#00688b;font-weight:bold">int</span> sig)
+{
+    <span style="color:#8b008b;font-weight:bold">struct</span> sockaddr_in cli_addr;
+    <span style="color:#00688b;font-weight:bold">int</span> clilen = <span style="color:#8b008b;font-weight:bold">sizeof</span>(<span style="color:#8b008b;font-weight:bold">struct</span> sockaddr_in);
+
+    <span style="color:#00688b;font-weight:bold">char</span> buffer[<span style="color:#b452cd">256</span>] = {<span style="color:#b452cd">0</span>};
+    <span style="color:#00688b;font-weight:bold">int</span> len = recvfrom(sockfd, buffer, <span style="color:#b452cd">256</span>, <span style="color:#b452cd">0</span>, (<span style="color:#8b008b;font-weight:bold">struct</span> sockaddr *)&amp;cli_addr, (socklen_t *)&amp;clilen);
+    printf(<span style="color:#cd5555">&#34;Message : %s</span><span style="color:#cd5555">\r\n</span><span style="color:#cd5555">&#34;</span>, buffer);
+    <span style="color:#00688b;font-weight:bold">int</span> slen = sendto(sockfd, buffer, len, <span style="color:#b452cd">0</span>, (<span style="color:#8b008b;font-weight:bold">struct</span> sockaddr *)&amp;cli_addr, clilen);
+}
+
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>(<span style="color:#00688b;font-weight:bold">int</span> argc, <span style="color:#00688b;font-weight:bold">char</span> *argv[])
+{
+    sockfd = socket(AF_INET, SOCK_DGRAM, <span style="color:#b452cd">0</span>);
+
+    <span style="color:#8b008b;font-weight:bold">struct</span> sigaction sigio_action;
+    sigio_action.sa_flags = <span style="color:#b452cd">0</span>;
+    sigio_action.sa_handler = do_sigio;
+    sigaction(SIGIO, &amp;sigio_action, <span style="color:#658b00">NULL</span>);<span style="color:#228b22">//SIGIO call do_sigio
+</span><span style="color:#228b22"></span>
+    <span style="color:#8b008b;font-weight:bold">struct</span> sockaddr_in serv_addr = {<span style="color:#b452cd">0</span>};
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = htons(<span style="color:#b452cd">9096</span>);
+    serv_addr.sin_addr.s_addr = INADDR_ANY;
+
+    fcntl(sockfd, F_SETOWN, getpid());
+    <span style="color:#00688b;font-weight:bold">int</span> flags = fcntl(sockfd, F_GETFL, <span style="color:#b452cd">0</span>);
+    flags |= O_ASYNC | O_NONBLOCK;<span style="color:#228b22">//异步非阻塞
+</span><span style="color:#228b22"></span>    fcntl(sockfd, F_SETFL, flags);
+
+    bind(sockfd, (<span style="color:#8b008b;font-weight:bold">struct</span> sockaddr *)&amp;serv_addr, <span style="color:#8b008b;font-weight:bold">sizeof</span>(serv_addr));
+    <span style="color:#8b008b;font-weight:bold">while</span> (<span style="color:#b452cd">1</span>)
+        sleep(<span style="color:#b452cd">1</span>);
+
+    close(sockfd);
+
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+</code></pre></div><!-- raw HTML omitted -->
+<h4 id="62-select-iohttpsgithubcomgongluckcvipblobmastercodeioselectc">6.2 <a href="https://github.com/gongluck/CVIP/blob/master/code/io/select.c">select IO</a></h4>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#228b22">/*
+</span><span style="color:#228b22"> * @Author: gongluck 
+</span><span style="color:#228b22"> * @Date: 2020-11-26 08:36:17 
+</span><span style="color:#228b22"> * @Last Modified by: gongluck
+</span><span style="color:#228b22"> * @Last Modified time: 2020-11-26 08:39:02
+</span><span style="color:#228b22"> */</span>
+
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdlib.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;string.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;netinet/tcp.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;arpa/inet.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;errno.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;fcntl.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>
+<span style="color:#1e889b">#define BUFFER_LENGTH 1024
+</span><span style="color:#1e889b"></span>
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>(<span style="color:#00688b;font-weight:bold">int</span> argc, <span style="color:#00688b;font-weight:bold">char</span> *argv[])
+{
+    <span style="color:#00688b;font-weight:bold">int</span> port = <span style="color:#b452cd">9096</span>;
+    <span style="color:#00688b;font-weight:bold">int</span> listenfd = socket(AF_INET, SOCK_STREAM, <span style="color:#b452cd">0</span>);
+    <span style="color:#8b008b;font-weight:bold">if</span> (listenfd &lt; <span style="color:#b452cd">0</span>)
+    {
+        perror(<span style="color:#cd5555">&#34;socket&#34;</span>);
+        <span style="color:#8b008b;font-weight:bold">return</span> -<span style="color:#b452cd">1</span>;
+    }
+
+    <span style="color:#8b008b;font-weight:bold">struct</span> sockaddr_in addr = {<span style="color:#b452cd">0</span>};
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(port);
+    addr.sin_addr.s_addr = INADDR_ANY;
+
+    <span style="color:#8b008b;font-weight:bold">if</span> (bind(listenfd, (<span style="color:#8b008b;font-weight:bold">struct</span> sockaddr *)&amp;addr, <span style="color:#8b008b;font-weight:bold">sizeof</span>(<span style="color:#8b008b;font-weight:bold">struct</span> sockaddr_in)) &lt; <span style="color:#b452cd">0</span>)
+    {
+        perror(<span style="color:#cd5555">&#34;bind&#34;</span>);
+        <span style="color:#8b008b;font-weight:bold">return</span> -<span style="color:#b452cd">2</span>;
+    }
+    <span style="color:#8b008b;font-weight:bold">if</span> (listen(listenfd, <span style="color:#b452cd">5</span>) &lt; <span style="color:#b452cd">0</span>)
+    {
+        perror(<span style="color:#cd5555">&#34;listen&#34;</span>);
+        <span style="color:#8b008b;font-weight:bold">return</span> -<span style="color:#b452cd">3</span>;
+    }
+
+    fd_set rfds, rset;
+    FD_ZERO(&amp;rfds);
+    FD_SET(listenfd, &amp;rfds);
+
+    <span style="color:#00688b;font-weight:bold">int</span> max_fd = listenfd;
+    <span style="color:#00688b;font-weight:bold">int</span> i = <span style="color:#b452cd">0</span>;
+
+    <span style="color:#8b008b;font-weight:bold">while</span> (<span style="color:#b452cd">1</span>)
+    {
+        rset = rfds;
+        <span style="color:#00688b;font-weight:bold">int</span> nready = select(max_fd + <span style="color:#b452cd">1</span>, &amp;rset, <span style="color:#658b00">NULL</span>, <span style="color:#658b00">NULL</span>, <span style="color:#658b00">NULL</span>);
+        <span style="color:#8b008b;font-weight:bold">if</span> (nready &lt; <span style="color:#b452cd">0</span>)
+        {
+            printf(<span style="color:#cd5555">&#34;select error : %d</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, errno);
+            <span style="color:#8b008b;font-weight:bold">continue</span>;
+        }
+
+        <span style="color:#8b008b;font-weight:bold">if</span> (FD_ISSET(listenfd, &amp;rset)) <span style="color:#228b22">// listen的fd可读代表有连接到达
+</span><span style="color:#228b22"></span>        {
+            <span style="color:#8b008b;font-weight:bold">struct</span> sockaddr_in client_addr = {<span style="color:#b452cd">0</span>};
+            socklen_t client_len = <span style="color:#8b008b;font-weight:bold">sizeof</span>(client_addr);
+
+            <span style="color:#00688b;font-weight:bold">int</span> clientfd = accept(listenfd, (<span style="color:#8b008b;font-weight:bold">struct</span> sockaddr *)&amp;client_addr, &amp;client_len);
+            <span style="color:#8b008b;font-weight:bold">if</span> (clientfd &lt;= <span style="color:#b452cd">0</span>)
+                <span style="color:#8b008b;font-weight:bold">continue</span>;
+
+            <span style="color:#00688b;font-weight:bold">char</span> str[INET_ADDRSTRLEN] = {<span style="color:#b452cd">0</span>};
+            printf(<span style="color:#cd5555">&#34;recvived from %s at port %d, listenfd:%d, clientfd:%d</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, inet_ntop(AF_INET, &amp;client_addr.sin_addr, str, <span style="color:#8b008b;font-weight:bold">sizeof</span>(str)),
+                   ntohs(client_addr.sin_port), listenfd, clientfd);
+
+            <span style="color:#8b008b;font-weight:bold">if</span> (max_fd == FD_SETSIZE) <span style="color:#228b22">// select的fd上限一般是1024
+</span><span style="color:#228b22"></span>            {
+                printf(<span style="color:#cd5555">&#34;clientfd --&gt; out range</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>);
+                <span style="color:#8b008b;font-weight:bold">break</span>;
+            }
+            FD_SET(clientfd, &amp;rfds); <span style="color:#228b22">// 将新连接fd加入到读取队列中
+</span><span style="color:#228b22"></span>
+            <span style="color:#8b008b;font-weight:bold">if</span> (clientfd &gt; max_fd)
+                max_fd = clientfd;
+
+            printf(<span style="color:#cd5555">&#34;listenfd:%d, max_fd:%d, clientfd:%d</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, listenfd, max_fd, clientfd);
+
+            <span style="color:#8b008b;font-weight:bold">if</span> (--nready == <span style="color:#b452cd">0</span>)
+                <span style="color:#8b008b;font-weight:bold">continue</span>;
+        }
+
+        <span style="color:#8b008b;font-weight:bold">for</span> (i = listenfd + <span style="color:#b452cd">1</span>; i &lt;= max_fd; i++)
+        {
+            <span style="color:#8b008b;font-weight:bold">if</span> (FD_ISSET(i, &amp;rset))
+            {
+                <span style="color:#00688b;font-weight:bold">char</span> buffer[BUFFER_LENGTH] = {<span style="color:#b452cd">0</span>};
+                <span style="color:#00688b;font-weight:bold">int</span> ret = recv(i, buffer, BUFFER_LENGTH, <span style="color:#b452cd">0</span>);
+                <span style="color:#8b008b;font-weight:bold">if</span> (ret &lt; <span style="color:#b452cd">0</span>)
+                {
+                    <span style="color:#8b008b;font-weight:bold">if</span> (errno == EAGAIN || errno == EWOULDBLOCK) <span style="color:#228b22">// 实际可能出现被其他线程读取掉数据的情况
+</span><span style="color:#228b22"></span>                    {
+                        printf(<span style="color:#cd5555">&#34;read all data&#34;</span>);
+                    }
+                    FD_CLR(i, &amp;rfds);
+                    close(i);
+                }
+                <span style="color:#8b008b;font-weight:bold">else</span> <span style="color:#8b008b;font-weight:bold">if</span> (ret == <span style="color:#b452cd">0</span>)
+                {
+                    printf(<span style="color:#cd5555">&#34;disconnect %d</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, i);
+                    FD_CLR(i, &amp;rfds);
+                    close(i);
+                    <span style="color:#8b008b;font-weight:bold">break</span>;
+                }
+                <span style="color:#8b008b;font-weight:bold">else</span>
+                {
+                    printf(<span style="color:#cd5555">&#34;Recv: %s, %d Bytes</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, buffer, ret);
+                }
+                <span style="color:#8b008b;font-weight:bold">if</span> (--nready == <span style="color:#b452cd">0</span>)
+                    <span style="color:#8b008b;font-weight:bold">break</span>;
+            }
+        }
+    }
+
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+</code></pre></div><!-- raw HTML omitted -->
+<h4 id="63-poll-iohttpsgithubcomgongluckcvipblobmastercodeiopollc">6.3 <a href="https://github.com/gongluck/CVIP/blob/master/code/io/poll.c">poll IO</a></h4>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#228b22">/*
+</span><span style="color:#228b22"> * @Author: gongluck 
+</span><span style="color:#228b22"> * @Date: 2020-11-26 08:36:17 
+</span><span style="color:#228b22"> * @Last Modified by: gongluck
+</span><span style="color:#228b22"> * @Last Modified time: 2020-11-26 08:44:12
+</span><span style="color:#228b22"> */</span>
+
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdlib.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;string.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;netinet/tcp.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;arpa/inet.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;sys/poll.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;errno.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;fcntl.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>
+<span style="color:#1e889b">#define BUFFER_LENGTH 1024
+</span><span style="color:#1e889b">#define POLL_SIZE 1024
+</span><span style="color:#1e889b"></span>
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>(<span style="color:#00688b;font-weight:bold">int</span> argc, <span style="color:#00688b;font-weight:bold">char</span> *argv[])
+{
+    <span style="color:#00688b;font-weight:bold">int</span> port = <span style="color:#b452cd">9096</span>;
+    <span style="color:#00688b;font-weight:bold">int</span> listenfd = socket(AF_INET, SOCK_STREAM, <span style="color:#b452cd">0</span>);
+    <span style="color:#8b008b;font-weight:bold">if</span> (listenfd &lt; <span style="color:#b452cd">0</span>)
+    {
+        perror(<span style="color:#cd5555">&#34;socket&#34;</span>);
+        <span style="color:#8b008b;font-weight:bold">return</span> -<span style="color:#b452cd">1</span>;
+    }
+
+    <span style="color:#8b008b;font-weight:bold">struct</span> sockaddr_in addr = {<span style="color:#b452cd">0</span>};
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(port);
+    addr.sin_addr.s_addr = INADDR_ANY;
+
+    <span style="color:#8b008b;font-weight:bold">if</span> (bind(listenfd, (<span style="color:#8b008b;font-weight:bold">struct</span> sockaddr *)&amp;addr, <span style="color:#8b008b;font-weight:bold">sizeof</span>(<span style="color:#8b008b;font-weight:bold">struct</span> sockaddr_in)) &lt; <span style="color:#b452cd">0</span>)
+    {
+        perror(<span style="color:#cd5555">&#34;bind&#34;</span>);
+        <span style="color:#8b008b;font-weight:bold">return</span> -<span style="color:#b452cd">2</span>;
+    }
+    <span style="color:#8b008b;font-weight:bold">if</span> (listen(listenfd, <span style="color:#b452cd">5</span>) &lt; <span style="color:#b452cd">0</span>)
+    {
+        perror(<span style="color:#cd5555">&#34;listen&#34;</span>);
+        <span style="color:#8b008b;font-weight:bold">return</span> -<span style="color:#b452cd">3</span>;
+    }
+
+    <span style="color:#8b008b;font-weight:bold">struct</span> pollfd fds[POLL_SIZE] = {<span style="color:#b452cd">0</span>};
+    fds[<span style="color:#b452cd">0</span>].fd = listenfd;
+    fds[<span style="color:#b452cd">0</span>].events = POLLIN;
+
+    <span style="color:#00688b;font-weight:bold">int</span> max_fd = <span style="color:#b452cd">0</span>, i = <span style="color:#b452cd">0</span>;
+    <span style="color:#8b008b;font-weight:bold">for</span> (i = <span style="color:#b452cd">1</span>; i &lt; POLL_SIZE; i++)
+    {
+        fds[i].fd = -<span style="color:#b452cd">1</span>;
+    }
+
+    <span style="color:#8b008b;font-weight:bold">while</span> (<span style="color:#b452cd">1</span>)
+    {
+        <span style="color:#00688b;font-weight:bold">int</span> nready = poll(fds, max_fd + <span style="color:#b452cd">1</span>, <span style="color:#b452cd">5</span>);
+        <span style="color:#8b008b;font-weight:bold">if</span> (nready &lt;= <span style="color:#b452cd">0</span>)
+            <span style="color:#8b008b;font-weight:bold">continue</span>;
+
+        <span style="color:#8b008b;font-weight:bold">if</span> ((fds[<span style="color:#b452cd">0</span>].revents &amp; POLLIN) == POLLIN) <span style="color:#228b22">// 判断listenfd是否有数据可读(新连接)
+</span><span style="color:#228b22"></span>        {
+            <span style="color:#8b008b;font-weight:bold">struct</span> sockaddr_in client_addr = {<span style="color:#b452cd">0</span>};
+            socklen_t client_len = <span style="color:#8b008b;font-weight:bold">sizeof</span>(client_addr);
+
+            <span style="color:#00688b;font-weight:bold">int</span> clientfd = accept(listenfd, (<span style="color:#8b008b;font-weight:bold">struct</span> sockaddr *)&amp;client_addr, &amp;client_len);
+            <span style="color:#8b008b;font-weight:bold">if</span> (clientfd &lt;= <span style="color:#b452cd">0</span>)
+                <span style="color:#8b008b;font-weight:bold">continue</span>;
+
+            <span style="color:#00688b;font-weight:bold">char</span> str[INET_ADDRSTRLEN] = {<span style="color:#b452cd">0</span>};
+            printf(<span style="color:#cd5555">&#34;recvived from %s at port %d, sockfd:%d, clientfd:%d</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, inet_ntop(AF_INET, &amp;client_addr.sin_addr, str, <span style="color:#8b008b;font-weight:bold">sizeof</span>(str)),
+                   ntohs(client_addr.sin_port), listenfd, clientfd);
+
+            fds[clientfd].fd = clientfd;
+            fds[clientfd].events = POLLIN;
+
+            <span style="color:#8b008b;font-weight:bold">if</span> (clientfd &gt; max_fd)
+                max_fd = clientfd;
+
+            <span style="color:#8b008b;font-weight:bold">if</span> (--nready == <span style="color:#b452cd">0</span>)
+                <span style="color:#8b008b;font-weight:bold">continue</span>;
+        }
+
+        <span style="color:#8b008b;font-weight:bold">for</span> (i = listenfd + <span style="color:#b452cd">1</span>; i &lt;= max_fd; i++)
+        {
+            <span style="color:#8b008b;font-weight:bold">if</span> (fds[i].revents &amp; (POLLIN | POLLERR))
+            {
+                <span style="color:#00688b;font-weight:bold">char</span> buffer[BUFFER_LENGTH] = {<span style="color:#b452cd">0</span>};
+                <span style="color:#00688b;font-weight:bold">int</span> ret = recv(i, buffer, BUFFER_LENGTH, <span style="color:#b452cd">0</span>);
+                <span style="color:#8b008b;font-weight:bold">if</span> (ret &lt; <span style="color:#b452cd">0</span>)
+                {
+                    <span style="color:#8b008b;font-weight:bold">if</span> (errno == EAGAIN || errno == EWOULDBLOCK)
+                    {
+                        printf(<span style="color:#cd5555">&#34;read all data&#34;</span>);
+                    }
+
+                    close(i);
+                    fds[i].fd = -<span style="color:#b452cd">1</span>;
+                }
+                <span style="color:#8b008b;font-weight:bold">else</span> <span style="color:#8b008b;font-weight:bold">if</span> (ret == <span style="color:#b452cd">0</span>)
+                {
+                    printf(<span style="color:#cd5555">&#34; disconnect %d</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, i);
+
+                    close(i);
+                    fds[i].fd = -<span style="color:#b452cd">1</span>;
+                    <span style="color:#8b008b;font-weight:bold">break</span>;
+                }
+                <span style="color:#8b008b;font-weight:bold">else</span>
+                {
+                    printf(<span style="color:#cd5555">&#34;Recv: %s, %d Bytes</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, buffer, ret);
+                }
+                <span style="color:#8b008b;font-weight:bold">if</span> (--nready == <span style="color:#b452cd">0</span>)
+                    <span style="color:#8b008b;font-weight:bold">break</span>;
+            }
+        }
+    }
+
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+</code></pre></div><!-- raw HTML omitted -->
+<h4 id="64-epoll-iohttpsgithubcomgongluckcvipblobmastercodeioepollc">6.4 <a href="https://github.com/gongluck/CVIP/blob/master/code/io/epoll.c">epoll IO</a></h4>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#228b22">/*
+</span><span style="color:#228b22"> * @Author: gongluck 
+</span><span style="color:#228b22"> * @Date: 2020-11-26 08:36:17 
+</span><span style="color:#228b22"> * @Last Modified by: gongluck
+</span><span style="color:#228b22"> * @Last Modified time: 2020-11-26 08:52:01
+</span><span style="color:#228b22"> */</span>
+
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdlib.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;string.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;netinet/tcp.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;arpa/inet.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;sys/epoll.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;errno.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;fcntl.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>
+<span style="color:#1e889b">#define BUFFER_LENGTH 1024
+</span><span style="color:#1e889b">#define EPOLL_SIZE 1024
+</span><span style="color:#1e889b"></span>
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>(<span style="color:#00688b;font-weight:bold">int</span> argc, <span style="color:#00688b;font-weight:bold">char</span> *argv[])
+{
+    <span style="color:#00688b;font-weight:bold">int</span> port = <span style="color:#b452cd">9096</span>;
+    <span style="color:#00688b;font-weight:bold">int</span> listenfd = socket(AF_INET, SOCK_STREAM, <span style="color:#b452cd">0</span>);
+    <span style="color:#8b008b;font-weight:bold">if</span> (listenfd &lt; <span style="color:#b452cd">0</span>)
+    {
+        perror(<span style="color:#cd5555">&#34;socket&#34;</span>);
+        <span style="color:#8b008b;font-weight:bold">return</span> -<span style="color:#b452cd">1</span>;
+    }
+
+    <span style="color:#8b008b;font-weight:bold">struct</span> sockaddr_in addr = {<span style="color:#b452cd">0</span>};
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(port);
+    addr.sin_addr.s_addr = INADDR_ANY;
+
+    <span style="color:#8b008b;font-weight:bold">if</span> (bind(listenfd, (<span style="color:#8b008b;font-weight:bold">struct</span> sockaddr *)&amp;addr, <span style="color:#8b008b;font-weight:bold">sizeof</span>(<span style="color:#8b008b;font-weight:bold">struct</span> sockaddr_in)) &lt; <span style="color:#b452cd">0</span>)
+    {
+        perror(<span style="color:#cd5555">&#34;bind&#34;</span>);
+        <span style="color:#8b008b;font-weight:bold">return</span> -<span style="color:#b452cd">2</span>;
+    }
+    <span style="color:#8b008b;font-weight:bold">if</span> (listen(listenfd, <span style="color:#b452cd">5</span>) &lt; <span style="color:#b452cd">0</span>)
+    {
+        perror(<span style="color:#cd5555">&#34;listen&#34;</span>);
+        <span style="color:#8b008b;font-weight:bold">return</span> -<span style="color:#b452cd">3</span>;
+    }
+
+    <span style="color:#00688b;font-weight:bold">int</span> epoll_fd = epoll_create(EPOLL_SIZE);
+    <span style="color:#8b008b;font-weight:bold">struct</span> epoll_event ev, events[EPOLL_SIZE] = {<span style="color:#b452cd">0</span>};
+
+    ev.events = EPOLLIN;
+    ev.data.fd = listenfd;
+    epoll_ctl(epoll_fd, EPOLL_CTL_ADD, listenfd, &amp;ev);
+
+    <span style="color:#8b008b;font-weight:bold">while</span> (<span style="color:#b452cd">1</span>)
+    {
+        <span style="color:#00688b;font-weight:bold">int</span> nready = epoll_wait(epoll_fd, events, EPOLL_SIZE, -<span style="color:#b452cd">1</span>);
+        <span style="color:#8b008b;font-weight:bold">if</span> (nready == -<span style="color:#b452cd">1</span>)
+        {
+            printf(<span style="color:#cd5555">&#34;epoll_wait</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>);
+            <span style="color:#8b008b;font-weight:bold">break</span>;
+        }
+
+        <span style="color:#8b008b;font-weight:bold">for</span> (<span style="color:#00688b;font-weight:bold">int</span> i = <span style="color:#b452cd">0</span>; i &lt; nready; i++)
+        {
+            <span style="color:#8b008b;font-weight:bold">if</span> (events[i].data.fd == listenfd)
+            {
+                <span style="color:#8b008b;font-weight:bold">struct</span> sockaddr_in client_addr = {<span style="color:#b452cd">0</span>};
+                socklen_t client_len = <span style="color:#8b008b;font-weight:bold">sizeof</span>(client_addr);
+
+                <span style="color:#00688b;font-weight:bold">int</span> clientfd = accept(listenfd, (<span style="color:#8b008b;font-weight:bold">struct</span> sockaddr *)&amp;client_addr, &amp;client_len);
+                <span style="color:#8b008b;font-weight:bold">if</span> (clientfd &lt;= <span style="color:#b452cd">0</span>)
+                    <span style="color:#8b008b;font-weight:bold">continue</span>;
+
+                <span style="color:#00688b;font-weight:bold">char</span> str[INET_ADDRSTRLEN] = {<span style="color:#b452cd">0</span>};
+                printf(<span style="color:#cd5555">&#34;recvived from %s at port %d, sockfd:%d, clientfd:%d</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, inet_ntop(AF_INET, &amp;client_addr.sin_addr, str, <span style="color:#8b008b;font-weight:bold">sizeof</span>(str)),
+                       ntohs(client_addr.sin_port), listenfd, clientfd);
+
+                ev.events = EPOLLIN | EPOLLET;
+                ev.data.fd = clientfd;
+                epoll_ctl(epoll_fd, EPOLL_CTL_ADD, clientfd, &amp;ev);
+            }
+            <span style="color:#8b008b;font-weight:bold">else</span>
+            {
+                <span style="color:#00688b;font-weight:bold">int</span> clientfd = events[i].data.fd;
+
+                <span style="color:#00688b;font-weight:bold">char</span> buffer[BUFFER_LENGTH] = {<span style="color:#b452cd">0</span>};
+                <span style="color:#00688b;font-weight:bold">int</span> ret = recv(clientfd, buffer, BUFFER_LENGTH, <span style="color:#b452cd">0</span>);
+                <span style="color:#8b008b;font-weight:bold">if</span> (ret &lt; <span style="color:#b452cd">0</span>)
+                {
+                    <span style="color:#8b008b;font-weight:bold">if</span> (errno == EAGAIN || errno == EWOULDBLOCK)
+                    {
+                        printf(<span style="color:#cd5555">&#34;read all data&#34;</span>);
+                    }
+
+                    close(clientfd);
+
+                    ev.events = EPOLLIN | EPOLLET;
+                    ev.data.fd = clientfd;
+                    epoll_ctl(epoll_fd, EPOLL_CTL_DEL, clientfd, &amp;ev);
+                }
+                <span style="color:#8b008b;font-weight:bold">else</span> <span style="color:#8b008b;font-weight:bold">if</span> (ret == <span style="color:#b452cd">0</span>)
+                {
+                    printf(<span style="color:#cd5555">&#34; disconnect %d</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, clientfd);
+
+                    close(clientfd);
+
+                    ev.events = EPOLLIN | EPOLLET;
+                    ev.data.fd = clientfd;
+                    epoll_ctl(epoll_fd, EPOLL_CTL_DEL, clientfd, &amp;ev);
+
+                    <span style="color:#8b008b;font-weight:bold">break</span>;
+                }
+                <span style="color:#8b008b;font-weight:bold">else</span>
+                {
+                    printf(<span style="color:#cd5555">&#34;Recv: %s, %d Bytes</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, buffer, ret);
+                }
+            }
+        }
+    }
+
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+</code></pre></div><!-- raw HTML omitted -->
+
+                    
+                    <HR width="100%" id="EOF">
+                    <p style="color:#777;">Last modified on 2020-11-30</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="https://gongluck.github.io/linux/%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%93%E9%A2%98/">
+                    Next<br>网络服务专题
+                </a>
+                
+                
+                
+                <a class="older-posts" href="https://gongluck.github.io/linux/%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%93%E6%A0%8F/">
+                    Previous<br>基础组件开发专栏
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+<div id="gitalk-container"></div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+            </div><div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	2020 gongluck&#39;s blog
+	</div>
+            </div>
+    <script>
+let app;
+
+app = new Vue({
+    el: '#app',
+    data: {
+        scrollY: 0,
+        navOpacity: 0,
+        isDrawerOpen: false,
+        mounted: false,
+        isDarkMode: false
+    },
+    methods: {
+            sgn(t, x) {
+                let k = 1. / (1. - 2 * t);
+                if (x <= t) return 0;
+                else if (x >= 1 - t) return 1;
+                else {
+                    return k * (x - t);
+                }
+            },
+            handleScroll() {
+                this.scrollY = window.scrollY;
+                this.navOpacity = this.sgn(.0, Math.min(1, Math.max(0, window.scrollY / (this.pageHeadHeight() - this.navBarHeight() * 0.8))));
+                const {navBar, navBackground, navTitle, extraContainer, streamContainer} = this.$refs;
+
+                if (this.navOpacity >= 1) {
+                    navBackground.style.opacity = 1;
+                    navTitle.style.opacity = 1;
+                } else {
+                    navBackground.style.opacity = 0;
+                    navTitle.style.opacity = 0;
+                }
+            },
+            handleResize() {
+                const {navBar, navBackground, navTitle, extraContainer, streamContainer} = this.$refs;
+                extraContainer.style.left = (streamContainer.offsetWidth - extraContainer.offsetWidth) + 'px';
+            },
+            navBarHeight() {
+                return this.$refs.navBar.offsetHeight;
+            },
+            pageHeadHeight() {
+                return this.$refs.pageHead.offsetHeight;
+            },
+            toggleDrawer() {
+                this.isDrawerOpen = !this.isDrawerOpen;
+                document.getElementsByTagName('html')[0].style.overflow = this.isDrawerOpen ? 'hidden' : 'unset';
+            },
+            closeDrawer() {
+                this.isDrawerOpen = false;
+                document.getElementsByTagName('html')[0].style.overflow = this.isDrawerOpen ? 'hidden' : 'unset';
+            },
+            toggleDarkMode() {
+                this.isDarkMode = !this.isDarkMode;
+                if (this.isDarkMode==true){
+                    document.cookie = "night=1;path=/";
+                    document.body.classList.add("night");
+                } else {
+                    document.cookie = "night=0;path=/";
+                    document.body.classList.remove("night");
+                }
+            }
+    },
+    created() {
+        window.addEventListener('scroll', this.handleScroll);
+        window.addEventListener('resize', this.handleResize);
+        window._nonDesktop = function () {
+            let check = false;
+            (function (a) {
+                if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) check = true;
+            })(navigator.userAgent || navigator.vendor || window.opera);
+            return check;
+        };
+        
+        var night = document.cookie.replace(/(?:(?:^|.*;\s*)night\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+        if (night==""){
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                
+            }
+        }else{
+            
+            if (night=="1") {
+                this.toggleDarkMode();
+            }
+        }
+    },
+    mounted() {
+        this.handleScroll();
+        this.handleResize();
+        this.mounted = true;
+        
+    },
+    destroyed() {
+        window.removeEventListener('scroll', this.handleScroll);
+        window.removeEventListener('resize', this.handleResize);
+    }
+});
+</script>
+
+<script src="https://gongluck.github.io/js/journal.js"></script>
+    </body>
+</html>

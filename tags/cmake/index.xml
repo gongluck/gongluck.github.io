@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cmake on gongluck&#39;s blog</title>
+    <link>https://gongluck.github.io/tags/cmake/</link>
+    <description>Recent content in cmake on gongluck&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 17 May 2020 14:17:09 +0800</lastBuildDate><atom:link href="https://gongluck.github.io/tags/cmake/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CMake入门</title>
+      <link>https://gongluck.github.io/cmake/cmake-start/</link>
+      <pubDate>Sun, 17 May 2020 14:17:09 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/cmake/cmake-start/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;CMake&lt;/strong&gt;是一个跨平台的安装(编译)工具，可以用简单的语句来描述所有平台的安装(编译过程)。能够输出各种各样的&lt;strong&gt;makefile&lt;/strong&gt;或者&lt;strong&gt;project&lt;/strong&gt;文件，能测试编译器所支持的&lt;strong&gt;C++&lt;strong&gt;特性,类似&lt;/strong&gt;UNIX&lt;/strong&gt;下的&lt;strong&gt;automake&lt;/strong&gt;。只是 &lt;strong&gt;CMake&lt;/strong&gt;的组态档取名为&lt;strong&gt;CMakeLists.txt&lt;/strong&gt;。&lt;strong&gt;Cmake&lt;/strong&gt;并不直接建构出最终的软件，而是产生标准的建构档(如 &lt;strong&gt;Unix&lt;/strong&gt;的&lt;strong&gt;Makefile&lt;/strong&gt;或&lt;strong&gt;Windows Visual C++&lt;strong&gt;的&lt;/strong&gt;projects/workspaces&lt;/strong&gt;)，然后再依一般的建构方式使用。这使得熟悉某个集成开发环境(IDE)的开发者可以用标准的方式建构他的软件，这种可以使用各平台的原生建构系统的能力是&lt;strong&gt;CMake&lt;/strong&gt;和&lt;strong&gt;SCons&lt;/strong&gt;等其他类似系统的区别之处。&lt;/p&gt;
+&lt;p&gt;至于出现一份代码，到处编译，但是编译不过就有可能是代码的问题了。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

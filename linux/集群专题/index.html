@@ -1,0 +1,2135 @@
+<!DOCTYPE html>
+<html><head>
+<title>集群专题</title>
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-163347799-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+<script src="/vendor/js/jquery.min.js" ></script>
+<script src="/vendor/js/popper.min.js" ></script>
+<script src="/vendor/js/bootstrap.min.js" ></script>
+<script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+<script src="/vendor/js/vue.min.js" ></script>
+
+
+
+
+<link rel="stylesheet" href="https://gongluck.github.io/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
+
+
+
+<link rel="stylesheet" href="https://gongluck.github.io/scss/dark-mode.min.b8ced257adf01d727091488aba5d273c60910773635166b513b27c1c28b9c866.css" integrity="sha256-uM7SV63wHXJwkUiKul0nPGCRB3NjUWa1E7J8HCi5yGY=" media="screen">
+
+
+<script src="https://gongluck.github.io/js/loadCSS.js"></script>
+<script>
+  loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
+</script>
+
+<script src="https://gongluck.github.io/js/table.js"></script>
+
+
+
+
+<script src="https://gongluck.github.io/js/toc.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/vendor/js/md5.min.js"></script>
+<script>
+  var gitalk = new Gitalk({
+  clientID: '49c0a21d9340c4049e72',
+  clientSecret: '6a22a79ca072e86728e6b1385927d1ec92f3d4a8',
+  repo: 'blogtalk',
+  owner: 'gongluck',
+  admin: ['gongluck'],
+  id: md5(location.pathname),
+  distractionFreeMode: 'false'
+  });
+  window.onload = function () {
+        gitalk.render('gitalk-container')
+  }
+</script>
+
+
+
+
+
+
+</head><body>
+    	<div id="app"><div ref="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="https://gongluck.github.io">
+    
+        <div class="nav-title">
+            gongluck&#39;s blog
+        </div>
+        
+        <div class="nav-subtitle">
+            C/C&#43;&#43; Win32/MFC Qt Golang
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                Categories
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                Tags
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="https://www.cnblogs.com/gongluck/">
+                CNBLOG
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="https://blog.csdn.net/gongluck93">
+                CSDN
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="https://github.com/gongluck">
+                Github
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/index.xml">
+                RSS Feed
+            </a>
+            
+        
+    </div>
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> 
+    <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	2020 gongluck&#39;s blog
+	
+    </div>
+    
+</div><div ref="extraContainer" class="extra-container">
+    
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e5%8d%81%e4%ba%8c%e9%9b%86%e7%be%a4%e4%b8%93%e9%a2%98" v-on:click="closeDrawer" id="十二集群专题-nav">
+										 十二、集群专题
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#0%e9%a1%b9%e7%9b%ae%e4%bb%93%e5%ba%93" v-on:click="closeDrawer" id="0项目仓库-nav">
+										 0.项目仓库
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#1redis%e9%9b%86%e7%be%a4" v-on:click="closeDrawer" id="1redis集群-nav">
+										 1.Redis集群
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#11-%e4%b8%bb%e4%bb%8e%e5%a4%8d%e5%88%b6" v-on:click="closeDrawer" id="11-主从复制-nav">
+										 1.1 主从复制
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#12-sentinel%e6%a8%a1%e5%bc%8f" v-on:click="closeDrawer" id="12-sentinel模式-nav">
+										 1.2 Sentinel模式
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#13-cluster%e6%a8%a1%e5%bc%8f" v-on:click="closeDrawer" id="13-cluster模式-nav">
+										 1.3 Cluster模式
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#2%e5%8e%bb%e4%b8%ad%e5%bf%83%e5%8c%96%e6%8a%80%e6%9c%af" v-on:click="closeDrawer" id="2去中心化技术-nav">
+										 2.去中心化技术
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#21-%e5%8e%bb%e4%b8%ad%e5%bf%83%e5%8c%96%e7%bd%91%e7%bb%9c" v-on:click="closeDrawer" id="21-去中心化网络-nav">
+										 2.1 去中心化网络
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#22-%e7%bd%91%e7%bb%9c%e5%9c%b0%e5%9d%80%e6%98%a0%e5%b0%84" v-on:click="closeDrawer" id="22-网络地址映射-nav">
+										 2.2 网络地址映射
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#3docker" v-on:click="closeDrawer" id="3docker-nav">
+										 3.Docker
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#31-%e9%95%9c%e5%83%8f%e5%ae%b9%e5%99%a8%e4%bb%93%e5%ba%93" v-on:click="closeDrawer" id="31-镜像容器仓库-nav">
+										 3.1 镜像、容器、仓库
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#32-docker%e5%ae%89%e8%a3%85" v-on:click="closeDrawer" id="32-docker安装-nav">
+										 3.2 Docker安装
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#33-docker%e5%91%bd%e4%bb%a4" v-on:click="closeDrawer" id="33-docker命令-nav">
+										 3.3 Docker命令
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#4mysql%e9%9b%86%e7%be%a4" v-on:click="closeDrawer" id="4mysql集群-nav">
+										 4.MySQL集群
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#41-replication" v-on:click="closeDrawer" id="41-replication-nav">
+										 4.1 Replication
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#42-fabirc" v-on:click="closeDrawer" id="42-fabirc-nav">
+										 4.2 Fabirc
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#43-cluster" v-on:click="closeDrawer" id="43-cluster-nav">
+										 4.3 Cluster
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#5kubernetes" v-on:click="closeDrawer" id="5kubernetes-nav">
+										 5.Kubernetes
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#51-k8s%e7%ae%80%e4%bb%8b" v-on:click="closeDrawer" id="51-k8s简介-nav">
+										 5.1 K8s简介
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#52-k8s%e9%9b%86%e7%be%a4" v-on:click="closeDrawer" id="52-k8s集群-nav">
+										 5.2 K8s集群
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#6mongodb%e9%9b%86%e7%be%a4" v-on:click="closeDrawer" id="6mongodb集群-nav">
+										 6.MongoDB集群
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#61-master-slave" v-on:click="closeDrawer" id="61-master-slave-nav">
+										 6.1 Master-Slave
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#62-replica-set" v-on:click="closeDrawer" id="62-replica-set-nav">
+										 6.2 Replica Set
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#63-sharding" v-on:click="closeDrawer" id="63-sharding-nav">
+										 6.3 Sharding
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a class="pagination-action" v-on:click="toggleDarkMode">
+            <i class="material-icons pagination-action-icon" v-if="isDarkMode">
+                brightness_4
+            </i>
+            <i class="material-icons pagination-action-icon" v-else="isDarkMode">
+                brightness_7
+            </i>
+        </a>
+        
+        
+    </div>
+</div><div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    Categories
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    Tags
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="https://www.cnblogs.com/gongluck/">
+                    CNBLOG
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="https://blog.csdn.net/gongluck93">
+                    CSDN
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="https://github.com/gongluck">
+                    Github
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/index.xml">
+                    RSS Feed
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e5%8d%81%e4%ba%8c%e9%9b%86%e7%be%a4%e4%b8%93%e9%a2%98" v-on:click="closeDrawer" id="十二集群专题-nav">
+										 十二、集群专题
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#0%e9%a1%b9%e7%9b%ae%e4%bb%93%e5%ba%93" v-on:click="closeDrawer" id="0项目仓库-nav">
+										 0.项目仓库
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#1redis%e9%9b%86%e7%be%a4" v-on:click="closeDrawer" id="1redis集群-nav">
+										 1.Redis集群
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#11-%e4%b8%bb%e4%bb%8e%e5%a4%8d%e5%88%b6" v-on:click="closeDrawer" id="11-主从复制-nav">
+										 1.1 主从复制
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#12-sentinel%e6%a8%a1%e5%bc%8f" v-on:click="closeDrawer" id="12-sentinel模式-nav">
+										 1.2 Sentinel模式
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#13-cluster%e6%a8%a1%e5%bc%8f" v-on:click="closeDrawer" id="13-cluster模式-nav">
+										 1.3 Cluster模式
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#2%e5%8e%bb%e4%b8%ad%e5%bf%83%e5%8c%96%e6%8a%80%e6%9c%af" v-on:click="closeDrawer" id="2去中心化技术-nav">
+										 2.去中心化技术
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#21-%e5%8e%bb%e4%b8%ad%e5%bf%83%e5%8c%96%e7%bd%91%e7%bb%9c" v-on:click="closeDrawer" id="21-去中心化网络-nav">
+										 2.1 去中心化网络
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#22-%e7%bd%91%e7%bb%9c%e5%9c%b0%e5%9d%80%e6%98%a0%e5%b0%84" v-on:click="closeDrawer" id="22-网络地址映射-nav">
+										 2.2 网络地址映射
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#3docker" v-on:click="closeDrawer" id="3docker-nav">
+										 3.Docker
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#31-%e9%95%9c%e5%83%8f%e5%ae%b9%e5%99%a8%e4%bb%93%e5%ba%93" v-on:click="closeDrawer" id="31-镜像容器仓库-nav">
+										 3.1 镜像、容器、仓库
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#32-docker%e5%ae%89%e8%a3%85" v-on:click="closeDrawer" id="32-docker安装-nav">
+										 3.2 Docker安装
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#33-docker%e5%91%bd%e4%bb%a4" v-on:click="closeDrawer" id="33-docker命令-nav">
+										 3.3 Docker命令
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#4mysql%e9%9b%86%e7%be%a4" v-on:click="closeDrawer" id="4mysql集群-nav">
+										 4.MySQL集群
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#41-replication" v-on:click="closeDrawer" id="41-replication-nav">
+										 4.1 Replication
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#42-fabirc" v-on:click="closeDrawer" id="42-fabirc-nav">
+										 4.2 Fabirc
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#43-cluster" v-on:click="closeDrawer" id="43-cluster-nav">
+										 4.3 Cluster
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#5kubernetes" v-on:click="closeDrawer" id="5kubernetes-nav">
+										 5.Kubernetes
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#51-k8s%e7%ae%80%e4%bb%8b" v-on:click="closeDrawer" id="51-k8s简介-nav">
+										 5.1 K8s简介
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#52-k8s%e9%9b%86%e7%be%a4" v-on:click="closeDrawer" id="52-k8s集群-nav">
+										 5.2 K8s集群
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#6mongodb%e9%9b%86%e7%be%a4" v-on:click="closeDrawer" id="6mongodb集群-nav">
+										 6.MongoDB集群
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#61-master-slave" v-on:click="closeDrawer" id="61-master-slave-nav">
+										 6.1 Master-Slave
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#62-replica-set" v-on:click="closeDrawer" id="62-replica-set-nav">
+										 6.2 Replica Set
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#63-sharding" v-on:click="closeDrawer" id="63-sharding-nav">
+										 6.3 Sharding
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="https://gongluck.github.io">
+            gongluck&#39;s blog
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" v-on:click="toggleDarkMode">
+            <i class="material-icons" v-if="isDarkMode">
+                brightness_4
+            </i>
+            <i class="material-icons" v-else="isDarkMode">
+                brightness_7
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="https://gongluck.github.io">
+        <div class="single-column-header-title">gongluck&#39;s blog</div>
+        
+        <div class="single-column-header-subtitle">C/C&#43;&#43; Win32/MFC Qt Golang</div>
+        
+
+    </a>
+</div>
+            <div id="content">
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+                
+            
+
+            <div class="post-head-wrapper"
+                
+                    
+                    
+                    style="background-image: url('https://gongluck.github.io/img/linux_wh.jpg')"
+                    
+                
+            >
+                <div class="post-title">
+                    集群专题
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2020-12-28 22:23
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/linux">linux</a>
+                                &nbsp;
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/linux">linux</a>
+                                &nbsp;
+                            
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h2 id="十二集群专题">十二、集群专题</h2>
+<h3 id="0项目仓库">0.项目仓库</h3>
+<ul>
+<li><a href="https://github.com/gongluck/CVIP.git">https://github.com/gongluck/CVIP.git</a></li>
+</ul>
+<h3 id="1redis集群">1.Redis集群</h3>
+<h4 id="11-主从复制">1.1 主从复制</h4>
+<ul>
+<li>主从模式的一个作用是备份数据，这样当一个节点损坏时，数据因为有备份，可以方便恢复。另一个作用是负载均衡，所有客户端都访问一个节点肯定会影响<strong>Redis</strong>工作效率，有了主 从以后，查询操作就可以通过查询从节点来完成。</li>
+<li>默认配置下，<strong>master</strong>节点可以进行读和写，<strong>slave</strong>节点只能进行读操作，写操作被禁止。</li>
+<li>不要修改配置让<strong>slave</strong>节点支持写操作，没有意义，原因一，写入的数据不会被同步到其他节点；原因二，当<strong>master</strong>节点修改同一条数据后，<strong>slave</strong>节点的数据会被覆盖掉。</li>
+<li><strong>slave</strong>节点挂了不影响其他<strong>slave</strong>节点的读和<strong>master</strong>节点的读和写，重新启动后会将数据从<strong>master</strong>节点同步过来。<strong>master</strong>节点挂了以后，不影响<strong>slave</strong>节点的读，<strong>Redis</strong>将不再提供写服务，<strong>master</strong>节点启动后<strong>Redis</strong>将重新对外提供写服务。<strong>master</strong>节点挂了以后，<strong>slave</strong>节点重新不会选一个<strong>master</strong>。</li>
+</ul>
+<h4 id="12-sentinel模式">1.2 Sentinel模式</h4>
+<ul>
+<li>
+<p><strong>Sentinel</strong>的主要功能包括主节点存活检测、主从运行情况检测、自动故障转移、主从切换。由一个或多个<strong>Sentinel</strong>实例组成的<strong>Sentinel</strong>系统可以监视任意多个主服务器，以及所有从服务器，并在被监视的主服务器进入下线状态时，自动将下线主服务器属下的某个从服务器升 级为新的主服务器，然后由新的主服务器代替已下线的主服务器继续处理命令请求。</p>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/redis%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F.png?raw=true" alt="redis哨兵模式"></p>
+</li>
+<li>
+<p><strong>Redis</strong>的<strong>Sentinel</strong>最小配置是一主一从。<strong>Redis</strong>的<strong>Sentinel</strong>系统可以用来管理多个<strong>Redis</strong>服务器，该系统可以执行以下四个任务：</p>
+<ul>
+<li>监控
+<ul>
+<li><strong>Sentinel</strong>会不断的检查主服务器和从服务器是否正常运行。</li>
+</ul>
+</li>
+<li>通知
+<ul>
+<li>当被监控的某个<strong>Redis</strong>服务器出现问题，<strong>Sentinel</strong>通过<strong>API</strong>脚本向管理员或者其他的应用程序发送通知。</li>
+</ul>
+</li>
+<li>自动故障转移
+<ul>
+<li>当主节点不能正常工作时，<strong>Sentinel</strong>会开始一次自动的故障转移操作，它会将与失效主节点是主从关系的其中一个从节点升级为新的主节点，并且将其他的从节点指向新的主节点。</li>
+</ul>
+</li>
+<li>配置提供者
+<ul>
+<li>在<strong>Redis Sentinel</strong>模式下，客户端应用在初始化时连接的是 <strong>Sentinel</strong>节点集合，从中获取主节点的信息。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="13-cluster模式">1.3 Cluster模式</h4>
+<ul>
+<li>
+<p><strong>redis cluster</strong>是 <strong>Redis</strong>的分布式解决方案，在3.0版本推出后有效地解决了<strong>redis</strong>分布式方面的需求。自动将数据进行分片，每个<strong>master</strong>上放一部分数据。提供内置的高可用支持，部分<strong>master</strong>不可用时，还是可以继续工作的支撑N个<strong>redis master node</strong>，每个<strong>master node</strong>都可以挂载多个<strong>slave node</strong>高可用，因为每个<strong>master</strong>都有<strong>salve</strong>节点，那么如果<strong>mater</strong>挂掉，<strong>redis cluster</strong>这套机制，就会自动将某个<strong>slave</strong>切换成<strong>master</strong>。</p>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F.png?raw=true" alt="redis集群模式"></p>
+</li>
+</ul>
+<h3 id="2去中心化技术">2.去中心化技术</h3>
+<h4 id="21-去中心化网络">2.1 去中心化网络</h4>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E7%BD%91%E7%BB%9C.png?raw=true" alt="去中心化网络"></p>
+<h4 id="22-网络地址映射">2.2 网络地址映射</h4>
+<ul>
+<li>
+<p>服务器发送数据与路由器公网<strong>IP</strong>时，能够将数据映射到私网中的机器；私网内的机器发送数据给服务器，路由器也能够映射为公网<strong>IP</strong>地址的过程，成为网络地址映射。</p>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/NAT%E5%B7%A5%E4%BD%9C%E6%8B%93%E6%89%91.png?raw=true" alt="NAT工作拓扑"></p>
+</li>
+</ul>
+<h3 id="3docker">3.Docker</h3>
+<h4 id="31-镜像容器仓库">3.1 镜像、容器、仓库</h4>
+<ul>
+<li><strong>Docker</strong>镜像（<strong>Image</strong>），就相当于是一个<strong>root</strong>文件系统。比如官方镜像<strong>ubuntu:16.04</strong>就包含了完整的一套<strong>Ubuntu16.04</strong>最小系统的<strong>root</strong>文件系统。</li>
+<li>容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。</li>
+<li>仓库可看着一个代码控制中心，用来保存镜像。<strong>Docker</strong>使用客户端-服务器(<strong>C/S</strong>)架构模式，使用远程<strong>API</strong>来管理和创建<strong>Docker</strong>容器。 <strong>Docker</strong>容器通过<strong>Docker</strong>镜像来创建。</li>
+</ul>
+<h4 id="32-docker安装">3.2 Docker安装</h4>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Shell" data-lang="Shell">sudo apt-get remove docker docker-engine docker.io containerd runc
+sudo apt-get update
+sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
+sudo apt-key fingerprint 0EBFCD88
+sudo add-apt-repository <span style="color:#cd5555">&#34;deb [arch=amd64] https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/ </span><span style="color:#8b008b;font-weight:bold">$(</span>lsb_release -cs<span style="color:#8b008b;font-weight:bold">)</span><span style="color:#cd5555">  stable&#34;</span>
+
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+</code></pre></div><h4 id="33-docker命令">3.3 Docker命令</h4>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Shell" data-lang="Shell"><span style="color:#228b22"># 启动docker</span>
+sudo service docker start
+<span style="color:#228b22"># 停止docker</span>
+sudo service docker stop
+<span style="color:#228b22"># 重启docker</span>
+sudo service docker restart
+</code></pre></div><h3 id="4mysql集群">4.MySQL集群</h3>
+<h4 id="41-replication">4.1 Replication</h4>
+<ul>
+<li>
+<p>主从复制是通过重放<strong>binlog</strong>实现主库数据的异步复制。即当主库执行了一条<strong>sql</strong>命令，那么在从库同样的执行一遍，从而达到主从复制的效果。</p>
+</li>
+<li>
+<p>在这个过程中，<strong>master</strong>对数据的写操作记入二进制日志文件中(<strong>binlog</strong>)，生成一个<strong>log dump</strong>线程，用来给从库的<strong>i/o</strong>线程传<strong>binlog。而从库的i/o线程去请求主库的binlog，并将得到的binlog</strong>日志写到中继日志（<strong>relaylog</strong>）中，从库的<strong>sql</strong>线程，会读取<strong>relaylog</strong>文件中的日志，并解析成具体操作，通过主从的操作一致，而达到最终数据一致。</p>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/mysql%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6.png?raw=true" alt="mysql主从复制"></p>
+</li>
+</ul>
+<h4 id="42-fabirc">4.2 Fabirc</h4>
+<ul>
+<li>在<strong>MySQL Replication</strong>的基础上，增加了故障检测与转移，自动数据分片功能。</li>
+<li>依旧是一主多从的结构，<strong>MySQL Fabirc</strong>只有一个主节点，区别是当该主节点挂了以后，会从从节点中选择一个来当主节点。</li>
+</ul>
+<h4 id="43-cluster">4.3 Cluster</h4>
+<ul>
+<li><strong>MySQL Cluster</strong>是多主多从结构的，高可用性优秀，99.999%的可用性，可以自动切分数据，能跨节点冗余数据（其数据集并不是存储某个特定的<strong>MySQL</strong>实例上，而是被分布在多个<strong>Data Nodes</strong>中，即一个<strong>table</strong>的数据可能被分散在多个物理节点上，任何数据都会在多个<strong>Data Nodes</strong>上冗余备份。任何一个数据变更操作，都将在一组<strong>Data Nodes</strong>上同步，以保证数据的一致性）。</li>
+</ul>
+<h3 id="5kubernetes">5.Kubernetes</h3>
+<h4 id="51-k8s简介">5.1 K8s简介</h4>
+<ul>
+<li><strong>Kubernetes</strong>是一个开源的，用于管理云平台中多个主机上的容器化的应用，<strong>Kubernetes</strong>的目标是让部署容器化的应用简单并且高效，<em><strong>Kubernetes</strong></em>提供了应用部署，规划，更新，维护的一种机制。</li>
+<li>传统的应用部署方式是通过插件或脚本来安装应用。这样做的缺点是应用的运行、配置、管理、所有生存周期将与当前操作系统绑定，这样做并不利于应用的升级更新/回滚等操作，当然也可以通过创建虚拟机的方式来实现某些功能，但是虚拟机非常重，并不利于可移植性。</li>
+<li>通过部署容器方式，每个容器之间互相隔离，每个容器有自己的文件系统 ，容器之间进程不会相互影响，能区分计算资源。相对于虚拟机，容器能快速部署，由于容器与底层设施、机器文件系统解耦的，所以它能在不同云、不同版本操作系统间进行迁移。</li>
+<li>容器占用资源少、部署快，每个应用可以被打包成一个容器镜像，每个应用与容器间成一对一关系也使容器有更大优势，使用容器可以在<strong>build</strong>或<strong>release</strong>的阶段，为应用创建容器镜像，因为每个应用不需要与其余的应用堆栈组合，也不依赖于生产环境基础结构，这使得从研发到测试、生产能提供一致环境。类似地，容器比虚拟机轻量、更“透明”，这更便于监控和管理。</li>
+</ul>
+<h4 id="52-k8s集群">5.2 K8s集群</h4>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/K8s%E9%9B%86%E7%BE%A4.png?raw=true" alt="K8s集群"></p>
+<h3 id="6mongodb集群">6.MongoDB集群</h3>
+<h4 id="61-master-slave">6.1 Master-Slave</h4>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/mongodb%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4.png?raw=true" alt="mongodb主从集群"></p>
+<ul>
+<li>主机工作，备机处于监控准备状况；</li>
+<li>当主机宕机时，备机接管主机的一切工作，待主机恢复正常后，按使用者的设定以自动或手动方式将服务切换到主机上运行，数据的一致性通过共享存储系统解决。</li>
+<li>主(<strong>Master</strong>)可读可写，当数据有修改的时候，会将<strong>oplog</strong>同步到所有连接的<strong>salve</strong>上去。</li>
+<li>从(<strong>Slave</strong>)只读不可写，自动从<strong>Master</strong>同步数据。</li>
+</ul>
+<h4 id="62-replica-set">6.2 Replica Set</h4>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/mongodb%E5%89%AF%E6%9C%AC%E9%9B%86%E9%9B%86%E7%BE%A4.png?raw=true" alt="mongodb副本集集群"></p>
+<ul>
+<li>为了防止单点故障就需要用副本（<strong>Replication</strong>），当发生硬件故障或者其它原因造成的宕机时，可以使用副本进行恢复，最好能够自动的故障转移（<strong>failover</strong>）。有时引入副本是为了读写分离，将读的请求分流到副本上，减轻主（<strong>Primary</strong>）的读压力。而<strong>Mongodb</strong>的<strong>Replica Set</strong>都能满足这些要求。</li>
+<li><strong>Replica Set</strong>的一堆<strong>mongod</strong>的实例集合，它们有着同样的数据内容。包含三类角色：
+<ul>
+<li>主节点（<strong>Primary</strong>）
+<ul>
+<li>接收所有的写请求，然后把修改同步到所有<strong>Secondary</strong>。一个<strong>Replica Set</strong>只能有一个<strong>Primary</strong>节点，当<strong>Primary</strong>挂掉后，其他<strong>Secondary</strong>或者<strong>Arbiter</strong>节点会重新选举出来一个主节点。</li>
+<li>默认读请求也是发到<strong>Primary</strong>节点处理的，需要转发到<strong>Secondary</strong>需要客户端修改一下连接配置。</li>
+</ul>
+</li>
+<li>副本节点（<strong>Secondary</strong>）
+<ul>
+<li>与主节点保持同样的数据集。当主节点挂掉的时候，参与选主。</li>
+</ul>
+</li>
+<li>仲裁者（<strong>Arbiter</strong>）
+<ul>
+<li>不保有数据，不参与选主，只进行选主投票。使用<strong>Arbiter</strong>可以减轻数据存储的硬件需求，Arbiter跑起来几乎没什么大的硬件资源需求，但重要的一点是，在生产环境下它和其他数据节点不要部署在同一台机器上。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>一个自动<strong>failover</strong>的<strong>Replica Set</strong>节点数必须为奇数，目的是选主投票的时候要有一个大多数才能进行选主决策。</li>
+</ul>
+<h4 id="63-sharding">6.3 Sharding</h4>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/mongodb%E5%88%86%E7%89%87%E9%9B%86%E7%BE%A4.png?raw=true" alt="mongodb分片集群"></p>
+<ul>
+<li>
+<p>当数据量比较大的时候，我们需要把数据分片运行在不同的机器中，以降低CPU、内存和IO的压力，<strong>Sharding</strong>就是这样的技术。</p>
+</li>
+<li>
+<p>数据库主要由两种方式做<strong>Sharding</strong>：纵向，横向，纵向的方式就是添加更多的<strong>CPU</strong>，内存，磁盘空间等。横向就是上面说的方式。</p>
+</li>
+<li>
+<p>数据分片（<strong>Shards</strong>）</p>
+<ul>
+<li>保存数据，保证数据的高可用性和一致性。可以是一个单独的<strong>mongod</strong>实例，也可以是一个副本集。</li>
+<li>在生产环境下<strong>Shard</strong>是一个<strong>Replica Set</strong>，以防止该数据片的单点故障。所有<strong>Shard</strong>中有一个<strong>PrimaryShard</strong>，里面包含未进行划分的数据集合。</li>
+</ul>
+</li>
+<li>
+<p>查询路由（<strong>Query Routers</strong>）</p>
+<ul>
+<li><strong>mongos</strong>的实例，客户端直接连接<strong>mongos</strong>，由<strong>mongos</strong>把读写请求路由到指定的<strong>Shard</strong>上去。</li>
+<li>一个<strong>Sharding</strong>集群，可以有一个<strong>mongos</strong>，也可以有多<strong>mongos</strong>以减轻客户端请求的压力。</li>
+</ul>
+</li>
+<li>
+<p>配置服务器（<strong>Config servers</strong>）</p>
+<ul>
+<li>保存集群的元数据（<strong>metadata</strong>），包含各个<strong>Shard</strong>的路由规则。</li>
+</ul>
+</li>
+</ul>
+
+                    
+                    <HR width="100%" id="EOF">
+                    <p style="color:#777;">Last modified on 2020-12-28</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="https://gongluck.github.io/linux/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%93%E9%A2%98/">
+                    Next<br>分布式专题
+                </a>
+                
+                
+                
+                <a class="older-posts" href="https://gongluck.github.io/linux/linux%E5%86%85%E6%A0%B8%E4%B8%93%E9%A2%98/">
+                    Previous<br>Linux内核专题
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+<div id="gitalk-container"></div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+            </div><div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	2020 gongluck&#39;s blog
+	</div>
+            </div>
+    <script>
+let app;
+
+app = new Vue({
+    el: '#app',
+    data: {
+        scrollY: 0,
+        navOpacity: 0,
+        isDrawerOpen: false,
+        mounted: false,
+        isDarkMode: false
+    },
+    methods: {
+            sgn(t, x) {
+                let k = 1. / (1. - 2 * t);
+                if (x <= t) return 0;
+                else if (x >= 1 - t) return 1;
+                else {
+                    return k * (x - t);
+                }
+            },
+            handleScroll() {
+                this.scrollY = window.scrollY;
+                this.navOpacity = this.sgn(.0, Math.min(1, Math.max(0, window.scrollY / (this.pageHeadHeight() - this.navBarHeight() * 0.8))));
+                const {navBar, navBackground, navTitle, extraContainer, streamContainer} = this.$refs;
+
+                if (this.navOpacity >= 1) {
+                    navBackground.style.opacity = 1;
+                    navTitle.style.opacity = 1;
+                } else {
+                    navBackground.style.opacity = 0;
+                    navTitle.style.opacity = 0;
+                }
+            },
+            handleResize() {
+                const {navBar, navBackground, navTitle, extraContainer, streamContainer} = this.$refs;
+                extraContainer.style.left = (streamContainer.offsetWidth - extraContainer.offsetWidth) + 'px';
+            },
+            navBarHeight() {
+                return this.$refs.navBar.offsetHeight;
+            },
+            pageHeadHeight() {
+                return this.$refs.pageHead.offsetHeight;
+            },
+            toggleDrawer() {
+                this.isDrawerOpen = !this.isDrawerOpen;
+                document.getElementsByTagName('html')[0].style.overflow = this.isDrawerOpen ? 'hidden' : 'unset';
+            },
+            closeDrawer() {
+                this.isDrawerOpen = false;
+                document.getElementsByTagName('html')[0].style.overflow = this.isDrawerOpen ? 'hidden' : 'unset';
+            },
+            toggleDarkMode() {
+                this.isDarkMode = !this.isDarkMode;
+                if (this.isDarkMode==true){
+                    document.cookie = "night=1;path=/";
+                    document.body.classList.add("night");
+                } else {
+                    document.cookie = "night=0;path=/";
+                    document.body.classList.remove("night");
+                }
+            }
+    },
+    created() {
+        window.addEventListener('scroll', this.handleScroll);
+        window.addEventListener('resize', this.handleResize);
+        window._nonDesktop = function () {
+            let check = false;
+            (function (a) {
+                if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) check = true;
+            })(navigator.userAgent || navigator.vendor || window.opera);
+            return check;
+        };
+        
+        var night = document.cookie.replace(/(?:(?:^|.*;\s*)night\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+        if (night==""){
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                
+            }
+        }else{
+            
+            if (night=="1") {
+                this.toggleDarkMode();
+            }
+        }
+    },
+    mounted() {
+        this.handleScroll();
+        this.handleResize();
+        this.mounted = true;
+        
+    },
+    destroyed() {
+        window.removeEventListener('scroll', this.handleScroll);
+        window.removeEventListener('resize', this.handleResize);
+    }
+});
+</script>
+
+<script src="https://gongluck.github.io/js/journal.js"></script>
+    </body>
+</html>

@@ -1,0 +1,247 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gongluck&#39;s blog</title>
+    <link>https://gongluck.github.io/</link>
+    <description>Recent content on gongluck&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 28 Dec 2020 22:24:36 +0800</lastBuildDate>
+    
+        <atom:link href="https://gongluck.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>字符动画播放器,不止BadApple!</title>
+        <link>https://gongluck.github.io/cpp/badapple-console/</link>
+        <pubDate>Tue, 07 Apr 2020 12:42:47 +0800</pubDate>
+        
+        <guid>https://gongluck.github.io/cpp/badapple-console/</guid>
+        <description>gongluck&#39;s blog https://gongluck.github.io/cpp/badapple-console/ -&lt;p&gt;有屏幕的地方就有BadApple!在B站看过好多版本,于是我也用控制台做了一个。网上很多人都是直接显示bmp图片的,但我这个版本是用libvlc实时解码和播放的,音频用libvlc播放,画面就是转换成字符后输出到控制台。除了BadApple这种黑白动画,也能播放彩色视频。具体可以看一下效果视频。&lt;/p&gt;
+&lt;h3 id=&#34;设计思路&#34;&gt;设计思路&lt;/h3&gt;
+&lt;p&gt;libvlc解码转码出RGBA和播放音频，再将RGBA量化为黑(&#39;*&#39;)白(&#39; &amp;lsquo;)两个颜色并输出到屏幕。&lt;/p&gt;
+&lt;h3 id=&#34;效果视频&#34;&gt;效果视频&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.bilibili.com/video/BV1N64y1u7BD&#34;&gt;https://www.bilibili.com/video/BV1N64y1u7BD&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;代码仓库&#34;&gt;代码仓库&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/Character-player/tree/console&#34;&gt;https://github.com/gongluck/Character-player/tree/console&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;thread&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;atomic&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#ifdef _WIN32
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;Windows.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define ssize_t SSIZE_T
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;vlc/vlc.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#define CHECKEQUALRET(ret, compare)\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;if(ret == compare)\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;{\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    std::cerr &amp;lt;&amp;lt; &amp;#34;error ocurred in &amp;#34; &amp;lt;&amp;lt; __FILE__\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;`s line &amp;#34; &amp;lt;&amp;lt; __LINE__\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;, error &amp;#34; &amp;lt;&amp;lt; ret;\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    goto END;\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;}
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#1e889b&#34;&gt;#define CHECKNEQUALRET(ret, compare)\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;if(ret != compare)\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;{\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    std::cerr &amp;lt;&amp;lt; &amp;#34;error ocurred in &amp;#34; &amp;lt;&amp;lt; __FILE__\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;`s line &amp;#34; &amp;lt;&amp;lt; __LINE__\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;              &amp;lt;&amp;lt; &amp;#34;, error &amp;#34; &amp;lt;&amp;lt; ret;\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;    goto END;\
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;}
+&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; WIDTH = &lt;span style=&#34;color:#b452cd&#34;&gt;200&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; HEIGHT = &lt;span style=&#34;color:#b452cd&#34;&gt;50&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;* out_buffer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;* tmp_buffer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;* print_buffer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+std::atomic&amp;lt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt;&amp;gt; atomiclock;
+std::atomic&amp;lt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt;&amp;gt; gotframe = &lt;span style=&#34;color:#658b00&#34;&gt;false&lt;/span&gt;;
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;* &lt;span style=&#34;color:#008b45&#34;&gt;lock&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;* data, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;** p_pixels)
+{
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (atomiclock)
+    {
+        std::this_thread::sleep_for(std::chrono::microseconds(&lt;span style=&#34;color:#b452cd&#34;&gt;10&lt;/span&gt;));
+    }
+    atomiclock = &lt;span style=&#34;color:#658b00&#34;&gt;true&lt;/span&gt;;
+    *p_pixels = out_buffer;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+}
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;unlock&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;* data, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;* id, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt;* &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt;* p_pixels)
+{
+    atomiclock = &lt;span style=&#34;color:#658b00&#34;&gt;false&lt;/span&gt;;
+    gotframe = &lt;span style=&#34;color:#658b00&#34;&gt;true&lt;/span&gt;;
+}
+&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;display&lt;/span&gt;(&lt;span style=&#34;color:#228b22&#34;&gt;/*void* data, void* id*/&lt;/span&gt;)
+{
+    atomiclock = &lt;span style=&#34;color:#658b00&#34;&gt;true&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (!gotframe)
+    {
+        atomiclock = &lt;span style=&#34;color:#658b00&#34;&gt;false&lt;/span&gt;;
+        std::this_thread::sleep_for(std::chrono::microseconds(&lt;span style=&#34;color:#b452cd&#34;&gt;10&lt;/span&gt;));
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt;;
+    }
+    memcpy(tmp_buffer, out_buffer, HEIGHT * WIDTH * &lt;span style=&#34;color:#b452cd&#34;&gt;4&lt;/span&gt;);
+    gotframe = &lt;span style=&#34;color:#658b00&#34;&gt;false&lt;/span&gt;;
+    atomiclock = &lt;span style=&#34;color:#658b00&#34;&gt;false&lt;/span&gt;;
+
+    HANDLE hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD pos = { &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt; };
+    SetConsoleCursorPosition(hConsoleOutput, pos);
+
+    RGBQUAD* rgba = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;reinterpret_cast&lt;/span&gt;&amp;lt;RGBQUAD*&amp;gt;(tmp_buffer);
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; HEIGHT; ++i)
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; j = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; j &amp;lt; WIDTH; ++j)
+        {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; point = rgba[WIDTH * i + j];
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; light = (point.rgbRed + point.rgbGreen + point.rgbBlue) / &lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;;
+            print_buffer[i * (WIDTH + &lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;) + j] = light &amp;gt; &lt;span style=&#34;color:#b452cd&#34;&gt;127&lt;/span&gt; ? &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;*&amp;#39;&lt;/span&gt; : &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt;;
+        }
+        print_buffer[i * (WIDTH + &lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;) + WIDTH] = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;\r&amp;#39;&lt;/span&gt;;
+        print_buffer[i * (WIDTH + &lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;) + WIDTH + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;] = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;\n&amp;#39;&lt;/span&gt;;
+    }
+    puts(print_buffer);
+}
+
+&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; argc, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;** argv)
+{
+    libvlc_instance_t* inst_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    libvlc_media_t* media_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    libvlc_media_player_t* player_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    libvlc_media_list_t* list_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    libvlc_media_list_player_t* plist_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; ret = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+
+    std::cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Usage: Character-player [media file] [out width] [out height]&amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; std::endl;
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (argc &amp;gt;= &lt;span style=&#34;color:#b452cd&#34;&gt;4&lt;/span&gt;)
+    {
+        WIDTH = atoi(argv[&lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;]);
+        HEIGHT = atoi(argv[&lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;]);
+    }
+
+    HANDLE hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD size = { WIDTH + &lt;span style=&#34;color:#b452cd&#34;&gt;4&lt;/span&gt;, HEIGHT + &lt;span style=&#34;color:#b452cd&#34;&gt;5&lt;/span&gt; };
+    SetConsoleScreenBufferSize(hConsoleOutput, size);
+    SMALL_RECT rc = { &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;,&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, WIDTH + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;, HEIGHT + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt; };
+    SetConsoleWindowInfo(hConsoleOutput, &lt;span style=&#34;color:#658b00&#34;&gt;true&lt;/span&gt;, &amp;amp;rc);
+
+    libvlc_log_close(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+
+    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;bool&lt;/span&gt; exit = &lt;span style=&#34;color:#658b00&#34;&gt;false&lt;/span&gt;;
+    std::&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;thread&lt;/span&gt; th([&amp;amp;]()
+    {
+        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (!exit)
+        {
+            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (atomiclock)
+            {
+                std::this_thread::sleep_for(std::chrono::microseconds(&lt;span style=&#34;color:#b452cd&#34;&gt;10&lt;/span&gt;));
+            }
+            display();
+        }
+    });
+
+    inst_ = libvlc_new(&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+    CHECKEQUALRET(inst_, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+    media_ = libvlc_media_new_path(inst_, argc &amp;lt;= &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt; ? &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;badapple.mp4&amp;#34;&lt;/span&gt; : argv[&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;]);
+    CHECKEQUALRET(media_, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+
+    out_buffer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static_cast&lt;/span&gt;&amp;lt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;*&amp;gt;(malloc(HEIGHT * WIDTH * &lt;span style=&#34;color:#b452cd&#34;&gt;4&lt;/span&gt;));
+    CHECKEQUALRET(out_buffer, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+    tmp_buffer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static_cast&lt;/span&gt;&amp;lt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;*&amp;gt;(malloc(HEIGHT * WIDTH * &lt;span style=&#34;color:#b452cd&#34;&gt;4&lt;/span&gt;));
+    CHECKEQUALRET(tmp_buffer, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+    print_buffer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;static_cast&lt;/span&gt;&amp;lt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;*&amp;gt;(malloc(HEIGHT * (WIDTH + &lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;) + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;));
+    CHECKEQUALRET(print_buffer, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+    print_buffer[HEIGHT * (WIDTH + &lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;)] = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;\0&amp;#39;&lt;/span&gt;;
+
+    &lt;span style=&#34;color:#228b22&#34;&gt;//player_ = libvlc_media_player_new_from_media(media_);
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    player_ = libvlc_media_player_new(inst_);
+    CHECKEQUALRET(player_, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;);
+
+    libvlc_video_set_callbacks(player_, lock, unlock, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
+    libvlc_video_set_format(player_, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;RGBA&amp;#34;&lt;/span&gt;, WIDTH, HEIGHT, WIDTH * &lt;span style=&#34;color:#b452cd&#34;&gt;4&lt;/span&gt;);
+    &lt;span style=&#34;color:#228b22&#34;&gt;//libvlc_media_player_set_hwnd(player_, GetDesktopWindow());
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    
+    &lt;span style=&#34;color:#228b22&#34;&gt;// play loop
+&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    list_ = libvlc_media_list_new(inst_);
+    plist_ = libvlc_media_list_player_new(inst_);
+    libvlc_media_list_add_media(list_, media_);
+    libvlc_media_list_player_set_media_list(plist_, list_);
+    libvlc_media_list_player_set_media_player(plist_, player_);
+    libvlc_media_list_player_set_playback_mode(plist_, libvlc_playback_mode_loop);
+    libvlc_media_list_player_play(plist_);
+
+    std::cin.get();
+
+END:
+    exit = &lt;span style=&#34;color:#658b00&#34;&gt;true&lt;/span&gt;;
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (th.joinable())
+    {
+        th.join();
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (player_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        libvlc_media_player_stop(player_);
+        libvlc_media_player_release(player_);
+        player_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (media_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        libvlc_media_release(media_);
+        media_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (plist_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        libvlc_media_list_player_release(plist_);
+        plist_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (list_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        libvlc_media_list_release(list_);
+        list_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (inst_ != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        libvlc_release(inst_);
+        inst_ = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (print_buffer != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        free(print_buffer);
+        print_buffer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (out_buffer != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        free(out_buffer);
+        out_buffer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (tmp_buffer != &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;)
+    {
+        free(tmp_buffer);
+        tmp_buffer = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;nullptr&lt;/span&gt;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- https://gongluck.github.io/cpp/badapple-console/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>第一篇博客</title>
+        <link>https://gongluck.github.io/default/first/</link>
+        <pubDate>Mon, 06 Apr 2020 19:43:00 +0800</pubDate>
+        
+        <guid>https://gongluck.github.io/default/first/</guid>
+        <description>gongluck&#39;s blog https://gongluck.github.io/default/first/ -&lt;h3 id=&#34;第一篇博客&#34;&gt;第一篇博客&lt;/h3&gt;
+&lt;p&gt;本博客网站使用Hugo创建,参考了&lt;a href=&#34;https://www.bilibili.com/video/av51574688&#34;&gt;视频&lt;/a&gt;,十分便捷。&lt;/p&gt;
+- https://gongluck.github.io/default/first/ - </description>
+        </item>
+    
+    
+  </channel>
+</rss> 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cpps on gongluck&#39;s blog</title>
+    <link>https://gongluck.github.io/cpp/</link>
+    <description>Recent content in Cpps on gongluck&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 08 Apr 2020 18:28:36 +0800</lastBuildDate><atom:link href="https://gongluck.github.io/cpp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>任务管理器播放BadApple</title>
+      <link>https://gongluck.github.io/cpp/badapple-taskmgr/</link>
+      <pubDate>Wed, 08 Apr 2020 18:28:36 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/cpp/badapple-taskmgr/</guid>
+      <description>&lt;p&gt;有屏幕的地方就有BadApple!前面做了在控制台显示BadApple了,这一次把画面渲染到任务管理器上！&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>字符动画播放器,不止BadApple!</title>
+      <link>https://gongluck.github.io/cpp/badapple-console/</link>
+      <pubDate>Tue, 07 Apr 2020 12:42:47 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/cpp/badapple-console/</guid>
+      <description>&lt;p&gt;有屏幕的地方就有BadApple!在B站看过好多版本,于是我也用控制台做了一个。网上很多人都是直接显示bmp图片的,但我这个版本是用libvlc实时解码和播放的,音频用libvlc播放,画面就是转换成字符后输出到控制台。除了BadApple这种黑白动画,也能播放彩色视频。具体可以看一下效果视频。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,2634 @@
+<!DOCTYPE html>
+<html><head>
+<title>源码分析专题</title>
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-163347799-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+<script src="/vendor/js/jquery.min.js" ></script>
+<script src="/vendor/js/popper.min.js" ></script>
+<script src="/vendor/js/bootstrap.min.js" ></script>
+<script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+<script src="/vendor/js/vue.min.js" ></script>
+
+
+
+
+<link rel="stylesheet" href="https://gongluck.github.io/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
+
+
+
+<link rel="stylesheet" href="https://gongluck.github.io/scss/dark-mode.min.b8ced257adf01d727091488aba5d273c60910773635166b513b27c1c28b9c866.css" integrity="sha256-uM7SV63wHXJwkUiKul0nPGCRB3NjUWa1E7J8HCi5yGY=" media="screen">
+
+
+<script src="https://gongluck.github.io/js/loadCSS.js"></script>
+<script>
+  loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
+</script>
+
+<script src="https://gongluck.github.io/js/table.js"></script>
+
+
+
+
+<script src="https://gongluck.github.io/js/toc.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/vendor/js/md5.min.js"></script>
+<script>
+  var gitalk = new Gitalk({
+  clientID: '49c0a21d9340c4049e72',
+  clientSecret: '6a22a79ca072e86728e6b1385927d1ec92f3d4a8',
+  repo: 'blogtalk',
+  owner: 'gongluck',
+  admin: ['gongluck'],
+  id: md5(location.pathname),
+  distractionFreeMode: 'false'
+  });
+  window.onload = function () {
+        gitalk.render('gitalk-container')
+  }
+</script>
+
+
+
+
+
+
+</head><body>
+    	<div id="app"><div ref="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="https://gongluck.github.io">
+    
+        <div class="nav-title">
+            gongluck&#39;s blog
+        </div>
+        
+        <div class="nav-subtitle">
+            C/C&#43;&#43; Win32/MFC Qt Golang
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                Categories
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                Tags
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="https://www.cnblogs.com/gongluck/">
+                CNBLOG
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="https://blog.csdn.net/gongluck93">
+                CSDN
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="https://github.com/gongluck">
+                Github
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/index.xml">
+                RSS Feed
+            </a>
+            
+        
+    </div>
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> 
+    <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	2020 gongluck&#39;s blog
+	
+    </div>
+    
+</div><div ref="extraContainer" class="extra-container">
+    
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e4%b9%9d%e6%ba%90%e7%a0%81%e5%88%86%e6%9e%90%e4%b8%93%e9%a2%98" v-on:click="closeDrawer" id="九源码分析专题-nav">
+										 九、源码分析专题
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#0%e9%a1%b9%e7%9b%ae%e4%bb%93%e5%ba%93" v-on:click="closeDrawer" id="0项目仓库-nav">
+										 0.项目仓库
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#1nginx%e6%9e%b6%e6%9e%84%e5%92%8c%e6%a8%a1%e5%9d%97" v-on:click="closeDrawer" id="1nginx架构和模块-nav">
+										 1.Nginx架构和模块
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#11-nginx%e6%9e%b6%e6%9e%84" v-on:click="closeDrawer" id="11-nginx架构-nav">
+										 1.1 Nginx架构
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#12-nginx%e5%9f%ba%e7%a1%80%e6%a6%82%e5%bf%b5" v-on:click="closeDrawer" id="12-nginx基础概念-nav">
+										 1.2 Nginx基础概念
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#13-handler%e6%a8%a1%e5%9d%97" v-on:click="closeDrawer" id="13-handler模块-nav">
+										 1.3 Handler模块
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#14-filter%e6%a8%a1%e5%9d%97" v-on:click="closeDrawer" id="14-filter模块-nav">
+										 1.4 Filter模块
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#15-upstream%e6%a8%a1%e5%9d%97" v-on:click="closeDrawer" id="15-upstream模块-nav">
+										 1.5 Upstream模块
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#16-%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1%e6%a8%a1%e5%9d%97" v-on:click="closeDrawer" id="16-负载均衡模块-nav">
+										 1.6 负载均衡模块
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#2skynet" v-on:click="closeDrawer" id="2skynet-nav">
+										 2.Skynet
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#21-%e7%8e%af%e5%a2%83%e5%ae%89%e8%a3%85" v-on:click="closeDrawer" id="21-环境安装-nav">
+										 2.1 环境安装
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#22-skynet%e5%b7%a5%e4%bd%9c%e6%a8%a1%e5%9e%8b" v-on:click="closeDrawer" id="22-skynet工作模型-nav">
+										 2.2 Skynet工作模型
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#23-skynet-lua%e4%be%8b%e5%ad%90httpsgithubcomgongluckcvipblobmastercodeskynet" v-on:click="closeDrawer" id="23-skynet-lua例子httpsgithubcomgongluckcvipblobmastercodeskynet-nav">
+										 2.3 Skynet Lua例子
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#3zeromq" v-on:click="closeDrawer" id="3zeromq-nav">
+										 3.ZeroMQ
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#31-%e7%8e%af%e5%a2%83%e5%ae%89%e8%a3%85" v-on:click="closeDrawer" id="31-环境安装-nav">
+										 3.1 环境安装
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#32-%e4%be%8b%e5%ad%90%e4%bb%a3%e7%a0%81httpsgithubcomgongluckcvipblobmastercodezeromq" v-on:click="closeDrawer" id="32-例子代码httpsgithubcomgongluckcvipblobmastercodezeromq-nav">
+										 3.2 例子代码
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#4redis" v-on:click="closeDrawer" id="4redis-nav">
+										 4.Redis
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#41-redis%e7%9a%84%e5%85%83%e7%b4%a0%e7%bb%93%e6%9e%84" v-on:click="closeDrawer" id="41-redis的元素结构-nav">
+										 4.1 Redis的元素结构
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#42-rehash" v-on:click="closeDrawer" id="42-rehash-nav">
+										 4.2 Rehash
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#43-%e4%b8%bb%e4%bb%8e%e5%a4%8d%e5%88%b6" v-on:click="closeDrawer" id="43-主从复制-nav">
+										 4.3 主从复制
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a class="pagination-action" v-on:click="toggleDarkMode">
+            <i class="material-icons pagination-action-icon" v-if="isDarkMode">
+                brightness_4
+            </i>
+            <i class="material-icons pagination-action-icon" v-else="isDarkMode">
+                brightness_7
+            </i>
+        </a>
+        
+        
+    </div>
+</div><div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    Categories
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    Tags
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="https://www.cnblogs.com/gongluck/">
+                    CNBLOG
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="https://blog.csdn.net/gongluck93">
+                    CSDN
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="https://github.com/gongluck">
+                    Github
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/index.xml">
+                    RSS Feed
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e4%b9%9d%e6%ba%90%e7%a0%81%e5%88%86%e6%9e%90%e4%b8%93%e9%a2%98" v-on:click="closeDrawer" id="九源码分析专题-nav">
+										 九、源码分析专题
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#0%e9%a1%b9%e7%9b%ae%e4%bb%93%e5%ba%93" v-on:click="closeDrawer" id="0项目仓库-nav">
+										 0.项目仓库
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#1nginx%e6%9e%b6%e6%9e%84%e5%92%8c%e6%a8%a1%e5%9d%97" v-on:click="closeDrawer" id="1nginx架构和模块-nav">
+										 1.Nginx架构和模块
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#11-nginx%e6%9e%b6%e6%9e%84" v-on:click="closeDrawer" id="11-nginx架构-nav">
+										 1.1 Nginx架构
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#12-nginx%e5%9f%ba%e7%a1%80%e6%a6%82%e5%bf%b5" v-on:click="closeDrawer" id="12-nginx基础概念-nav">
+										 1.2 Nginx基础概念
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#13-handler%e6%a8%a1%e5%9d%97" v-on:click="closeDrawer" id="13-handler模块-nav">
+										 1.3 Handler模块
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#14-filter%e6%a8%a1%e5%9d%97" v-on:click="closeDrawer" id="14-filter模块-nav">
+										 1.4 Filter模块
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#15-upstream%e6%a8%a1%e5%9d%97" v-on:click="closeDrawer" id="15-upstream模块-nav">
+										 1.5 Upstream模块
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#16-%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1%e6%a8%a1%e5%9d%97" v-on:click="closeDrawer" id="16-负载均衡模块-nav">
+										 1.6 负载均衡模块
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#2skynet" v-on:click="closeDrawer" id="2skynet-nav">
+										 2.Skynet
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#21-%e7%8e%af%e5%a2%83%e5%ae%89%e8%a3%85" v-on:click="closeDrawer" id="21-环境安装-nav">
+										 2.1 环境安装
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#22-skynet%e5%b7%a5%e4%bd%9c%e6%a8%a1%e5%9e%8b" v-on:click="closeDrawer" id="22-skynet工作模型-nav">
+										 2.2 Skynet工作模型
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#23-skynet-lua%e4%be%8b%e5%ad%90httpsgithubcomgongluckcvipblobmastercodeskynet" v-on:click="closeDrawer" id="23-skynet-lua例子httpsgithubcomgongluckcvipblobmastercodeskynet-nav">
+										 2.3 Skynet Lua例子
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#3zeromq" v-on:click="closeDrawer" id="3zeromq-nav">
+										 3.ZeroMQ
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#31-%e7%8e%af%e5%a2%83%e5%ae%89%e8%a3%85" v-on:click="closeDrawer" id="31-环境安装-nav">
+										 3.1 环境安装
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#32-%e4%be%8b%e5%ad%90%e4%bb%a3%e7%a0%81httpsgithubcomgongluckcvipblobmastercodezeromq" v-on:click="closeDrawer" id="32-例子代码httpsgithubcomgongluckcvipblobmastercodezeromq-nav">
+										 3.2 例子代码
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#4redis" v-on:click="closeDrawer" id="4redis-nav">
+										 4.Redis
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#41-redis%e7%9a%84%e5%85%83%e7%b4%a0%e7%bb%93%e6%9e%84" v-on:click="closeDrawer" id="41-redis的元素结构-nav">
+										 4.1 Redis的元素结构
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#42-rehash" v-on:click="closeDrawer" id="42-rehash-nav">
+										 4.2 Rehash
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#43-%e4%b8%bb%e4%bb%8e%e5%a4%8d%e5%88%b6" v-on:click="closeDrawer" id="43-主从复制-nav">
+										 4.3 主从复制
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="https://gongluck.github.io">
+            gongluck&#39;s blog
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" v-on:click="toggleDarkMode">
+            <i class="material-icons" v-if="isDarkMode">
+                brightness_4
+            </i>
+            <i class="material-icons" v-else="isDarkMode">
+                brightness_7
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="https://gongluck.github.io">
+        <div class="single-column-header-title">gongluck&#39;s blog</div>
+        
+        <div class="single-column-header-subtitle">C/C&#43;&#43; Win32/MFC Qt Golang</div>
+        
+
+    </a>
+</div>
+            <div id="content">
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+                
+            
+
+            <div class="post-head-wrapper"
+                
+                    
+                    
+                    style="background-image: url('https://gongluck.github.io/img/linux_wh.jpg')"
+                    
+                
+            >
+                <div class="post-title">
+                    源码分析专题
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2020-12-28 22:20
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/linux">linux</a>
+                                &nbsp;
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/linux">linux</a>
+                                &nbsp;
+                            
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h2 id="九源码分析专题">九、源码分析专题</h2>
+<h3 id="0项目仓库">0.项目仓库</h3>
+<ul>
+<li><a href="https://github.com/gongluck/CVIP.git">https://github.com/gongluck/CVIP.git</a></li>
+</ul>
+<h3 id="1nginx架构和模块">1.Nginx架构和模块</h3>
+<h4 id="11-nginx架构">1.1 Nginx架构</h4>
+<ul>
+<li>
+<p><strong>nginx</strong>在启动后，在<strong>unix</strong>系统中会以<strong>daemon</strong>的方式在后台运行，后台进程包含一个<strong>master</strong>进程和多个<strong>worker</strong>进程。</p>
+</li>
+<li>
+<p><strong>master</strong>进程主要用来管理<strong>worker</strong>进程，包含：</p>
+<ul>
+<li>接收来自外界的信号，</li>
+<li>向各<strong>worker</strong>进程发送信号，</li>
+<li>监控<strong>worker</strong>进程的运行状态，</li>
+<li>当<strong>worker</strong>进程退出后(异常情况下)，会自动重新启动新的<strong>worker</strong>进程。</li>
+</ul>
+</li>
+<li>
+<p>而基本的网络事件，则是放在<strong>worker</strong>进程中来处理了。多个<strong>worker</strong>进程之间是对等的，他们同等竞争来自客户端的请求，各进程互相之间是独立的。</p>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/nginx%E8%BF%9B%E7%A8%8B%E6%A8%A1%E5%9E%8B.png?raw=true" alt="nginx进程模型"></p>
+</li>
+<li>
+<p>每个<strong>worker</strong>进程都是从<strong>master</strong>进程<strong>fork</strong>过来，在<strong>master</strong>进程里面，先建立好需要<strong>listen</strong>的<strong>socket</strong>（<strong>listenfd</strong>）之后，然后再<strong>fork</strong>出多个<strong>worker</strong>进程。所有<strong>worker</strong>进程的<strong>listenfd</strong>会在新连接到来时变得可读，为保证只有一个进程处理该连接，所有<strong>worker <strong>进程在注册</strong>listenfd</strong>读事件前抢<strong>accept_mutex</strong>，抢到互斥锁的那个进程注册<strong>listenfd</strong>读事件，在读事件里调用<strong>accept</strong>接受该连接。当一个<strong>worker</strong>进程在<strong>accept</strong>这个连接之后，就开始读取请求，解析请求，处理请求，产生数据后，再返回给客户端，最后才断开连接，这样一个完整的请求就是这样的了。</p>
+</li>
+<li>
+<p>对于每个<strong>worker</strong>进程来说，独立的进程，不需要加锁，所以省掉了锁带来的开销，同时在编程以及问题查找时，也会方便很多。其次，采用独立的进程，可以让互相之间不会影响，一个进程退出后，其它进程还在工作，服务不会中断，<strong>master</strong>进程则很快启动新的<strong>worker</strong>进程。</p>
+</li>
+<li>
+<p><strong>nginx</strong>采用了异步非阻塞的方式来处理请求。非阻塞就是，事件没有准备好，马上返回<strong>EAGAIN</strong>。</p>
+</li>
+<li>
+<p><strong>nginx</strong>里面的定时器事件是放在一颗维 护定时器的红黑树里面，每次在进入<strong>epoll_wait</strong>前，先从该红黑树里面拿到所有定时器事件的最小时间，在计算出<strong>epoll_wait</strong>的超时时间后进入<strong>epoll_wait</strong>。所以，当没有事件产生，也没有中断信号时，<strong>epoll_wait</strong>会超时，也就是说，定时器事件到了。这时，<strong>nginx</strong>会检查所有的超时事件，将他们的状态设置为超时，然后再去处理网络事件。</p>
+</li>
+</ul>
+<h4 id="12-nginx基础概念">1.2 Nginx基础概念</h4>
+<ul>
+<li>
+<p><strong>connection</strong></p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#8b008b;font-weight:bold">struct</span> ngx_connection_s {
+    <span style="color:#00688b;font-weight:bold">void</span>               *data;
+    ngx_event_t        *read;
+    ngx_event_t        *write;
+  
+    ngx_socket_t        fd;
+  
+    ngx_recv_pt         recv;
+    ngx_send_pt         send;
+    ngx_recv_chain_pt   recv_chain;
+    ngx_send_chain_pt   send_chain;
+  
+    ngx_listening_t    *listening;
+  
+    off_t               sent;
+  
+    ngx_log_t          *log;
+  
+    ngx_pool_t         *pool;
+  
+    <span style="color:#00688b;font-weight:bold">int</span>                 type;
+  
+    <span style="color:#8b008b;font-weight:bold">struct</span> sockaddr    *sockaddr;
+    socklen_t           socklen;
+    ngx_str_t           addr_text;
+  
+    ngx_proxy_protocol_t  *proxy_protocol;
+  
+<span style="color:#1e889b">#if (NGX_SSL || NGX_COMPAT)
+</span><span style="color:#1e889b"></span>    ngx_ssl_connection_t  *ssl;
+<span style="color:#1e889b">#endif
+</span><span style="color:#1e889b"></span>  
+    ngx_udp_connection_t  *udp;
+  
+    <span style="color:#8b008b;font-weight:bold">struct</span> sockaddr    *local_sockaddr;
+    socklen_t           local_socklen;
+  
+    ngx_buf_t          *buffer;
+  
+    ngx_queue_t         queue;
+  
+    ngx_atomic_uint_t   number;
+  
+    ngx_uint_t          requests;
+  
+    <span style="color:#00688b;font-weight:bold">unsigned</span>            buffered:<span style="color:#b452cd">8</span>;
+  
+    <span style="color:#00688b;font-weight:bold">unsigned</span>            log_error:<span style="color:#b452cd">3</span>;     <span style="color:#228b22">/* ngx_connection_log_error_e */</span>
+  
+    <span style="color:#00688b;font-weight:bold">unsigned</span>            timedout:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>            error:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>            destroyed:<span style="color:#b452cd">1</span>;
+  
+    <span style="color:#00688b;font-weight:bold">unsigned</span>            idle:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>            reusable:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>            close:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>            shared:<span style="color:#b452cd">1</span>;
+  
+    <span style="color:#00688b;font-weight:bold">unsigned</span>            sendfile:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>            sndlowat:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>            tcp_nodelay:<span style="color:#b452cd">2</span>;   <span style="color:#228b22">/* ngx_connection_tcp_nodelay_e */</span>
+    <span style="color:#00688b;font-weight:bold">unsigned</span>            tcp_nopush:<span style="color:#b452cd">2</span>;    <span style="color:#228b22">/* ngx_connection_tcp_nopush_e */</span>
+  
+    <span style="color:#00688b;font-weight:bold">unsigned</span>            need_last_buf:<span style="color:#b452cd">1</span>;
+  
+<span style="color:#1e889b">#if (NGX_HAVE_AIO_SENDFILE || NGX_COMPAT)
+</span><span style="color:#1e889b"></span>    <span style="color:#00688b;font-weight:bold">unsigned</span>            busy_count:<span style="color:#b452cd">2</span>;
+<span style="color:#1e889b">#endif
+</span><span style="color:#1e889b"></span>  
+<span style="color:#1e889b">#if (NGX_THREADS || NGX_COMPAT)
+</span><span style="color:#1e889b"></span>    ngx_thread_task_t  *sendfile_task;
+<span style="color:#1e889b">#endif
+</span><span style="color:#1e889b"></span>};
+</code></pre></div><!-- raw HTML omitted -->
+<ul>
+<li><strong>nginx</strong>在实现时，是通过一个连接池来管理的，每个<strong>worker</strong>进程都有一个独立的连接池，连接池的大小是<strong>worker_connections</strong>。这里的连接池里面保存的其实不是真实的连接，它只是一个<strong>worker_connections</strong>大小的一个<strong>ngx_connection_t</strong>结构的数组。并且，<strong>nginx</strong>会通过一个链表<strong>free_connections</strong>来保存所有的空闲<strong>ngx_connection_t</strong>，每次获取一个连接时，就从空闲连接链表中获取一个，用完后，再放回空闲连接链表里面。</li>
+<li>一个<strong>nginx</strong>能建立的最大连接数，应该是<strong>worker_connections * worker_processes</strong>。当然，这里说的是最大连接数，对于<strong>HTTP</strong>请求本地资源来说，能够支持的最大并发数量是 <strong>worker_connections * worker_processes</strong>，而如果是 HTTP 作为反向代理来说，最大并发数量应该是<strong>worker_connections * worker_processes / 2</strong>。因为作为反向代理服务器，每个并发会建立与客户端的连接和与后端服务的连接，会占用两个连接。</li>
+<li><strong>nginx</strong>使用一个叫<strong>ngx_accept_disabled</strong>的变量来控制是否去竞争<strong>accept_mutex</strong>锁。计算 <strong>ngx_accept_disabled</strong>的值，这个值是<strong>nginx</strong>单进程的所有连接总数的八分之一，减去剩下的空闲连接数量，得到的这个<strong>ngx_accept_disabled</strong>有一个规律，当剩余连接数小于总连接数的八分之一时，其值才大于 0，而且剩余的连接数越小，这个值越大。当<strong>ngx_accept_disabled</strong>大于0时，不会去尝试获取<strong>accept_mutex</strong>锁，并且将<strong>ngx_accept_disabled</strong>减1，于是，每次执行到此处时，都会去减1，直到小于0。</li>
+</ul>
+</li>
+<li>
+<p><strong>request</strong></p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#8b008b;font-weight:bold">struct</span> ngx_http_request_s {
+    uint32_t                          signature;         <span style="color:#228b22">/* &#34;HTTP&#34; */</span>
+  
+    ngx_connection_t                 *connection;
+  
+    <span style="color:#00688b;font-weight:bold">void</span>                            **ctx;
+    <span style="color:#00688b;font-weight:bold">void</span>                            **main_conf;
+    <span style="color:#00688b;font-weight:bold">void</span>                            **srv_conf;
+    <span style="color:#00688b;font-weight:bold">void</span>                            **loc_conf;
+  
+    ngx_http_event_handler_pt         read_event_handler;
+    ngx_http_event_handler_pt         write_event_handler;
+  
+<span style="color:#1e889b">#if (NGX_HTTP_CACHE)
+</span><span style="color:#1e889b"></span>    ngx_http_cache_t                 *cache;
+<span style="color:#1e889b">#endif
+</span><span style="color:#1e889b"></span>  
+    ngx_http_upstream_t              *upstream;
+    ngx_array_t                      *upstream_states;
+                                         <span style="color:#228b22">/* of ngx_http_upstream_state_t */</span>
+  
+    ngx_pool_t                       *pool;
+    ngx_buf_t                        *header_in;
+  
+    ngx_http_headers_in_t             headers_in;
+    ngx_http_headers_out_t            headers_out;
+  
+    ngx_http_request_body_t          *request_body;
+  
+    time_t                            lingering_time;
+    time_t                            start_sec;
+    ngx_msec_t                        start_msec;
+  
+    ngx_uint_t                        method;
+    ngx_uint_t                        http_version;
+  
+    ngx_str_t                         request_line;
+    ngx_str_t                         uri;
+    ngx_str_t                         args;
+    ngx_str_t                         exten;
+    ngx_str_t                         unparsed_uri;
+  
+    ngx_str_t                         method_name;
+    ngx_str_t                         http_protocol;
+    ngx_str_t                         schema;
+  
+    ngx_chain_t                      *out;
+    ngx_http_request_t               *main;
+    ngx_http_request_t               *parent;
+    ngx_http_postponed_request_t     *postponed;
+    ngx_http_post_subrequest_t       *post_subrequest;
+    ngx_http_posted_request_t        *posted_requests;
+  
+    ngx_int_t                         phase_handler;
+    ngx_http_handler_pt               content_handler;
+    ngx_uint_t                        access_code;
+  
+    ngx_http_variable_value_t        *variables;
+  
+<span style="color:#1e889b">#if (NGX_PCRE)
+</span><span style="color:#1e889b"></span>    ngx_uint_t                        ncaptures;
+    <span style="color:#00688b;font-weight:bold">int</span>                              *captures;
+    u_char                           *captures_data;
+<span style="color:#1e889b">#endif
+</span><span style="color:#1e889b"></span>  
+    size_t                            limit_rate;
+    size_t                            limit_rate_after;
+  
+    <span style="color:#228b22">/* used to learn the Apache compatible response length without a header */</span>
+    size_t                            header_size;
+  
+    off_t                             request_length;
+  
+    ngx_uint_t                        err_status;
+  
+    ngx_http_connection_t            *http_connection;
+    ngx_http_v2_stream_t             *stream;
+  
+    ngx_http_log_handler_pt           log_handler;
+  
+    ngx_http_cleanup_t               *cleanup;
+  
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          count:<span style="color:#b452cd">16</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          subrequests:<span style="color:#b452cd">8</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          blocked:<span style="color:#b452cd">8</span>;
+  
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          aio:<span style="color:#b452cd">1</span>;
+  
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          http_state:<span style="color:#b452cd">4</span>;
+  
+    <span style="color:#228b22">/* URI with &#34;/.&#34; and on Win32 with &#34;//&#34; */</span>
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          complex_uri:<span style="color:#b452cd">1</span>;
+  
+    <span style="color:#228b22">/* URI with &#34;%&#34; */</span>
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          quoted_uri:<span style="color:#b452cd">1</span>;
+  
+    <span style="color:#228b22">/* URI with &#34;+&#34; */</span>
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          plus_in_uri:<span style="color:#b452cd">1</span>;
+  
+    <span style="color:#228b22">/* URI with &#34; &#34; */</span>
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          space_in_uri:<span style="color:#b452cd">1</span>;
+  
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          invalid_header:<span style="color:#b452cd">1</span>;
+  
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          add_uri_to_alias:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          valid_location:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          valid_unparsed_uri:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          uri_changed:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          uri_changes:<span style="color:#b452cd">4</span>;
+  
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          request_body_in_single_buf:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          request_body_in_file_only:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          request_body_in_persistent_file:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          request_body_in_clean_file:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          request_body_file_group_access:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          request_body_file_log_level:<span style="color:#b452cd">3</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          request_body_no_buffering:<span style="color:#b452cd">1</span>;
+  
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          subrequest_in_memory:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          waited:<span style="color:#b452cd">1</span>;
+  
+<span style="color:#1e889b">#if (NGX_HTTP_CACHE)
+</span><span style="color:#1e889b"></span>    <span style="color:#00688b;font-weight:bold">unsigned</span>                          cached:<span style="color:#b452cd">1</span>;
+<span style="color:#1e889b">#endif
+</span><span style="color:#1e889b"></span>  
+<span style="color:#1e889b">#if (NGX_HTTP_GZIP)
+</span><span style="color:#1e889b"></span>    <span style="color:#00688b;font-weight:bold">unsigned</span>                          gzip_tested:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          gzip_ok:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          gzip_vary:<span style="color:#b452cd">1</span>;
+<span style="color:#1e889b">#endif
+</span><span style="color:#1e889b"></span>  
+<span style="color:#1e889b">#if (NGX_PCRE)
+</span><span style="color:#1e889b"></span>    <span style="color:#00688b;font-weight:bold">unsigned</span>                          realloc_captures:<span style="color:#b452cd">1</span>;
+<span style="color:#1e889b">#endif
+</span><span style="color:#1e889b"></span>  
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          proxy:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          bypass_cache:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          no_cache:<span style="color:#b452cd">1</span>;
+  
+    <span style="color:#228b22">/*
+</span><span style="color:#228b22">     * instead of using the request context data in
+</span><span style="color:#228b22">     * ngx_http_limit_conn_module and ngx_http_limit_req_module
+</span><span style="color:#228b22">     * we use the bit fields in the request structure
+</span><span style="color:#228b22">     */</span>
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          limit_conn_status:<span style="color:#b452cd">2</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          limit_req_status:<span style="color:#b452cd">3</span>;
+  
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          limit_rate_set:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          limit_rate_after_set:<span style="color:#b452cd">1</span>;
+  
+<span style="color:#1e889b">#if 0</span><span style="color:#228b22">
+</span><span style="color:#228b22">    unsigned                          cacheable:1;
+</span><span style="color:#228b22"></span><span style="color:#1e889b">#endif
+</span><span style="color:#1e889b"></span>  
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          pipeline:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          chunked:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          header_only:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          expect_trailers:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          keepalive:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          lingering_close:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          discard_body:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          reading_body:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          internal:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          error_page:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          filter_finalize:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          post_action:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          request_complete:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          request_output:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          header_sent:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          expect_tested:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          root_tested:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          done:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          logged:<span style="color:#b452cd">1</span>;
+  
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          buffered:<span style="color:#b452cd">4</span>;
+  
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          main_filter_need_in_memory:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          filter_need_in_memory:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          filter_need_temporary:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          preserve_body:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          allow_ranges:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          subrequest_ranges:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          single_range:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          disable_not_modified:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          stat_reading:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          stat_writing:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          stat_processing:<span style="color:#b452cd">1</span>;
+  
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          background:<span style="color:#b452cd">1</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          health_check:<span style="color:#b452cd">1</span>;
+  
+    <span style="color:#228b22">/* used to parse HTTP headers */</span>
+  
+    ngx_uint_t                        state;
+  
+    ngx_uint_t                        header_hash;
+    ngx_uint_t                        lowcase_index;
+    u_char                            lowcase_header[NGX_HTTP_LC_HEADER_LEN];
+  
+    u_char                           *header_name_start;
+    u_char                           *header_name_end;
+    u_char                           *header_start;
+    u_char                           *header_end;
+  
+    <span style="color:#228b22">/*
+</span><span style="color:#228b22">     * a memory that can be reused after parsing a request line
+</span><span style="color:#228b22">     * via ngx_http_ephemeral_t
+</span><span style="color:#228b22">     */</span>
+  
+    u_char                           *uri_start;
+    u_char                           *uri_end;
+    u_char                           *uri_ext;
+    u_char                           *args_start;
+    u_char                           *request_start;
+    u_char                           *request_end;
+    u_char                           *method_end;
+    u_char                           *schema_start;
+    u_char                           *schema_end;
+    u_char                           *host_start;
+    u_char                           *host_end;
+    u_char                           *port_start;
+    u_char                           *port_end;
+  
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          http_minor:<span style="color:#b452cd">16</span>;
+    <span style="color:#00688b;font-weight:bold">unsigned</span>                          http_major:<span style="color:#b452cd">16</span>;
+};
+</code></pre></div><!-- raw HTML omitted -->
+<ul>
+<li>
+<p>对于<strong>nginx</strong>来说，一个请求是从<strong>ngx_http_init_request</strong>开始的，在这个函数中，会设置读事件为<strong>ngx_http_process_request_line</strong>，也就是说，接下来的网络事件，会由<strong>ngx_http_process_request_line</strong>来执行，处理请求行。通过<strong>ngx_http_read_request_header</strong>来读取请求数据。然后调用<strong>ngx_http_parse_request_line</strong>函数来解析请求行。</p>
+</li>
+<li>
+<p><strong>nginx</strong>为提高效率，采用状态机来解析请求行，而且在进行<strong>method</strong>的比较时，没有直接使用字符串比较，而是将四个字符转换成一个整型，然后一次比较以减少<strong>cpu</strong>的指令数。</p>
+</li>
+<li>
+<p>整个请求行解析到的参数，会保存到<strong>ngx_http_request_t</strong>结构当中。</p>
+</li>
+<li>
+<p>在解析完请求行后，<strong>nginx</strong>会设置读事件的<strong>handler</strong>为<strong>ngx_http_process_request_headers</strong>，然后后续的请求就在<strong>ngx_http_process_request_headers</strong>中进行读取与解析。</p>
+</li>
+<li>
+<p><strong>ngx_http_process_request_headers</strong>函数用来读取请求头，跟请求行一样，还是调用<strong>ngx_http_read_request_header</strong>来读取请求头，调用<strong>ngx_http_parse_header_line</strong>来解析一行请求头，解析到的请求头会保存到<strong>ngx_http_request_t</strong>的域<strong>headers_in</strong>中，<strong>headers_in</strong>是一个链表结构，保存所有的请求头。</p>
+</li>
+<li>
+<p>而<strong>HTTP</strong>中有些请求是需要特别处理的，这些请求头与请求处理函数存放在一个映射表里面，即<strong>ngx_http_headers_in</strong>，在初始化时，会生成一个<strong>hash</strong>表，当每解析到一个请求头后，就会先在这个<strong>hash</strong>表中查找，如果有找到，则调用相应的处理函数来处理这个请求头。</p>
+</li>
+<li>
+<p>当<strong>nginx</strong>解析到两个回车换行符时，就表示请求头的结束，此时就会调用<strong>ngx_http_process_request</strong>来处理请求了。<strong>ngx_http_process_request</strong>会设置当前的连接的读写事件处理函数为<strong>ngx_http_request_handler</strong>，然后再调用<strong>ngx_http_handler</strong>来真正开始处理一个完整的<strong>http</strong>请求。读写事件处理函数都是<strong>ngx_http_request_handler</strong>，其实在这个函数中，会根据当前事件是读事件还是写事件，分别调用<strong>ngx_http_request_t</strong>中的<strong>read_event_handler</strong>或者是<strong>write_event_handler</strong>。由于此时，我们的请求头已经读取完成了，<strong>nginx</strong>先不读取请求<strong>body</strong>，设置<strong>read_event_handler</strong>为<strong>ngx_http_block_reading</strong>，即不读取数据了。</p>
+</li>
+<li>
+<p>真正开始处理数据，是在<strong>ngx_http_handler</strong>这个函数里面，这个函数会设置 <strong>write_event_handler</strong>为<strong>ngx_http_core_run_phases</strong>，并执行<strong>ngx_http_core_run_phases</strong>函数。<strong>ngx_http_core_run_phases</strong>这个函数将执行多阶段请求处理，<strong>nginx</strong>将一个<strong>http</strong>请求的处理分为多个阶段，那么这个函数就是执行这些阶段来产生数据。最终是调用<strong>ngx_http_core_run_phases</strong>来处理请求，产生的响应头会放在<strong>ngx_http_request_t</strong>的<strong>headers_out</strong>中。</p>
+</li>
+<li>
+<p><strong>nginx</strong>的各种阶段会对请求进行处理，最后会调用<strong>filter</strong>来过滤数据，对数据进行加工。这里的<strong>filter</strong>包括<strong>header filter</strong>与<strong>body filter</strong>，即对响应头或响应体进行处理。<strong>filter</strong>是一个链表结构，分别有<strong>header filter</strong>与<strong>body filter</strong>，先执行<strong>header filter</strong>中的所有<strong>filter</strong>，然后再执行<strong>body filter</strong>中的所有<strong>filter</strong>。在<strong>header filter</strong>中的最后一个<strong>filter</strong>，即<strong>ngx_http_header_filter</strong>， 这个<strong>filter</strong>将会遍历所有的响应头，最后需要输出的响应头在一个连续的内存，然后调用<strong>ngx_http_write_filter</strong>进行输出。<strong>ngx_http_write_filter</strong>是<strong>body filter</strong>中的最后一个，所以<strong>nginx</strong>首先的<strong>body</strong>信息，在经过一系列的<strong>body filter</strong>之后，最后也会调用<strong>ngx_http_write_filter</strong>来进行输出。<strong>nginx</strong>会将整个请求头都放在一个<strong>buffer</strong>里面，这个<strong>buffer</strong>的大小通过配置项<strong>client_header_buffer_size</strong>来设置，如果用户的请求头太大，这个 <strong>buffer</strong>装不下，那<strong>nginx</strong>就会重新分配一个新的更大的<strong>buffer</strong>来装请求头，这个大<strong>buffer</strong>可以通过<strong>large_client_header_buffers</strong>来设置，这个<strong>large_buffer</strong>这一组<strong>buffer</strong>。</p>
+</li>
+<li>
+<p>为了保存请求行或请求头的完整性，一个完整的请求行或请求头，需要放在一个连续的内存里面，所以，一个完整的请求行或请求头，只会保存在一个<strong>buffer</strong>里面。这样，如果请求行大于一个<strong>buffer</strong>的大小，就会返回<strong>414</strong>错误，如果一个请求头大小大于一个<strong>buffer</strong>大小，就会返回<strong>400</strong>错误。</p>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/nginx%E5%A4%84%E7%90%86http%E6%B5%81%E7%A8%8B.png?raw=true" alt="nginx处理http流程"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="13-handler模块">1.3 Handler模块</h4>
+<ul>
+<li>
+<p><strong>Handler</strong>模块就是接受来自客户端的请求并产生输出的模块。</p>
+</li>
+<li>
+<p><a href="https://github.com/gongluck/CVIP/blob/master/code/nginx/module">自定义模块</a></p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#228b22">/*
+</span><span style="color:#228b22"> * @Author: gongluck 
+</span><span style="color:#228b22"> * @Date: 2020-12-08 19:10:29 
+</span><span style="color:#228b22"> * @Last Modified by: gongluck
+</span><span style="color:#228b22"> * @Last Modified time: 2020-12-08 19:11:06
+</span><span style="color:#228b22"> */</span>
+  
+<span style="color:#228b22">// ./configure --add-module=/mnt/e/Code/CVIP/code/nginx/module
+</span><span style="color:#228b22">// sudo ./objs/nginx -c /mnt/e/Code/CVIP/code/nginx/module/hello.conf
+</span><span style="color:#228b22"></span>  
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;ngx_http.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;ngx_config.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;ngx_core.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>  
+<span style="color:#8b008b;font-weight:bold">static</span> <span style="color:#00688b;font-weight:bold">char</span> *<span style="color:#008b45">ngx_http_hello_module_set</span>(ngx_conf_t *cf, ngx_command_t *cmd, <span style="color:#00688b;font-weight:bold">void</span> *conf);
+<span style="color:#8b008b;font-weight:bold">static</span> ngx_int_t <span style="color:#008b45">ngx_http_hello_module_handler</span>(ngx_http_request_t *r);
+  
+<span style="color:#228b22">// 模块配置结构
+</span><span style="color:#228b22"></span><span style="color:#8b008b;font-weight:bold">typedef</span> <span style="color:#8b008b;font-weight:bold">struct</span>
+{
+    ngx_str_t hello_string;
+} ngx_http_hello_loc_conf_t;
+  
+<span style="color:#228b22">// 模块配置指令
+</span><span style="color:#228b22"></span><span style="color:#8b008b;font-weight:bold">static</span> ngx_command_t hello_commands[] = {
+    {
+        ngx_string(<span style="color:#cd5555">&#34;hello&#34;</span>),                 <span style="color:#228b22">//配置指令的名称
+</span><span style="color:#228b22"></span>        NGX_HTTP_LOC_CONF | NGX_CONF_NOARGS, <span style="color:#228b22">//该配置指令属性的集合
+</span><span style="color:#228b22"></span>        ngx_http_hello_module_set,           <span style="color:#228b22">//当nginx在解析配置的时候，如果遇到这个配置指令，将会把读取到的值传递给这个函数进行分解处理
+</span><span style="color:#228b22"></span>        NGX_HTTP_LOC_CONF_OFFSET,            <span style="color:#228b22">//指定当前配置项存储的内存位置,实际上是使用哪个内存池的问题。
+</span><span style="color:#228b22"></span>        <span style="color:#b452cd">0</span>,                                   <span style="color:#228b22">//指定该配置项值的精确存放位置，一般指定为某一个结构体变量的字段偏移。
+</span><span style="color:#228b22"></span>        <span style="color:#658b00">NULL</span>                                 <span style="color:#228b22">//可以指向任何一个在读取配置过程中需要的数据，以便于进行配置读取的处理。
+</span><span style="color:#228b22"></span>    },
+    ngx_null_command};
+  
+<span style="color:#228b22">// 模块上下文结构
+</span><span style="color:#228b22"></span><span style="color:#8b008b;font-weight:bold">static</span> ngx_http_module_t hello_ctx = {
+    <span style="color:#658b00">NULL</span>, <span style="color:#228b22">//在创建和读取该模块的配置信息之前被调用
+</span><span style="color:#228b22"></span>    <span style="color:#658b00">NULL</span>, <span style="color:#228b22">//在创建和读取该模块的配置信息之后被调用
+</span><span style="color:#228b22"></span>  
+    <span style="color:#658b00">NULL</span>, <span style="color:#228b22">//调用该函数创建本模块位于http block的配置信息存储结构。该函数成功的时候，返回创建的配置对象。失败的话，返回NULL。
+</span><span style="color:#228b22"></span>    <span style="color:#658b00">NULL</span>, <span style="color:#228b22">//调用该函数初始化本模块位于http block 的配置信息存储结构。该函数成功的时候，返回NGX_CONF_OK。失败的话，返回NGX_CONF_ERROR或错误字符串。
+</span><span style="color:#228b22"></span>  
+    <span style="color:#658b00">NULL</span>, <span style="color:#228b22">//调用该函数创建本模块位于http server block的配置信息存储结构，每个server block会创建一个。该函数成功的时候，返回创建的配置对象。失败的话，返回NULL。
+</span><span style="color:#228b22"></span>    <span style="color:#658b00">NULL</span>, <span style="color:#228b22">//因为有些配置指令既可以出现在http block，也可以出现在http server block中。那么遇到这种情况，每个server都会有自己存储结构来存储该server的配置，但是在这种情况下http block中的配置与server block中的配置信息发生冲突的时候，就需要调用此函数进行合并，该函数并非必须提供，当预计到绝对不会发生需要合并的情况的时候，就无需提供。当然为了安全起见还是建议提供。该函数执行成功的时候，返回NGX_CONF_OK。失败的话，返回NGX_CONF_ERROR或错误字符串。
+</span><span style="color:#228b22"></span>  
+    <span style="color:#658b00">NULL</span>, <span style="color:#228b22">//调用该函数创建本模块位于location block的配置信息存储结构。每个在配置中指明的location创建一个。该函数执行成功，返回创建的配置对象。失败的话，返回NULL。
+</span><span style="color:#228b22"></span>    <span style="color:#658b00">NULL</span>, <span style="color:#228b22">//与merge_srv_conf类似，这个也是进行配置值合并的地方。该函数成功的时候，返回NGX_CONF_OK。失败的话，返回NGX_CONF_ERROR或错误字符串。
+</span><span style="color:#228b22"></span>};
+  
+<span style="color:#228b22">// ngx_http_hello_module
+</span><span style="color:#228b22"></span>ngx_module_t ngx_http_hello_module = {
+    NGX_MODULE_V1,
+    &amp;hello_ctx,      <span style="color:#228b22">/* module context */</span>
+    hello_commands,  <span style="color:#228b22">/* module directives */</span>
+    NGX_HTTP_MODULE, <span style="color:#228b22">/* module type */</span>
+    <span style="color:#658b00">NULL</span>,            <span style="color:#228b22">/* init master */</span>
+    <span style="color:#658b00">NULL</span>,            <span style="color:#228b22">/* init module */</span>
+    <span style="color:#658b00">NULL</span>,            <span style="color:#228b22">/* init process */</span>
+    <span style="color:#658b00">NULL</span>,            <span style="color:#228b22">/* init thread */</span>
+    <span style="color:#658b00">NULL</span>,            <span style="color:#228b22">/* exit thread */</span>
+    <span style="color:#658b00">NULL</span>,            <span style="color:#228b22">/* exit process */</span>
+    <span style="color:#658b00">NULL</span>,            <span style="color:#228b22">/* exit master */</span>
+    NGX_MODULE_V1_PADDING};
+  
+<span style="color:#8b008b;font-weight:bold">static</span> <span style="color:#00688b;font-weight:bold">char</span> *<span style="color:#008b45">ngx_http_hello_module_set</span>(ngx_conf_t *cf, ngx_command_t *cmd, <span style="color:#00688b;font-weight:bold">void</span> *conf)
+{
+    ngx_http_core_loc_conf_t *corecf = ngx_http_conf_get_module_loc_conf(cf, ngx_http_core_module);
+    corecf-&gt;handler = ngx_http_hello_module_handler;
+  
+    <span style="color:#8b008b;font-weight:bold">return</span> NGX_CONF_OK;
+}
+  
+<span style="color:#8b008b;font-weight:bold">static</span> ngx_int_t <span style="color:#008b45">ngx_http_hello_module_handler</span>(ngx_http_request_t *r)
+{
+    ngx_str_t str = ngx_string(<span style="color:#cd5555">&#34;Hello, Nginx!&#34;</span>);
+    ngx_buf_t *b = ngx_pcalloc(r-&gt;pool, <span style="color:#8b008b;font-weight:bold">sizeof</span>(ngx_buf_t));
+    <span style="color:#8b008b;font-weight:bold">if</span> (b == <span style="color:#658b00">NULL</span>)
+    {
+        <span style="color:#8b008b;font-weight:bold">return</span> NGX_HTTP_INTERNAL_SERVER_ERROR;
+    }
+  
+    ngx_chain_t out;
+    out.buf = b;
+    out.next = <span style="color:#658b00">NULL</span>;
+    b-&gt;pos = str.data;
+    b-&gt;last = b-&gt;pos + str.len;
+    b-&gt;memory = <span style="color:#b452cd">1</span>;   <span style="color:#228b22">/* this buffer is in memory */</span>
+    b-&gt;last_buf = <span style="color:#b452cd">1</span>; <span style="color:#228b22">/* this is the last buffer in the buffer chain */</span>
+  
+    <span style="color:#228b22">/* set the status line */</span>
+    r-&gt;headers_out.status = NGX_HTTP_OK;
+    r-&gt;headers_out.content_length_n = str.len;
+  
+    <span style="color:#228b22">/* send the headers of your response */</span>
+    ngx_int_t rc = ngx_http_send_header(r);
+    <span style="color:#8b008b;font-weight:bold">if</span> (rc == NGX_ERROR || rc &gt; NGX_OK || r-&gt;header_only)
+    {
+        <span style="color:#8b008b;font-weight:bold">return</span> rc;
+    }
+  
+    <span style="color:#228b22">/* send the buffer chain of your response */</span>
+    <span style="color:#8b008b;font-weight:bold">return</span> ngx_http_output_filter(r, &amp;out);
+}
+</code></pre></div><!-- raw HTML omitted -->
+</li>
+</ul>
+<h4 id="14-filter模块">1.4 Filter模块</h4>
+<ul>
+<li>
+<p><strong>过滤（filter）<strong>模块是过滤响应头和内容的模块，可以对回复的头和内容进行处理。它的处理时间在获取回复内容之后，向用户发送响应之前。它的处理过程分为两个阶段，过滤</strong>HTTP</strong>回复的头部和主体，在这两个阶段可以分别对头部和主体进行修改。</p>
+</li>
+<li>
+<p>所有模块的响应内容要返回给客户端，都必须调用这两个接口</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#228b22">//分别对头部和主体进行过滤的函数
+</span><span style="color:#228b22"></span>ngx_http_top_header_filter(r); 
+ngx_http_top_body_filter(r, in); 
+</code></pre></div></li>
+<li>
+<p>过滤模块的调用是有顺序的，它的顺序在编译的时候就决定了。控制编译的脚本位于<strong>auto/modules</strong>中，当编译完<strong>Nginx</strong>以后，可以在<strong>objs</strong>目录下面看到一个<strong>ngx_modules.c</strong>的文件。</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">ngx_module_t *ngx_modules[] = {
+    &amp;ngx_core_module,
+    &amp;ngx_errlog_module,
+    &amp;ngx_conf_module,
+    &amp;ngx_regex_module,
+    &amp;ngx_events_module,
+    &amp;ngx_event_core_module,
+    &amp;ngx_epoll_module,
+    &amp;ngx_http_module,
+    &amp;ngx_http_core_module,
+    &amp;ngx_http_log_module,
+    &amp;ngx_http_upstream_module,
+    &amp;ngx_http_static_module,
+    &amp;ngx_http_autoindex_module,
+    &amp;ngx_http_index_module,
+    &amp;ngx_http_mirror_module,
+    &amp;ngx_http_try_files_module,
+    &amp;ngx_http_auth_basic_module,
+    &amp;ngx_http_access_module,
+    &amp;ngx_http_limit_conn_module,
+    &amp;ngx_http_limit_req_module,
+    &amp;ngx_http_geo_module,
+    &amp;ngx_http_map_module,
+    &amp;ngx_http_split_clients_module,
+    &amp;ngx_http_referer_module,
+    &amp;ngx_http_rewrite_module,
+    &amp;ngx_http_proxy_module,
+    &amp;ngx_http_fastcgi_module,
+    &amp;ngx_http_uwsgi_module,
+    &amp;ngx_http_scgi_module,
+    &amp;ngx_http_memcached_module,
+    &amp;ngx_http_empty_gif_module,
+    &amp;ngx_http_browser_module,
+    &amp;ngx_http_upstream_hash_module,
+    &amp;ngx_http_upstream_ip_hash_module,
+    &amp;ngx_http_upstream_least_conn_module,
+    &amp;ngx_http_upstream_random_module,
+    &amp;ngx_http_upstream_keepalive_module,
+    &amp;ngx_http_upstream_zone_module,
+    &amp;ngx_http_hello_module,
+    &amp;ngx_http_write_filter_module,
+    &amp;ngx_http_header_filter_module,
+    &amp;ngx_http_chunked_filter_module,
+    &amp;ngx_http_range_header_filter_module,
+    &amp;ngx_http_gzip_filter_module,
+    &amp;ngx_http_postpone_filter_module,
+    &amp;ngx_http_ssi_filter_module,
+    &amp;ngx_http_charset_filter_module,
+    &amp;ngx_http_userid_filter_module,
+    &amp;ngx_http_headers_filter_module,<span style="color:#228b22">//
+</span><span style="color:#228b22"></span>    &amp;ngx_http_copy_filter_module,<span style="color:#228b22">//
+</span><span style="color:#228b22"></span>    &amp;ngx_http_range_body_filter_module,
+    &amp;ngx_http_not_modified_filter_module,
+    <span style="color:#658b00">NULL</span>
+};
+</code></pre></div></li>
+<li>
+<p>从<strong>write_filter</strong>到<strong>not_modified_filter</strong>，模块的执行顺序是反向的。所有第三方的模块只能加入到<strong>copy_filter</strong>和<strong>headers_filter</strong>模块之间执行。</p>
+</li>
+<li>
+<p>在过滤模块中，所有输出的内容都是通过一条单向链表所组成。这种单向链表的设计，正好应和了<strong>Nginx</strong>流式的输出模式。每次<strong>Nginx</strong>都是读到一部分的内容，就放到链表，然后输出出去。这种设计的好处是简单，非阻塞，但是相应的问题就是跨链表的内容操作非常麻烦， 如果需要跨链表，很多时候都只能缓存链表的内容。单链表负载的就是<strong>ngx_buf_t</strong>，这个结构体使用非常广泛。</p>
+</li>
+<li>
+<p>响应头过滤函数主要的用处就是处理<strong>HTTP</strong>响应的头，可以根据实际情况对于响应头进行修改或者添加删除。响应头过滤函数先于响应体过滤函数，而且只调用一次，所以一般可作过滤模块的初始化工作。</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">ngx_int_t
+<span style="color:#008b45">ngx_http_send_header</span>(ngx_http_request_t *r)
+{
+    <span style="color:#8b008b;font-weight:bold">if</span> (r-&gt;post_action) {
+        <span style="color:#8b008b;font-weight:bold">return</span> NGX_OK;
+    }
+  
+    <span style="color:#8b008b;font-weight:bold">if</span> (r-&gt;header_sent) {
+        ngx_log_error(NGX_LOG_ALERT, r-&gt;connection-&gt;log, <span style="color:#b452cd">0</span>,
+                      <span style="color:#cd5555">&#34;header already sent&#34;</span>);
+        <span style="color:#8b008b;font-weight:bold">return</span> NGX_ERROR;
+    }
+  
+    <span style="color:#8b008b;font-weight:bold">if</span> (r-&gt;err_status) {
+        r-&gt;headers_out.status = r-&gt;err_status;
+        r-&gt;headers_out.status_line.len = <span style="color:#b452cd">0</span>;
+    }
+  
+    <span style="color:#8b008b;font-weight:bold">return</span> ngx_http_top_header_filter(r);<span style="color:#228b22">//
+</span><span style="color:#228b22"></span>}
+</code></pre></div></li>
+<li>
+<p>可以把<strong>HTTP</strong>响应头的存储方式想象成一个<strong>hash</strong>表，在<strong>Nginx</strong>内部可以很方便地查找和修改各个响应头 部，<strong>ngx_http_header_filter_module</strong>过滤模块把所有的<strong>HTTP</strong>头组合成一个完整的<strong>buffer</strong>，最终<strong>ngx_http_write_filter_module</strong>过滤模块把<strong>buffer</strong>输出。</p>
+</li>
+<li>
+<p>响应体过滤函数是过滤响应主体的函数。<strong>ngx_http_top_body_filter</strong>这个函数每个请求可能会被执行多次，它的入口函数是<strong>ngx_http_output_filter</strong>。</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">ngx_int_t
+<span style="color:#008b45">ngx_http_output_filter</span>(ngx_http_request_t *r, ngx_chain_t *in)
+{
+    ngx_int_t          rc;
+    ngx_connection_t  *c;
+  
+    c = r-&gt;connection;
+  
+    ngx_log_debug2(NGX_LOG_DEBUG_HTTP, c-&gt;log, <span style="color:#b452cd">0</span>,
+                   <span style="color:#cd5555">&#34;http output filter </span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">%V?%V</span><span style="color:#cd5555">\&#34;</span><span style="color:#cd5555">&#34;</span>, &amp;r-&gt;uri, &amp;r-&gt;args);
+  
+    rc = ngx_http_top_body_filter(r, in);
+  
+    <span style="color:#8b008b;font-weight:bold">if</span> (rc == NGX_ERROR) {
+        <span style="color:#228b22">/* NGX_ERROR may be returned by any filter */</span>
+        c-&gt;error = <span style="color:#b452cd">1</span>;
+    }
+  
+    <span style="color:#8b008b;font-weight:bold">return</span> rc;
+}
+</code></pre></div></li>
+</ul>
+<h4 id="15-upstream模块">1.5 Upstream模块</h4>
+<ul>
+<li>从本质上说，<strong>upstream</strong>属于<strong>handler</strong>，只是他不产生自己的内容，而是通过请求后端服务器得到内容，所以才称为<strong>upstream</strong>（上游）。</li>
+<li>请求并取得响应内容的整个过程已经被封装到<strong>nginx</strong>内部，所以<strong>upstream</strong>模块只需要开发若干回调函数，完成构造请求和解析响应等具体的工作。</li>
+<li><strong>upstream</strong>模块使用的就是<strong>handler</strong>模块的接入方式。同时，<strong>upstream</strong>模块的指令系统的设计也是遵循<strong>handler</strong>模块的基本规则：配置该模块才会执行该模块。</li>
+</ul>
+<h4 id="16-负载均衡模块">1.6 负载均衡模块</h4>
+<ul>
+<li>负载均衡模块用于从<strong>upstream</strong>指令定义的后端主机列表中选取一台主机。<strong>nginx</strong>先使用负载均衡模块找到一台主机，再使用<strong>upstream</strong>模块实现与这台主机的交互。</li>
+<li>核心指令<strong>ip_hash</strong>只能在<strong>upstream {}<strong>中使用。这条指令用于通知</strong>nginx</strong>使用<strong>ip hash</strong>负载均衡算法。如果没加这条指令，<strong>nginx</strong>会使用默认的<strong>round robin</strong>负载均衡模块。</li>
+</ul>
+<h3 id="2skynet">2.Skynet</h3>
+<h4 id="21-环境安装">2.1 环境安装</h4>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git clone https://github.com/cloudwu/skynet.git
+<span style="color:#658b00">cd</span> skynet
+make linux -j <span style="color:#b452cd">8</span>
+</code></pre></div><h4 id="22-skynet工作模型">2.2 Skynet工作模型</h4>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/Skynet%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%9E%8B.png?raw=true" alt="Skynet工作模型"></p>
+<ul>
+<li>
+<p><strong>skynet</strong>中的<strong>actor</strong>模型</p>
+<ul>
+<li>
+<p>结构组成</p>
+<ul>
+<li>隔离的环境（内存块或<strong>lua</strong>虚拟机）</li>
+<li>消息队列</li>
+<li>回调函数</li>
+</ul>
+</li>
+<li>
+<p>实现</p>
+<ul>
+<li><strong>logger</strong>服务<strong>service-src/service_logger.c</strong></li>
+<li><strong>lua</strong>服务启动器<strong>service-src/service_snlua.c</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="23-skynet-lua例子httpsgithubcomgongluckcvipblobmastercodeskynet">2.3 <a href="https://github.com/gongluck/CVIP/blob/master/code/skynet">Skynet Lua例子</a></h4>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua"><span style="color:#228b22">-- ./skynet /mnt/e/Code/CVIP/code/skynet/test.conf</span>
+
+<span style="color:#8b008b;font-weight:bold">local</span> skynet = require <span style="color:#cd5555">&#34;skynet&#34;</span>
+<span style="color:#8b008b;font-weight:bold">local</span> socket = require <span style="color:#cd5555">&#34;skynet.socket&#34;</span>
+
+<span style="color:#8b008b;font-weight:bold">local</span> <span style="color:#8b008b;font-weight:bold">function</span> <span style="color:#008b45">event_loop</span>(clientfd)
+    <span style="color:#8b008b;font-weight:bold">while</span> <span style="color:#8b008b;font-weight:bold">true</span> <span style="color:#8b008b;font-weight:bold">do</span>
+        <span style="color:#8b008b;font-weight:bold">local</span> data = socket.readline(clientfd)<span style="color:#228b22">--从网络获取 以\n为分隔符的数据包</span>
+        <span style="color:#8b008b;font-weight:bold">if</span> <span style="color:#8b008b">not</span> data <span style="color:#8b008b;font-weight:bold">then</span>
+            <span style="color:#8b008b;font-weight:bold">return</span>
+        <span style="color:#8b008b;font-weight:bold">end</span>
+        print(clientfd, <span style="color:#cd5555">&#34;recv:&#34;</span>, data)
+        socket.write(clientfd, data..<span style="color:#cd5555">&#34;</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>)
+    <span style="color:#8b008b;font-weight:bold">end</span>
+<span style="color:#8b008b;font-weight:bold">end</span>
+
+<span style="color:#8b008b;font-weight:bold">local</span> <span style="color:#8b008b;font-weight:bold">function</span> <span style="color:#008b45">accept</span>(clientfd, addr)<span style="color:#228b22">-- 回调函数的作用 就是可以将 fd绑定到其他actor</span>
+    print(<span style="color:#cd5555">&#34;accept a connect:&#34;</span>, clientfd, addr)
+    socket.start(clientfd) <span style="color:#228b22">-- 将clientfd注册到epoll</span>
+    skynet.fork(event_loop, clientfd) <span style="color:#228b22">-- 实现一个简单的echo服务，可以通过 telnet 127.0.0.1 8001来连接skynet</span>
+<span style="color:#8b008b;font-weight:bold">end</span>
+
+skynet.start(<span style="color:#8b008b;font-weight:bold">function</span> ()
+    <span style="color:#8b008b;font-weight:bold">local</span> listenfd = socket.listen(<span style="color:#cd5555">&#34;0.0.0.0&#34;</span>, <span style="color:#b452cd">8001</span>) <span style="color:#228b22">-- socket bind listen </span>
+    socket.start(listenfd, accept) <span style="color:#228b22">-- 将listenfd注册到epoll，收到连接会回调accept函数</span>
+<span style="color:#8b008b;font-weight:bold">end</span>)
+</code></pre></div><!-- raw HTML omitted -->
+<h3 id="3zeromq">3.ZeroMQ</h3>
+<h4 id="31-环境安装">3.1 环境安装</h4>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git clone https://github.com/zeromq/libzmq.git
+<span style="color:#658b00">cd</span> libzmq/
+./autogen.sh
+./configure --enable-debug
+make -j <span style="color:#b452cd">8</span>
+sudo make install
+sudo ldconfig
+</code></pre></div><h4 id="32-例子代码httpsgithubcomgongluckcvipblobmastercodezeromq">3.2 <a href="https://github.com/gongluck/CVIP/blob/master/code/zeromq">例子代码</a></h4>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#228b22">/*
+</span><span style="color:#228b22"> * @Author: gongluck 
+</span><span style="color:#228b22"> * @Date: 2020-12-10 02:27:44 
+</span><span style="color:#228b22"> * @Last Modified by: gongluck
+</span><span style="color:#228b22"> * @Last Modified time: 2020-12-10 02:37:16
+</span><span style="color:#228b22"> */</span>
+
+<span style="color:#228b22">// gcc -o server server.c -lzmq -g -O0
+</span><span style="color:#228b22"></span>
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;zmq.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;unistd.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;string.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;assert.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>()
+{
+    <span style="color:#00688b;font-weight:bold">void</span> *context = zmq_ctx_new();
+    <span style="color:#00688b;font-weight:bold">void</span> *responder = zmq_socket(context, ZMQ_REP);
+    <span style="color:#00688b;font-weight:bold">int</span> rc = zmq_bind(responder, <span style="color:#cd5555">&#34;tcp://*:5555&#34;</span>);
+
+    <span style="color:#8b008b;font-weight:bold">while</span> (<span style="color:#b452cd">1</span>)
+    {
+        <span style="color:#00688b;font-weight:bold">char</span> buffer[<span style="color:#b452cd">10</span>];
+        <span style="color:#00688b;font-weight:bold">int</span> ret = zmq_recv(responder, buffer, <span style="color:#b452cd">10</span>, <span style="color:#b452cd">0</span>);
+        printf(<span style="color:#cd5555">&#34;收到%.*s</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, ret, buffer);
+        zmq_send(responder, <span style="color:#cd5555">&#34;server recved.&#34;</span>, strlen(<span style="color:#cd5555">&#34;server recved.&#34;</span>), <span style="color:#b452cd">0</span>);
+    }
+    
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+</code></pre></div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#228b22">/*
+</span><span style="color:#228b22"> * @Author: gongluck 
+</span><span style="color:#228b22"> * @Date: 2020-12-10 02:33:38 
+</span><span style="color:#228b22"> * @Last Modified by: gongluck
+</span><span style="color:#228b22"> * @Last Modified time: 2020-12-10 02:37:00
+</span><span style="color:#228b22"> */</span>
+
+<span style="color:#228b22">// gcc -o client client.c -lzmq -g -O0
+</span><span style="color:#228b22"></span>
+<span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;zmq.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;string.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;stdio.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;unistd.h&gt;</span><span style="color:#1e889b">
+</span><span style="color:#1e889b"></span>
+<span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>()
+{
+    <span style="color:#00688b;font-weight:bold">void</span> *context = zmq_ctx_new();
+    <span style="color:#00688b;font-weight:bold">void</span> *requester = zmq_socket(context, ZMQ_REQ);
+    zmq_connect(requester, <span style="color:#cd5555">&#34;tcp://localhost:5555&#34;</span>);
+
+    <span style="color:#8b008b;font-weight:bold">for</span> (<span style="color:#00688b;font-weight:bold">int</span> request_nbr = <span style="color:#b452cd">0</span>; request_nbr != <span style="color:#b452cd">10</span>; request_nbr++)
+    {
+        <span style="color:#00688b;font-weight:bold">char</span> buffer[<span style="color:#b452cd">20</span>] = {<span style="color:#b452cd">0</span>};
+        zmq_send(requester, <span style="color:#cd5555">&#34;Hello&#34;</span>, <span style="color:#b452cd">5</span>, <span style="color:#b452cd">0</span>);
+        zmq_recv(requester, buffer, <span style="color:#b452cd">20</span>, <span style="color:#b452cd">0</span>);
+        printf(<span style="color:#cd5555">&#34;接收到 %.20s</span><span style="color:#cd5555">\n</span><span style="color:#cd5555">&#34;</span>, buffer);
+    }
+    zmq_close(requester);
+    zmq_ctx_destroy(context);
+    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+}
+</code></pre></div><!-- raw HTML omitted -->
+<h3 id="4redis">4.Redis</h3>
+<h4 id="41-redis的元素结构">4.1 Redis的元素结构</h4>
+<ul>
+<li>
+<p><strong>hash</strong>值取余的<strong>table</strong>数组+<strong>hash</strong>表</p>
+</li>
+<li>
+<p><strong>hash</strong>表</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#228b22">/* This is our hash table structure. Every dictionary has two of this as we
+</span><span style="color:#228b22"> * implement incremental rehashing, for the old to the new table. */</span>
+<span style="color:#8b008b;font-weight:bold">typedef</span> <span style="color:#8b008b;font-weight:bold">struct</span> dictht {
+    dictEntry **table;<span style="color:#228b22">//table属性是⼀个数组，数组中的每个元素都是⼀个指向dict.h/dictEntry 结构的指针，每个dictEntry结构保存着⼀个键值对
+</span><span style="color:#228b22"></span>    <span style="color:#00688b;font-weight:bold">unsigned</span> <span style="color:#00688b;font-weight:bold">long</span> size;<span style="color:#228b22">//size属性记录了哈希表的⼤⼩，也即是table数组的⼤⼩
+</span><span style="color:#228b22"></span>    <span style="color:#00688b;font-weight:bold">unsigned</span> <span style="color:#00688b;font-weight:bold">long</span> sizemask;<span style="color:#228b22">//sizemask属性的值总是等于size - 1， 这个属性和哈希值⼀起决定⼀个键应该被放到table数组的哪个索引上⾯
+</span><span style="color:#228b22"></span>    <span style="color:#00688b;font-weight:bold">unsigned</span> <span style="color:#00688b;font-weight:bold">long</span> used;<span style="color:#228b22">//used属性则记录了哈希表⽬前已有节点（键值对）的数量
+</span><span style="color:#228b22"></span>} dictht;
+</code></pre></div></li>
+<li>
+<p><strong>hash</strong>表节点</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#8b008b;font-weight:bold">typedef</span> <span style="color:#8b008b;font-weight:bold">struct</span> dictEntry {
+    <span style="color:#00688b;font-weight:bold">void</span> *key;
+    <span style="color:#8b008b;font-weight:bold">union</span> {
+        <span style="color:#00688b;font-weight:bold">void</span> *val;
+        uint64_t u64;
+        int64_t s64;
+        <span style="color:#00688b;font-weight:bold">double</span> d;
+    } v;
+    <span style="color:#8b008b;font-weight:bold">struct</span> dictEntry *next;<span style="color:#228b22">//next属性是指向另⼀个哈希表节点的指针，这个指针可以将多个哈希值相同的键值对连接在⼀次，以此来解决键冲突（collision）的问题。
+</span><span style="color:#228b22"></span>} dictEntry;
+</code></pre></div></li>
+</ul>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/redis%E5%93%88%E5%B8%8C%E8%A1%A8%E7%BB%93%E6%9E%84.png?raw=true" alt="redis哈希表结构"></p>
+<ul>
+<li>
+<p>字典</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#8b008b;font-weight:bold">typedef</span> <span style="color:#8b008b;font-weight:bold">struct</span> dict {
+    dictType *type;<span style="color:#228b22">//type属性是⼀个指向dictType结构的指针，每个dictType结构保存了⼀簇⽤于操作特定类型键值对的函数，Redis会为⽤途不同的字典设置不同的类型特定函数。
+</span><span style="color:#228b22"></span>    <span style="color:#00688b;font-weight:bold">void</span> *privdata;<span style="color:#228b22">//privdata属性保存了需要传给dictType类型特定函数的可选参数。
+</span><span style="color:#228b22"></span>    dictht ht[<span style="color:#b452cd">2</span>];<span style="color:#228b22">//ht属性是⼀个包含两个项的数组，数组中的每个项都是⼀个dictht哈希表，⼀般情况下， 字典只使⽤ht[0]哈希表，ht[1]哈希表只会在对ht[0]哈希表进⾏rehash时使⽤。
+</span><span style="color:#228b22"></span>    <span style="color:#00688b;font-weight:bold">long</span> rehashidx;<span style="color:#228b22">//记录了rehash⽬前的进度，如果⽬前没有在进⾏rehash，那么它的值为-1。
+</span><span style="color:#228b22"></span>    <span style="color:#00688b;font-weight:bold">unsigned</span> <span style="color:#00688b;font-weight:bold">long</span> iterators; <span style="color:#228b22">/* number of iterators currently running */</span>
+} dict;
+<span style="color:#8b008b;font-weight:bold">typedef</span> <span style="color:#8b008b;font-weight:bold">struct</span> dictType {
+    uint64_t (*hashFunction)(<span style="color:#8b008b;font-weight:bold">const</span> <span style="color:#00688b;font-weight:bold">void</span> *key);
+    <span style="color:#00688b;font-weight:bold">void</span> *(*keyDup)(<span style="color:#00688b;font-weight:bold">void</span> *privdata, <span style="color:#8b008b;font-weight:bold">const</span> <span style="color:#00688b;font-weight:bold">void</span> *key);
+    <span style="color:#00688b;font-weight:bold">void</span> *(*valDup)(<span style="color:#00688b;font-weight:bold">void</span> *privdata, <span style="color:#8b008b;font-weight:bold">const</span> <span style="color:#00688b;font-weight:bold">void</span> *obj);
+    <span style="color:#00688b;font-weight:bold">int</span> (*keyCompare)(<span style="color:#00688b;font-weight:bold">void</span> *privdata, <span style="color:#8b008b;font-weight:bold">const</span> <span style="color:#00688b;font-weight:bold">void</span> *key1, <span style="color:#8b008b;font-weight:bold">const</span> <span style="color:#00688b;font-weight:bold">void</span> *key2);
+    <span style="color:#00688b;font-weight:bold">void</span> (*keyDestructor)(<span style="color:#00688b;font-weight:bold">void</span> *privdata, <span style="color:#00688b;font-weight:bold">void</span> *key);
+    <span style="color:#00688b;font-weight:bold">void</span> (*valDestructor)(<span style="color:#00688b;font-weight:bold">void</span> *privdata, <span style="color:#00688b;font-weight:bold">void</span> *obj);
+} dictType;
+</code></pre></div><p><img src="https://github.com/gongluck/CVIP/blob/master/images/redis%E5%AD%97%E5%85%B8%E7%BB%93%E6%9E%84.png?raw=true" alt="redis字典结构"></p>
+</li>
+</ul>
+<h4 id="42-rehash">4.2 Rehash</h4>
+<ul>
+<li>
+<p>随着操作的不断执⾏，哈希表保存的键值对会逐渐地增多或者减少，为了让哈希表的负载因⼦（ratio）维持在⼀个合理的范围之内，当哈希表保存的键值对数量太多或者太少时，程序需要对哈希表的⼤⼩进⾏相应的扩展或者收缩。</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">ratio = ht[<span style="color:#b452cd">0</span>].used / ht[<span style="color:#b452cd">0</span>].size
+</code></pre></div></li>
+<li>
+<p>扩展和收缩哈希表的⼯作可以通过执⾏<strong>rehash</strong>（重新散列）操作来完成，<strong>Redis</strong>对字典的哈希表执⾏<strong>rehash</strong>的策略如下：</p>
+<ul>
+<li>如果<strong>ratio</strong>⼩于0.1，则会对<strong>hash</strong>表进⾏收缩操作</li>
+<li>服务器⽬前没有在执⾏<strong>BGSAVE</strong>命令或者<strong>BGREWRITEAOF</strong>命令，并且哈希表的负载因⼦⼤于/等于1，则扩容<strong>hash</strong>表，扩容⼤⼩为当前<strong>ht[0].used*2</strong></li>
+<li>服务器⽬前正在执⾏<strong>BGSAVE</strong>命令或者<strong>BGREWRITEAOF</strong>命令，并且哈希表的负载因⼦⼤于/等于5，则扩容<strong>hash</strong>表，并且扩容⼤⼩为当前<strong>ht[0].used*2</strong></li>
+</ul>
+</li>
+<li>
+<p>扩容的步骤如下</p>
+<ul>
+<li>为字典**ht[1]**哈希表分配合适的空间</li>
+<li>将<strong>ht[0]<strong>中所有的键值对</strong>rehash</strong>到<strong>ht[1]</strong>（<strong>rehash</strong>指的是重新计算键的哈希值和索引值，然后将键值对放置到**ht[1]**哈希表的指定位置上）</li>
+<li>当<strong>ht[0</strong>包含的所有键值对都迁移到了<strong>ht[1]<strong>之后（<strong>ht[0]<strong>变为空表），释放</strong>ht[0]</strong>，将</strong>ht[1]<strong>设置为</strong>ht[0]</strong>，并在<strong>ht[1]<strong>新创建⼀个空⽩哈希表，为下⼀次</strong>rehash</strong>做准备</li>
+</ul>
+</li>
+<li>
+<p>为了避免<strong>rehash</strong>对服务器性能造成影响，服务器不是⼀次性将<strong>ht[0]<strong>⾥⾯的所有键值对全部</strong>rehash</strong>到<strong>ht[1]</strong>，⽽是分多次、渐进式地将<strong>ht[0]<strong>⾥⾯的键值对慢慢地</strong>rehash</strong>到<strong>ht[1]</strong></p>
+<ul>
+<li>为**ht[1]<strong>分配空间，让字典同时持有</strong>ht[0]<strong>和</strong>ht[1]**两个哈希表</li>
+<li>在字典中维持⼀个索引计数器变量<strong>rehashidx</strong>，并将它的值设置为0，表示<strong>rehash</strong>⼯作正式开始</li>
+<li>在<strong>rehash</strong>进⾏期间，每次对字典执⾏添加、删除、查找或者更新操作（甚至后台启动定时器）时，程序除了执⾏指定的操作以外，还会顺带将<strong>ht[0]<strong>哈希表在</strong>rehashidx</strong>索引上的所有键值对<strong>rehash</strong>到<strong>ht[1]</strong>，当<strong>rehash</strong>⼯作完成之后，程序将<strong>rehashidx</strong>属性的值增⼀</li>
+<li>随着字典操作的不断执⾏，最终在某个时间点上，<strong>ht[0]<strong>的所有键值对都会被</strong>rehash</strong>⾄<strong>ht[1]</strong>，这时程序将 <strong>rehashidx</strong>属性的值设为**-1**，表示rehash操作已完成</li>
+</ul>
+</li>
+</ul>
+<h4 id="43-主从复制">4.3 主从复制</h4>
+<ul>
+<li>
+<p><strong>redis</strong>为了实现⾼可⽤（⽐如解决单点故障的问题），会把数据复制多个副本部署到其他节点上，通过复制，实现<strong>Redis</strong>的⾼可⽤性，实现对数据的冗余备份，保证数据和服务的可靠性。</p>
+</li>
+<li>
+<p>如何配置：</p>
+<ul>
+<li>配置⽂件：在从服务器的配置⽂件中加⼊：<strong>slaveof</strong></li>
+<li>启动命令：<strong>redis-server</strong>启动命令后加⼊**&ndash;slaveof**</li>
+<li>客户端命令：<strong>Redis</strong>服务器启动后，直接通过客户端执⾏命令：<strong>slaveof</strong>，则该<strong>Redis</strong>实例成为从节点。
+<ul>
+<li>PS：通过<strong>info replication</strong>命令可以看到复制的⼀些信息</li>
+<li>⽆论是通过哪⼀种⽅式来建⽴主从复制，都是从节点来执⾏<strong>slaveof</strong>命令</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>主从复制的作⽤</p>
+<ul>
+<li>数据冗余：主从复制实现了数据的热备份，是持久化之外的⼀种数据冗余⽅式。</li>
+<li>故障恢复：当主节点出现问题时，可以由从节点提供服务，实现快速的故障恢复；实际上是⼀种服务的 冗余。</li>
+<li>负载均衡：在主从复制的基础上，配合读写分离，可以由主节点提供写服务，由从节点提供读服务（即 写<strong>Redis</strong>数据时应⽤连接主节点，读<strong>Redis</strong>数据时应⽤连接从节点），分担服务器负载；尤其是在写少读多的场景下，通过多个从节点分担读负载，可以⼤⼤提⾼<strong>Redis</strong>服务器的并发量。</li>
+<li>读写分离：可以⽤于实现读写分离，主库写、从库读，读写分离不仅可以提⾼服务器的负载能⼒，同时 可根据需求的变化，改变从库的数量。</li>
+<li>⾼可⽤基⽯：除了上述作⽤以外，主从复制还是哨兵和集群能够实施的基础，因此说主从复制是<strong>Redis</strong> ⾼可⽤的基础。</li>
+</ul>
+</li>
+<li>
+<p><strong>Redis</strong>的主从复制功能除了⽀持⼀个<strong>Master</strong>节点对应多个<strong>Slave</strong>节点的同时进⾏复制外，还⽀持<strong>Slave</strong>节点向其它多个<strong>Slave</strong>节点进⾏复制。这样就使得架构师能够灵活组织业务缓存数据的传播，例如使⽤多个<strong>Slave</strong>作为数据读取服务的同时，专⻔使⽤⼀个<strong>Slave</strong>节点为流式分析⼯具服务。<strong>Redis</strong>的主从复制功能分为两种数据同步模式进⾏：全量数据同步和增量数据同步。</p>
+<ul>
+<li>
+<p>先执⾏⼀次全同步</p>
+<ul>
+<li>
+<p>请求<strong>master</strong> <strong>BgSave</strong>出⾃⼰的⼀个<strong>RDB Snapshot</strong>⽂件发给<strong>slave</strong>，<strong>slave</strong>接收完毕后，清除掉⾃⼰的旧数据，然后将<strong>RDB</strong>载⼊内存。</p>
+</li>
+<li>
+<p>当<strong>Slave</strong>节点给定的<strong>replication id</strong>和<strong>Master的replication id</strong>不⼀致时，或者<strong>Slave</strong>给定的上⼀次增量同步的<strong>offset</strong>的位置在<strong>Master</strong>的环形内存中（<strong>replication backlog</strong>）⽆法定位时，<strong>Master</strong>就会对<strong>Slave</strong>发起全量同步操作。这时⽆论是否在<strong>Master</strong>打开了<strong>RDB</strong>快照功能，它和<strong>Slave</strong>节点的每⼀次全量同步操作过程都会更新/创建<strong>Master</strong>上的<strong>RDB</strong>⽂件。在<strong>Slave</strong>连接到<strong>Master</strong>，并完成第⼀次全量数据同步后，接下来<strong>Master</strong>到<strong>Slave</strong>的数据同步过程⼀般就是增量同步形式了（也称为部分同步）。增量同步过程不再主要依赖<strong>RDB</strong>⽂件，<strong>Master</strong>会将新产⽣的数据变化操作存放在<strong>replication backlog</strong>这个内存缓存区，这个内存区域是⼀个环形缓冲区，也就是说是⼀个<strong>FIFO</strong>的队列。</p>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/redis%E5%AE%8C%E5%85%A8%E5%90%8C%E6%AD%A5.png?raw=true" alt="redis完全同步"></p>
+</li>
+</ul>
+</li>
+<li>
+<p>之后执行增量同步</p>
+<ul>
+<li>
+<p><strong>master</strong>作为⼀个普通的<strong>client</strong>连⼊<strong>slave</strong>，将所有写操作转发给<strong>slave</strong>，没有特殊的同步协议。</p>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/redis%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5.png?raw=true" alt="redis增量同步"></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                    
+                    <HR width="100%" id="EOF">
+                    <p style="color:#777;">Last modified on 2020-12-28</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="https://gongluck.github.io/linux/%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%93%E9%A2%98/">
+                    Next<br>中间件开发专题
+                </a>
+                
+                
+                
+                <a class="older-posts" href="https://gongluck.github.io/linux/%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E4%B8%93%E9%A2%98/">
+                    Previous<br>分布式存储专题
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+<div id="gitalk-container"></div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+            </div><div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	2020 gongluck&#39;s blog
+	</div>
+            </div>
+    <script>
+let app;
+
+app = new Vue({
+    el: '#app',
+    data: {
+        scrollY: 0,
+        navOpacity: 0,
+        isDrawerOpen: false,
+        mounted: false,
+        isDarkMode: false
+    },
+    methods: {
+            sgn(t, x) {
+                let k = 1. / (1. - 2 * t);
+                if (x <= t) return 0;
+                else if (x >= 1 - t) return 1;
+                else {
+                    return k * (x - t);
+                }
+            },
+            handleScroll() {
+                this.scrollY = window.scrollY;
+                this.navOpacity = this.sgn(.0, Math.min(1, Math.max(0, window.scrollY / (this.pageHeadHeight() - this.navBarHeight() * 0.8))));
+                const {navBar, navBackground, navTitle, extraContainer, streamContainer} = this.$refs;
+
+                if (this.navOpacity >= 1) {
+                    navBackground.style.opacity = 1;
+                    navTitle.style.opacity = 1;
+                } else {
+                    navBackground.style.opacity = 0;
+                    navTitle.style.opacity = 0;
+                }
+            },
+            handleResize() {
+                const {navBar, navBackground, navTitle, extraContainer, streamContainer} = this.$refs;
+                extraContainer.style.left = (streamContainer.offsetWidth - extraContainer.offsetWidth) + 'px';
+            },
+            navBarHeight() {
+                return this.$refs.navBar.offsetHeight;
+            },
+            pageHeadHeight() {
+                return this.$refs.pageHead.offsetHeight;
+            },
+            toggleDrawer() {
+                this.isDrawerOpen = !this.isDrawerOpen;
+                document.getElementsByTagName('html')[0].style.overflow = this.isDrawerOpen ? 'hidden' : 'unset';
+            },
+            closeDrawer() {
+                this.isDrawerOpen = false;
+                document.getElementsByTagName('html')[0].style.overflow = this.isDrawerOpen ? 'hidden' : 'unset';
+            },
+            toggleDarkMode() {
+                this.isDarkMode = !this.isDarkMode;
+                if (this.isDarkMode==true){
+                    document.cookie = "night=1;path=/";
+                    document.body.classList.add("night");
+                } else {
+                    document.cookie = "night=0;path=/";
+                    document.body.classList.remove("night");
+                }
+            }
+    },
+    created() {
+        window.addEventListener('scroll', this.handleScroll);
+        window.addEventListener('resize', this.handleResize);
+        window._nonDesktop = function () {
+            let check = false;
+            (function (a) {
+                if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) check = true;
+            })(navigator.userAgent || navigator.vendor || window.opera);
+            return check;
+        };
+        
+        var night = document.cookie.replace(/(?:(?:^|.*;\s*)night\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+        if (night==""){
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                
+            }
+        }else{
+            
+            if (night=="1") {
+                this.toggleDarkMode();
+            }
+        }
+    },
+    mounted() {
+        this.handleScroll();
+        this.handleResize();
+        this.mounted = true;
+        
+    },
+    destroyed() {
+        window.removeEventListener('scroll', this.handleScroll);
+        window.removeEventListener('resize', this.handleResize);
+    }
+});
+</script>
+
+<script src="https://gongluck.github.io/js/journal.js"></script>
+    </body>
+</html>

@@ -1,0 +1,2054 @@
+<!DOCTYPE html>
+<html><head>
+<title>性能测试专题</title>
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-163347799-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+<script src="/vendor/js/jquery.min.js" ></script>
+<script src="/vendor/js/popper.min.js" ></script>
+<script src="/vendor/js/bootstrap.min.js" ></script>
+<script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+<script src="/vendor/js/vue.min.js" ></script>
+
+
+
+
+<link rel="stylesheet" href="https://gongluck.github.io/scss/journal.min.47aa1ffb60880ad8c72feecd6962a14331eca7a7a30e08354a1ca91009b8bc5b.css" integrity="sha256-R6of&#43;2CICtjHL&#43;7NaWKhQzHsp6ejDgg1ShypEAm4vFs=" media="screen">
+
+
+
+<link rel="stylesheet" href="https://gongluck.github.io/scss/dark-mode.min.b8ced257adf01d727091488aba5d273c60910773635166b513b27c1c28b9c866.css" integrity="sha256-uM7SV63wHXJwkUiKul0nPGCRB3NjUWa1E7J8HCi5yGY=" media="screen">
+
+
+<script src="https://gongluck.github.io/js/loadCSS.js"></script>
+<script>
+  loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
+</script>
+
+<script src="https://gongluck.github.io/js/table.js"></script>
+
+
+
+
+<script src="https://gongluck.github.io/js/toc.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/vendor/js/md5.min.js"></script>
+<script>
+  var gitalk = new Gitalk({
+  clientID: '49c0a21d9340c4049e72',
+  clientSecret: '6a22a79ca072e86728e6b1385927d1ec92f3d4a8',
+  repo: 'blogtalk',
+  owner: 'gongluck',
+  admin: ['gongluck'],
+  id: md5(location.pathname),
+  distractionFreeMode: 'false'
+  });
+  window.onload = function () {
+        gitalk.render('gitalk-container')
+  }
+</script>
+
+
+
+
+
+
+</head><body>
+    	<div id="app"><div ref="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="https://gongluck.github.io">
+    
+        <div class="nav-title">
+            gongluck&#39;s blog
+        </div>
+        
+        <div class="nav-subtitle">
+            C/C&#43;&#43; Win32/MFC Qt Golang
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                Categories
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                Tags
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="https://www.cnblogs.com/gongluck/">
+                CNBLOG
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="https://blog.csdn.net/gongluck93">
+                CSDN
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="https://github.com/gongluck">
+                Github
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/index.xml">
+                RSS Feed
+            </a>
+            
+        
+    </div>
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> 
+    <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	2020 gongluck&#39;s blog
+	
+    </div>
+    
+</div><div ref="extraContainer" class="extra-container">
+    
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e5%85%ad%e6%80%a7%e8%83%bd%e6%b5%8b%e8%af%95%e4%b8%93%e9%a2%98" v-on:click="closeDrawer" id="六性能测试专题-nav">
+										 六、性能测试专题
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#0%e9%a1%b9%e7%9b%ae%e4%bb%93%e5%ba%93" v-on:click="closeDrawer" id="0项目仓库-nav">
+										 0.项目仓库
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#1%e6%80%a7%e8%83%bd%e5%88%86%e6%9e%90%e5%b7%a5%e5%85%b7" v-on:click="closeDrawer" id="1性能分析工具-nav">
+										 1.性能分析工具
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#11-valgrind" v-on:click="closeDrawer" id="11-valgrind-nav">
+										 1.1 Valgrind
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#12-gdb" v-on:click="closeDrawer" id="12-gdb-nav">
+										 1.2 GDB
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#2linux%e7%b3%bb%e7%bb%9f%e5%91%bd%e4%bb%a4" v-on:click="closeDrawer" id="2linux系统命令-nav">
+										 2.Linux系统命令
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#21-%e5%9f%ba%e7%a1%80%e5%91%bd%e4%bb%a4%e5%92%8c%e5%b7%a5%e5%85%b7" v-on:click="closeDrawer" id="21-基础命令和工具-nav">
+										 2.1 基础命令和工具
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#22-%e6%9f%a5%e7%9c%8b%e6%b4%bb%e5%8a%a8%e8%bf%9b%e7%a8%8b%e7%9a%84%e5%91%bd%e4%bb%a4" v-on:click="closeDrawer" id="22-查看活动进程的命令-nav">
+										 2.2 查看活动进程的命令
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#23-%e5%86%85%e5%ad%98%e5%91%bd%e4%bb%a4" v-on:click="closeDrawer" id="23-内存命令-nav">
+										 2.3 内存命令
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#24-cpu%e4%bd%bf%e7%94%a8%e6%83%85%e5%86%b5%e7%9b%91%e6%8e%a7%e5%91%bd%e4%bb%a4" v-on:click="closeDrawer" id="24-cpu使用情况监控命令-nav">
+										 2.4 CPU使用情况监控命令
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#25-%e7%9b%91%e6%8e%a7%e7%a3%81%e7%9b%98io%e7%9a%84%e5%91%bd%e4%bb%a4" v-on:click="closeDrawer" id="25-监控磁盘io的命令-nav">
+										 2.5 监控磁盘I/O的命令
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#26-%e6%9f%a5%e7%9c%8b%e7%bd%91%e7%bb%9c%e4%bf%a1%e6%81%af%e5%92%8c%e7%bd%91%e7%bb%9c%e7%9b%91%e6%8e%a7%e7%9a%84%e5%91%bd%e4%bb%a4" v-on:click="closeDrawer" id="26-查看网络信息和网络监控的命令-nav">
+										 2.6 查看网络信息和网络监控的命令
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#27-linux%e7%b3%bb%e7%bb%9f%e7%9a%84%e9%ab%98%e7%ba%a7%e5%b7%a5%e5%85%b7" v-on:click="closeDrawer" id="27-linux系统的高级工具-nav">
+										 2.7 Linux系统的高级工具
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a class="pagination-action" v-on:click="toggleDarkMode">
+            <i class="material-icons pagination-action-icon" v-if="isDarkMode">
+                brightness_4
+            </i>
+            <i class="material-icons pagination-action-icon" v-else="isDarkMode">
+                brightness_7
+            </i>
+        </a>
+        
+        
+    </div>
+</div><div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    Categories
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    Tags
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="https://www.cnblogs.com/gongluck/">
+                    CNBLOG
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="https://blog.csdn.net/gongluck93">
+                    CSDN
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="https://github.com/gongluck">
+                    Github
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/index.xml">
+                    RSS Feed
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e5%85%ad%e6%80%a7%e8%83%bd%e6%b5%8b%e8%af%95%e4%b8%93%e9%a2%98" v-on:click="closeDrawer" id="六性能测试专题-nav">
+										 六、性能测试专题
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#0%e9%a1%b9%e7%9b%ae%e4%bb%93%e5%ba%93" v-on:click="closeDrawer" id="0项目仓库-nav">
+										 0.项目仓库
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#1%e6%80%a7%e8%83%bd%e5%88%86%e6%9e%90%e5%b7%a5%e5%85%b7" v-on:click="closeDrawer" id="1性能分析工具-nav">
+										 1.性能分析工具
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#11-valgrind" v-on:click="closeDrawer" id="11-valgrind-nav">
+										 1.1 Valgrind
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#12-gdb" v-on:click="closeDrawer" id="12-gdb-nav">
+										 1.2 GDB
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#2linux%e7%b3%bb%e7%bb%9f%e5%91%bd%e4%bb%a4" v-on:click="closeDrawer" id="2linux系统命令-nav">
+										 2.Linux系统命令
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#21-%e5%9f%ba%e7%a1%80%e5%91%bd%e4%bb%a4%e5%92%8c%e5%b7%a5%e5%85%b7" v-on:click="closeDrawer" id="21-基础命令和工具-nav">
+										 2.1 基础命令和工具
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#22-%e6%9f%a5%e7%9c%8b%e6%b4%bb%e5%8a%a8%e8%bf%9b%e7%a8%8b%e7%9a%84%e5%91%bd%e4%bb%a4" v-on:click="closeDrawer" id="22-查看活动进程的命令-nav">
+										 2.2 查看活动进程的命令
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#23-%e5%86%85%e5%ad%98%e5%91%bd%e4%bb%a4" v-on:click="closeDrawer" id="23-内存命令-nav">
+										 2.3 内存命令
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#24-cpu%e4%bd%bf%e7%94%a8%e6%83%85%e5%86%b5%e7%9b%91%e6%8e%a7%e5%91%bd%e4%bb%a4" v-on:click="closeDrawer" id="24-cpu使用情况监控命令-nav">
+										 2.4 CPU使用情况监控命令
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#25-%e7%9b%91%e6%8e%a7%e7%a3%81%e7%9b%98io%e7%9a%84%e5%91%bd%e4%bb%a4" v-on:click="closeDrawer" id="25-监控磁盘io的命令-nav">
+										 2.5 监控磁盘I/O的命令
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#26-%e6%9f%a5%e7%9c%8b%e7%bd%91%e7%bb%9c%e4%bf%a1%e6%81%af%e5%92%8c%e7%bd%91%e7%bb%9c%e7%9b%91%e6%8e%a7%e7%9a%84%e5%91%bd%e4%bb%a4" v-on:click="closeDrawer" id="26-查看网络信息和网络监控的命令-nav">
+										 2.6 查看网络信息和网络监控的命令
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#27-linux%e7%b3%bb%e7%bb%9f%e7%9a%84%e9%ab%98%e7%ba%a7%e5%b7%a5%e5%85%b7" v-on:click="closeDrawer" id="27-linux系统的高级工具-nav">
+										 2.7 Linux系统的高级工具
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="https://gongluck.github.io">
+            gongluck&#39;s blog
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" v-on:click="toggleDarkMode">
+            <i class="material-icons" v-if="isDarkMode">
+                brightness_4
+            </i>
+            <i class="material-icons" v-else="isDarkMode">
+                brightness_7
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="https://gongluck.github.io">
+        <div class="single-column-header-title">gongluck&#39;s blog</div>
+        
+        <div class="single-column-header-subtitle">C/C&#43;&#43; Win32/MFC Qt Golang</div>
+        
+
+    </a>
+</div>
+            <div id="content">
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+                
+            
+
+            <div class="post-head-wrapper"
+                
+                    
+                    
+                    style="background-image: url('https://gongluck.github.io/img/linux_wh.jpg')"
+                    
+                
+            >
+                <div class="post-title">
+                    性能测试专题
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2020-12-28 22:15
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/linux">linux</a>
+                                &nbsp;
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/linux">linux</a>
+                                &nbsp;
+                            
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h2 id="六性能测试专题">六、性能测试专题</h2>
+<h3 id="0项目仓库">0.项目仓库</h3>
+<ul>
+<li><a href="https://github.com/gongluck/CVIP.git">https://github.com/gongluck/CVIP.git</a></li>
+</ul>
+<h3 id="1性能分析工具">1.性能分析工具</h3>
+<h4 id="11-valgrind">1.1 Valgrind</h4>
+<ul>
+<li>
+<p>Valgrind是一套Linux下，开放源代码（GPL V2）的仿真调试工具的集合。Valgrind由内核（core）以及基于内核的其他调试工具组成。内核类似于一个框架（framework）， 它模拟了一个CPU环境，并提供服务给其他工具；而其他工具则类似于插件(plug-in)，利用内核提供的服务完成各种特定的内存调试任务。</p>
+<p><img src="https://github.com/gongluck/CVIP/blob/master/images/valgrind%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.png?raw=true" alt="valgrind体系结构"></p>
+</li>
+<li>
+<p>编译安装</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">wget https://sourceware.org/pub/valgrind/valgrind-3.16.1.tar.bz2
+tar -jxvf valgrind-3.16.1.tar.bz2
+<span style="color:#658b00">cd</span> valgrind-3.16.1
+./configure
+make -j <span style="color:#b452cd">8</span>
+sudo make install
+</code></pre></div></li>
+<li>
+<p>使用valgrind</p>
+<ul>
+<li>
+<p>为了使valgrind发现的错误更精确，如能够定位到源代码行，建议在编译时加上**-g**参数，编译优化选项请选择**-O0**，虽然这会降低程序的执行效率。</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gcc -g -O0 test.c
+</code></pre></div></li>
+<li>
+<p>使用命令</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">valgrind [valgrind-options] your-prog [your-progoptions]
+valgrind --log-file=./valgrind_report.log --leak-check=full --show-leak-kinds=all --showreachable=no --track-origins=yes your-prog [your-progoptions]
+</code></pre></div></li>
+</ul>
+</li>
+</ul>
+<h4 id="12-gdb">1.2 GDB</h4>
+<ul>
+<li>
+<p>一般要调试某个程序，为了能清晰地看到调试的每一行代码、调用的堆栈信息、变量名和函数名等信息，需要调试程序含有调试符号信息。使用<strong>gcc</strong>编译程序时，如果加上**-g**选项即可在编译后的程序中保留调试符号信息。</p>
+</li>
+<li>
+<p>除了不加**-g**选项，也可以使用Linux的**strip**命令移除掉某个程序中的调试信息。</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">strip a.out
+</code></pre></div></li>
+<li>
+<p>gdb直接调试目标程序</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gdb a.out
+</code></pre></div></li>
+<li>
+<p>gdb附加进程</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo gdb attach pid
+</code></pre></div></li>
+<li>
+<p>gdb调试core文件</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gdb filename corename
+</code></pre></div><ul>
+<li>
+<p><strong>Linux</strong>系统默认是不开启程序崩溃产生<strong>core</strong>文件这一机制的，我们可以使用<strong>ulimit -a</strong>命令来查看系统是否开启了这一机制。开启使用命令：</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#228b22"># 将ulimit -c unlimited放入/etc/profile中，然后执行source /etc/profile即可立即生效。</span>
+<span style="color:#658b00">ulimit</span> -c unlimited
+</code></pre></div></li>
+<li>
+<p>系统默认<strong>corefile</strong>是生成在程序的执行目录下或者程序启动调用了<strong>chdir</strong>之后的目录，我们可以通过设置生成<strong>corefile</strong>的格式来控制它，让其生成在固定的目录下，并让每次启动后自动生效。</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#228b22"># 打开/etc/sysctl.conf</span>
+sudo vi /etc/sysctl.conf
+<span style="color:#228b22"># 末尾添加</span>
+kernel.core_pattern=/home/gongluck/core_dump/core-%e-%p-%t
+<span style="color:#228b22"># 创建目录</span>
+mkdir /home/gongluck/core_dump
+<span style="color:#228b22"># 执行生效</span>
+sudo sysctl -p /etc/sysctl.conf
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>gdb命令</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>run</td>
+<td>运行一个程序</td>
+</tr>
+<tr>
+<td>continue</td>
+<td>让暂停的程序继续运行</td>
+</tr>
+<tr>
+<td>next</td>
+<td>运行到下一行</td>
+</tr>
+<tr>
+<td>step</td>
+<td>如果有调用函数，进入调用的函数内部，相当于step into</td>
+</tr>
+<tr>
+<td>until</td>
+<td>运行到指定行停下来</td>
+</tr>
+<tr>
+<td>finish</td>
+<td>结束当前调用函数，到上一层函数调用处</td>
+</tr>
+<tr>
+<td>return</td>
+<td>结束当前调用函数并返回指定值，到上一层函数调用处</td>
+</tr>
+<tr>
+<td>jump</td>
+<td>将当前程序执行流跳转到指定行或地址</td>
+</tr>
+<tr>
+<td>print</td>
+<td>打印变量或寄存器值<!-- raw HTML omitted -->当使用<strong>print</strong>命令打印一个字符串或者字符数组时，如果该字符串太长，<strong>print</strong>命令默认显示不全的，可以通过在<strong>GDB</strong>中输入<strong>set print element 0</strong>命令设置一下，这样再次使用 <strong>print</strong>命令就能完整地显示该变量的所有字符串了。<!-- raw HTML omitted -->可以使用**p strerror(errno)**将错误码对应的文字信息打印出来<!-- raw HTML omitted --><strong>print</strong>命令同时也可以修改变量的值，<strong>p ennro = 0</strong></td>
+</tr>
+<tr>
+<td>backtrace</td>
+<td>查看当前线程的调用堆栈</td>
+</tr>
+<tr>
+<td>frame</td>
+<td>切换到当前调用线程的指定堆栈，具体堆栈通过堆栈序号指定</td>
+</tr>
+<tr>
+<td>thread</td>
+<td>切换到指定线程<!-- raw HTML omitted --><strong>GDB</strong>提供了一个在调试时将程序执行流锁定在当前调试线程的命令<strong>set scheduler-locking on</strong>。当然也可以关闭这一选项，使用<strong>set scheduler-locking off</strong></td>
+</tr>
+<tr>
+<td>break</td>
+<td>添加断点<!-- raw HTML omitted -->条件断点的命令是<strong>break [lineNo] if [condition]</strong></td>
+</tr>
+<tr>
+<td>tbreak</td>
+<td>添加临时断点</td>
+</tr>
+<tr>
+<td>delete</td>
+<td>删除断点</td>
+</tr>
+<tr>
+<td>enable</td>
+<td>启用某个断点</td>
+</tr>
+<tr>
+<td>disable</td>
+<td>禁用某个断点</td>
+</tr>
+<tr>
+<td>watch</td>
+<td>监视某一个变量或内存地址的值是否发生变化</td>
+</tr>
+<tr>
+<td>list</td>
+<td>显示源码</td>
+</tr>
+<tr>
+<td>info</td>
+<td>查看断点/线程等信息。<!-- raw HTML omitted --><strong>info functions</strong>这个命令会显示程序中所有函数的名词，参数格式，返回值类型以及函数处于哪个代码文件中<!-- raw HTML omitted --><strong>info threads</strong>查看线程信息<!-- raw HTML omitted --><strong>info args</strong>查看当前函数的参数值</td>
+</tr>
+<tr>
+<td>ptype</td>
+<td>查看变量类型</td>
+</tr>
+<tr>
+<td>disassemble</td>
+<td>查看汇编代码</td>
+</tr>
+<tr>
+<td>set args</td>
+<td>设置程序启动命令行参数</td>
+</tr>
+<tr>
+<td>show args</td>
+<td>查看设置的命令行参数</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>GDB</strong>调试器提供了一个选项叫<strong>follow-fork</strong>，可以使用<strong>show follow-fork mode</strong>查看当前值，也可以通过<strong>set follow-fork mode</strong>来设置是当一个进程<strong>fork</strong>出新的子进程时，<strong>GDB</strong>是继续调试父进程还是子进程（取值是<strong>child</strong>），默认是父进程（ 取值是<strong>parent</strong>）。</li>
+</ul>
+</li>
+<li>
+<p>开启<strong>GDB TUI</strong>模式</p>
+<ul>
+<li>
+<p>使用<strong>gdbtui</strong>命令或者<strong>gdb-tui</strong>命令开启一个调试。</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gdbtui -q 需要调试的程序名
+</code></pre></div></li>
+<li>
+<p>直接使用<strong>GDB</strong>调试代码，在需要的时候使用切换键<strong>Ctrl + x</strong>，然后按<strong>a</strong>，进入常规<strong>GDB</strong>和<strong>GDB TUI</strong>的来回切换。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2linux系统命令">2.Linux系统命令</h3>
+<h4 id="21-基础命令和工具">2.1 基础命令和工具</h4>
+<ul>
+<li>
+<p><strong>grep</strong>搜索字符</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c</td>
+<td>仅显示找到的行数</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>忽略大小写</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>显示行号</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>反向选择，仅列出没有关键词的行</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>递归搜索文件目录</td>
+</tr>
+<tr>
+<td>-C n</td>
+<td>打印匹配行的前后n行</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>find</strong>查找文件</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">find [指定查找目录] [查找规则] [查找完后执行的action]
+</code></pre></div><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-name FILE_NAME</td>
+<td>搜索文件名</td>
+</tr>
+<tr>
+<td>-iname FILE_NAME</td>
+<td>忽略文件名称大小写</td>
+</tr>
+<tr>
+<td>-maxdepth n</td>
+<td>最多查找n层</td>
+</tr>
+<tr>
+<td>-mindepth n</td>
+<td>最少查找n层</td>
+</tr>
+<tr>
+<td>-size nK</td>
+<td>查找文件大小近似nk的文件</td>
+</tr>
+<tr>
+<td>-size +nK</td>
+<td>查找文件大小大于nk的文件</td>
+</tr>
+<tr>
+<td>-size -nK</td>
+<td>查找文件大小小于nk的文件</td>
+</tr>
+<tr>
+<td>-type d/f</td>
+<td>查找目录/文件</td>
+</tr>
+<tr>
+<td>-cmin n/+n/-n</td>
+<td>查找n分钟左右/以上/以下修改的</td>
+</tr>
+<tr>
+<td>-ctime n/+n/-n</td>
+<td>查找n天左右/以上/以下修改的</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>ls</strong>显示文件</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-t</td>
+<td>可以查看最新修改的时间</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>每行显示一个条目</td>
+</tr>
+<tr>
+<td>-h</td>
+<td>可以结合显示文件的GB、MB等</td>
+</tr>
+<tr>
+<td>-R</td>
+<td>递归显示</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>显示组id和gid</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>wc</strong>计算字数</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">wc [-clw][--help][--version][文件...]
+</code></pre></div><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c或&ndash;bytes或&ndash;chars</td>
+<td>只显示Bytes数</td>
+</tr>
+<tr>
+<td>-l或&ndash;lines</td>
+<td>只显示行数</td>
+</tr>
+<tr>
+<td>-w或&ndash;words</td>
+<td>只显示字数</td>
+</tr>
+<tr>
+<td>&ndash;help</td>
+<td>在线帮助</td>
+</tr>
+<tr>
+<td>&ndash;version</td>
+<td>显示版本信息</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>uptime</strong>机器启动时间+负载</p>
+</li>
+<li>
+<p><strong>ulimit</strong>用户资源</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#658b00">ulimit</span> -a
+</code></pre></div></li>
+<li>
+<p><strong>curl</strong>请求http</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i url</td>
+<td>打印请求响应头信息</td>
+</tr>
+<tr>
+<td>-I url</td>
+<td>仅返回http头</td>
+</tr>
+<tr>
+<td>-v url</td>
+<td>打印更多的调试信息</td>
+</tr>
+<tr>
+<td>-d &lsquo;k=v&rsquo; url</td>
+<td>使用post方法提交http请求</td>
+</tr>
+<tr>
+<td>curl -sw &lsquo;%{http_code}&rsquo; url</td>
+<td>打印http响应码</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>scp</strong>远程拷贝</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">//下载192.168.1.1的文件
+scp gongluck@192.168.1.1:/home/192.168.1.1/test.txt . 
+  
+//上传文件到192.168.1.1
+scp test.txt gongluck@192.168.1.1:/home/gongluck/
+  
+//下载test整个目录到本地
+scp -r gongluck@192.168.1.1:/home/gongluck/test . 
+  
+//上传本地test整个目录到192.168.1.1
+scp -r <span style="color:#658b00">test</span> gongluck@192.168.1.1:/home/gongluck/ 
+</code></pre></div></li>
+<li>
+<p><strong>dos2unix</strong>和<strong>unix2dos</strong>转换换行符</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">dos2unix filename
+unix2dos filename
+</code></pre></div></li>
+<li>
+<p><strong>sed</strong>字符替换</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sed <span style="color:#cd5555">&#39;s/原字符串/新字符串/&#39;</span> 文件
+sed <span style="color:#cd5555">&#39;s/原字符串/新字符串/g&#39;</span> 文件
+</code></pre></div></li>
+</ul>
+<h4 id="22-查看活动进程的命令">2.2 查看活动进程的命令</h4>
+<ul>
+<li>
+<p><strong>ps</strong>进程信息</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ps -elf
+ps -ef
+</code></pre></div></li>
+<li>
+<p><strong>top</strong>进程cpu内存信息</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">top
+top -Hp pid
+</code></pre></div></li>
+<li>
+<p><strong>pidstat</strong>进程资源</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-u</td>
+<td>查看cpu相关的性能指标</td>
+</tr>
+<tr>
+<td>-w</td>
+<td>查看上下文切换情况</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>查看线程相关的信息，默认是进程的；常与**-w**结合使用（cpu的上下文切换包括进程的切换、线程的切换、中断的切换）</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>展示磁盘I/O统计数据</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>指明进程号</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<h4 id="23-内存命令">2.3 内存命令</h4>
+<ul>
+<li>
+<p><strong>free</strong>内存使用情况</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">free
+</code></pre></div></li>
+</ul>
+<h4 id="24-cpu使用情况监控命令">2.4 CPU使用情况监控命令</h4>
+<ul>
+<li>vmstat</li>
+<li>mpstat</li>
+</ul>
+<h4 id="25-监控磁盘io的命令">2.5 监控磁盘I/O的命令</h4>
+<ul>
+<li>
+<p><strong>iostat</strong>IO 状态</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">iostat -x
+iostat -d -k n
+iostat -dkx m n
+</code></pre></div></li>
+<li>
+<p><strong>swapon</strong>查看分区使用情况</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">swapon -s
+</code></pre></div></li>
+<li>
+<p><strong>df</strong>硬盘使用情况</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">df -h
+</code></pre></div></li>
+<li>
+<p><strong>du</strong>目录文件大小</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-h</td>
+<td>以人类可读的方式显示，显示M或K</td>
+</tr>
+<tr>
+<td>-a</td>
+<td>显示目录占用的磁盘空间大小，还要显示其下目录和文件占用磁盘空间的大小</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>显示目录占用的磁盘空间大小，不显示其下子目录和文件占用的磁盘空间大小</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>显示几个目录或文件占用的磁盘空间大小，还要统计它们的总和</td>
+</tr>
+<tr>
+<td>&ndash;max-depth=n</td>
+<td>查看当前目录下n级子文件和子目录占用的磁盘容量</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<h4 id="26-查看网络信息和网络监控的命令">2.6 查看网络信息和网络监控的命令</h4>
+<ul>
+<li>
+<p><strong>ifconfig</strong>查看和设置网络设备</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#228b22"># 启动关闭指定网卡</span>
+ifconfig eth0 up
+ifconfig eth0 down
+  
+<span style="color:#228b22"># 给eth0网卡配置IP地址</span>
+ifconfig eth0 192.168.1.2
+<span style="color:#228b22">#给eth0网卡配置IP地址，并加上子掩码</span>
+ifconfig eth0 192.168.1.2 netmask 255.255.255.0
+<span style="color:#228b22">#给eth0网卡配置IP地址，加上子掩码，加上个广播地址</span>
+ifconfig eth0 192.168.1.56 netmask 255.255.255.0 broadcast 192.168.1.255
+</code></pre></div></li>
+<li>
+<p><strong>ping</strong></p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ping [-dfnqrRv][-c&lt;完成次数&gt;][-i&lt;间隔秒数&gt;][-I&lt;网络界面&gt;][-l&lt;前置载入&gt;][-p&lt;范本样
+式&gt;][-s&lt;数据包大小&gt;][-t&lt;存活数值&gt;][主机名称或IP地址]
+</code></pre></div></li>
+<li>
+<p><strong>telnet</strong></p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">telnet IP PORT
+</code></pre></div></li>
+<li>
+<p><strong>nc</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-l</td>
+<td>用于指定nc将处于侦听模式。指定该参数，则意味着nc被当作 server，侦听并接受连接，而非向其它地址发起连接。</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>暂未用到（老版本的nc可能需要在端口号前加-p参数）</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>指定发送数据的源IP地址，适用于多网卡机</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>指定nc使用<strong>UDP</strong>协议，默认为<strong>TCP</strong></td>
+</tr>
+<tr>
+<td>-v</td>
+<td>输出交互或出错信息，新手调试时尤为有用</td>
+</tr>
+<tr>
+<td>-w</td>
+<td>超时秒数，后面跟数字</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>mtr</strong>连通性测试</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mtr url
+  
+<span style="color:#228b22">#模拟丢包</span>
+sudo tc qdisc add dev eth0 root netem loss 10%
+</code></pre></div></li>
+<li>
+<p><strong>nslookup</strong>域名解析</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">nslookup url
+</code></pre></div></li>
+<li>
+<p><strong>traceroute</strong>路由</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">traceroute url
+</code></pre></div></li>
+<li>
+<p><strong>sar</strong>监控工具</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-A</td>
+<td>所有报告的总和</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>CPU利用率</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>进程、I节点、文件和锁表状态</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>硬盘的使用报告</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>没有使用的内存页面和硬盘快</td>
+</tr>
+<tr>
+<td>-g</td>
+<td>串口I/O的情况</td>
+</tr>
+<tr>
+<td>-b</td>
+<td>缓冲区的使用情况</td>
+</tr>
+<tr>
+<td>-a</td>
+<td>文件的读写情况</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>系统的调用情况</td>
+</tr>
+<tr>
+<td>-R</td>
+<td>进程的活动情况</td>
+</tr>
+<tr>
+<td>-y</td>
+<td>终端设备的活动情况</td>
+</tr>
+<tr>
+<td>-w</td>
+<td>系统的交换活动</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>netstat</strong>查看网络信息</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">netstat -nap
+</code></pre></div></li>
+<li>
+<p><strong>iptraf</strong>网络监控</p>
+<ul>
+<li><strong>iptraf</strong>是一个实时监控网络流量的交互式的彩色文本屏幕界面。它监控的数据比较全面，可以输出<strong>TCP</strong>连接、网络接口、协议、端口、网络包大小等信息，但是耗费的系 统资源比较多，且需要管理员权限。</li>
+</ul>
+</li>
+<li>
+<p><strong>tcpdump</strong>网络分析</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-D</td>
+<td>列举所有网卡设备</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>选择网卡设备</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>抓取多少条报文</td>
+</tr>
+<tr>
+<td>&ndash;time-stamp-precision</td>
+<td>指定捕获时的时间精度，默认微妙<strong>micro</strong>，可选纳秒<strong>nano</strong></td>
+</tr>
+<tr>
+<td>-s</td>
+<td>指定每条报文的最大字节数，默认<strong>262144</strong>字节</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>lsof</strong>列出打开文件</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#228b22"># 显示端口被某个程序占用</span>
+lsof -i:port
+<span style="color:#228b22"># 看进程打开了哪些文件</span>
+lsof -p pid
+<span style="color:#228b22"># 显示abc进程现在打开的文件</span>
+lsof -c abc
+<span style="color:#228b22"># 显示打开文件abc.txt的进程</span>
+lsof abc.txt
+</code></pre></div></li>
+</ul>
+<h4 id="27-linux系统的高级工具">2.7 Linux系统的高级工具</h4>
+<ul>
+<li>
+<p><strong>pstack</strong>查看进程调用栈</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pstack pid
+</code></pre></div></li>
+<li>
+<p><strong>strace</strong>跟踪系统调用</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">strace -p pid
+</code></pre></div></li>
+<li>
+<p><strong>proc</strong>文件系统</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#228b22"># 显示CPU信息</span>
+cat /proc/cpuinfo
+<span style="color:#228b22"># 显示内存信息</span>
+cat /proc/meminfo
+<span style="color:#228b22"># 显示详细的内存映射信息</span>
+cat /proc/zoneinfo
+<span style="color:#228b22"># 显示磁盘映射信息</span>
+cat /proc/mounts
+<span style="color:#228b22"># 查看系统平均负载命令</span>
+cat /proc/loadavg
+</code></pre></div></li>
+</ul>
+
+                    
+                    <HR width="100%" id="EOF">
+                    <p style="color:#777;">Last modified on 2020-12-28</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="https://gongluck.github.io/linux/%E4%BB%A3%E7%A0%81%E5%B7%A5%E7%A8%8B%E5%8C%96%E4%B8%93%E9%A2%98/">
+                    Next<br>代码工程化专题
+                </a>
+                
+                
+                
+                <a class="older-posts" href="https://gongluck.github.io/linux/%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%93%E9%A2%98/">
+                    Previous<br>网络服务专题
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+<div id="gitalk-container"></div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+            </div><div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	2020 gongluck&#39;s blog
+	</div>
+            </div>
+    <script>
+let app;
+
+app = new Vue({
+    el: '#app',
+    data: {
+        scrollY: 0,
+        navOpacity: 0,
+        isDrawerOpen: false,
+        mounted: false,
+        isDarkMode: false
+    },
+    methods: {
+            sgn(t, x) {
+                let k = 1. / (1. - 2 * t);
+                if (x <= t) return 0;
+                else if (x >= 1 - t) return 1;
+                else {
+                    return k * (x - t);
+                }
+            },
+            handleScroll() {
+                this.scrollY = window.scrollY;
+                this.navOpacity = this.sgn(.0, Math.min(1, Math.max(0, window.scrollY / (this.pageHeadHeight() - this.navBarHeight() * 0.8))));
+                const {navBar, navBackground, navTitle, extraContainer, streamContainer} = this.$refs;
+
+                if (this.navOpacity >= 1) {
+                    navBackground.style.opacity = 1;
+                    navTitle.style.opacity = 1;
+                } else {
+                    navBackground.style.opacity = 0;
+                    navTitle.style.opacity = 0;
+                }
+            },
+            handleResize() {
+                const {navBar, navBackground, navTitle, extraContainer, streamContainer} = this.$refs;
+                extraContainer.style.left = (streamContainer.offsetWidth - extraContainer.offsetWidth) + 'px';
+            },
+            navBarHeight() {
+                return this.$refs.navBar.offsetHeight;
+            },
+            pageHeadHeight() {
+                return this.$refs.pageHead.offsetHeight;
+            },
+            toggleDrawer() {
+                this.isDrawerOpen = !this.isDrawerOpen;
+                document.getElementsByTagName('html')[0].style.overflow = this.isDrawerOpen ? 'hidden' : 'unset';
+            },
+            closeDrawer() {
+                this.isDrawerOpen = false;
+                document.getElementsByTagName('html')[0].style.overflow = this.isDrawerOpen ? 'hidden' : 'unset';
+            },
+            toggleDarkMode() {
+                this.isDarkMode = !this.isDarkMode;
+                if (this.isDarkMode==true){
+                    document.cookie = "night=1;path=/";
+                    document.body.classList.add("night");
+                } else {
+                    document.cookie = "night=0;path=/";
+                    document.body.classList.remove("night");
+                }
+            }
+    },
+    created() {
+        window.addEventListener('scroll', this.handleScroll);
+        window.addEventListener('resize', this.handleResize);
+        window._nonDesktop = function () {
+            let check = false;
+            (function (a) {
+                if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) check = true;
+            })(navigator.userAgent || navigator.vendor || window.opera);
+            return check;
+        };
+        
+        var night = document.cookie.replace(/(?:(?:^|.*;\s*)night\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+        if (night==""){
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                
+            }
+        }else{
+            
+            if (night=="1") {
+                this.toggleDarkMode();
+            }
+        }
+    },
+    mounted() {
+        this.handleScroll();
+        this.handleResize();
+        this.mounted = true;
+        
+    },
+    destroyed() {
+        window.removeEventListener('scroll', this.handleScroll);
+        window.removeEventListener('resize', this.handleResize);
+    }
+});
+</script>
+
+<script src="https://gongluck.github.io/js/journal.js"></script>
+    </body>
+</html>
