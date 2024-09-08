@@ -118,7 +118,7 @@ set_property(TARGET &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt
 rm -r &lt;span style=&#34;color:#00688b&#34;&gt;$BUILDPATH&lt;/span&gt;
 rm -r &lt;span style=&#34;color:#00688b&#34;&gt;$INSTALLPATH&lt;/span&gt;
 
-&lt;span style=&#34;color:#658b00&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#00688b&#34;&gt;buildparams&lt;/span&gt;=-DCMAKE_TOOLCHAIN_FILE=&lt;span style=&#34;color:#00688b&#34;&gt;$ANDROID_NDK_ROOT&lt;/span&gt;/build/cmake/android.toolchain.cmake -DCMAKE_MAKE_PROGRAM=&lt;span style=&#34;color:#00688b&#34;&gt;$ANDROID_NDK_ROOT&lt;/span&gt;/prebuilt/linux-x86_64/bin/make
+&lt;span style=&#34;color:#658b00&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#00688b&#34;&gt;buildparams&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;-DCMAKE_TOOLCHAIN_FILE=&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;$ANDROID_NDK_ROOT&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;/build/cmake/android.toolchain.cmake -DCMAKE_MAKE_PROGRAM=&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;$ANDROID_NDK_ROOT&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;/prebuilt/linux-x86_64/bin/make&amp;#34;&lt;/span&gt;
 
 cmake -G &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Unix Makefiles&amp;#34;&lt;/span&gt; -S . -B &lt;span style=&#34;color:#00688b&#34;&gt;$BUILDPATH&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;\
 &lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&lt;/span&gt;   -DANDROID_NDK=&lt;span style=&#34;color:#00688b&#34;&gt;$ANDROID_NDK_ROOT&lt;/span&gt; &lt;span style=&#34;color:#00688b&#34;&gt;$buildparams&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;\
@@ -136,6 +136,32 @@ cmake --build &lt;span style=&#34;color:#00688b&#34;&gt;$BUILDPATH&lt;/span&gt; 
 │   └── armeabi-v7a
 └── src
     └── screencap.cpp
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;编译运行&#34;&gt;编译运行&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;root@gongluck:~/AnalysisAVP/example/android/capture/screencap# ./build_android.sh 
+-- The C compiler identification is Clang 18.0.1
+-- The CXX compiler identification is Clang 18.0.1
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;done&lt;/span&gt;
+-- Check &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; working C compiler: /root/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/clang - skipped
+-- Detecting C compile features
+-- Detecting C compile features - &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;done&lt;/span&gt;
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;done&lt;/span&gt;
+-- Check &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; working CXX compiler: /root/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;done&lt;/span&gt;
+-- Configuring &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;done&lt;/span&gt;
+-- Generating &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;done&lt;/span&gt;
+-- Build files have been written to: /root/AnalysisAVP/example/android/capture/screencap/build
+[ 50%] Building CXX object CMakeFiles/screencap.dir/src/screencap.cpp.o
+[100%] Linking CXX executable ../bin/arm64-v8a/release/screencap_arm64-v8a_r
+[100%] Built target screencap
+root@gongluck:~/AnalysisAVP/example/android/capture/screencap# adb push bin/arm64-v8a/release/screencap_arm64-v8a_r /data/local/tmp/
+bin/arm64-v8a/release/screencap_arm64-v8a_r: &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt; file pushed. 10.4 MB/s (&lt;span style=&#34;color:#b452cd&#34;&gt;391064&lt;/span&gt; bytes in 0.036s)
+root@gongluck:~/AnalysisAVP/example/android/capture/screencap# adb shell &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;/data/local/tmp/screencap_arm64-v8a_r -p &amp;gt; /data/local/tmp/save.png&amp;#34;&lt;/span&gt;
+root@gongluck:~/AnalysisAVP/example/android/capture/screencap# adb shell &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;file /data/local/tmp/save.png&amp;#34;&lt;/span&gt;
+/data/local/tmp/save.png: PNG image data, &lt;span style=&#34;color:#b452cd&#34;&gt;720&lt;/span&gt; x 1280, 8-bit/color RGBA, non-interlaced
+
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;完整代码&#34;&gt;完整代码&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/AnalysisAVP/tree/master/example/android/capture/screencap&#34;&gt;https://github.com/gongluck/AnalysisAVP/tree/master/example/android/capture/screencap&lt;/a&gt;&lt;/p&gt;- https://gongluck.github.io/av/screencap/ - </description>
         </item>

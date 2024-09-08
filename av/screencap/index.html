@@ -251,6 +251,29 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
 						
 						
 								<li>
+				 					<a href="#%e7%bc%96%e8%af%91%e8%bf%90%e8%a1%8c" v-on:click="closeDrawer" id="编译运行-nav">
+										 编译运行
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
 				 					<a href="#%e5%ae%8c%e6%95%b4%e4%bb%a3%e7%a0%81" v-on:click="closeDrawer" id="完整代码-nav">
 										 完整代码
 									</a>
@@ -399,6 +422,29 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
 								<li>
 				 					<a href="#%e9%85%8d%e7%bd%ae%e9%a1%b9%e7%9b%ae" v-on:click="closeDrawer" id="配置项目-nav">
 										 配置项目
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e7%bc%96%e8%af%91%e8%bf%90%e8%a1%8c" v-on:click="closeDrawer" id="编译运行-nav">
+										 编译运行
 									</a>
 								</li>
 						
@@ -628,7 +674,7 @@ set_property(TARGET <span style="color:#cd5555">${</span><span style="color:#006
 rm -r <span style="color:#00688b">$BUILDPATH</span>
 rm -r <span style="color:#00688b">$INSTALLPATH</span>
 
-<span style="color:#658b00">export</span> <span style="color:#00688b">buildparams</span>=-DCMAKE_TOOLCHAIN_FILE=<span style="color:#00688b">$ANDROID_NDK_ROOT</span>/build/cmake/android.toolchain.cmake -DCMAKE_MAKE_PROGRAM=<span style="color:#00688b">$ANDROID_NDK_ROOT</span>/prebuilt/linux-x86_64/bin/make
+<span style="color:#658b00">export</span> <span style="color:#00688b">buildparams</span>=<span style="color:#cd5555">&#34;-DCMAKE_TOOLCHAIN_FILE=</span><span style="color:#00688b">$ANDROID_NDK_ROOT</span><span style="color:#cd5555">/build/cmake/android.toolchain.cmake -DCMAKE_MAKE_PROGRAM=</span><span style="color:#00688b">$ANDROID_NDK_ROOT</span><span style="color:#cd5555">/prebuilt/linux-x86_64/bin/make&#34;</span>
 
 cmake -G <span style="color:#cd5555">&#34;Unix Makefiles&#34;</span> -S . -B <span style="color:#00688b">$BUILDPATH</span> <span style="color:#cd5555">\
 </span><span style="color:#cd5555"></span>   -DANDROID_NDK=<span style="color:#00688b">$ANDROID_NDK_ROOT</span> <span style="color:#00688b">$buildparams</span> <span style="color:#cd5555">\
@@ -646,6 +692,32 @@ cmake --build <span style="color:#00688b">$BUILDPATH</span> --clean-first --conf
 │   └── armeabi-v7a
 └── src
     └── screencap.cpp
+</code></pre></div><h2 id="编译运行">编译运行</h2>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">root@gongluck:~/AnalysisAVP/example/android/capture/screencap# ./build_android.sh 
+-- The C compiler identification is Clang 18.0.1
+-- The CXX compiler identification is Clang 18.0.1
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - <span style="color:#8b008b;font-weight:bold">done</span>
+-- Check <span style="color:#8b008b;font-weight:bold">for</span> working C compiler: /root/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/clang - skipped
+-- Detecting C compile features
+-- Detecting C compile features - <span style="color:#8b008b;font-weight:bold">done</span>
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - <span style="color:#8b008b;font-weight:bold">done</span>
+-- Check <span style="color:#8b008b;font-weight:bold">for</span> working CXX compiler: /root/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - <span style="color:#8b008b;font-weight:bold">done</span>
+-- Configuring <span style="color:#8b008b;font-weight:bold">done</span>
+-- Generating <span style="color:#8b008b;font-weight:bold">done</span>
+-- Build files have been written to: /root/AnalysisAVP/example/android/capture/screencap/build
+[ 50%] Building CXX object CMakeFiles/screencap.dir/src/screencap.cpp.o
+[100%] Linking CXX executable ../bin/arm64-v8a/release/screencap_arm64-v8a_r
+[100%] Built target screencap
+root@gongluck:~/AnalysisAVP/example/android/capture/screencap# adb push bin/arm64-v8a/release/screencap_arm64-v8a_r /data/local/tmp/
+bin/arm64-v8a/release/screencap_arm64-v8a_r: <span style="color:#b452cd">1</span> file pushed. 10.4 MB/s (<span style="color:#b452cd">391064</span> bytes in 0.036s)
+root@gongluck:~/AnalysisAVP/example/android/capture/screencap# adb shell <span style="color:#cd5555">&#34;/data/local/tmp/screencap_arm64-v8a_r -p &gt; /data/local/tmp/save.png&#34;</span>
+root@gongluck:~/AnalysisAVP/example/android/capture/screencap# adb shell <span style="color:#cd5555">&#34;file /data/local/tmp/save.png&#34;</span>
+/data/local/tmp/save.png: PNG image data, <span style="color:#b452cd">720</span> x 1280, 8-bit/color RGBA, non-interlaced
+
 </code></pre></div><h2 id="完整代码">完整代码</h2>
 <p><a href="https://github.com/gongluck/AnalysisAVP/tree/master/example/android/capture/screencap">https://github.com/gongluck/AnalysisAVP/tree/master/example/android/capture/screencap</a></p>
                     
