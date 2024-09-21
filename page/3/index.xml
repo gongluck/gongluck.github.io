@@ -4,9 +4,155 @@
     <link>https://gongluck.github.io/</link>
     <description>Recent content on gongluck&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 08 Sep 2024 18:54:21 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 21 Sep 2024 21:05:21 +0800</lastBuildDate>
     
         <atom:link href="https://gongluck.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>CGO入门</title>
+        <link>https://gongluck.github.io/go/cgo_quick_start/</link>
+        <pubDate>Thu, 09 Apr 2020 19:31:36 +0800</pubDate>
+        
+        <guid>https://gongluck.github.io/go/cgo_quick_start/</guid>
+        <description>gongluck&#39;s blog https://gongluck.github.io/go/cgo_quick_start/ -&lt;p&gt;C/C++加上GO代表什么？&lt;/p&gt;
+&lt;p&gt;代表着既可以使用GO快速的开发项目,同时可以接纳C/C++的庞大历史遗产和极高性能！而且在GO中使用C/C++十分简单！&lt;/p&gt;
+&lt;h3 id=&#34;代码仓库&#34;&gt;代码仓库&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CGO-DEMO.git&#34;&gt;https://github.com/gongluck/CGO-DEMO.git&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;准备&#34;&gt;准备&lt;/h3&gt;
+&lt;p&gt;使用CGO,需要先安装gcc或者mingw。&lt;/p&gt;
+&lt;h3 id=&#34;启用cgo特性&#34;&gt;启用CGO特性&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;package main
+
+import &amp;quot;C&amp;quot;
+
+func main() {
+    println(&amp;quot;hello, cgo&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;就是这么简单,一句 &lt;em&gt;&lt;strong&gt;import &amp;ldquo;C&amp;rdquo;&lt;/strong&gt;&lt;/em&gt; 就是告诉 &lt;em&gt;&lt;strong&gt;go build&lt;/strong&gt;&lt;/em&gt; 命令在编译和链接阶段启动gcc编译器。&lt;/p&gt;
+&lt;h3 id=&#34;使用c标准库的函数&#34;&gt;使用C标准库的函数&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;package main
+
+//#include &amp;lt;stdio.h&amp;gt;
+import &amp;quot;C&amp;quot;
+
+func main() {
+    C.puts(C.CString(&amp;quot;hello, cgo&amp;quot;))
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;import &amp;ldquo;C&amp;rdquo;&lt;/strong&gt;&lt;/em&gt; 上面紧接着的注释就是C代码,上面就是将标准库的头文件包含进我们的代码中。在GO中使用C的代码都是在伪包&amp;quot;C&amp;quot;中,所以使用C标准库中的 &lt;em&gt;&lt;strong&gt;puts&lt;/strong&gt;&lt;/em&gt; 函数就是 &lt;em&gt;&lt;strong&gt;C.puts(&amp;hellip;)&lt;/strong&gt;&lt;/em&gt; 。由于C和GO中的字符(串)类型不是等价的,使用 &lt;em&gt;&lt;strong&gt;C.CString(&amp;hellip;)&lt;/strong&gt;&lt;/em&gt; 将GO中的 &lt;em&gt;&lt;strong&gt;string&lt;/strong&gt;&lt;/em&gt; 转换成C的 &lt;em&gt;&lt;strong&gt;char&lt;/strong&gt;&lt;/em&gt;* 。&lt;/p&gt;
+&lt;h3 id=&#34;使用自定义c函数&#34;&gt;使用自定义C函数&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;package main
+
+/*
+#include &amp;lt;stdio.h&amp;gt;
+
+static void SayHello(const char* s)
+{
+    puts(s);
+}
+*/
+import &amp;quot;C&amp;quot;
+
+func main() {
+    C.SayHello(C.CString(&amp;quot;hello, cgo\n&amp;quot;))
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;和前面使用C标准库的函数的例子差不多,只是将自定义函数的定义放到 &lt;em&gt;&lt;strong&gt;import &amp;ldquo;C&amp;rdquo;&lt;/strong&gt;&lt;/em&gt; 上面的注释中,接下来就可以在GO中通过&amp;quot;C&amp;quot;包使用了。另外,也可以将自定义C函数的定义放到C源码文件中,GO代码只在 &lt;em&gt;&lt;strong&gt;import &amp;ldquo;C&amp;rdquo;&lt;/strong&gt;&lt;/em&gt; 上面添加该函数的声明。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;package main
+
+//void SayHello(const char* s);
+import &amp;quot;C&amp;quot;
+
+func main() {
+    C.SayHello(C.CString(&amp;quot;hello, cgo\n&amp;quot;))
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;C源码文件的内容&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
+
+void SayHello(const char* s)
+{
+    puts(s);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果两个源码文件都放在同一层目录下,可以直接使用 &lt;em&gt;&lt;strong&gt;go build&lt;/strong&gt;&lt;/em&gt; 编译。&lt;/p&gt;
+&lt;p&gt;其实,自定义的C函数也可以用C++实现&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;iostream&amp;gt;
+
+extern &amp;quot;C&amp;quot; {
+    #include &amp;quot;hello.h&amp;quot;
+}
+
+void SayHello(const char* s) {
+    std::cout &amp;lt;&amp;lt; s;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;但是现在就必须通过一个C头文件给GO声明该函数&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;void SayHello(const char* s);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;GO代码改为&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;package main
+
+//#include &amp;quot;hello.h&amp;quot;
+import &amp;quot;C&amp;quot;
+
+func main() {
+    C.SayHello(C.CString(&amp;quot;hello, cgo\n&amp;quot;))
+} 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;函数的声明是C的,但是具体内部实现可以是C++的。而且能和GO结合使用的只能是C。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;go导出c接口&#34;&gt;GO导出C接口&lt;/h3&gt;
+&lt;p&gt;前面的例子都是GO调用C源码(接口),下面使用GO导出C接口。
+首先在C头文件中声明函数,为了适配GO,注释了 &lt;em&gt;&lt;strong&gt;const&lt;/strong&gt;&lt;/em&gt; 修饰。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;void SayHelloGo(/*const*/ char* s);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在GO源码中实现该接口&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;package main
+
+import &amp;quot;C&amp;quot;
+
+import &amp;quot;fmt&amp;quot;
+
+//export SayHelloGo
+func SayHelloGo(s *C.char) {
+    fmt.Print(C.GoString(s))
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;通过CGO的 &lt;em&gt;&lt;strong&gt;//export SayHello&lt;/strong&gt;&lt;/em&gt; 指令将Go语言实现的函数导出为C语言函数。接下来就可以使用该实际是GO实现的C接口了&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;package main
+
+//#include &amp;lt;hello.h&amp;gt;
+import &amp;quot;C&amp;quot;
+
+func main() {
+    C.SayHelloGo(C.CString(&amp;quot;hello, cgo Go\n&amp;quot;))
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;面向c接口的go&#34;&gt;面向C接口的GO&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;package main
+
+//void SayHello(_GoString_ s);
+import &amp;quot;C&amp;quot;
+
+import (
+    &amp;quot;fmt&amp;quot;
+)
+
+func main() {
+    C.SayHello(&amp;quot;hello, cgo go&amp;quot;)
+}
+
+//export SayHello
+func SayHello(s string) {
+    fmt.Print(s)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;从Go1.10开始CGO新增加了一个_GoString_预定义的C语言类型，用来表示Go语言字符串。&lt;/strong&gt;&lt;/em&gt;
+上面一个GO源码文件中,发生了这样的调用过程。GO的main函数中,调用了&amp;quot;C&amp;quot;包中的 &lt;em&gt;&lt;strong&gt;SayHello&lt;/strong&gt;&lt;/em&gt; 这个C函数,实际这个 &lt;em&gt;&lt;strong&gt;SayHello&lt;/strong&gt;&lt;/em&gt; C函数是GO实现的,所以转向调用GO中的 &lt;em&gt;&lt;strong&gt;SayHello&lt;/strong&gt;&lt;/em&gt; 。&lt;/p&gt;- https://gongluck.github.io/go/cgo_quick_start/ - </description>
+        </item>
     
     
     

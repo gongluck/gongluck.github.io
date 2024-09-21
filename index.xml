@@ -4,9 +4,246 @@
     <link>https://gongluck.github.io/</link>
     <description>Recent content on gongluck&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 08 Sep 2024 18:54:21 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 21 Sep 2024 21:05:21 +0800</lastBuildDate>
     
         <atom:link href="https://gongluck.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>编译Android系统源码中screenrecord</title>
+        <link>https://gongluck.github.io/av/screenrecord/</link>
+        <pubDate>Sat, 21 Sep 2024 21:05:21 +0800</pubDate>
+        
+        <guid>https://gongluck.github.io/av/screenrecord/</guid>
+        <description>gongluck&#39;s blog https://gongluck.github.io/av/screenrecord/ -&lt;p&gt;本文是上一篇&lt;a href=&#34;https://gongluck.github.io/av/screencap/&#34;&gt;编译 Android 系统源码中 screencap&lt;/a&gt;的姐妹篇，而且比上一篇的步骤稍微复杂一些。&lt;/p&gt;
+&lt;h2 id=&#34;下载源码&#34;&gt;下载源码&lt;/h2&gt;
+&lt;p&gt;和上一篇一样，下面只会下载需要用到的部分，使用 android10 分支。可以从&lt;a href=&#34;https://android.googlesource.com&#34;&gt;android.googlesource.com&lt;/a&gt;下载各模块源码的压缩包。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;https://android.googlesource.com/platform/system/core/+archive/refs/heads/android10-release.tar.gz
+https://android.googlesource.com/platform/frameworks/av/+archive/refs/heads/android10-release.tar.gz
+https://android.googlesource.com/platform/frameworks/native/+archive/refs/heads/android10-release.tar.gz
+https://android.googlesource.com/platform/prebuilts/vndk/v30/+archive/refs/heads/main.tar.gz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后将对应模块的源码解压到对应的目录。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;tree /root/android10/ -L &lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;
+/root/android10/
+├── platform
+│   ├── frameworks
+│   │   ├── av
+│   │   └── native
+│   ├── prebuilts
+│   │   └── vndk
+│   └── system
+│       └── core
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最后，还需要&lt;code&gt;screenrecord&lt;/code&gt;的源码，这次是一个目录中的多个源码文件。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;https://android.googlesource.com/platform/frameworks/av/+archive/refs/heads/android10-release/cmds/screenrecord.tar.gz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;配置项目&#34;&gt;配置项目&lt;/h2&gt;
+&lt;p&gt;创建一个 CMake 项目。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;cmake_minimum_required(VERSION 3.15)
+
+set(CMAKE_CXX_STANDARD 17)
+
+&lt;span style=&#34;color:#228b22&#34;&gt;# 获取当前文件夹名&lt;/span&gt;
+string(REGEX REPLACE &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;.*/(.*)&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;\\1&amp;#34;&lt;/span&gt; CURRENT_FOLDER &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;CMAKE_CURRENT_SOURCE_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;)
+
+project(&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;CURRENT_FOLDER&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;)
+
+&lt;span style=&#34;color:#228b22&#34;&gt;# ##############################################################################&lt;/span&gt;
+set(subject &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;PROJECT_NAME&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;)
+
+include_directories(&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;subject&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt; include/
+  build/aidl/include
+
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/system/core/include
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/system/core/base/include
+
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/frameworks/av/include
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/frameworks/av/media/libstagefright
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/frameworks/av/media/libstagefright/include
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/frameworks/av/media/libmedia
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/frameworks/av/media/libmedia/include
+
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/frameworks/native/include
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/frameworks/native/include/media/openmax
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/frameworks/native/libs/math/include
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/frameworks/native/libs/nativebase/include
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/frameworks/native/libs/nativewindow/include
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/frameworks/native/libs/binder/include
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/frameworks/native/libs/gui/include
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/frameworks/native/libs/ui/include
+
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/prebuilts/vndk/v30/&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;PREBUILT&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/include/system/libhidl/base/include
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/prebuilts/vndk/v30/&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;PREBUILT&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/include/hardware/libhardware/include
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/prebuilts/vndk/v30/&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;PREBUILT&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/include/system/libhidl/transport/token/1.0/utils/include
+
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/prebuilts/vndk/v30/&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;PREBUILT&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/include/generated-headers/hardware/interfaces/graphics/common/1.0/android.hardware.graphics.common@1.0_genc++_headers/gen
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/prebuilts/vndk/v30/&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;PREBUILT&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/include/generated-headers/hardware/interfaces/graphics/common/1.1/android.hardware.graphics.common@1.1_genc++_headers/gen
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/prebuilts/vndk/v30/&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;PREBUILT&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/include/generated-headers/hardware/interfaces/graphics/common/1.2/android.hardware.graphics.common@1.2_genc++_headers/gen
+
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/prebuilts/vndk/v30/&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;PREBUILT&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/include/generated-headers/hardware/interfaces/graphics/bufferqueue/1.0/android.hardware.graphics.bufferqueue@1.0_genc++_headers/gen
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/prebuilts/vndk/v30/&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;PREBUILT&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/include/generated-headers/hardware/interfaces/graphics/bufferqueue/2.0/android.hardware.graphics.bufferqueue@2.0_genc++_headers/gen
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/prebuilts/vndk/v30/&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;PREBUILT&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/include/generated-headers/system/libhidl/transport/base/1.0/android.hidl.base@1.0_genc++_headers/gen
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/prebuilts/vndk/v30/&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;PREBUILT&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/include/generated-headers/system/libhidl/transport/manager/1.0/android.hidl.manager@1.0_genc++_headers/gen
+  &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/prebuilts/vndk/v30/&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;PREBUILT&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/include/generated-headers/hardware/interfaces/media/1.0/android.hardware.media@1.0_genc++_headers/gen
+)
+message(STATUS &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Include directories:&amp;#34;&lt;/span&gt;)
+get_property(include_dirs DIRECTORY &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;CMAKE_CURRENT_SOURCE_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt; PROPERTY INCLUDE_DIRECTORIES)
+foreach(dir &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;include_dirs&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;)
+  message(STATUS &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; - &lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;dir&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;)
+endforeach()
+
+link_directories(&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;subject&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt; lib/&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_ABI&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;PROJECT_SOURCE_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/bin/&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;platform&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_ABI&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/debug)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;PROJECT_SOURCE_DIR&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/bin/&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;platform&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_ABI&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;/release)
+
+&lt;span style=&#34;color:#228b22&#34;&gt;# 查找目录下所有源文件并保存到变量&lt;/span&gt;
+&lt;span style=&#34;color:#228b22&#34;&gt;# aux_source_directory(src SRCS)&lt;/span&gt;
+&lt;span style=&#34;color:#228b22&#34;&gt;# 搜索源码文件保存到变量&lt;/span&gt;
+FILE(GLOB SRCS src/*.h src/*.cpp)
+
+add_executable(&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;subject&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;SRCS&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;)
+
+target_compile_options(&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;subject&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt; PRIVATE
+  -fno-rtti
+  -Wno-inconsistent-missing-override
+)
+
+target_link_options(&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;subject&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt; PRIVATE
+  -Wl,--allow-shlib-undefined
+)
+
+target_link_libraries(&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;subject&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;
+  stagefright
+  media
+  media_omx
+  utils
+  binder
+  stagefright_foundation
+  jpeg
+  ui
+  gui
+  cutils
+  log
+  EGL
+  GLESv2
+)
+
+set_property(TARGET &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;subject&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt; PROPERTY DEBUG_POSTFIX _&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_ABI&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;_d)
+set_property(TARGET &lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;subject&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt; PROPERTY RELEASE_POSTFIX _&lt;span style=&#34;color:#cd5555&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_ABI&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;}&lt;/span&gt;_r)
+
+&lt;span style=&#34;color:#228b22&#34;&gt;# ##############################################################################&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;项目需要链接&lt;code&gt;stagefright&lt;/code&gt;、&lt;code&gt;media&lt;/code&gt;、&lt;code&gt;media_omx&lt;/code&gt;、&lt;code&gt;utils&lt;/code&gt;、&lt;code&gt;binder&lt;/code&gt;、&lt;code&gt;stagefright_foundation&lt;/code&gt;、&lt;code&gt;jpeg&lt;/code&gt;、&lt;code&gt;ui&lt;/code&gt;、&lt;code&gt;gui&lt;/code&gt;、&lt;code&gt;cutils&lt;/code&gt;、&lt;code&gt;log&lt;/code&gt;、&lt;code&gt;EGL&lt;/code&gt;、&lt;code&gt;GLESv2&lt;/code&gt;这些库，直接从安卓机上拷贝到&lt;code&gt;lib&lt;/code&gt;目录就好。&lt;/p&gt;
+&lt;p&gt;使用一个脚本，一键编译。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#658b00&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_NDK_ROOT&lt;/span&gt;=/root/android-ndk-r20b
+&lt;span style=&#34;color:#658b00&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#00688b&#34;&gt;ANDROID_PLATFORM_DIR&lt;/span&gt;=/root/android10/platform
+&lt;span style=&#34;color:#658b00&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#00688b&#34;&gt;PREBUILT&lt;/span&gt;=arm64
+
+&lt;span style=&#34;color:#658b00&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#00688b&#34;&gt;platform&lt;/span&gt;=android-29
+&lt;span style=&#34;color:#658b00&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#00688b&#34;&gt;abi&lt;/span&gt;=arm64-v8a
+
+&lt;span style=&#34;color:#658b00&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#00688b&#34;&gt;BUILDPATH&lt;/span&gt;=&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;$(&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;pwd&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;)&lt;/span&gt;/build
+&lt;span style=&#34;color:#658b00&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#00688b&#34;&gt;INSTALLPATH&lt;/span&gt;=&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;$(&lt;/span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;pwd&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;)&lt;/span&gt;/bin
+
+rm -r &lt;span style=&#34;color:#00688b&#34;&gt;$BUILDPATH&lt;/span&gt;
+rm -r &lt;span style=&#34;color:#00688b&#34;&gt;$INSTALLPATH&lt;/span&gt;
+
+aidl -h build/aidl/include -o build/aidl/cpp --lang=cpp &lt;span style=&#34;color:#00688b&#34;&gt;$ANDROID_PLATFORM_DIR&lt;/span&gt;/frameworks/av/media/libmedia/aidl/android/IOMXNode.aidl
+aidl -I &lt;span style=&#34;color:#00688b&#34;&gt;$ANDROID_PLATFORM_DIR&lt;/span&gt;/frameworks/av/media/libmedia/aidl -h build/aidl/include -o build/aidl/cpp --lang=cpp &lt;span style=&#34;color:#00688b&#34;&gt;$ANDROID_PLATFORM_DIR&lt;/span&gt;/frameworks/av/media/libmedia/aidl/android/IGraphicBufferSource.aidl
+
+&lt;span style=&#34;color:#658b00&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#00688b&#34;&gt;buildparams&lt;/span&gt;=&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;-DCMAKE_TOOLCHAIN_FILE=&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;$ANDROID_NDK_ROOT&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;/build/cmake/android.toolchain.cmake -DCMAKE_MAKE_PROGRAM=&lt;/span&gt;&lt;span style=&#34;color:#00688b&#34;&gt;$ANDROID_NDK_ROOT&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;/prebuilt/linux-x86_64/bin/make&amp;#34;&lt;/span&gt;
+
+cmake -G &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Unix Makefiles&amp;#34;&lt;/span&gt; -S . -B &lt;span style=&#34;color:#00688b&#34;&gt;$BUILDPATH&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&lt;/span&gt;   -DANDROID_NDK=&lt;span style=&#34;color:#00688b&#34;&gt;$ANDROID_NDK_ROOT&lt;/span&gt; &lt;span style=&#34;color:#00688b&#34;&gt;$buildparams&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&lt;/span&gt;   -DCMAKE_BUILD_TYPE=release -DANDROID_ABI=&lt;span style=&#34;color:#00688b&#34;&gt;$abi&lt;/span&gt; -DANDROID_PLATFORM=&lt;span style=&#34;color:#00688b&#34;&gt;$platform&lt;/span&gt; &lt;span style=&#34;color:#cd5555&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&lt;/span&gt;   -DANDROID_PLATFORM_DIR=&lt;span style=&#34;color:#00688b&#34;&gt;$ANDROID_PLATFORM_DIR&lt;/span&gt; -DPREBUILT=&lt;span style=&#34;color:#00688b&#34;&gt;$PREBUILT&lt;/span&gt;
+cmake --build &lt;span style=&#34;color:#00688b&#34;&gt;$BUILDPATH&lt;/span&gt; --clean-first --config release --target all -- -j1
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;其中从 aidl 文件生成头文件的命令很关键，因为这部分的头文件只能通过 aidl 生成。&lt;/p&gt;
+&lt;p&gt;整个项目的布局。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;tree /root/AnalysisAVP/example/android/record/screenrecord/ -L &lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;
+/root/AnalysisAVP/example/android/record/screenrecord/
+├── build_android.sh
+├── CMakeLists.txt
+├── lib
+│   ├── arm64-v8a
+│   └── armeabi-v7a
+└── src
+    ├── EglWindow.cpp
+    ├── EglWindow.h
+    ├── FontBitmap.h
+    ├── FrameOutput.cpp
+    ├── FrameOutput.h
+    ├── Overlay.cpp
+    ├── Overlay.h
+    ├── Program.cpp
+    ├── Program.h
+    ├── screenrecord.cpp
+    ├── screenrecord.h
+    ├── TextRenderer.cpp
+    └── TextRenderer.h
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;编译运行&#34;&gt;编译运行&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;root@gongluck:~/AnalysisAVP/example/android/record/screenrecord# ./build_android.sh
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;done&lt;/span&gt;
+-- Check &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; working C compiler: /root/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang - skipped
+-- Detecting C compile features
+-- Detecting C compile features - &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;done&lt;/span&gt;
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;done&lt;/span&gt;
+-- Check &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; working CXX compiler: /root/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;done&lt;/span&gt;
+-- Include directories:
+--  - /root/AnalysisAVP/example/android/record/screenrecord/screenrecord
+--  - /root/AnalysisAVP/example/android/record/screenrecord/include
+--  - /root/AnalysisAVP/example/android/record/screenrecord/build/aidl/include
+--  - /root/android10/platform/system/core/include
+--  - /root/android10/platform/system/core/base/include
+--  - /root/android10/platform/frameworks/av/include
+--  - /root/android10/platform/frameworks/av/media/libstagefright
+--  - /root/android10/platform/frameworks/av/media/libstagefright/include
+--  - /root/android10/platform/frameworks/av/media/libmedia
+--  - /root/android10/platform/frameworks/av/media/libmedia/include
+--  - /root/android10/platform/frameworks/native/include
+--  - /root/android10/platform/frameworks/native/include/media/openmax
+--  - /root/android10/platform/frameworks/native/libs/math/include
+--  - /root/android10/platform/frameworks/native/libs/nativebase/include
+--  - /root/android10/platform/frameworks/native/libs/nativewindow/include
+--  - /root/android10/platform/frameworks/native/libs/binder/include
+--  - /root/android10/platform/frameworks/native/libs/gui/include
+--  - /root/android10/platform/frameworks/native/libs/ui/include
+--  - /root/android10/platform/prebuilts/vndk/v30/arm64/include/system/libhidl/base/include
+--  - /root/android10/platform/prebuilts/vndk/v30/arm64/include/hardware/libhardware/include
+--  - /root/android10/platform/prebuilts/vndk/v30/arm64/include/system/libhidl/transport/token/1.0/utils/include
+--  - /root/android10/platform/prebuilts/vndk/v30/arm64/include/generated-headers/hardware/interfaces/graphics/common/1.0/android.hardware.graphics.common@1.0_genc++_headers/gen
+--  - /root/android10/platform/prebuilts/vndk/v30/arm64/include/generated-headers/hardware/interfaces/graphics/common/1.1/android.hardware.graphics.common@1.1_genc++_headers/gen
+--  - /root/android10/platform/prebuilts/vndk/v30/arm64/include/generated-headers/hardware/interfaces/graphics/common/1.2/android.hardware.graphics.common@1.2_genc++_headers/gen
+--  - /root/android10/platform/prebuilts/vndk/v30/arm64/include/generated-headers/hardware/interfaces/graphics/bufferqueue/1.0/android.hardware.graphics.bufferqueue@1.0_genc++_headers/gen
+--  - /root/android10/platform/prebuilts/vndk/v30/arm64/include/generated-headers/hardware/interfaces/graphics/bufferqueue/2.0/android.hardware.graphics.bufferqueue@2.0_genc++_headers/gen
+--  - /root/android10/platform/prebuilts/vndk/v30/arm64/include/generated-headers/system/libhidl/transport/base/1.0/android.hidl.base@1.0_genc++_headers/gen
+--  - /root/android10/platform/prebuilts/vndk/v30/arm64/include/generated-headers/system/libhidl/transport/manager/1.0/android.hidl.manager@1.0_genc++_headers/gen
+--  - /root/android10/platform/prebuilts/vndk/v30/arm64/include/generated-headers/hardware/interfaces/media/1.0/android.hardware.media@1.0_genc++_headers/gen
+-- Configuring &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;done&lt;/span&gt;
+-- Generating &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;done&lt;/span&gt;
+-- Build files have been written to: /root/AnalysisAVP/example/android/record/screenrecord/build
+[ 14%] Building CXX object CMakeFiles/screenrecord.dir/src/EglWindow.cpp.o
+[ 28%] Building CXX object CMakeFiles/screenrecord.dir/src/FrameOutput.cpp.o
+[ 42%] Building CXX object CMakeFiles/screenrecord.dir/src/Overlay.cpp.o
+[ 57%] Building CXX object CMakeFiles/screenrecord.dir/src/Program.cpp.o
+[ 71%] Building CXX object CMakeFiles/screenrecord.dir/src/TextRenderer.cpp.o
+[ 85%] Building CXX object CMakeFiles/screenrecord.dir/src/screenrecord.cpp.o
+[100%] Linking CXX executable ../bin/arm64-v8a/release/screenrecord_arm64-v8a_r
+[100%] Built target screenrecord
+root@gongluck:~/AnalysisAVP/example/android/record/screenrecord# adb push bin/arm64-v8a/release/screenrecord_arm64-v8a_r /data/local/tmp
+bin/arm64-v8a/release/screenrecord_arm64-v8a_r: &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt; file pushed. 0.5 MB/s (&lt;span style=&#34;color:#b452cd&#34;&gt;2162456&lt;/span&gt; bytes in 4.167s)
+root@gongluck:~/AnalysisAVP/example/android/record/screenrecord# adb shell &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;data/local/tmp/screenrecord_arm64-v8a_r --time-limit 5  /data/local/tmp/test.mp4&amp;#34;&lt;/span&gt;
+root@gongluck:~/AnalysisAVP/example/android/record/screenrecord# adb shell &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;file /data/local/tmp/test.mp4&amp;#34;&lt;/span&gt;
+/data/local/tmp/test.mp4: data
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;完整代码&#34;&gt;完整代码&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/AnalysisAVP/tree/master/example/android/record/screenrecord&#34;&gt;https://github.com/gongluck/AnalysisAVP/tree/master/example/android/record/screenrecord&lt;/a&gt;&lt;/p&gt;- https://gongluck.github.io/av/screenrecord/ - </description>
+        </item>
     
     
     
@@ -3353,545 +3590,6 @@ cat /proc/loadavg
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 - https://gongluck.github.io/linux/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E4%B8%93%E9%A2%98/ - </description>
-        </item>
-    
-    
-    
-        <item>
-        <title>网络服务专题</title>
-        <link>https://gongluck.github.io/linux/%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%93%E9%A2%98/</link>
-        <pubDate>Mon, 30 Nov 2020 21:05:04 +0800</pubDate>
-        
-        <guid>https://gongluck.github.io/linux/%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%93%E9%A2%98/</guid>
-        <description>gongluck&#39;s blog https://gongluck.github.io/linux/%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%93%E9%A2%98/ -&lt;h2 id=&#34;五网络服务专题&#34;&gt;五、网络服务专题&lt;/h2&gt;
-&lt;h3 id=&#34;0项目仓库&#34;&gt;0.项目仓库&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP.git&#34;&gt;https://github.com/gongluck/CVIP.git&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;1reactor反应堆&#34;&gt;1.Reactor反应堆&lt;/h3&gt;
-&lt;h4 id=&#34;11-reactor模型&#34;&gt;1.1 Reactor模型&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/blob/master/images/Reactor%E6%A8%A1%E5%9E%8B.png?raw=true&#34; alt=&#34;Reactor模型&#34;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Reactor释义“反应堆”，是一种事件驱动机制。和普通函数调用的不同之处在于：应用程序不是主动的调用某个API完成处理，而是恰恰 相反，Reactor逆置了事件处理流程，应用程序需要提供相应的接口并注册到Reactor上，如果相应的时间发生，Reactor将主动调用应用程序注册的接口，这些接口又称为“回调函数”。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Reactor模式是处理并发I/O比较常见的一种模式，用于同步I/O，中心思想是将所有要处理的I/O事件注册到一个中心I/O多路复用器上，同时主线程/进程阻塞在多路复用器上；一旦有I/O事件到来或是准备就绪（文件描述符或socket可读、写），多路复用器返回并将事先注册的相应I/O事件分发到对应的处理器中。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Reactor模型有三个重要的组件：&lt;/p&gt;
-&lt;p&gt;​	&lt;img src=&#34;https://github.com/gongluck/CVIP/blob/master/images/Reactor%E7%BB%84%E4%BB%B6.png?raw=true&#34; alt=&#34;Reactor组件&#34;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;多路复用器：由操作系统提供，在linux上一般是select、poll、epoll等系统调用。&lt;/li&gt;
-&lt;li&gt;事件分发器：将多路复用器中返回的就绪事件分到对应的处理函数中。&lt;/li&gt;
-&lt;li&gt;事件处理器：负责处理特定事件的处理函数。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;12-reactor实现httpsgithubcomgongluckcvipblobmastercodeioreactorc&#34;&gt;1.2 &lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/io/reactor.c&#34;&gt;Reactor实现&lt;/a&gt;&lt;/h4&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/*
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @Author: gongluck 
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @Date: 2020-11-26 09:41:40 
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @Last Modified by: gongluck
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @Last Modified time: 2020-11-26 16:58:43
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; */&lt;/span&gt;
-
-&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;string.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;sys/socket.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;sys/epoll.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;arpa/inet.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;fcntl.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;unistd.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;errno.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#1e889b&#34;&gt;#define BUFFER_LENGTH 4096
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define MAX_EPOLL_EVENTS 1024
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#define SERVER_PORT 8888
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;typedef&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;NCALLBACK&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *);
-
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyevent
-{
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; fd;
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; events;
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *arg;
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; (*callback)(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; fd, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; events, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *arg);
-
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; status;&lt;span style=&#34;color:#228b22&#34;&gt;//是否已经添加到epoll中
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt; buffer[BUFFER_LENGTH];
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; length;
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; last_active;
-};
-
-&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyreactor
-{
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; epfd;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyevent events[MAX_EPOLL_EVENTS];
-};
-
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;nty_event_set&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyevent *ev, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; fd, NCALLBACK callback, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *arg)
-{
-    ev-&amp;gt;fd = fd;
-    ev-&amp;gt;callback = callback;
-    ev-&amp;gt;events = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
-    ev-&amp;gt;arg = arg;
-    ev-&amp;gt;last_active = time(&lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;);
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt;;
-}
-
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;nty_event_add&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; epfd, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; events, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyevent *ev)
-{
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; epoll_event ep_ev = {&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, {&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;}};
-    ep_ev.data.ptr = ev;
-    ep_ev.events = ev-&amp;gt;events = events;
-
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; op;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (ev-&amp;gt;status == &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;)
-    {
-        op = EPOLL_CTL_MOD;
-    }
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
-    {
-        op = EPOLL_CTL_ADD;
-        ev-&amp;gt;status = &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
-    }
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (epoll_ctl(epfd, op, ev-&amp;gt;fd, &amp;amp;ep_ev) &amp;lt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
-    {
-        printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;event add failed [fd=%d], events[%d]&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, ev-&amp;gt;fd, events);
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
-    }
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
-}
-
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;nty_event_del&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; epfd, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyevent *ev)
-{
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; epoll_event ep_ev = {&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, {&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;}};
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (ev-&amp;gt;status != &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;)
-    {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
-    }
-
-    ep_ev.data.ptr = ev;
-    ev-&amp;gt;status = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
-    epoll_ctl(epfd, EPOLL_CTL_DEL, ev-&amp;gt;fd, &amp;amp;ep_ev);
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
-}
-
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;recv_cb&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; fd, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; events, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *arg);
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;send_cb&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; fd, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; events, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *arg)
-{
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyreactor *reactor = (&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyreactor *)arg;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyevent *ev = reactor-&amp;gt;events + fd;
-
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; len = send(fd, ev-&amp;gt;buffer, ev-&amp;gt;length, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (len &amp;gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
-    {
-        printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;send[fd=%d], [%d]%s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, fd, len, ev-&amp;gt;buffer);
-
-        nty_event_del(reactor-&amp;gt;epfd, ev);
-        nty_event_set(ev, fd, recv_cb, reactor);
-        nty_event_add(reactor-&amp;gt;epfd, EPOLLIN, ev);
-    }
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
-    {
-        close(ev-&amp;gt;fd);
-
-        nty_event_del(reactor-&amp;gt;epfd, ev);
-        printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;send[fd=%d] error %s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, fd, strerror(errno));
-    }
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; len;
-}
-
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;recv_cb&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; fd, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; events, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *arg)
-{
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyreactor *reactor = (&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyreactor *)arg;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyevent *ev = reactor-&amp;gt;events + fd;
-
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; len = recv(fd, ev-&amp;gt;buffer, BUFFER_LENGTH, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
-    nty_event_del(reactor-&amp;gt;epfd, ev);
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (len &amp;gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
-    {
-        ev-&amp;gt;length = len;
-        ev-&amp;gt;buffer[len] = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#39;\0&amp;#39;&lt;/span&gt;;
-
-        printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;C[%d]:%s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, fd, ev-&amp;gt;buffer);
-
-        nty_event_set(ev, fd, send_cb, reactor);
-        nty_event_add(reactor-&amp;gt;epfd, EPOLLOUT, ev);
-    }
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (len == &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
-    {
-        close(ev-&amp;gt;fd);
-        printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;[fd=%d] pos[%ld], closed&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, fd, ev - reactor-&amp;gt;events);
-    }
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;else&lt;/span&gt;
-    {
-        close(ev-&amp;gt;fd);
-        printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;recv[fd=%d] error[%d]:%s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, fd, errno, strerror(errno));
-    }
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; len;
-}
-
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;accept_cb&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; fd, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; events, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;void&lt;/span&gt; *arg)
-{
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyreactor *reactor = (&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyreactor *)arg;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reactor == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; sockaddr_in client_addr = {&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;};
-    socklen_t len = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(client_addr);
-
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; clientfd;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; ((clientfd = accept(fd, (&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; sockaddr *)&amp;amp;client_addr, &amp;amp;len)) == -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;)
-    {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (errno != EAGAIN &amp;amp;&amp;amp; errno != EINTR)
-        {
-        }
-        printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;accept: %s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, strerror(errno));
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
-    }
-
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;do&lt;/span&gt;
-    {
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; MAX_EPOLL_EVENTS; i++)
-        {
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reactor-&amp;gt;events[i].status == &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
-            {
-                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;break&lt;/span&gt;;
-            }
-        }
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (i == MAX_EPOLL_EVENTS)
-        {
-            printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;%s: max connect limit[%d]&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, __func__, MAX_EPOLL_EVENTS);
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;break&lt;/span&gt;;
-        }
-
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (fcntl(clientfd, F_SETFL, O_NONBLOCK) &amp;lt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
-        {
-            printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;%s: fcntl nonblocking failed, %d&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, __func__, MAX_EPOLL_EVENTS);
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;break&lt;/span&gt;;
-        }
-
-        nty_event_set(&amp;amp;reactor-&amp;gt;events[clientfd], clientfd, recv_cb, reactor);
-        nty_event_add(reactor-&amp;gt;epfd, EPOLLIN, &amp;amp;reactor-&amp;gt;events[clientfd]);
-    } &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
-
-    printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;new connect [%s:%d][time:%ld], pos[%d]&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;,
-           inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port), reactor-&amp;gt;events[i].last_active, i);
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
-}
-
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;init_sock&lt;/span&gt;(&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;short&lt;/span&gt; port)
-{
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; fd = socket(AF_INET, SOCK_STREAM, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;);
-    fcntl(fd, F_SETFL, O_NONBLOCK);
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; sockaddr_in server_addr = {&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;};
-    server_addr.sin_family = AF_INET;
-    server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
-    server_addr.sin_port = htons(port);
-
-    bind(fd, (&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; sockaddr *)&amp;amp;server_addr, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(server_addr));
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (listen(fd, &lt;span style=&#34;color:#b452cd&#34;&gt;20&lt;/span&gt;) &amp;lt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
-    {
-        printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;listen failed : %s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, strerror(errno));
-    }
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; fd;
-}
-
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;ntyreactor_init&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyreactor *reactor)
-{
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reactor == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
-    memset(reactor, &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;sizeof&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyreactor));
-
-    reactor-&amp;gt;epfd = epoll_create(&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;);
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reactor-&amp;gt;epfd &amp;lt;= &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
-    {
-        printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;create epfd in %s err %s&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, __func__, strerror(errno));
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;;
-    }
-}
-
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;ntyreactor_destory&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyreactor *reactor)
-{
-    close(reactor-&amp;gt;epfd);
-    
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
-}
-
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;ntyreactor_addlistener&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyreactor *reactor, &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; sockfd, NCALLBACK *acceptor)
-{
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reactor == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
-
-    nty_event_set(&amp;amp;reactor-&amp;gt;events[sockfd], sockfd, acceptor, reactor);
-    nty_event_add(reactor-&amp;gt;epfd, EPOLLIN, &amp;amp;reactor-&amp;gt;events[sockfd]);
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
-}
-
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;ntyreactor_run&lt;/span&gt;(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyreactor *reactor)
-{
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reactor == &lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;)
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reactor-&amp;gt;epfd &amp;lt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; epoll_event events[MAX_EPOLL_EVENTS + &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;];
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; checkpos = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;, i;
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;)
-    {
-        &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; now = time(&lt;span style=&#34;color:#658b00&#34;&gt;NULL&lt;/span&gt;);
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; MAX_EPOLL_EVENTS/&lt;span style=&#34;color:#b452cd&#34;&gt;10&lt;/span&gt;; i++, checkpos++)
-        {
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (checkpos == MAX_EPOLL_EVENTS)
-            {
-                checkpos = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
-            }
-
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (reactor-&amp;gt;events[checkpos].status != &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;)
-            {
-                &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;continue&lt;/span&gt;;
-            }
-
-            &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;long&lt;/span&gt; duration = now - reactor-&amp;gt;events[checkpos].last_active;
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (duration &amp;gt;= &lt;span style=&#34;color:#b452cd&#34;&gt;60&lt;/span&gt;)
-            {
-                close(reactor-&amp;gt;events[checkpos].fd);
-                printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;[fd=%d] timeout&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;, reactor-&amp;gt;events[checkpos].fd);
-                nty_event_del(reactor-&amp;gt;epfd, &amp;amp;reactor-&amp;gt;events[checkpos]);
-            }
-        }
-
-        &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; nready = epoll_wait(reactor-&amp;gt;epfd, events, MAX_EPOLL_EVENTS, &lt;span style=&#34;color:#b452cd&#34;&gt;1000&lt;/span&gt;);
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; (nready &amp;lt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;)
-        {
-            printf(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;epoll_wait error, exit&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&lt;/span&gt;);
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;continue&lt;/span&gt;;
-        }
-
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;for&lt;/span&gt; (i = &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;; i &amp;lt; nready; i++)
-        {
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyevent *ev = (&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyevent *)events[i].data.ptr;
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; ((events[i].events &amp;amp; EPOLLIN) &amp;amp;&amp;amp; (ev-&amp;gt;events &amp;amp; EPOLLIN))
-            {
-                ev-&amp;gt;callback(ev-&amp;gt;fd, events[i].events, ev-&amp;gt;arg);
-            }
-            &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;if&lt;/span&gt; ((events[i].events &amp;amp; EPOLLOUT) &amp;amp;&amp;amp; (ev-&amp;gt;events &amp;amp; EPOLLOUT))
-            {
-                ev-&amp;gt;callback(ev-&amp;gt;fd, events[i].events, ev-&amp;gt;arg);
-            }
-        }
-    }
-}
-
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;()
-{
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;short&lt;/span&gt; port = SERVER_PORT;
-    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; sockfd = init_sock(port);
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;struct&lt;/span&gt; ntyreactor reactor;
-    ntyreactor_init(&amp;amp;reactor);
-
-    ntyreactor_addlistener(&amp;amp;reactor, sockfd, accept_cb);
-    ntyreactor_run(&amp;amp;reactor);
-
-    ntyreactor_destory(&amp;amp;reactor);
-    close(sockfd);
-
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;h3 id=&#34;2日志模块&#34;&gt;2.日志模块&lt;/h3&gt;
-&lt;h4 id=&#34;21-log4cpp模块&#34;&gt;2.1 log4cpp模块&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/blob/master/images/log4cpp%E6%A8%A1%E5%9D%97%E5%9B%BE.png?raw=true&#34; alt=&#34;log4cpp模块图&#34;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;log4cpp有且只⼀个根Category，可以有多个⼦Category组成树型结构。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://github.com/gongluck/CVIP/blob/master/images/log4cpp%E7%9A%84appender%E7%A7%8D%E7%B1%BB.png?raw=true&#34; alt=&#34;log4cpp的appender种类&#34;&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Appender负责将⽇志写⼊相应的设备，⽐如控制台、⽂件、调试器、Windows⽇志、syslog等。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Layout控制输出⽇志的显示样式。Log4cpp内置了4种Layout：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;PassThroughLayout：直通布局。&lt;/li&gt;
-&lt;li&gt;SimpleLayout：简单布局。它只会为你添加“优先级”的输出。&lt;/li&gt;
-&lt;li&gt;BasicLayout：基本布局。它会为你添加“时间”、“优先级”、“种类”、“NDC”。&lt;/li&gt;
-&lt;li&gt;PatternLayout：格式化布局。它的使⽤⽅式类似C语⾔中的printf，使⽤格式化它符串来描述输出格式。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;22-log4cpp编译安装&#34;&gt;2.2 log4cpp编译安装&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;wget https://sourceforge.net/projects/log4cpp/files/log4cpp-1.1.x%20%28new%29/log4cpp-1.1/log4cpp-1.1.3.tar.gz
-tar zxf log4cpp-1.1.3.tar.gz
-&lt;span style=&#34;color:#658b00&#34;&gt;cd&lt;/span&gt; log4cpp
-./configure
-make -j &lt;span style=&#34;color:#b452cd&#34;&gt;8&lt;/span&gt;
-sudo make install
-sudo ldconfig
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;23-log4cpp例子httpsgithubcomgongluckcvipblobmastercodeloglog4cpp&#34;&gt;2.3 &lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/log/log4cpp&#34;&gt;log4cpp例子&lt;/a&gt;&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/log/log4cpp/log1.cpp&#34;&gt;例子1&lt;/a&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/*
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @Author: gongluck 
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @Date: 2020-11-27 21:12:58 
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @Last Modified by: gongluck
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @Last Modified time: 2020-11-27 21:30:54
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; */&lt;/span&gt;
-
-&lt;span style=&#34;color:#228b22&#34;&gt;// g++ log1.cpp -llog4cpp -lpthread
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;log4cpp/Category.hh&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;log4cpp/FileAppender.hh&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;log4cpp/OstreamAppender.hh&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;log4cpp/BasicLayout.hh&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;()
-{
-    &lt;span style=&#34;color:#228b22&#34;&gt;// 实例化一个layout对象
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    log4cpp::Layout *layout = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; log4cpp::BasicLayout();
-    &lt;span style=&#34;color:#228b22&#34;&gt;// 初始化一个appender对象
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    log4cpp::Appender *appender = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; log4cpp::FileAppender(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;FileAppender&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;./log1.log&amp;#34;&lt;/span&gt;);
-    log4cpp::Appender *osappender = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;new&lt;/span&gt; log4cpp::OstreamAppender(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;OstreamAppender&amp;#34;&lt;/span&gt;,&amp;amp;std::cout);
-    &lt;span style=&#34;color:#228b22&#34;&gt;// 把layout对象附着在appender对象上，一个layout格式样式对应一个appender
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    appender-&amp;gt;setLayout(layout);
-    &lt;span style=&#34;color:#228b22&#34;&gt;// 实例化一个category对象
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    log4cpp::Category &amp;amp;warn_log = log4cpp::Category::getInstance(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;gongluck&amp;#34;&lt;/span&gt;); &lt;span style=&#34;color:#228b22&#34;&gt;// 单例工厂
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;// 设置additivity为false，替换已有的appender，不继承父类appender
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    warn_log.setAdditivity(&lt;span style=&#34;color:#658b00&#34;&gt;false&lt;/span&gt;);
-    &lt;span style=&#34;color:#228b22&#34;&gt;// 把appender对象附到category上
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    warn_log.setAppender(appender);
-    warn_log.addAppender(osappender);
-    &lt;span style=&#34;color:#228b22&#34;&gt;// 设置category的优先级，低于此优先级的日志不被记录
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    warn_log.setPriority(log4cpp::Priority::INFO);
-    &lt;span style=&#34;color:#228b22&#34;&gt;// 记录一些日志
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    warn_log.info(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Program info which cannot be wirten&amp;#34;&lt;/span&gt;);
-    warn_log.debug(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;This debug message will fail to write&amp;#34;&lt;/span&gt;);
-    warn_log.alert(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Alert info&amp;#34;&lt;/span&gt;);
-    &lt;span style=&#34;color:#228b22&#34;&gt;// 其他记录日志方式
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    warn_log.log(log4cpp::Priority::WARN, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;This will be a logged warning&amp;#34;&lt;/span&gt;);
-
-    log4cpp::Priority::PriorityLevel priority = log4cpp::Priority::DEBUG;
-    warn_log.log(priority, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Importance depends on context&amp;#34;&lt;/span&gt;);
-    warn_log.critStream() &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;This will show up &amp;lt;&amp;lt; as &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt; &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; critical message&amp;#34;&lt;/span&gt;;
-    &lt;span style=&#34;color:#228b22&#34;&gt;// clean up and flush all appenders
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    log4cpp::Category::shutdown();
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/gongluck/CVIP/blob/master/code/log/log4cpp/log2.cpp&#34;&gt;例子2&lt;/a&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#228b22&#34;&gt;/*
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @Author: gongluck 
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @Date: 2020-11-27 21:31:03 
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @Last Modified by: gongluck
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; * @Last Modified time: 2020-11-27 21:44:29
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt; */&lt;/span&gt;
-  
-&lt;span style=&#34;color:#228b22&#34;&gt;// g++ log2.cpp -llog4cpp -lpthread
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;  
-&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;log4cpp/Category.hh&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;#34;log4cpp/PropertyConfigurator.hh&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;  
-&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;()
-{
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;try&lt;/span&gt;
-    {
-        log4cpp::PropertyConfigurator::configure(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;./log2.conf&amp;#34;&lt;/span&gt;);
-    }
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;catch&lt;/span&gt; (log4cpp::ConfigureFailure &amp;amp;f)
-    {
-        std::cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Configure Problem &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; f.what() &amp;lt;&amp;lt; std::endl;
-        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; -&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;
-    }
-  
-    &lt;span style=&#34;color:#228b22&#34;&gt;// 实例化category对象
-&lt;/span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    log4cpp::Category &amp;amp;root = log4cpp::Category::getRoot();
-  
-    log4cpp::Category &amp;amp;category1 = log4cpp::Category::getInstance(std::string(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;category1&amp;#34;&lt;/span&gt;));
-    log4cpp::Category &amp;amp;category3 = log4cpp::Category::getInstance(std::string(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;category1.category2&amp;#34;&lt;/span&gt;));
-     
-    category1.info(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;This is some info&amp;#34;&lt;/span&gt;);
-    category1.alert(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;A warning&amp;#34;&lt;/span&gt;);
-  
-    category3.debug(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;This debug message will fail to write&amp;#34;&lt;/span&gt;);
-    category3.alert(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;All hands abandon ship&amp;#34;&lt;/span&gt;);
-    category3.critStream() &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;This will show up &amp;lt;&amp;lt; as &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt; &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34; critical message&amp;#34;&lt;/span&gt;;
-    category3 &amp;lt;&amp;lt; log4cpp::Priority::ERROR&amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;And this will be an error&amp;#34;&lt;/span&gt;;
-    category3.log(log4cpp::Priority::WARN, &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;This will be a logged warning&amp;#34;&lt;/span&gt;);
-      
-    log4cpp::Category::shutdown();
-    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;3百万并发&#34;&gt;3.百万并发&lt;/h3&gt;
-&lt;h4 id=&#34;31-c10k&#34;&gt;3.1 C10K&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;从资源上来说，对2GB内存和千兆网卡的服务器来说，同时处理10000个请求，只要每个请求处理占用不到200KB（2GB/10000）的内存和100Kbit（1000Mbit/10000）的网络带宽就可以。所以，物理资源是足够的，接下来自然是软件的问题，特别是网络的 I/O 模型问题。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;在C10K以前，Linux中网络处理都用同步阻塞的方式，也就是每个请求都分配一个进程或者线程。请求数只有100个时，这种方式自然没问题，但增加到10000个请求时，10000个进程或线程的调度、上下文切换乃至它们占用的内存，都会成为瓶颈。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;使用非阻塞I/O和水平触发通知，比如使用 select 或者 poll&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;应用软件使用select和poll时，需要对这些文件描述符列表进行轮询，这样，请求数多的时候就会比较耗时。并且，select和poll还有一些其他的限制。&lt;/li&gt;
-&lt;li&gt;select使用固定长度的位相量，表示文件描述符的集合，因此会有最大描述符数量的限制。比如，在32位系统中，默认限制是1024。并且，在select内部，检查套接字状态是用轮询的方法，再加上应用软件使用时的轮询，就变成了一个O(n^2)的关系。&lt;/li&gt;
-&lt;li&gt;poll改进了select的表示方法，换成了一个没有固定长度的数组，这样就没有了最大描述符数量的限制（当然还会受到系统文件描述符限制）。但应用程序在使用poll时，同样需要对文件描述符列表进行轮询，这样，处理耗时跟描述符数量就是O(N)的关系。&lt;/li&gt;
-&lt;li&gt;应用程序每次调用select和poll时，还需要把文件描述符的集合，从用户空间传入内核空间，由内核修改后，再传出到用户空间中。这一来一回的内核空间与用户空间切换，也增加了处理成本。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;使用非阻塞I/O和边缘触发通知，比如epoll&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;epoll使用红黑树，在内核中管理文件描述符的集合，这样，就不需要应用程序在每次操作时都传入、传出这个集合。&lt;/li&gt;
-&lt;li&gt;epoll使用事件驱动的机制，只关注有I/O事件发生的文件描述符，不需要轮询扫描整个集合。&lt;/li&gt;
-&lt;li&gt;由于边缘触发只在文件描述符可读或可写事件发生时才通知，那么应用程序就需要尽可能多地执行I/O，并要处理更多的异常事件。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;使用异步I/O（Asynchronous I/O，简称为 AIO）&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;异步I/O允许应用程序同时发起很多I/O操作，而不用等待这些操作完成。而在I/O完成后，系统会用事件通知（比如信号或者回调函数）的方式，告诉应用程序。这时，应用程序才会去查询I/O操作的结果。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;32-c1000k&#34;&gt;3.2 C1000K&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;基于C10K的这些理论，epoll配合线程池，再加上CPU、内存和网络接口的性能和容量提升。大部分情况下，C100K很自然就可以达到。&lt;/li&gt;
-&lt;li&gt;从软件资源上来说，大量的连接也会占用大量的软件资源，比如文件描述符的数量、连接状态的跟踪（CONNTRACK）、网络协议栈的缓存大小（比如套接字读写缓存、TCP 读写缓存）等等。最后，大量请求带来的中断处理，也会带来非常高的处理成本。这样，就需要多队列网卡、中断负载均衡、CPU 绑定、RPS/RFS（软中断负载均衡到多个 CPU 核上），以及将网络包的处理卸载（Offload）到网络设备（如 TSO/GSO、LRO/GRO、VXLAN OFFLOAD）等各种硬件和软件的优化。&lt;/li&gt;
-&lt;li&gt;C1000K 的解决方法，本质上还是构建在epoll的非阻塞I/O模型上。只不过，除了I/O模型之外，还需要从应用程序到Linux内核、再到CPU、内存和网络等各个层次的深度优化，特别是需要借助硬件，来卸载那些原来通过软件处理的大量功能。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;33-c10m&#34;&gt;3.3 C10M&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Linux内核协议栈做了太多太繁重的工作。从网卡中断带来的硬中断处理程序开始，到软中断中的各层网络协议处理，最后再到应用程序，这个路径实在是太长了，就会导致网络包的处理优化，到了一定程度后，就无法更进一步了。&lt;/li&gt;
-&lt;li&gt;要解决这个问题，最重要就是跳过内核协议栈的冗长路径，把网络包直接送到要处理的应用程序那里去。这里有两种常见的机制，DPDK和XDP。&lt;/li&gt;
-&lt;/ul&gt;
-- https://gongluck.github.io/linux/%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%93%E9%A2%98/ - </description>
         </item>
     
     

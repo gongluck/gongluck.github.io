@@ -5,7 +5,16 @@
     <link>https://gongluck.github.io/av/</link>
     <description>Recent content in Avs on gongluck&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 08 Sep 2024 18:54:21 +0800</lastBuildDate><atom:link href="https://gongluck.github.io/av/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 21 Sep 2024 21:05:21 +0800</lastBuildDate><atom:link href="https://gongluck.github.io/av/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>编译Android系统源码中screenrecord</title>
+      <link>https://gongluck.github.io/av/screenrecord/</link>
+      <pubDate>Sat, 21 Sep 2024 21:05:21 +0800</pubDate>
+      
+      <guid>https://gongluck.github.io/av/screenrecord/</guid>
+      <description>&lt;p&gt;本文是上一篇&lt;a href=&#34;https://gongluck.github.io/av/screencap/&#34;&gt;编译 Android 系统源码中 screencap&lt;/a&gt;的姐妹篇，而且比上一篇的步骤稍微复杂一些。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>编译Android系统源码中screencap</title>
       <link>https://gongluck.github.io/av/screencap/</link>
